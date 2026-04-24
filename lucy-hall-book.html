@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Now — Lucy Hall Massage Therapy</title>
+
+  <!-- Fonts: Playfair Display (editorial headings) + Inter (clean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ───────────────────────────────────────────── */
+    :root {
+      --black:       #000000;
+      --near-black:  #0d0d0d;
+      --dark-card:   #141414;
+      --white:       #ffffff;
+      --off-white:   #d4cfc9;
+      --muted:       #888480;
+      --gold:        #c98e5a;
+      --gold-hover:  #d9a97a;
+      --border:      rgba(255,255,255,0.1);
+      --border-gold: rgba(201,142,90,0.3);
+      --font-head:   'Playfair Display', Georgia, serif;
+      --font-body:   'Inter', system-ui, sans-serif;
+      --max-mobile:  430px;
+    }
+
+    /* ── RESET ────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      /* Mobile-first: constrain to phone width for demo */
+      max-width: var(--max-mobile);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 56px;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    /* Feather SVG icon next to LH */
+    .nav-logo-icon {
+      width: 22px;
+      height: 22px;
+      fill: var(--white);
+      opacity: 0.9;
+    }
+
+    .nav-wordmark {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      line-height: 1.2;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-enquire {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+    }
+
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: brightness(0.55);
+    }
+
+    /* Fallback gradient if image fails */
+    .hero-fallback {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, #1a1410 0%, #0d0d0d 60%, #000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 20px 24px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: 1.55rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .hero-sub {
+      font-size: 0.78rem;
+      color: var(--off-white);
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── SECTION: BOOK NOW ──────────────────────────────── */
+    .book-section {
+      padding: 32px 20px 0;
+    }
+
+    .section-heading {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 400;
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 24px;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── WIDGET WRAPPER ─────────────────────────────────── */
+    .widget-outer {
+      position: relative;
+      width: 100%;
+      min-height: 520px;
+      background: var(--near-black);
+      border: 1px solid var(--border-gold);
+    }
+
+    /* Loading state */
+    .widget-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      z-index: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .widget-loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      width: 32px;
+      height: 32px;
+      border: 1.5px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* SimplyBook iframe fills the container */
+    #sbw-container {
+      width: 100%;
+      min-height: 520px;
+      position: relative;
+      z-index: 2;
+    }
+
+    #sbw-container > div,
+    #sbw-container iframe {
+      width: 100% !important;
+      border: none !important;
+      min-height: 520px !important;
+    }
+
+    /* ── BOOK TREATMENT LINK ────────────────────────────── */
+    .book-cta-link {
+      display: block;
+      text-align: right;
+      padding: 14px 4px 0;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--off-white);
+      text-decoration: none;
+    }
+
+    .book-cta-link:hover { color: var(--gold); }
+
+    /* ── DIVIDER ────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 36px 20px;
+    }
+
+    /* ── TESTIMONIALS ───────────────────────────────────── */
+    .testimonials-section {
+      padding: 0 20px 36px;
+    }
+
+    .testimonials-heading {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-align: center;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .testimonial-card {
+      background: var(--dark-card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--gold);
+      font-weight: 500;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-meta h4 {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .testimonial-meta span {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 10px;
+    }
+
+    .star {
+      color: var(--gold);
+      font-size: 0.85rem;
+    }
+
+    .testimonial-title {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .testimonial-body {
+      font-size: 0.75rem;
+      line-height: 1.65;
+      color: var(--off-white);
+    }
+
+    /* Carousel dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active { background: var(--gold); }
+
+    /* ── FIND US ON ─────────────────────────────────────── */
+    .find-us-section {
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .find-us-heading {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .find-us-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .platform-logo {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .platform-logo:hover {
+      border-color: var(--border-gold);
+      color: var(--gold);
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--near-black);
+      border-top: 1px solid var(--border);
+      padding: 36px 20px 20px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .footer-address {
+      font-size: 0.72rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .footer-address a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-address a:hover { color: var(--gold); }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 16px;
+      margin-bottom: 28px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 7px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-hours {
+      margin-bottom: 28px;
+    }
+
+    .footer-hours h4 {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .footer-hours p {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      font-size: 0.65rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+    }
+
+    .footer-bottom a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ── UTILITY ─────────────────────────────────────────── */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+
+    /* Desktop wrapper — shows phone frame on wider screens */
+    @media (min-width: 500px) {
+      body {
+        margin: 40px auto;
+        box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 40px 80px rgba(0,0,0,0.6);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a class="nav-logo" href="#" aria-label="Lucy Hall Massage home">
+      <span class="nav-logo-mark">LH</span>
+      <!-- Feather icon SVG -->
+      <svg class="nav-logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20.24 3.76a6 6 0 0 0-8.49 0L3 12.51V21h8.49l8.75-8.75a6 6 0 0 0 0-8.49zM11.67 19H5v-6.67l7-7 6.67 6.67-7 7zm8.14-8.14-.71.71L12.43 5l.71-.71a4 4 0 0 1 5.66 0 4 4 0 0 1 .01 5.57z"/>
+      </svg>
+    </a>
+    <div class="nav-right">
+      <a class="nav-enquire" href="#">Enquire about your team</a>
+      <div class="nav-hamburger" role="button" aria-label="Open menu" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO IMAGE ── -->
+  <section class="hero">
+    <!-- 
+      Replace src with actual client photo.
+      Using a warm massage-toned gradient as fallback.
+    -->
+    <img 
+      class="hero-img" 
+      src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=860&q=80&auto=format&fit=crop" 
+      alt="Massage therapy treatment at Lucy Hall"
+      onerror="this.style.display='none'"
+    />
+    <div class="hero-content">
+      <span class="hero-tag">Deep Tissue Massage</span>
+      <h1 class="hero-title">Book your appointment now</h1>
+      <p class="hero-sub">It only takes 2 minutes with our online booking tool</p>
+    </div>
+  </section>
+
+  <!-- ── BOOK NOW ── -->
+  <main class="book-section">
+    <h2 class="section-heading">Book now</h2>
+
+    <!-- SimplyBook widget -->
+    <div class="widget-outer">
+      <div class="widget-loading" id="widgetLoading">
+        <div class="loading-spinner"></div>
+        <span class="loading-label">Loading availability…</span>
+      </div>
+      <div id="sbw_9r75yx"></div>
+    </div>
+
+    <a class="book-cta-link" href="#">Book Treatment &gt;&gt;</a>
+  </main>
+
+  <div class="divider"></div>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testimonials-section" aria-label="Client testimonials">
+    <h2 class="testimonials-heading">Happy private<br>clients include</h2>
+
+    <div class="testimonial-card" id="testimonial-1">
+      <div class="testimonial-header">
+        <div class="testimonial-avatar">
+          <img 
+            src="https://i.pravatar.cc/72?img=47" 
+            alt="Sarah Cater"
+            onerror="this.parentElement.textContent='S'"
+          />
+        </div>
+        <div class="testimonial-meta">
+          <h4>Sarah Cater</h4>
+          <span>30/03/2026, 11:09:27</span>
+        </div>
+      </div>
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-title">Fantastic Swedish massage with Antonia</p>
+      <p class="testimonial-body">This was one of the best massages I have had over the 30 years of having them. I was very tight in many areas of my body and Antonia focused on what was the most needed and explained why I had the tension and how to avoid it going forward. I am definitely going back.</p>
+    </div>
+
+    <div class="testimonial-card" id="testimonial-2" style="display:none;">
+      <div class="testimonial-header">
+        <div class="testimonial-avatar">S</div>
+        <div class="testimonial-meta">
+          <h4>Suleyman Adanir</h4>
+          <span>04/02/2026, 22:21:40</span>
+        </div>
+      </div>
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-title">Swedish massage with Antonia</p>
+      <p class="testimonial-body">A very relaxing Swedish massage with Antonia. The room was clean and calming, and she was professional and attentive throughout. I left feeling refreshed and comfortable. I will definitely return.</p>
+    </div>
+
+    <div class="testimonial-card" id="testimonial-3" style="display:none;">
+      <div class="testimonial-header">
+        <div class="testimonial-avatar">A</div>
+        <div class="testimonial-meta">
+          <h4>Alice W</h4>
+          <span>10/12/2025, 11:29:47</span>
+        </div>
+      </div>
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <p class="testimonial-title">Orla is brilliant</p>
+      <p class="testimonial-body">I have recommended Lucy Hall massage to so many people as they are second to none. Their services are thorough and affordable. Orla is professional, friendly, kind and made me feel so comfortable. She really is brilliant at her job and very knowledgeable.</p>
+    </div>
+
+    <div class="carousel-dots" role="tablist" aria-label="Testimonial navigation">
+      <div class="dot active" data-index="0" role="tab" tabindex="0" aria-label="Testimonial 1"></div>
+      <div class="dot" data-index="1" role="tab" tabindex="0" aria-label="Testimonial 2"></div>
+      <div class="dot" data-index="2" role="tab" tabindex="0" aria-label="Testimonial 3"></div>
+    </div>
+  </section>
+
+  <!-- ── FIND US ON ── -->
+  <section class="find-us-section">
+    <h2 class="find-us-heading">Find us on:</h2>
+    <div class="find-us-logos">
+      <a class="platform-logo" href="https://bookingpage.com" target="_blank" rel="noopener">BookingPage</a>
+      <a class="platform-logo" href="https://tripadvisor.com" target="_blank" rel="noopener">Tripadvisor</a>
+      <a class="platform-logo" href="https://simplybook.me" target="_blank" rel="noopener">SimplyBook</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">Lucy Hall Massage Therapy</div>
+    <div class="footer-address">
+      2 Antwerp Cottages,<br>
+      Thoday Street,<br>
+      Cambridge, CB1 3AU<br>
+      <a href="tel:07765555078">07765 555078</a><br>
+      <a href="https://maps.google.com" target="_blank" rel="noopener">Google map</a>
+    </div>
+
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Main Menu</h4>
+        <ul>
+          <li><a href="#">Homepage</a></li>
+          <li><a href="#">Book online</a></li>
+          <li><a href="#">Treatments</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Testimonials</a></li>
+          <li><a href="#">Gift Vouchers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Treatments</h4>
+        <ul>
+          <li><a href="#">Deep Tissue Massage</a></li>
+          <li><a href="#">Hopi Ear</a></li>
+          <li><a href="#">Physiotherapy</a></li>
+          <li><a href="#">Pregnancy</a></li>
+          <li><a href="#">Relaxation</a></li>
+          <li><a href="#">Sports Massage</a></li>
+          <li><a href="#">Swedish</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-hours">
+      <h4>Opening Times</h4>
+      <p>
+        Monday &nbsp;&nbsp;~ 9am to 8pm<br>
+        Tuesday &nbsp;~ 9am to 8pm<br>
+        Wednesday ~ 9am to 8pm<br>
+        Thursday ~ 9am to 8pm<br>
+        Friday &nbsp;&nbsp;&nbsp;~ 9am to 6pm<br>
+        Saturday ~ 9am to 5.30pm<br>
+        Sunday &nbsp;&nbsp;~ 10am to 5pm
+      </p>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 LucyHallMassage</span>
+      <a href="#">Cookies</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Certification</a>
+      <a href="#">Data Request</a>
+    </div>
+  </footer>
+
+  <!-- ── SIMPLYBOOK WIDGET SCRIPT ── -->
+  <script src="//widget.simplybook.it/v2/widget/widget.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    // Hide loading spinner once widget is ready
+    function hideLoader() {
+      var loader = document.getElementById('widgetLoading');
+      if (loader) {
+        loader.classList.add('hidden');
+        setTimeout(function() { loader.style.display = 'none'; }, 600);
+      }
+    }
+
+    try {
+      var widget = new SimplybookWidget({
+        "widget_type": "iframe",
+        "url": "https:\/\/lucyhallmassage.simplybook.it",
+        "theme": "emeri",
+        "theme_settings": {
+          "timeline_hide_unavailable": "1",
+          "hide_past_days": "0",
+          "timeline_show_end_time": "0",
+          "timeline_modern_display": "as_slots",
+          "sb_base_color": "#000000",
+          "display_item_mode": "block",
+          "booking_nav_bg_color": "#111111",
+          "body_bg_color": "#0d0d0d",
+          "sb_review_image": "",
+          "dark_font_color": "#ffffff",
+          "light_font_color": "#ffffff",
+          "btn_color_1": "#c98e5a",
+          "sb_company_label_color": "#ffffff",
+          "hide_img_mode": "0",
+          "sb_busy": "#3a2a2a",
+          "sb_available": "#1a2a1a"
+        },
+        "timeline": "grid_week",
+        "datepicker": "top_calendar",
+        "is_rtl": false,
+        "app_config": {
+          "clear_session": 0,
+          "allow_switch_to_ada": 0,
+          "predefined": {
+            "service": "5",
+            "location": "4"
+          }
+        },
+        "container_id": "sbw_9r75yx"
+      });
+
+      // Poll for iframe load then hide spinner
+      var poll = setInterval(function() {
+        var container = document.getElementById('sbw_9r75yx');
+        if (container && container.querySelector('iframe')) {
+          clearInterval(poll);
+          setTimeout(hideLoader, 800);
+        }
+      }, 500);
+
+      // Fallback: hide after 6s regardless
+      setTimeout(hideLoader, 6000);
+
+    } catch(e) {
+      hideLoader();
+      console.warn('SimplyBook widget error:', e);
+    }
+  </script>
+
+  <!-- ── TESTIMONIAL CAROUSEL ── -->
+  <script>
+    var testimonials = ['testimonial-1', 'testimonial-2', 'testimonial-3'];
+    var dots = document.querySelectorAll('.dot');
+    var current = 0;
+
+    function showTestimonial(index) {
+      testimonials.forEach(function(id, i) {
+        var el = document.getElementById(id);
+        el.style.display = i === index ? 'block' : 'none';
+      });
+      dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === index);
+      });
+      current = index;
+    }
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        showTestimonial(parseInt(this.getAttribute('data-index')));
+      });
+      dot.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          showTestimonial(parseInt(this.getAttribute('data-index')));
+        }
+      });
+    });
+
+    // Auto-advance every 6 seconds
+    setInterval(function() {
+      showTestimonial((current + 1) % testimonials.length);
+    }, 6000);
+  </script>
+
+</body>
+</html>
