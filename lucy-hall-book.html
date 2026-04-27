@@ -461,15 +461,20 @@
     }
 
     .dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: #ffffff;
+      background: transparent;
+      border: 1.5px solid #ffffff;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.25s ease;
+      flex-shrink: 0;
     }
 
-    .dot.active { background: var(--white); }
+    .dot.active {
+      background: #ffffff;
+      border-color: #ffffff;
+    }
 
     /* ── FIND US ON ─────────────────────────────────────── */
     .find-us-section {
@@ -491,23 +496,28 @@
       overflow: hidden;
       width: 100%;
       position: relative;
+      cursor: grab;
+    }
+
+    .logo-slider-wrapper:active {
+      cursor: grabbing;
     }
 
     .logo-slider-track {
       display: flex;
       align-items: center;
-      transition: transform 0.4s ease;
+      transition: transform 0.35s ease;
       will-change: transform;
     }
 
     .logo-slide {
-      min-width: 70%;
+      min-width: 60%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 12px;
-      opacity: 0.5;
-      transition: opacity 0.4s ease;
+      padding: 0 16px;
+      opacity: 0.35;
+      transition: opacity 0.35s ease;
       flex-shrink: 0;
     }
 
@@ -515,12 +525,14 @@
       opacity: 1;
     }
 
-    .logo-slide img {
-      max-height: 48px;
+    .logo-slide img,
+    .logo-slide svg {
+      max-height: 44px;
       width: auto;
       max-width: 160px;
       object-fit: contain;
       filter: brightness(0) invert(1);
+      pointer-events: none;
     }
 
     .logo-slide a {
@@ -1017,37 +1029,54 @@
   <!-- ── LOGO SLIDER ── -->
   <script>
     (function() {
+      var wrapper = document.querySelector('.logo-slider-wrapper');
       var track = document.getElementById('logoTrack');
+      if (!track || !wrapper) return;
+
       var slides = track.querySelectorAll('.logo-slide');
       var total = slides.length;
       var current = 0;
 
       function goTo(index) {
-        // Wrap around
-        current = (index + total) % total;
-        // Each slide is 70% wide, centre the active one at 15% offset
-        var offset = current * 70;
-        track.style.transform = 'translateX(calc(15% - ' + offset + '%))';
+        current = ((index % total) + total) % total;
+        // 60% slide width, 20% offset to centre active slide
+        var offset = current * 60;
+        track.style.transform = 'translateX(calc(20% - ' + offset + '%))';
         slides.forEach(function(s, i) {
           s.classList.toggle('active', i === current);
         });
       }
 
-      // Set initial state
       goTo(0);
 
-      // Auto-advance every 3 seconds
-      setInterval(function() { goTo(current + 1); }, 3000);
-
-      // Touch/swipe support
-      var startX = 0;
-      track.parentElement.addEventListener('touchstart', function(e) {
+      // Touch swipe
+      var startX = 0, startY = 0;
+      wrapper.addEventListener('touchstart', function(e) {
         startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
       }, { passive: true });
-      track.parentElement.addEventListener('touchend', function(e) {
-        var diff = startX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+
+      wrapper.addEventListener('touchend', function(e) {
+        var diffX = startX - e.changedTouches[0].clientX;
+        var diffY = Math.abs(startY - e.changedTouches[0].clientY);
+        if (Math.abs(diffX) > 30 && Math.abs(diffX) > diffY) {
+          goTo(current + (diffX > 0 ? 1 : -1));
+        }
       }, { passive: true });
+
+      // Mouse drag for desktop
+      var mouseStartX = 0, isDragging = false;
+      wrapper.addEventListener('mousedown', function(e) {
+        mouseStartX = e.clientX;
+        isDragging = true;
+      });
+      wrapper.addEventListener('mouseup', function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        var diff = mouseStartX - e.clientX;
+        if (Math.abs(diff) > 30) goTo(current + (diff > 0 ? 1 : -1));
+      });
+      wrapper.addEventListener('mouseleave', function() { isDragging = false; });
     })();
   </script>
 
