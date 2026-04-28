@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black:       #000000;
+  --near-black:  #0a0908;
+  --white:       #ffffff;
+  --muted:       #888480;
+  --border:      #ffffff;
+  --font:        'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TYPOGRAPHY ─────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-weight: 600;
+}
+
+/* ── UTILITY ────────────────────── */
+.border-brand {
+  border: 1px solid #ffffff;
+}
+
+.text-muted {
+  color: #888480;
+}
+
+/* Reset default link colours */
+a {
+  color: inherit;
+  text-decoration: none;
+}
