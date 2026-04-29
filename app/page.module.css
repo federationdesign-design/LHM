@@ -1,0 +1,652 @@
+
+/* ── MENU HEADER ─────────────────────────────────────────── */
+.menuHeader {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0 35px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 56px;
+  z-index: 450;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.navSolid {
+  background: #000000;
+}
+
+.navBooking {
+  display: none;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+
+.logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.hamburger {
+  display: flex;
+  align-items: center;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  outline: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* ── PAGE WRAPPER ────────────────────────────────────────── */
+.page {
+  background: #000000;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  margin-top: -56px;
+  z-index: 20;
+  background-color: #4e3225;
+}
+
+.heroScrollOverlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.heroGradient {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 128px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 20px 32px;
+  z-index: 30;
+}
+
+.heroRule {
+  display: none;
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.4);
+  margin: 16px 0;
+  width: 40%;
+}
+
+.heroEnquire {
+  display: none;
+  font-size: 0.85rem;
+  color: #ffffff;
+  letter-spacing: 0.1em;
+  margin-top: 8px;
+}
+
+.heroH1 {
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.heroSub {
+  font-size: 0.88rem;
+  color: #ffffff;
+  font-weight: 400;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.heroBookNow {
+  font-size: 0.88rem;
+  color: #ffffff;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+/* ── WIDGET ──────────────────────────────────────────────── */
+.widgetWrapper {
+  position: relative;
+  z-index: 5;
+  background: #000000;
+  margin-top: -155px;
+}
+
+/* ── DIVIDER ─────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: #ffffff;
+  margin: 36px 20px;
+}
+
+/* ── TESTIMONIALS ────────────────────────────────────────── */
+.testimonialsSection {
+  padding-top: 28px;
+  padding-bottom: 20px;
+  overflow: hidden;
+}
+
+.testimonialsHeading {
+  font-size: 1.9rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 24px;
+  line-height: 1.2;
+  padding: 0 28px;
+}
+
+.testimonialsTrack {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.testimonialsTrackNoAnim {
+  display: flex;
+  transition: none;
+}
+
+.testimonialSlide {
+  width: 100%;
+  flex-shrink: 0;
+  text-align: center;
+  padding: 0 56px;
+}
+
+.testimonialAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 auto 12px;
+}
+
+.testimonialName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.testimonialTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.testimonialBody {
+  font-size: 0.88rem;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+.testimonialStars {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.star { color: #f5a623; font-size: 1.4rem; }
+
+.testimonialDate {
+  font-size: 0.75rem;
+  color: #888480;
+  margin-bottom: 20px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  background: transparent;
+  padding: 0;
+  transition: background 0.25s ease;
+}
+
+.dotActive { background: #ffffff; }
+
+/* Desktop 3-col testimonials */
+.testimonialsGrid {
+  display: none;
+}
+
+/* ── LOGO SLIDER ─────────────────────────────────────────── */
+.logoSlider {
+  padding: 32px 0;
+  overflow: hidden;
+}
+
+.logoTrack {
+  display: flex;
+  align-items: center;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.35s ease;
+}
+
+.logoTrackNoAnim {
+  display: flex;
+  align-items: center;
+  cursor: grab;
+  user-select: none;
+  transition: none;
+}
+
+.logoSlide {
+  min-width: 50%;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImg {
+  max-height: 44px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  pointer-events: none;
+}
+
+/* Desktop logo row */
+.logoRow {
+  display: none;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid #ffffff;
+  padding: 40px 24px 24px;
+  background: #000000;
+}
+
+.footerCompany {
+  font-size: 0.83rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.footerAddress {
+  font-size: 0.96rem;
+  color: #ffffff;
+  font-weight: 300;
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+
+.footerHoursTitle {
+  font-size: 0.83rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.footerHours {
+  font-size: 0.96rem;
+  color: #ffffff;
+  font-weight: 300;
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+
+.footerBottom {
+  border-top: 1px solid #ffffff;
+  padding-top: 20px;
+}
+
+.footerCopy {
+  font-size: 0.78rem;
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 0.72rem;
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.footerSep { margin: 0 6px; opacity: 0.5; }
+
+/* Desktop footer columns */
+.footerGrid { display: none; }
+.footerCol h4 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+.footerCol ul { list-style: none; }
+.footerCol ul li { margin-bottom: 8px; }
+.footerCol ul li a {
+  font-size: 0.82rem;
+  color: #ffffff;
+  font-weight: 300;
+}
+.footerCol ul li a:hover { text-decoration: underline; }
+
+/* ── TABLET: 768px ───────────────────────────────────────── */
+@media (min-width: 768px) {
+  .nav {
+    max-width: 100%;
+    padding: 0 68px;
+    height: 64px;
+  }
+
+  .menuHeader {
+    height: 64px;
+    padding: 0 65px;
+  }
+
+  .logo { height: 26px; }
+
+  .page {
+    max-width: 100%;
+  }
+
+  .hero {
+    height: 700px;
+    margin-top: -64px;
+  }
+
+  .heroContent {
+    padding: 0 40px 48px;
+    max-width: 560px;
+  }
+
+  .heroH1 {
+    font-size: 2.2rem;
+  }
+
+  .heroSub {
+    font-size: 1rem;
+  }
+
+  .heroBookNow {
+    font-size: 1rem;
+  }
+
+  .widgetWrapper {
+    margin-top: -155px;
+    padding: 0 40px;
+  }
+
+  .divider {
+    margin: 48px 40px;
+  }
+
+  .testimonialsHeading {
+    font-size: 2.2rem;
+  }
+
+  .testimonialSlide {
+    padding: 0 80px;
+  }
+
+  .logoSlide {
+    min-width: 33.333%;
+  }
+
+  .footer {
+    padding: 48px 40px 28px;
+  }
+
+  .footerBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footerCopy { margin-bottom: 0; }
+}
+
+.heroMobileImg { display: block; }
+.heroDesktopImg { display: none; }
+
+.serviceSection {
+  padding: 48px 24px;
+  background: #000000;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+/* ── DESKTOP: 1025px ─────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .heroDesktopImg {
+    display: block !important;
+  }
+  .heroMobileImg {
+    display: none !important;
+  }
+  .nav {
+    padding: 0 60px;
+    height: 72px;
+  }
+
+  .menuHeader {
+    height: 72px;
+    padding: 0 75px;
+  }
+
+  .navBooking {
+    display: block;
+  }
+
+  .logo { height: 28px; }
+
+  .hero {
+    height: 75vh;
+    min-height: 600px;
+    margin-top: -72px;
+  }
+
+  .heroContent {
+    padding: 0 60px 60px;
+    max-width: 640px;
+  }
+
+  .heroH1 { font-size: 2.6rem; }
+  .heroSub { font-size: 1.05rem; }
+
+  .serviceIntro {
+    max-width: 720px;
+    margin: 0 auto 48px !important;
+  }
+
+  .heroRule { display: block; }
+  .heroEnquire { display: none; }
+  .heroBookNow { display: block; }
+
+  .widgetWrapper {
+    margin-top: -80px;
+    padding: 0 60px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .divider {
+    margin: 60px 60px;
+  }
+
+  /* Show 3-col grid, hide carousel */
+  .testimonialsSection {
+    padding: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonialsHeading {
+    font-size: 2.4rem;
+    margin-bottom: 48px;
+  }
+
+  .testimonialsTrack,
+  .testimonialsTrackNoAnim,
+  .dots {
+    display: none;
+  }
+
+  .testimonialsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .testimonialsGridSlide {
+    text-align: center;
+  }
+
+  /* Show logo row, hide slider */
+  .logoSlider {
+    padding: 48px 60px;
+  }
+
+  .logoTrack,
+  .logoTrackNoAnim {
+    display: none;
+  }
+
+  .logoRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .logoRowImg {
+    max-height: 44px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  /* 5-col footer */
+  .footerAddress,
+  .footerHoursTitle,
+  .footerHours {
+    display: none;
+  }
+
+  .footerGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .footerBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footerCopy { margin-bottom: 0; }
+
+  .footerLinks {
+    justify-content: flex-end;
+  }
+
+  .serviceSection {
+    padding: 60px 0;
+    width: 100%;
+  }
+
+  .serviceGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1080px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+  }
+}
+
+/* ── MENU LINK HOVER ─────────────────────────────────────── */
+:global(.menu-link:hover .menu-arrow),
+:global(.menu-link:active .menu-arrow) {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* ── TRIPADVISOR SVG FIX ─────────────────────────────────── */
+.logoImg[alt="Tripadvisor"],
+.logoRowImg[alt="Tripadvisor"] {
+  filter: brightness(0) invert(1);
+}

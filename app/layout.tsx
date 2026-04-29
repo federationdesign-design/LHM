@@ -10,8 +10,25 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Book a Treatment — Lucy Hall Massage Therapy',
-  description: 'Book your massage appointment online. Deep tissue, Swedish, sports massage and more in Cambridge.',
+  title: {
+    default: 'Lucy Hall Massage Therapy | Cambridge',
+    template: '%s | Lucy Hall Massage Therapy',
+  },
+  description: 'Professional massage therapy in Cambridge. Deep tissue, Swedish, sports, pregnancy massage and more. Book online in 2 minutes.',
+  metadataBase: new URL('https://www.lucyhallmassage.com'),
+  openGraph: {
+    siteName: 'Lucy Hall Massage Therapy',
+    locale: 'en_GB',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -20,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={jakarta.variable}>
+    <html lang="en-GB" className={jakarta.variable}>
       <body className={jakarta.className}>{children}</body>
     </html>
   );
