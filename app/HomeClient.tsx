@@ -260,6 +260,8 @@ function PromoCards() {
         @media (min-width: 1024px) {
           .hp-promo-mobile { display: none !important; }
           .hp-promo-desktop { display: block !important; }
+          .hp-hero-img-mobile { display: none !important; }
+          .hp-hero-img-desktop { display: block !important; }
         }
         .hp-promo-card-link:hover .hp-promo-card-img { filter: brightness(0.7); }
 
@@ -730,14 +732,29 @@ export default function HomeClient() {
         <div ref={heroRef} className={styles.hero} style={{ height: '100vh', minHeight: '100vh' }}>
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
           <div className={styles.heroGradient} />
-          <Image
-            src="/deep-tissue-img.jpg"
-            alt="Massage therapy"
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
-          />
+          {/* Responsive hero — mobile image shown below 1024px, desktop above.
+              Both use absolute positioning via fill so they stack in the same
+              spot and the CSS-driven display toggle picks one without layout shift. */}
+          <span className="hp-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
+            <Image
+              src="/Physiotherapy-mobile.jpg"
+              alt="Physiotherapy treatment"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
+          <span className="hp-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
+            <Image
+              src="/Physiotherapy-desktop.jpg"
+              alt="Physiotherapy treatment"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
           <div className={styles.heroContent}>
             <h1 className={styles.heroH1}>Need a massage now?</h1>
             <p className={styles.heroSub}>Book your appointment now, it only takes 2 minutes with our online booking tool</p>
