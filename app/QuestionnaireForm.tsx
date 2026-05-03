@@ -262,7 +262,21 @@ function PillGroup({ options, selected, onToggle }: PillGroupProps) {
 
 // ── MAIN FORM ─────────────────────────────────────────────────────────────────
 
-export default function QuestionnaireForm() {
+export type QuestionnaireFormProps = {
+  // The declaration consent checkbox lives in QuestionnaireClient's intro
+  // column (sticky on desktop, above-the-form on mobile). Its state is
+  // passed in here so the form's canSubmit gating can require it.
+  declarationConsent: boolean;
+  // Whether validation messages should show. Lifted to client so both
+  // columns can stay in sync (declaration column shows its own message
+  // when this is true).
+  showValidation: boolean;
+  // Called the moment the user attempts to submit. Client uses this to
+  // flip showValidation to true.
+  onSubmitAttempt: () => void;
+};
+
+export default function QuestionnaireForm({ declarationConsent, showValidation, onSubmitAttempt }: QuestionnaireFormProps) {
   // Personal
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -311,10 +325,8 @@ export default function QuestionnaireForm() {
   // Submit state
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  // Tracks whether user has attempted to submit. Used to show inline
-  // validation messages under empty required fields without showing them
-  // before the user has touched anything.
-  const [showValidation, setShowValidation] = useState(false);
+  // showValidation is now lifted to the parent (QuestionnaireClient) so the
+  // intro column's declaration checkbox can also show validation in sync.
 
   // Toggle helper for multi-select pill groups
   const makeToggle = (setter: React.Dispatch<React.SetStateAction<string[]>>) => (opt: string) => {
@@ -337,11 +349,31 @@ export default function QuestionnaireForm() {
   const hasSymptoms = symptoms.length > 0;
   const hasHistory = history.length > 0;
   const allConditionsAnswered = hasMusculoskeletal && hasSymptoms && hasHistory;
-  const canSubmit = allConsentsChecked && hasSignature && allConditionsAnswered && !submitting;
+  const canSubmit = allConsentsChecked && hasSignature && allConditionsAnswered && declarationConsent && !submitting;
+
+  // Comprehensive check — once `canSubmit` is true (orange), the button
+  // turns GREEN if the user has also filled in the key optional fields:
+  // mobile, dob, both emergency contact fields, and both GP fields.
+  // Postcode, medications, pregnancy, cancer, hear-about and notes are
+  // excluded — leaving these blank is reasonable and shouldn't hold the
+  // green state hostage.
+  const isComprehensive = canSubmit
+    && mobile.trim().length > 0
+    && dob.trim().length > 0
+    && emergencyName.trim().length > 0
+    && emergencyNumber.trim().length > 0
+    && gpName.trim().length > 0
+    && gpPractice.trim().length > 0;
+
+  // Determine button colour state:
+  //   GREY   — minimum required fields not yet met (canSubmit false)
+  //   ORANGE — minimum met, but optional comprehensive fields not yet filled
+  //   GREEN  — minimum met AND key optional fields all filled
+  const buttonColour = isComprehensive ? '#2cd12c' : canSubmit ? '#ff8c00' : '#808080';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setShowValidation(true);
+    onSubmitAttempt();
     if (!canSubmit) return;
     setSubmitting(true);
     // TODO: replace with real backend POST
@@ -436,7 +468,7 @@ export default function QuestionnaireForm() {
         <p style={sectionLabelStyle}>Personal details</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
           <input type="text" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} required style={inputStyle} className="qf-input" />
-          <input type="text" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} required style={inputStyle} className="qf-input" />
+          <input type="text" placeholder="Last name (optional)" value={lastName} onChange={e => setLastName(e.target.value)} style={inputStyle} className="qf-input" />
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} className="qf-input" />
           <input type="tel" placeholder="Mobile (optional)" value={mobile} onChange={e => setMobile(e.target.value)} style={inputStyle} className="qf-input" />
           <div>
@@ -660,7 +692,7 @@ export default function QuestionnaireForm() {
             textTransform: 'uppercase',
             letterSpacing: '0.18em',
             color: '#ffffff',
-            background: canSubmit ? '#2cd12c' : 'rgba(44, 209, 44, 0.4)',
+            background: buttonColour,
             border: 'none',
             borderRadius: 999,
             cursor: submitting ? 'not-allowed' : 'pointer',
@@ -673,7 +705,7 @@ export default function QuestionnaireForm() {
 
         {showValidation && !canSubmit && !submitting && (
           <p style={{ fontSize: '0.85rem', fontWeight: 400, color: '#ff8c8c', marginTop: 12, textAlign: 'center', lineHeight: 1.5 }}>
-            Please complete all required fields above. Required: name, email, the three condition sections, the three consent boxes, and your signature.
+            Please complete all required fields. Required: first name, email, the three condition sections, the three consent boxes, your signature, and the declaration tickbox above.
           </p>
         )}
 
