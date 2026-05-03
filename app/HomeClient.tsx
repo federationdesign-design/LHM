@@ -201,7 +201,8 @@ function PromoCards() {
   return (
     <section style={{ padding: '20px 0 30px', background: '#000000' }}>
 
-      <div className="hp-promo-mobile" style={{ position: 'relative', overflow: 'hidden', width: '100%', padding: '0 24px', boxSizing: 'border-box' }}>
+      <div className="hp-promo-mobile" style={{ width: '100%', padding: '0 24px', boxSizing: 'border-box' }}>
+        <div style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
         <div
           style={{
             display: 'flex',
@@ -239,6 +240,7 @@ function PromoCards() {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
 
