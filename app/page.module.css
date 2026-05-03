@@ -650,3 +650,230 @@
 .logoRowImg[alt="Tripadvisor"] {
   filter: brightness(0) invert(1);
 }
+
+/* ── ULTRA-WIDE: 1450px ──────────────────────────────────── */
+@media (min-width: 1450px) {
+  .widgetWrapper {
+    max-width: none;
+    padding: 0 60px;
+  }
+
+  /* Force the SimplyBook iframe to fill the wider wrapper */
+  .widgetWrapper iframe {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .divider {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BLOG STYLES
+   ───────────────────────────────────────────────────────────── */
+
+/* ───── Blog index grid (kept simple, 2 cols on tablet+, 1 col mobile) ───── */
+.blogGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .blogGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.blogCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+.blogCard:hover {
+  transform: translateY(-4px);
+}
+.blogCard:hover .blogReadMore {
+  opacity: 1;
+}
+.blogCard:hover .blogReadMore svg {
+  transform: translateX(4px);
+}
+
+.blogCardImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+/* Read more link / arrow — used on cards and related treatments */
+.blogReadMore {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.blogReadMore svg {
+  transition: transform 0.2s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ARTICLE PAGE — TWO-COLUMN LAYOUT
+   Desktop (≥1024px): 75% main / 25% sticky sidebar
+   Tablet/Mobile (<1024px): single column, sidebar drops below body
+   ───────────────────────────────────────────────────────────── */
+
+/* Article wrapper — owns the responsive horizontal padding
+   matching the rest of the site rhythm: 24 → 48 → 80 */
+.blogArticleWrapper {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 540px) {
+  .blogArticleWrapper {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1450px) {
+  .blogArticleWrapper {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+/* Breadcrumbs — sit above the column split, full content width */
+.blogBreadcrumbs {
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  opacity: 0.5;
+  margin-bottom: 24px;
+}
+
+/* Two-column container. CSS Grid keeps the columns the right ratio.
+   On tablet/mobile the sidebar collapses below the main content. */
+.blogArticleLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+}
+@media (min-width: 1024px) {
+  .blogArticleLayout {
+    grid-template-columns: 3fr 1fr;
+    gap: 60px;
+  }
+}
+@media (min-width: 1450px) {
+  .blogArticleLayout {
+    gap: 80px;
+  }
+}
+
+/* Left column — image, title, body */
+.blogArticleMain {
+  min-width: 0;  /* prevents grid blowout when long URLs/words appear */
+}
+
+/* Inset hero image — 16:9 ratio, fills the left column width */
+.blogArticleImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+/* Title block sits below the image */
+.blogArticleHeader {
+  padding: 36px 0 28px;
+}
+
+/* Article body — markdown rendered via react-markdown.
+   Caps reading width at 80ch within the column for legibility on ultra-wide. */
+.blogArticleBody {
+  max-width: 80ch;
+  padding-bottom: 60px;
+}
+
+/* ───── Right column — sticky sidebar ───── */
+.blogArticleSidebar {
+  /* On mobile/tablet just sits in document flow as a normal block */
+  margin-bottom: 60px;
+}
+@media (min-width: 1024px) {
+  .blogArticleSidebar {
+    margin-bottom: 0;
+  }
+}
+
+/* Inner wrapper handles the actual sticky behaviour. top: 80px clears the fixed nav. */
+.blogSidebarSticky {
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .blogSidebarSticky {
+    position: sticky;
+    top: 80px;
+  }
+}
+
+.blogSidebarHeading {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.blogSidebarCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.blogSidebarCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease;
+}
+.blogSidebarCard:hover {
+  transform: translateY(-2px);
+}
+.blogSidebarCard:hover .blogReadMore {
+  opacity: 1;
+}
+.blogSidebarCard:hover .blogReadMore svg {
+  transform: translateX(4px);
+}
+
+.blogSidebarCardImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.blogCardImage {
+  /* Smooth transition for the hover-darken effect */
+  transition: filter 0.3s ease;
+}
+
+.blogCard:hover .blogCardImage {
+  filter: brightness(0.65);
+}
