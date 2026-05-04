@@ -376,76 +376,35 @@ class DrawCtx {
   }
 
   /** Draw the cover page — title, client name, date, confidentiality note. */
-  drawCoverPage(data: QuestionnaireData) {
-    // Title
-    const title = 'Massage New Patient';
-    const titleWidth = this.bold.widthOfTextAtSize(title, SIZE_TITLE);
-    this.page.drawText(title, {
-      x: (PAGE_WIDTH - titleWidth) / 2,
-      y: PAGE_HEIGHT * 0.55,
-      size: SIZE_TITLE,
-      font: this.bold,
-      color: BLACK,
-    });
-
-    const subtitle = 'Medical Form';
-    const subtitleWidth = this.bold.widthOfTextAtSize(subtitle, SIZE_TITLE);
-    this.page.drawText(subtitle, {
-      x: (PAGE_WIDTH - subtitleWidth) / 2,
-      y: PAGE_HEIGHT * 0.55 - 32,
-      size: SIZE_TITLE,
-      font: this.bold,
-      color: BLACK,
-    });
-
-    // Client name
+  /**
+   * Embeds the designed cover PDF as page 1 and overlays the client name.
+   * The cover at /public/LHM-PDF-cover.pdf provides all visual branding
+   * (logo, title, "Confidential" stamp, footer). The only dynamic element
+   * we add on top is the client's name.
+   *
+   * Note: this method assumes `this.page` is the FRESH cover page that's
+   * already had the cover PDF embedded (handled in the main generator).
+   * It just overlays the name text.
+   *
+   * Colour is WHITE because the cover has a black background.
+   * Position is below the central title block, well above the footer rule.
+   */
+  drawClientNameOverlay(data: QuestionnaireData) {
     const clientName = `${data.firstName}${data.lastName ? ' ' + data.lastName : ''}`.trim();
-    const nameWidth = this.regular.widthOfTextAtSize(clientName, SIZE_SUBTITLE);
+    if (!clientName) return;
+
+    // Position: centred horizontally, ~78% down from top of A4.
+    // Lands below the central "Lucy Hall Massage / Massage New Patient /
+    // Medical Form" title block, well above the horizontal rule near the
+    // bottom. Adjust Y if cover design changes.
+    const fontSize = 22;
+    const nameWidth = this.regular.widthOfTextAtSize(clientName, fontSize);
     this.page.drawText(clientName, {
       x: (PAGE_WIDTH - nameWidth) / 2,
-      y: PAGE_HEIGHT * 0.55 - 80,
-      size: SIZE_SUBTITLE,
+      y: PAGE_HEIGHT - (PAGE_HEIGHT * 0.78),
+      size: fontSize,
       font: this.regular,
-      color: GREY_DARK,
-    });
-
-    // Date
-    const dateStr = `Submitted ${formatDateTime(data.submittedAt)}`;
-    const dateWidth = this.regular.widthOfTextAtSize(dateStr, SIZE_BODY);
-    this.page.drawText(dateStr, {
-      x: (PAGE_WIDTH - dateWidth) / 2,
-      y: PAGE_HEIGHT * 0.55 - 102,
-      size: SIZE_BODY,
-      font: this.regular,
-      color: GREY_MID,
-    });
-
-    // Confidential note at the bottom
-    const confidential = 'CONFIDENTIAL — MEDICAL RECORD';
-    const confWidth = this.bold.widthOfTextAtSize(confidential, SIZE_LABEL);
-    this.page.drawText(confidential, {
-      x: (PAGE_WIDTH - confWidth) / 2,
-      y: MARGIN_Y + 20,
-      size: SIZE_LABEL,
-      font: this.bold,
-      color: GREY_MID,
-    });
-
-    // Footer line
-    this.page.drawLine({
-      start: { x: MARGIN_X, y: MARGIN_Y + 12 },
-      end: { x: PAGE_WIDTH - MARGIN_X, y: MARGIN_Y + 12 },
-      thickness: 0.5,
-      color: GREY_MID,
-    });
-    const footer = 'Lucy Hall Massage Therapy';
-    const footerWidth = this.regular.widthOfTextAtSize(footer, SIZE_SMALL);
-    this.page.drawText(footer, {
-      x: (PAGE_WIDTH - footerWidth) / 2,
-      y: MARGIN_Y,
-      size: SIZE_SMALL,
-      font: this.regular,
-      color: GREY_MID,
+      color: rgb(1, 1, 1), // WHITE — cover has black background
     });
   }
 }
@@ -465,9 +424,22 @@ export async function generateQuestionnairePdf(data: QuestionnaireData): Promise
   const italic = await doc.embedFont(StandardFonts.HelveticaOblique);
 
   // ── PAGE 1: COVER ────────────────────────────────────────────────────────
+  // Embed the designed cover PDF from /public/LHM-PDF-cover.pdf and overlay
+  // the client's name. The cover provides all visual branding.
+  const coverPath = path.join(process.cwd(), 'public', 'LHM-PDF-cover.pdf');
+  const coverBytes = await fs.readFile(coverPath);
+  const [coverEmbeddedPage] = await doc.embedPdf(coverBytes);
   const coverPage = doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+  // Draw the embedded cover scaled to fill the page exactly.
+  coverPage.drawPage(coverEmbeddedPage, {
+    x: 0,
+    y: 0,
+    width: PAGE_WIDTH,
+    height: PAGE_HEIGHT,
+  });
+  // Now overlay the client's name on top of the cover.
   const coverCtx = new DrawCtx(doc, coverPage, regular, bold, italic);
-  coverCtx.drawCoverPage(data);
+  coverCtx.drawClientNameOverlay(data);
 
   // ── PAGE 2+: BODY ────────────────────────────────────────────────────────
   const bodyPage = doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
