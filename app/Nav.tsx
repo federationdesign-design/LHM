@@ -3,8 +3,18 @@
 import { useEffect, useId, useState } from 'react';
 import styles from './page.module.css';
 
+/* ─────────────────────────────────────────────────────────────
+   Nav — the shared navigation for the PRIVATE side of the site.
+   Used on /private and all root-level private pages (/treatments,
+   /team/*, /location/*, etc).
+
+   The "Home" link and logo point to /private (not /). The root URL
+   / now serves the splash page (SplashClient), which has its own
+   header (SplashNav).
+   ───────────────────────────────────────────────────────────── */
+
 const menuItems: [string, string][] = [
-  ['Home', '/'],
+  ['Home', '/private'],
   ['Treatments', '/treatments'],
   ['Locations', '/locations'],
   ['Our Team', '/team'],
@@ -93,7 +103,8 @@ export default function Nav({ solid = false, scrollRef }: NavProps) {
   return (
     <>
       <nav className={`${styles.nav} ${navSolid ? styles.navSolid : ''}`}>
-        <a href="/" aria-label="Lucy Hall Massage">
+        {/* Logo links to /private — was / before splash was introduced */}
+        <a href="/private" aria-label="Lucy Hall Massage">
           <Logo clipId={clipId} />
         </a>
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>

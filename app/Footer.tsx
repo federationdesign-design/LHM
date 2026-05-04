@@ -1,7 +1,7 @@
 import styles from './page.module.css';
 
 const mainMenu: [string, string][] = [
-  ['Home', '/'],
+  ['Home', '/private'],
   ['All Treatments', '/treatments'],
   ['Locations', '/locations'],
   ['Our Team', '/team'],

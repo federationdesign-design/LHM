@@ -1,6 +1,13 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // NOTE: experimental.viewTransition removed — we're using the raw browser
+  // View Transitions API directly rather than React's experimental
+  // <ViewTransition> wrapper. The browser API is a stable web standard;
+  // React's wrapper is in the experimental channel only and not safe for
+  // production. See SplashClient.tsx and PrivateHomeClient.tsx for how the
+  // transition is invoked via document.startViewTransition().
+
   async redirects() {
     return [
       // ── COVID-era pages — drop and send users to the blog index ──

@@ -13,8 +13,14 @@ import { useState, useRef, ReactNode } from 'react';
    click. The confirmation message customises per-page to either
    focus on the download, the well-being follow-up, or both.
 
-   Dummy submit for v1 — replace the setTimeout in handleSubmit
-   with an actual POST to ESP/email backend when wired up.
+   Submit button uses a three-state colour pattern matching the
+   questionnaire form:
+     GREY   — no input yet
+     ORANGE — mandatory fields filled (name, email, consent)
+     GREEN  — mandatory + key optional fields filled (mobile,
+              symptom pill, magic wand answer)
+   The button is always clickable; clicking when validation
+   fails surfaces an inline error rather than disabling silently.
    ───────────────────────────────────────────────────────────── */
 
 export type WellbeingFormProps = {
@@ -61,6 +67,11 @@ const SEVERITY_LABELS = ['Tolerable', 'Intense', 'Distressing', 'Unbearable'];
 // Thumb colours — green (mild) → red (severe)
 const SEVERITY_COLOURS = ['#2cd12c', '#f5d300', '#ff8c00', '#dc2626'];
 
+// Button state colours — match the questionnaire form
+const BUTTON_COLOUR_GREY = '#808080';
+const BUTTON_COLOUR_ORANGE = '#ff8c00';
+const BUTTON_COLOUR_GREEN = '#2cd12c';
+
 export default function WellbeingForm({
   heading,
   intro = DEFAULT_INTRO,
@@ -77,10 +88,15 @@ export default function WellbeingForm({
   const [condition, setCondition] = useState<string[]>([]);
   const [otherText, setOtherText] = useState('');
   const [magicWand, setMagicWand] = useState('');
-  const [severity, setSeverity] = useState<string | null>(null);
+  // Slider defaults to 'Tolerable' so it always has a meaningful value.
+  // No "untouched" state — the user can adjust if the default doesn't match.
+  const [severity, setSeverity] = useState<string>('Tolerable');
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  // Flips true on first submit attempt — drives whether inline validation
+  // messages are shown.
+  const [showValidation, setShowValidation] = useState(false);
 
   // Hidden anchor used to trigger the PDF download programmatically
   const downloadAnchorRef = useRef<HTMLAnchorElement>(null);
@@ -97,9 +113,9 @@ export default function WellbeingForm({
     }
   };
 
-  // Map severity index → thumb colour for the slider
-  const severityIndex = severity === null ? 0 : SEVERITY_LABELS.indexOf(severity);
-  const severityThumbColour = severity === null ? SEVERITY_COLOURS[0] : SEVERITY_COLOURS[severityIndex];
+  // Map severity label → slider index → thumb colour
+  const severityIndex = SEVERITY_LABELS.indexOf(severity);
+  const severityThumbColour = SEVERITY_COLOURS[severityIndex];
 
   // Honeypot — invisible field that real users won't fill, but bots will.
   // If non-empty, the API silently rejects.
@@ -107,9 +123,41 @@ export default function WellbeingForm({
   // Error message from API or network.
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  // ── BUTTON STATE LOGIC ──────────────────────────────────────────────────
+  // Three-state colour pattern matching the questionnaire form.
+  //
+  // mandatoryFilled — name, email (with @), and consent. The minimum the
+  //   form needs to be submittable. Drives the orange threshold.
+  //
+  // allFilled — mandatory PLUS key optional context fields: mobile, at
+  //   least one symptom pill, and the magic wand answer. Drives the green
+  //   threshold. Severity is excluded because it has a default value
+  //   ('Tolerable') and is therefore always "filled" — gating green on it
+  //   would be dishonest. otherText is excluded because picking 'Other'
+  //   alone is sufficient — describing it is genuinely optional.
+
+  const mandatoryFilled =
+    name.trim().length > 0 &&
+    email.trim().length > 0 &&
+    email.includes('@') &&
+    consent;
+
+  const allFilled =
+    mandatoryFilled &&
+    mobile.trim().length > 0 &&
+    condition.length > 0 &&
+    magicWand.trim().length > 0;
+
+  const buttonColour = allFilled
+    ? BUTTON_COLOUR_GREEN
+    : mandatoryFilled
+    ? BUTTON_COLOUR_ORANGE
+    : BUTTON_COLOUR_GREY;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!consent) return;
+    setShowValidation(true);
+    if (!mandatoryFilled) return;
     setSubmitting(true);
     setSubmitError(null);
 
@@ -121,7 +169,7 @@ export default function WellbeingForm({
     const nameParts = name.trim().split(/\s+/);
     const firstName = nameParts[0] || '';
     const lastName = nameParts.slice(1).join(' ') || undefined;
-    const severityNumber = severity ? SEVERITY_LABELS.indexOf(severity) + 1 : undefined;
+    const severityNumber = SEVERITY_LABELS.indexOf(severity) + 1;
     const issuesWithOther = condition.includes('Other') && otherText.trim()
       ? [...condition.filter(c => c !== 'Other'), `Other: ${otherText.trim()}`]
       : condition;
@@ -329,12 +377,6 @@ export default function WellbeingForm({
                 </span>
               ))}
             </div>
-
-            {severity === null && (
-              <p style={{ fontSize: '0.82rem', fontWeight: 300, color: '#ffffff', opacity: 0.5, marginTop: 12, textAlign: 'center' }}>
-                Drag the slider to score your symptom
-              </p>
-            )}
           </div>
         </div>
 
@@ -347,7 +389,6 @@ export default function WellbeingForm({
               id="intake-consent"
               checked={consent}
               onChange={e => setConsent(e.target.checked)}
-              required
               className="intake-checkbox-input"
             />
             <span className="intake-checkbox-box" aria-hidden="true">
@@ -363,7 +404,7 @@ export default function WellbeingForm({
 
         <button
           type="submit"
-          disabled={submitting || !consent}
+          disabled={submitting}
           style={{
             width: '100%',
             padding: '14px 22px',
@@ -372,16 +413,22 @@ export default function WellbeingForm({
             textTransform: 'uppercase',
             letterSpacing: '0.18em',
             color: '#ffffff',
-            background: consent ? '#2cd12c' : 'rgba(44, 209, 44, 0.4)',
+            background: buttonColour,
             border: 'none',
             borderRadius: 999,
-            cursor: consent ? 'pointer' : 'not-allowed',
+            cursor: submitting ? 'not-allowed' : 'pointer',
             fontFamily: 'inherit',
             transition: 'background 0.2s ease',
           }}
         >
           {submitting ? 'Submitting…' : submitButtonText}
         </button>
+
+        {showValidation && !mandatoryFilled && !submitting && (
+          <p style={{ fontSize: '0.85rem', fontWeight: 400, color: '#ff8c8c', marginTop: 12, textAlign: 'center', lineHeight: 1.5 }}>
+            Please fill in your name, a valid email, and tick the consent box.
+          </p>
+        )}
 
         {submitError && (
           <div style={{

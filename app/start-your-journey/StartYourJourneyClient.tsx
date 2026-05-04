@@ -176,7 +176,7 @@ export default function StartYourJourneyClient() {
 
           {/* CREDENTIALS bar — full width below hero. Logos always on one
               line and scale smaller instead of wrapping. */}
-          <section style={{ background: '#0a0908', padding: '32px 24px', borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+          <section className="syj-credentials-section" style={{ background: '#0a0908', padding: '32px 24px', borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <div className="syj-credentials-row">
               {[
                 { src: '/FHT.png', alt: 'Federation of Holistic Therapists' },
@@ -427,6 +427,30 @@ export default function StartYourJourneyClient() {
             /* Hide mobile form section on desktop */
             .syj-mobile-form-section {
               display: none;
+            }
+
+            /* === Z-INDEX FIX FOR FORM OVERLAY CLICK INTERCEPTION ===
+               The hero, credentials and body sections are full-width siblings
+               of the form overlay inside .syj-page-wrap. On desktop, the
+               credentials section in particular has an opaque background
+               that visually sits behind the form's right-hand area. Without
+               explicit stacking, those sections can intercept clicks on the
+               form fields (especially the 2nd/3rd inputs which sit lower
+               in the form, where the credentials bar's vertical extent
+               overlaps).
+
+               Fix: lift the form overlay above all sibling content sections
+               by giving the overlay a higher z-index, and giving the content
+               sections an explicit lower z-index with position: relative
+               (z-index has no effect without a positioned ancestor). */
+            .syj-form-overlay {
+              z-index: 10;
+            }
+            .syj-hero,
+            .syj-credentials-section,
+            .syj-body-section {
+              position: relative;
+              z-index: 1;
             }
           }
 
