@@ -101,17 +101,63 @@ export default function WellbeingForm({
   const severityIndex = severity === null ? 0 : SEVERITY_LABELS.indexOf(severity);
   const severityThumbColour = severity === null ? SEVERITY_COLOURS[0] : SEVERITY_COLOURS[severityIndex];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Honeypot — invisible field that real users won't fill, but bots will.
+  // If non-empty, the API silently rejects.
+  const [honeypot, setHoneypot] = useState('');
+  // Error message from API or network.
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!consent) return;
     setSubmitting(true);
-    // Dummy submit — replace with actual POST to ESP/email when wired
-    setTimeout(() => {
+    setSubmitError(null);
+
+    // Map form fields to API payload shape.
+    // - "name" splits into firstName + optional lastName (form has one combined field)
+    // - severity label ("Tolerable" / "Intense" / etc.) maps to number 1-4
+    // - "condition" array becomes "issues" (renamed for clarity)
+    // - if "Other" was selected, append otherText so it appears in the lead notification
+    const nameParts = name.trim().split(/\s+/);
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' ') || undefined;
+    const severityNumber = severity ? SEVERITY_LABELS.indexOf(severity) + 1 : undefined;
+    const issuesWithOther = condition.includes('Other') && otherText.trim()
+      ? [...condition.filter(c => c !== 'Other'), `Other: ${otherText.trim()}`]
+      : condition;
+
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      mobile,
+      issues: issuesWithOther,
+      goal: magicWand,
+      severity: severityNumber,
+      consent,
+      website: honeypot,
+    };
+
+    try {
+      const res = await fetch('/api/submit-wellbeing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setSubmitError(data.error || 'Something went wrong. Please try again.');
+        setSubmitting(false);
+        return;
+      }
       setSubmitting(false);
       setSubmitted(true);
       // Trigger PDF download immediately after showing confirmation
       setTimeout(triggerDownload, 200);
-    }, 800);
+    } catch (err) {
+      setSubmitError('Network error — please check your connection and try again.');
+      setSubmitting(false);
+    }
   };
 
   const inputStyle: React.CSSProperties = {
@@ -172,6 +218,25 @@ export default function WellbeingForm({
         padding: '40px 32px',
         borderRadius: 4,
       }}>
+        {/* HONEYPOT — visually hidden field that real users won't fill. Bots
+            that auto-fill forms will populate it, and the API silently
+            rejects those submissions. Positioned off-screen rather than
+            display:none because some bots check for visibility. */}
+        <div style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
+          <label htmlFor="wf-website">
+            Website (leave blank)
+            <input
+              type="text"
+              id="wf-website"
+              name="website"
+              value={honeypot}
+              onChange={e => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </label>
+        </div>
+
         <h2 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', textAlign: 'center', lineHeight: 1.2, marginBottom: 14 }}>
           {heading}
         </h2>
@@ -317,6 +382,20 @@ export default function WellbeingForm({
         >
           {submitting ? 'Submitting…' : submitButtonText}
         </button>
+
+        {submitError && (
+          <div style={{
+            marginTop: 16,
+            padding: '12px 16px',
+            background: 'rgba(220, 38, 38, 0.15)',
+            border: '1px solid rgba(220, 38, 38, 0.5)',
+            borderRadius: 4,
+          }}>
+            <p style={{ fontSize: '0.9rem', fontWeight: 400, color: '#ff8c8c', textAlign: 'center', lineHeight: 1.5, margin: 0 }}>
+              {submitError}
+            </p>
+          </div>
+        )}
       </form>
 
       {/* Form CSS — focus invert, pill toggles, custom checkbox, slider */}

@@ -371,17 +371,68 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
   //   GREEN  — minimum met AND key optional fields all filled
   const buttonColour = isComprehensive ? '#2cd12c' : canSubmit ? '#ff8c00' : '#808080';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Honeypot — invisible field that real users won't fill, but bots will.
+  // If it has a value when submit fires, the API silently rejects.
+  const [honeypot, setHoneypot] = useState('');
+  // Error message from the API or network.
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     onSubmitAttempt();
     if (!canSubmit) return;
     setSubmitting(true);
-    // TODO: replace with real backend POST
-    // Submission payload would include all field state above plus signature data URL
-    setTimeout(() => {
+    setSubmitError(null);
+
+    // Build submission payload from all form state
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      mobile,
+      dob,
+      postcode,
+      pregnancy,
+      trimester,
+      emergencyName,
+      emergencyNumber,
+      gpName,
+      gpPractice,
+      medications,
+      musculoskeletal,
+      symptoms,
+      history,
+      cancer,
+      cancerDetails,
+      hearAbout,
+      hearAboutOther,
+      notes,
+      consent1,
+      consent2,
+      consent3,
+      declarationConsent,
+      signature,
+      website: honeypot, // Honeypot — empty for real users
+    };
+
+    try {
+      const res = await fetch('/api/submit-questionnaire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setSubmitError(data.error || 'Something went wrong. Please try again.');
+        setSubmitting(false);
+        return;
+      }
       setSubmitting(false);
       setSubmitted(true);
-    }, 800);
+    } catch (err) {
+      setSubmitError('Network error — please check your connection and try again.');
+      setSubmitting(false);
+    }
   };
 
   // Shared input style (matches WellbeingForm conventions)
@@ -463,6 +514,25 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         padding: '32px 28px',
         borderRadius: 4,
       }}>
+
+        {/* HONEYPOT — visually hidden field that real users won't fill. Bots
+            that auto-fill forms will populate it, and the API silently
+            rejects those submissions. Positioned off-screen rather than
+            display:none because some bots check for visibility. */}
+        <div style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
+          <label htmlFor="qf-website">
+            Website (leave blank)
+            <input
+              type="text"
+              id="qf-website"
+              name="website"
+              value={honeypot}
+              onChange={e => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </label>
+        </div>
 
         {/* ── PERSONAL DETAILS ────────────────────────────────── */}
         <p style={sectionLabelStyle}>Personal details</p>
@@ -707,6 +777,20 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
           <p style={{ fontSize: '0.85rem', fontWeight: 400, color: '#ff8c8c', marginTop: 12, textAlign: 'center', lineHeight: 1.5 }}>
             Please complete all required fields. Required: first name, email, the three condition sections, the three consent boxes, your signature, and the declaration tickbox above.
           </p>
+        )}
+
+        {submitError && (
+          <div style={{
+            marginTop: 16,
+            padding: '12px 16px',
+            background: 'rgba(220, 38, 38, 0.15)',
+            border: '1px solid rgba(220, 38, 38, 0.5)',
+            borderRadius: 4,
+          }}>
+            <p style={{ fontSize: '0.9rem', fontWeight: 400, color: '#ff8c8c', textAlign: 'center', lineHeight: 1.5, margin: 0 }}>
+              {submitError}
+            </p>
+          </div>
         )}
 
       </form>
