@@ -145,8 +145,16 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
               <h2 className="cs-benefits-title">{props.benefitsTitle}</h2>
               {props.benefits.map((b) => (
                 <div key={b.title} className="cs-benefit-item">
-                  <h3 className="cs-benefit-head">{b.title}</h3>
-                  <p className="cs-benefit-body">{b.body}</p>
+                  <img
+                    src="/tick-svg.svg"
+                    alt=""
+                    className="cs-benefit-tick"
+                    aria-hidden="true"
+                  />
+                  <div className="cs-benefit-text">
+                    <h3 className="cs-benefit-head">{b.title}</h3>
+                    <p className="cs-benefit-body">{b.body}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -209,6 +217,8 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           width: 100%;
           min-height: 540px;
           overflow: hidden;
+          display: flex;
+          align-items: flex-end;
         }
         .cs-hero-image {
           position: absolute;
@@ -223,12 +233,13 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         .cs-hero-content {
           position: relative;
           z-index: 2;
-          padding: 80px 24px 60px;
+          padding: 40px 24px 40px;
           display: flex;
           flex-direction: column;
           gap: 32px;
           max-width: 1600px;
           margin: 0 auto;
+          width: 100%;
         }
         .cs-hero-text {
           max-width: 700px;
@@ -270,9 +281,9 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           }
           .cs-hero-content {
             flex-direction: row;
-            align-items: flex-start;
+            align-items: flex-end;
             justify-content: space-between;
-            padding: 100px 80px 80px;
+            padding: 60px 80px 60px;
             gap: 48px;
           }
           .cs-hero-text {
@@ -323,6 +334,19 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         }
         .cs-benefit-item {
           margin-bottom: 24px;
+          display: flex;
+          align-items: flex-start;
+          gap: 14px;
+        }
+        .cs-benefit-tick {
+          width: 22px;
+          height: 22px;
+          flex-shrink: 0;
+          margin-top: 4px;
+        }
+        .cs-benefit-text {
+          flex: 1;
+          min-width: 0;
         }
         .cs-benefit-head {
           font-size: 1rem;
