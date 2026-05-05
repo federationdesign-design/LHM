@@ -149,41 +149,43 @@ const videos = [
 // To swap to real images later: replace each `src` with the real
 // path (e.g. /gallery/01.jpg) and adjust span/aspect to suit.
 const gallery: { src: string; alt: string; span: 2 | 3 | 6; aspect: string }[] = [
-  // Row 1: 3 portraits
-  { src: '/gallery-placeholder-portrait.jpg',  alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/gallery-placeholder-portrait.jpg',  alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/gallery-placeholder-portrait.jpg',  alt: '', span: 2, aspect: '3 / 4' },
-  // Row 2: 1 landscape (half) + 1 landscape (half)
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  // Row 3: 3 squares
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  // Row 4: 2 landscape
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  // Row 5: 2 landscape
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  // Row 6: 3 squares
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  // Row 7: 1 full-width landscape
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 6, aspect: '16 / 7' },
-  // Row 8: 2 landscape
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  // Row 9: 3 squares
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  // Row 10: 2 landscape
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  // Row 11: 1 full-width
-  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 6, aspect: '16 / 7' },
+  { src: '/21c4036c-feae-48b8-a539-64338850279d.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/26042d42-dec0-439d-a36c-6756ba1aeb94.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/b3ec0456-0550-469c-8121-99e3fef95064.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/chair.jpg',  alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/chair2.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/chair3.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/chair4.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/exercises1.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-23.jpg', alt: '', span: 6, aspect: '16 / 7' },
+  { src: '/lucy-hall-massage-25.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-36.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/exercises2.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/excercises3.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-42.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/b7d62880-47c2-46b1-bd1f-d99662f9895c.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/d730a508-6c23-4661-9335-64c79b68d5fe.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/lucy-hall-massage-44.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-47.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-57.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-74.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/lucy-hall-massage-95.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/lucy-hall-massage-96.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/lucy-hall-massage-112.jpg', alt: '', span: 6, aspect: '16 / 7' },
+  { src: '/lucy-hall-massage-114.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-116.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-124.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-160.jpg', alt: '', span: 2, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-177.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/lucy-hall-massage-202.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/lucy-hall-massage-218.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/lucy-hall-massage-223.jpg', alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/lucy-hall-massage-227.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-228.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/lucy-hall-massage-232.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/lucy-hall-massage-233.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/lucy-hall-massage-235.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/lucy-hall-massage-236.jpg', alt: '', span: 6, aspect: '16 / 7' },
 ];
 
 // ── TESTIMONIALS ──────────────────────────────────────────────
