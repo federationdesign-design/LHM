@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '../Footer';
@@ -79,20 +80,65 @@ const services = [
 ];
 
 // ── TESTIMONIALS ──────────────────────────────────────────────
-// Currently duplicated as placeholders. Replace with real corp
-// testimonial content as it comes in.
+// Real corporate testimonials. Logos point to /public assets;
+// /company-placeholder.png is used for companies we don't have a
+// brand logo for.
 const corpTestimonials = [
   {
     body:
-      '“Lucy provided corporate massage at our offices giving targeted help with specific discomfort or general relaxation from the all too real strains of a desk job. Unfailingly polite and supportive she also provided advice and guidance on exercises and posture outside of treatment. Her attentive and interested attitude to her clients was exceptional and quickly changed the sessions from a nice treat to an essential part of self care and well being.”',
-    attribution: 'University of Cambridge',
+      '“We have always been big fans of Lucy and her team when they would visit the offices for in-person massages. Unfortunately, due to the current situation we knew those would not be an option for the foreseeable future, but we jumped at the chance to offer the next best thing — zoom consultations with a therapist. Amazing experience! Attendees were able to have 1:1 time with one of Lucy\'s expert team to talk through any niggles, aches and pains they were experiencing, and get personally tailored advice, exercises and stretches to alleviate these. We have been using Lucy Hall massage for years at Redgate, initially for in-person massages and recently the zoom consultations. No matter the format of the interactions the feedback is always the same — expert therapists, actionable advice, personable and professional.”',
+    name: 'Louise Domeisen',
+    company: 'Redgate',
+    logo: '/redgate-logo.png',
+  },
+  {
+    body:
+      '“Lucy and her team have a great reputation in the industry and we wanted the best for our staff. Her team make you feel like you are important, they listen to what you say and advise accordingly, they give their full attention to you during your time and nothing is too much trouble. Lucy\'s team listen to what you need as a business, advising and giving their expertise but happy to do what is good for you and your team. All of our staff come back into the office singing their praises. Lucy feels like a member of our team, part of the family. Everybody looks forward to the days when Lucy and her team come into the office, she is so relaxed and organised makes everyone feel at ease nobody feels uncomfortable and if they do after one visit they realise how important and special she makes you feel you are totally at ease.”',
+    name: 'Maria Slater',
+    company: 'Spotify',
+    logo: '/spotify.png',
+  },
+  {
+    body:
+      '“This review is on behalf of Costello Medical. We regularly use Lucy Hall Massage as part of our ongoing wellbeing initiative and consistently receive excellent feedback from our employees. Lucy takes the time to provide employees with personalised advice and guidance on their posture, which has been highly valued by staff. We look forward to continue working with Lucy in the future.”',
+    name: 'Emma King',
+    company: 'Costello Medical',
+    logo: '/company-placeholder.png',
+  },
+  {
+    body:
+      '“Lucy and her team are always professional, prompt and provides a friendly service. The entire Spotify office love her and the team! Many members of staff have also used Lucy Hall Massage privately since. Highly recommended!”',
+    name: 'Ginelle Richardson',
+    company: 'Spotify',
+    logo: '/spotify.png',
+  },
+  {
+    body:
+      '“The sessions are not only relaxing but also really helpful for posture correction, especially for those of us who spend long hours at our desks. We noticed reduced tension and overall better well-being. It\'s a great way to relieve stress and improve workplace comfort. Thanks for providing this service — it\'s definitely making a positive impact!”',
+    name: 'Nataliia Matsuk',
+    company: 'Amazon',
+    logo: '/amazon.png',
+  },
+  {
+    body:
+      '“We have been regular clients of Lucy for the past two years. Both she and Katerina check our posture at our desks and offer valuable advice that has significantly helped us improve our pain management and overall health. Their visits are always positive, and it is a pleasure to have them in the office.”',
+    name: 'Natasha Gobec',
+    company: 'Softwire',
+    logo: '/company-placeholder.png',
+  },
+  {
+    body:
+      '“We use Lucy Hall as part of supporting Wellbeing for colleagues at the Clinical School, these sessions are always in high demand! Thank you Lucy and your team.”',
+    name: 'Isobel Jordan',
+    company: 'Clinical School of Medicine',
     logo: '/university-cambridge.png',
   },
   {
     body:
-      '“Lucy provided corporate massage at our offices giving targeted help with specific discomfort or general relaxation from the all too real strains of a desk job. Unfailingly polite and supportive she also provided advice and guidance on exercises and posture outside of treatment. Her attentive and interested attitude to her clients was exceptional and quickly changed the sessions from a nice treat to an essential part of self care and well being.”',
-    attribution: 'University of Cambridge',
-    logo: '/university-cambridge.png',
+      '“We\'ve been lucky enough to benefit from Lucy\'s assessments and treatments over the years. It\'s a nice perk to look forward to, yet for others the consultative advice Lucy gives (about work stations, posture, remedial stretches and exercises etc.) has really made a genuine difference to their wellbeing and happiness. I cannot recommend her enough!”',
+    name: 'Steve Mann',
+    company: 'Brand Recruitment',
+    logo: '/company-placeholder.png',
   },
 ];
 
@@ -106,6 +152,17 @@ const ChevronRight = ({ size = 24 }: { size?: number }) => (
 // ── MAIN ──────────────────────────────────────────────────────
 
 export default function CorporateHomeClient() {
+  // Mobile carousel state for the testimonials block
+  const [activeIdx, setActiveIdx] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  // Sync carousel translation when active index changes
+  useEffect(() => {
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(-${activeIdx * 100}%)`;
+    }
+  }, [activeIdx]);
+
   return (
     <>
       <CorporateNav />
@@ -245,16 +302,63 @@ export default function CorporateHomeClient() {
         {/* ── CREDIBILITY TESTIMONIALS ─────────────────────── */}
         <section className="corp-credibility">
           <h2 className="corp-credibility-heading">Credibility:</h2>
+
+          {/* Mobile carousel — single testimonial visible at a time
+              with dots pager. Hidden on desktop via CSS. */}
+          <div className="corp-credibility-mobile">
+            <div className="corp-credibility-track-wrap">
+              <div ref={trackRef} className="corp-credibility-track">
+                {corpTestimonials.map((t, i) => (
+                  <div key={i} className="corp-credibility-slide">
+                    <div className="corp-credibility-item">
+                      <p className="corp-credibility-body">{t.body}</p>
+                      <div className="corp-credibility-attribution">
+                        <img
+                          src={t.logo}
+                          alt={t.company}
+                          className="corp-credibility-logo"
+                          draggable={false}
+                        />
+                        <div>
+                          <p className="corp-credibility-name">{t.name}</p>
+                          <p className="corp-credibility-company">{t.company}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="corp-credibility-dots">
+              {corpTestimonials.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  className={`corp-credibility-dot ${i === activeIdx ? 'corp-credibility-dot--active' : ''}`}
+                  onClick={() => setActiveIdx(i)}
+                  aria-label={`Show testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop 2-column grid — all 8 visible. Hidden on mobile. */}
           <div className="corp-credibility-grid">
             {corpTestimonials.map((t, i) => (
               <div key={i} className="corp-credibility-item">
                 <p className="corp-credibility-body">{t.body}</p>
-                <img
-                  src={t.logo}
-                  alt={t.attribution}
-                  className="corp-credibility-logo"
-                  draggable={false}
-                />
+                <div className="corp-credibility-attribution">
+                  <img
+                    src={t.logo}
+                    alt={t.company}
+                    className="corp-credibility-logo"
+                    draggable={false}
+                  />
+                  <div>
+                    <p className="corp-credibility-name">{t.name}</p>
+                    <p className="corp-credibility-company">{t.company}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -674,6 +778,8 @@ export default function CorporateHomeClient() {
         }
 
         /* ── CREDIBILITY TESTIMONIALS ────────────────────────── */
+        /* Mobile: carousel showing one testimonial at a time, with
+           dots pager. Desktop: 2-column grid showing all 8 at once. */
         .corp-credibility {
           padding: 60px 24px;
           max-width: 1600px;
@@ -685,11 +791,33 @@ export default function CorporateHomeClient() {
           color: #ffffff;
           margin: 0 0 32px;
         }
-        .corp-credibility-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 40px;
+
+        /* Mobile carousel */
+        .corp-credibility-mobile {
+          display: block;
         }
+        .corp-credibility-track-wrap {
+          overflow: hidden;
+          width: 100%;
+        }
+        .corp-credibility-track {
+          display: flex;
+          width: 100%;
+          transition: transform 0.4s ease;
+          will-change: transform;
+        }
+        .corp-credibility-slide {
+          flex: 0 0 100%;
+          width: 100%;
+          padding: 0 4px;
+        }
+
+        /* Desktop grid (hidden on mobile) */
+        .corp-credibility-grid {
+          display: none;
+        }
+
+        /* Shared item internals (used by both carousel + grid) */
         .corp-credibility-item {
           display: flex;
           flex-direction: column;
@@ -703,22 +831,72 @@ export default function CorporateHomeClient() {
           margin: 0;
           opacity: 0.92;
         }
+        .corp-credibility-attribution {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
         .corp-credibility-logo {
           max-height: 36px;
+          max-width: 120px;
           width: auto;
           height: auto;
           object-fit: contain;
-          align-self: flex-start;
+          flex-shrink: 0;
           filter: brightness(0) invert(1);
           opacity: 0.9;
         }
+        .corp-credibility-name {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0 0 2px;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+        }
+        .corp-credibility-company {
+          font-size: 0.85rem;
+          font-weight: 300;
+          color: #ffffff;
+          margin: 0;
+          opacity: 0.7;
+        }
+
+        /* Dots pager */
+        .corp-credibility-dots {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 32px;
+        }
+        .corp-credibility-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          border: 1.5px solid rgba(255,255,255,0.6);
+          background: transparent;
+          padding: 0;
+          cursor: pointer;
+          transition: background 0.25s ease, border-color 0.25s ease;
+        }
+        .corp-credibility-dot--active {
+          background: #ffffff;
+          border-color: #ffffff;
+        }
+
+        /* Desktop overrides */
         @media (min-width: 1024px) {
           .corp-credibility {
             padding: 80px 80px;
           }
+          /* Hide mobile carousel, show desktop grid */
+          .corp-credibility-mobile {
+            display: none;
+          }
           .corp-credibility-grid {
+            display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 60px 60px;
           }
         }
 
