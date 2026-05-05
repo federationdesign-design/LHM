@@ -1,0 +1,224 @@
+/* ─────────────────────────────────────────────────────────────
+   Testimonials.module.css
+
+   Shared styles for the <Testimonials /> component.
+
+   Lifted from app/page.module.css and updated:
+
+     1. ALL TEXT SIZES DOUBLED (avatar 1.2 → 2.4rem, name 1.1 →
+        2.2rem, title 0.85 → 1.7rem, body 0.88 → 1.76rem,
+        star 1.4 → 2.8rem, date 0.75 → 1.5rem). Heading sizes
+        also scaled (1.9 → 3.8rem mobile, 2.2 → 4.4rem tablet,
+        2.4 → 4.8rem desktop).
+
+        Avatar circle, slide padding, and gap values increased
+        to match the new larger type scale so layout stays
+        proportional rather than cramped.
+
+     2. WIDTH FIX AT SOURCE. Old page.module.css had
+        max-width: 1200px on .testimonialsSection at desktop,
+        which is why the inline 1600px override on the splash
+        couldn't win. Now the section is 1600px max-width with
+        proper padding, no specificity hack needed anywhere.
+
+     3. MOBILE CAROUSEL + DESKTOP GRID split preserved exactly
+        as before. The break is at 1025px to match the rest of
+        the site's desktop breakpoint.
+
+     4. HEADING uses the same shared style for any consumer
+        (private testimonials, company-clients heading on
+        splash, etc.) so they all stay in visual sync.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── SECTION WRAPPER ─────────────────────────────────────── */
+.section {
+  padding-top: 28px;
+  padding-bottom: 20px;
+  overflow: hidden;
+}
+
+/* ── HEADING ────────────────────────────────────────────── */
+/* Exposed as `.heading` for the testimonials block itself
+   AND consumed by other places (e.g. the company clients
+   "Happy company clients include" headline on the splash)
+   via the exported `headingClassName` constant in the
+   component file. */
+.heading {
+  font-size: 1.9rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 24px;
+  line-height: 1.2;
+  padding: 0 28px;
+}
+
+/* ── MOBILE CAROUSEL ─────────────────────────────────────── */
+.track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.trackNoAnim {
+  display: flex;
+  transition: none;
+}
+
+.slide {
+  width: 100%;
+  flex-shrink: 0;
+  text-align: center;
+  padding: 0 56px;
+}
+
+/* ── CARD INTERNALS (used by both carousel + grid) ───────── */
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 auto 20px;
+}
+
+.name {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.body {
+  font-size: 1.76rem;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.star {
+  color: #f5a623;
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.date {
+  font-size: 1.5rem;
+  color: #888480;
+  margin-bottom: 20px;
+}
+
+/* ── DOTS (mobile carousel pager) ────────────────────────── */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.dotActive {
+  background: #ffffff;
+}
+
+/* ── DESKTOP GRID (hidden by default, shown ≥1025px) ─────── */
+.grid {
+  display: none;
+}
+
+.gridSlide {
+  text-align: center;
+}
+
+/* ── TABLET ──────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .heading {
+    font-size: 2.2rem;
+  }
+  .slide {
+    padding: 0 80px;
+  }
+}
+
+/* ── DESKTOP ─────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  /* Section now 1600px max-width, no more 1200px cap. This is
+     the source-level fix that replaces the inline-style hack
+     SplashClient was using. */
+  .section {
+    padding: 60px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .heading {
+    font-size: 2.4rem;
+    margin-bottom: 48px;
+  }
+
+  /* Hide carousel + dots, show grid */
+  .track,
+  .trackNoAnim,
+  .dots {
+    display: none;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  /* Card text smaller on desktop than mobile/tablet — successive
+     reductions: original mobile sizes were doubled, then dropped
+     10% on desktop, then 10% again for finer balance, then 20%
+     more for the final desktop scale. */
+  .avatar {
+    width: 62px;
+    height: 62px;
+    font-size: 1.5552rem;
+  }
+  .name {
+    font-size: 1.4256rem;
+  }
+  .title {
+    font-size: 1.1016rem;
+  }
+  .body {
+    font-size: 1.1408rem;
+  }
+  .star {
+    font-size: 1.8144rem;
+  }
+  .date {
+    font-size: 0.972rem;
+  }
+}

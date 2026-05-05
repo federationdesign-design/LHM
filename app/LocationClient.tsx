@@ -4,17 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
 import Nav from './Nav';
 import Footer from './Footer';
+import Testimonials from './components/Testimonials/Testimonials';
 import type { Location } from './data/locations';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
-
-
-// ── TESTIMONIALS DATA ─────────────────────────────────────────────────────────
-const testimonials = [
-  { name: 'Sarah Cater', title: 'Fantastic Swedish massage with Antonia', body: 'This was one of the best massages I have had over the 30 years of having them. I was very tight in many areas of my body and Antonia focused on what was the most needed and explained why I had the tension and how to avoid it going forward. I am definitely going back.', date: '30/03/2026, 11:09:27', avatar: 'S' },
-  { name: 'Suleyman Adanir', title: 'Swedish massage with Antonia', body: 'A very relaxing Swedish massage with Antonia. The room was clean and calming, and she was professional and attentive throughout. I left feeling refreshed and comfortable. I will definitely return.', date: '04/02/2026, 22:21:40', avatar: 'S' },
-  { name: 'Alice W', title: 'Orla is brilliant', body: 'I have recommended Lucy Hall massage to so many people as they are second to none. Their services are thorough and affordable. Orla is professional, friendly, kind and made me feel so comfortable. She really is brilliant at her job and very knowledgeable.', date: '10/12/2025, 11:29:47', avatar: 'A' },
-];
 
 // ── LOGOS DATA ────────────────────────────────────────────────────────────────
 const logos = [
@@ -25,7 +18,6 @@ const logos = [
   { src: '/where-logo.png', alt: 'Wheree' },
 ];
 
-// ── MOBILE MENU ───────────────────────────────────────────────────────────────
 // ── MAPBOX MAP ────────────────────────────────────────────────────────────────
 function MapboxMap({ lat, lng, name }: { lat: number; lng: number; name: string }) {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -145,67 +137,6 @@ function BookingWidget({ locationId }: { locationId: string }) {
   return <div id={widgetId} ref={containerRef} style={{ width: '100%' }} />;
 }
 
-// ── TESTIMONIALS ──────────────────────────────────────────────────────────────
-function Testimonials() {
-  const total = testimonials.length;
-  const extended = [testimonials[total - 1], ...testimonials, testimonials[0]];
-  const [index, setIndex] = useState(1);
-  const [animate, setAnimate] = useState(true);
-  const startX = useRef(0); const startY = useRef(0);
-  const go = (n: number) => { setAnimate(true); setIndex(n); };
-  const handleTransitionEnd = () => {
-    if (index === 0) { setAnimate(false); setIndex(total); }
-    else if (index === total + 1) { setAnimate(false); setIndex(1); }
-  };
-  const onTouchStart = (e: React.TouchEvent) => { startX.current = e.touches[0].clientX; startY.current = e.touches[0].clientY; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    const dx = startX.current - e.changedTouches[0].clientX, dy = Math.abs(startY.current - e.changedTouches[0].clientY);
-    if (Math.abs(dx) > 40 && Math.abs(dx) > dy) go(index + (dx > 0 ? 1 : -1));
-  };
-  const realIndex = index === 0 ? total - 1 : index === total + 1 ? 0 : index - 1;
-
-  return (
-    <section className={styles.testimonialsSection}>
-      <h2 className={styles.testimonialsHeading}>Happy private<br />clients include</h2>
-      <div
-        className={animate ? styles.testimonialsTrack : styles.testimonialsTrackNoAnim}
-        style={{ transform: `translateX(calc(-${index * 100}%))` }}
-        onTransitionEnd={handleTransitionEnd}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-      >
-        {extended.map((t, i) => (
-          <div key={i} className={styles.testimonialSlide}>
-            <div className={styles.testimonialAvatar}>{t.avatar}</div>
-            <h4 className={styles.testimonialName}>{t.name}</h4>
-            <p className={styles.testimonialTitle}>{t.title}</p>
-            <p className={styles.testimonialBody}>{t.body}</p>
-            <div className={styles.testimonialStars}>{[...Array(5)].map((_, j) => <span key={j} className={styles.star}>★</span>)}</div>
-            <p className={styles.testimonialDate}>{t.date}</p>
-          </div>
-        ))}
-      </div>
-      <div className={styles.dots}>
-        {testimonials.map((_, i) => (
-          <button key={i} onClick={() => go(i + 1)} className={`${styles.dot} ${i === realIndex ? styles.dotActive : ''}`} />
-        ))}
-      </div>
-      <div className={styles.testimonialsGrid}>
-        {testimonials.map((t, i) => (
-          <div key={i} className={styles.testimonialsGridSlide}>
-            <div className={styles.testimonialAvatar}>{t.avatar}</div>
-            <h4 className={styles.testimonialName}>{t.name}</h4>
-            <p className={styles.testimonialTitle}>{t.title}</p>
-            <p className={styles.testimonialBody}>{t.body}</p>
-            <div className={styles.testimonialStars}>{[...Array(5)].map((_, j) => <span key={j} className={styles.star}>★</span>)}</div>
-            <p className={styles.testimonialDate}>{t.date}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 // ── LOGO SLIDER ───────────────────────────────────────────────────────────────
 function LogoSlider() {
   const total = logos.length;
@@ -303,7 +234,7 @@ export default function LocationClient({ location }: { location: Location }) {
         <div className={styles.divider} />
 
         {/* TESTIMONIALS */}
-        <Testimonials />
+        <Testimonials heading="Happy private clients include" />
 
         {/* LOGO SLIDER */}
         <LogoSlider />

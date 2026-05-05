@@ -1,36 +1,44 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useState, useRef } from 'react';
 import Image from 'next/image';
-import styles from './page.module.css';
 import Footer from './Footer';
 import SplashNav from './SplashNav';
+import Testimonials, { headingClassName } from './components/Testimonials/Testimonials';
+import styles from './page.module.css';
 
 /* ─────────────────────────────────────────────────────────────
    SplashClient — the disambiguation page rendered at /.
 
-   Updates in this revision:
+   ── Desktop (≥1024px) ────────────────────────────────────────
+   Unchanged. Two hero panels side-by-side with the spine, gutter,
+   and two-column elaboration zone.
 
-     1. SPINE EXTENDS HIGHER. top: -55px → -85px so the line
-        reaches up through the gap between the My Body / My Team
-        labels to the bottom of the full Lucy Hall logo.
+   ── Mobile + Tablet (<1024px) ────────────────────────────────
+   Uses the same SCROLL-DRIVEN HORIZONTAL TRANSLATE pattern as
+   ServicesCarousel on PrivateHomeClient.
 
-     2. "Happy company clients include" h3 now uses the same
-        styles.testimonialsHeading class as "Happy private clients
-        include" — they auto-stay in sync.
+   The hero zone is a 200vh-tall section. Inside it sits a sticky
+   100vh viewport that contains:
+     1. A 200vw filmstrip with two images side-by-side
+        (private | corporate). A scroll listener translates this
+        filmstrip from translateX(0) → translateX(-100vw) as the
+        user scrolls through the 200vh section.
+     2. A fixed text overlay (always visible, never translates):
+        - Two side-by-side headlines (Feeling Injured? | Work in HR?)
+        - White rule across the bottom
+        - "<< Private" left, "Corporate >>" right under the rule
+     3. A tap layer split 50/50:
+        - Left half → choose('private')
+        - Right half → choose('corporate')
 
-     3. COMPANY LOGOS SPREAD OUT. The .splash-clients-row uses
-        justify-content: space-between with no max-width on
-        desktop, mirroring the spread-out layout of the find-us-on
-        booking logos below. Logos sit at evenly-spaced intervals
-        across the full available width.
+   The text overlay sits ABOVE the filmstrip via z-index so the
+   headline content remains legible regardless of which image is
+   currently visible underneath.
 
-     4. TESTIMONIAL CARDS WIDER on desktop. The grid view (visible
-        on desktop, hidden on mobile in favour of the carousel)
-        gets a wider container via a .splash-wider-testimonials
-        wrapper class which overrides the page-module styles with
-        a larger max-width.
+   Below the hero zone, the elaboration text follows in a single-
+   column stack (this is unchanged from the existing mobile layout).
    ───────────────────────────────────────────────────────────── */
 
 // ── CONFIG ────────────────────────────────────────────────────
@@ -42,19 +50,12 @@ const CORPORATE_FALLBACK = '#9f879d';
 
 type Side = 'private' | 'corporate';
 
-// ── TESTIMONIALS ──────────────────────────────────────────────
-const testimonials = [
-  { name: 'Sarah Cater', title: 'Fantastic Swedish massage with Antonia', body: 'This was one of the best massages I have had over the 30 years of having them. I was very tight in many areas of my body and Antonia focused on what was the most needed and explained why I had the tension and how to avoid it going forward. I am definitely going back.', date: '30/03/2026', avatar: 'S' },
-  { name: 'Suleyman Adanir', title: 'Swedish massage with Antonia', body: 'A very relaxing Swedish massage with Antonia. The room was clean and calming, and she was professional and attentive throughout. I left feeling refreshed and comfortable. I will definitely return.', date: '04/02/2026', avatar: 'S' },
-  { name: 'Alice W', title: 'Orla is brilliant', body: 'I have recommended Lucy Hall massage to so many people as they are second to none. Their services are thorough and affordable. Orla is professional, friendly, kind and made me feel so comfortable. She really is brilliant at her job and very knowledgeable.', date: '10/12/2025', avatar: 'A' },
-];
-
 // ── COMPANY CLIENT LOGOS ──────────────────────────────────────
 const companyClients = [
-  { name: 'Spotify',                src: '/spotify.png' },
+  { name: 'Spotify',                 src: '/spotify.png' },
   { name: 'University of Cambridge', src: '/university-cambridge.png' },
-  { name: 'Amazon',                 src: '/amazon.png' },
-  { name: 'Redgate',                src: '/redgate-logo.png' },
+  { name: 'Amazon',                  src: '/amazon.png' },
+  { name: 'Redgate',                 src: '/redgate-logo.png' },
 ];
 
 // ── FIND-US-ON LOGOS ──────────────────────────────────────────
@@ -66,17 +67,6 @@ const findUsLogos = [
 ];
 
 // ── ARROWS ────────────────────────────────────────────────────
-const Arrow = () => (
-  <svg viewBox="0 0 24 24" fill="none" style={{ width: 14, height: 14 }}>
-    <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-const ArrowLeft = () => (
-  <svg viewBox="0 0 24 24" fill="none" style={{ width: 14, height: 14 }}>
-    <path d="M19 12H5M11 6l-6 6 6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 const ChevronRight = () => (
   <svg viewBox="0 0 24 24" fill="none" style={{ width: 120, height: 120 }}>
     <path d="M9 5l7 7-7 7" stroke="#fff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
@@ -87,6 +77,140 @@ const ChevronLeft = () => (
     <path d="M15 5l-7 7 7 7" stroke="#fff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
+
+// ── MOBILE/TABLET SCROLL-HERO COMPONENT ───────────────────────
+// Tightly coupled to the surrounding splash markup so kept inline
+// rather than extracted. Mirrors the ServicesCarousel pattern from
+// PrivateHomeClient but with two fixed images and a fixed text
+// overlay rather than slide content embedded in each frame.
+function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
+
+    let raf = 0;
+    const handleScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        // Desktop bypasses the scroll-driven translate entirely.
+        // The mobile section is hidden via CSS at ≥1024px so this
+        // is just a belt-and-braces guard.
+        if (window.innerWidth >= 1024) {
+          track.style.transform = '';
+          return;
+        }
+        const sectionTop = section.offsetTop;
+        const scrollY = window.scrollY;
+        const scrollable = section.offsetHeight - window.innerHeight;
+        if (scrollable <= 0) return;
+        const p = Math.max(0, Math.min(1, (scrollY - sectionTop) / scrollable));
+        // Two images, single 100vw pan. p=0 shows private (left
+        // half of filmstrip), p=1 shows corporate (right half).
+        track.style.transform = `translateX(-${p * 100}vw)`;
+      });
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="splash-m-hero"
+      aria-label="Choose Private or Corporate"
+    >
+      <div className="splash-m-hero-sticky">
+
+        {/* Filmstrip — 200vw of images, translated via JS */}
+        <div ref={trackRef} className="splash-m-hero-track">
+          <div
+            className="splash-m-hero-frame"
+            style={{ background: PRIVATE_FALLBACK }}
+          >
+            <Image
+              src="/Physiotherapy-desktop.jpg"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
+          </div>
+          <div
+            className="splash-m-hero-frame"
+            style={{ background: CORPORATE_FALLBACK }}
+          >
+            <Image
+              src="/corporate-signature-img.jpg"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
+          </div>
+        </div>
+
+        {/* Dark overlay for text legibility */}
+        <div className="splash-m-hero-overlay" aria-hidden="true" />
+
+        {/* Fixed text overlay — never translates */}
+        <div className="splash-m-hero-text">
+          <div className="splash-m-hero-text-grid">
+            <div className="splash-m-hero-text-col splash-m-hero-text-col--left">
+              <h2 className="splash-m-hero-headline">Feeling Injured?</h2>
+              <p className="splash-m-hero-sub">
+                Don&rsquo;t let poor posture, stress,<br />or injury hold you back
+              </p>
+            </div>
+            <div className="splash-m-hero-spine" aria-hidden="true" />
+            <div className="splash-m-hero-text-col splash-m-hero-text-col--right">
+              <h2 className="splash-m-hero-headline">Work in HR?</h2>
+              <p className="splash-m-hero-sub">
+                We can reduce sickness &amp;<br />absenteeism at work?
+              </p>
+            </div>
+          </div>
+
+          <div className="splash-m-hero-rule" />
+
+          <div className="splash-m-hero-links">
+            <span className="splash-m-hero-link">&lt;&lt;&nbsp;Private</span>
+            <span className="splash-m-hero-link">Corporate&nbsp;&gt;&gt;</span>
+          </div>
+        </div>
+
+        {/* Tap layer — left half = private, right half = corporate */}
+        <div className="splash-m-hero-taps" aria-hidden="false">
+          <button
+            type="button"
+            className="splash-m-hero-tap"
+            onClick={() => onChoose('private')}
+            aria-label="Choose private"
+          />
+          <button
+            type="button"
+            className="splash-m-hero-tap"
+            onClick={() => onChoose('corporate')}
+            aria-label="Choose corporate"
+          />
+        </div>
+
+      </div>
+    </section>
+  );
+}
 
 // ── MAIN ──────────────────────────────────────────────────────
 
@@ -110,114 +234,153 @@ export default function SplashClient() {
     }
   };
 
-  // ── TESTIMONIAL CAROUSEL STATE ──
-  const total = testimonials.length;
-  const extended = [testimonials[total - 1], ...testimonials, testimonials[0]];
-  const [tIndex, setTIndex] = useState(1);
-  const [tAnimate, setTAnimate] = useState(true);
-  const tStartX = useRef(0);
-  const goT = (n: number) => { setTAnimate(true); setTIndex(n); };
-  const onTTransitionEnd = () => {
-    if (tIndex === 0) { setTAnimate(false); setTIndex(total); }
-    else if (tIndex === total + 1) { setTAnimate(false); setTIndex(1); }
-  };
-  const tRealIndex = tIndex === 0 ? total - 1 : tIndex === total + 1 ? 0 : tIndex - 1;
-
   return (
     <>
       <SplashNav onSelect={choose} />
 
       <main style={{ background: '#000000', minHeight: '100vh' }}>
 
-        {/* ── DECISION ZONE ────────────────────────────────── */}
-        <div className="splash-decision-zone">
+        {/* ── DESKTOP DECISION ZONE (≥1024px) ───────────────── */}
+        <div className="splash-desktop-only">
+          <div className="splash-decision-zone">
 
-          <div className="splash-spine" aria-hidden="true" />
+            <div className="splash-spine" aria-hidden="true" />
 
-          {/* ── ZONE 1 — TWO HERO PANELS ────────────────────── */}
-          <section className="splash-panels">
+            <section className="splash-panels">
 
-            <button
-              type="button"
-              className="splash-panel splash-panel--left"
-              style={{ background: PRIVATE_FALLBACK }}
-              onClick={() => choose('private')}
-              aria-label="Choose private — feeling injured? Don't let poor posture, stress, or injury hold you back"
-            >
-              <Image
-                src="/Physiotherapy-desktop.jpg"
-                alt=""
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                style={{
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                  viewTransitionName: 'hero-image',
-                }}
-              />
-              <div className="splash-panel-overlay" />
-              <div className="splash-panel-content">
-                <h2 className="splash-panel-heading">Feeling Injured?</h2>
-                <p className="splash-panel-sub">
-                  Don&rsquo;t let poor posture, stress,<br />or injury hold you back
-                </p>
-                <div className="splash-panel-rule" />
-                <div className="splash-panel-link splash-panel-link--left">
-                  &lt;&lt;&nbsp;Private
+              <button
+                type="button"
+                className="splash-panel splash-panel--left"
+                style={{ background: PRIVATE_FALLBACK }}
+                onClick={() => choose('private')}
+                aria-label="Choose private — feeling injured? Don't let poor posture, stress, or injury hold you back"
+              >
+                <Image
+                  src="/Physiotherapy-desktop.jpg"
+                  alt=""
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    viewTransitionName: 'hero-image',
+                  }}
+                />
+                <div className="splash-panel-overlay" />
+                <div className="splash-panel-content">
+                  <h2 className="splash-panel-heading">Feeling Injured?</h2>
+                  <p className="splash-panel-sub">
+                    Don&rsquo;t let poor posture, stress,<br />or injury hold you back
+                  </p>
+                  <div className="splash-panel-rule" />
+                  <div className="splash-panel-link splash-panel-link--left">
+                    &lt;&lt;&nbsp;Private
+                  </div>
                 </div>
-              </div>
-            </button>
+              </button>
 
-            <div className="splash-panels-gutter" aria-hidden="true" />
+              <div className="splash-panels-gutter" aria-hidden="true" />
 
-            <button
-              type="button"
-              className="splash-panel splash-panel--right"
-              style={{ background: CORPORATE_FALLBACK }}
-              onClick={() => choose('corporate')}
-              aria-label="Choose corporate — work in HR? We can reduce sickness and absenteeism at work"
-            >
-              <Image
-                src="/corporate-signature-img.jpg"
-                alt=""
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-              />
-              <div className="splash-panel-overlay" />
-              <div className="splash-panel-content">
-                <h2 className="splash-panel-heading">Work in HR?</h2>
-                <p className="splash-panel-sub">
-                  We can reduce sickness &amp;<br />absenteeism at work?
-                </p>
-                <div className="splash-panel-rule" />
-                <div className="splash-panel-link splash-panel-link--right">
-                  Corporate&nbsp;&gt;&gt;
+              <button
+                type="button"
+                className="splash-panel splash-panel--right"
+                style={{ background: CORPORATE_FALLBACK }}
+                onClick={() => choose('corporate')}
+                aria-label="Choose corporate — work in HR? We can reduce sickness and absenteeism at work"
+              >
+                <Image
+                  src="/corporate-signature-img.jpg"
+                  alt=""
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+                <div className="splash-panel-overlay" />
+                <div className="splash-panel-content">
+                  <h2 className="splash-panel-heading">Work in HR?</h2>
+                  <p className="splash-panel-sub">
+                    We can reduce sickness &amp;<br />absenteeism at work?
+                  </p>
+                  <div className="splash-panel-rule" />
+                  <div className="splash-panel-link splash-panel-link--right">
+                    Corporate&nbsp;&gt;&gt;
+                  </div>
                 </div>
+              </button>
+
+            </section>
+
+            <section className="splash-elaborate">
+              <div className="splash-elaborate-grid">
+
+                <div className="splash-elaborate-col splash-elaborate-col--left">
+                  <button
+                    type="button"
+                    className="splash-elaborate-arrow splash-elaborate-arrow--left"
+                    onClick={() => choose('private')}
+                    aria-label="Continue as private client"
+                  >
+                    <span className="splash-elaborate-arrow-spacer" />
+                    <span className="splash-elaborate-arrow-label">Private client</span>
+                    <ChevronLeft />
+                  </button>
+                  <p className="splash-elaborate-lead">
+                    Our experienced team are specialised in physiotherapist and provide: Deep Tissue, Swedish massage and pregnancy.
+                  </p>
+                  <p className="splash-elaborate-body">
+                    Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage and physiotherapy, we help you move better, feel better, and get back to doing the things you love.
+                  </p>
+                  <a href="/tips-download" className="splash-elaborate-cta">
+                    Download our 5 tips to a healthy body
+                  </a>
+                </div>
+
+                <div className="splash-elaborate-gutter" aria-hidden="true" />
+
+                <div className="splash-elaborate-col splash-elaborate-col--right">
+                  <button
+                    type="button"
+                    className="splash-elaborate-arrow splash-elaborate-arrow--right"
+                    onClick={() => choose('corporate')}
+                    aria-label="Continue as corporate enquiry"
+                  >
+                    <ChevronRight />
+                    <span className="splash-elaborate-arrow-label">Corporate</span>
+                    <span className="splash-elaborate-arrow-spacer" />
+                  </button>
+                  <p className="splash-elaborate-lead">
+                    Incorporating our wellness initiatives into your employee benefits can lead to a happier, more focused workforce.
+                  </p>
+                  <p className="splash-elaborate-body">
+                    Transform your workplace into a hub of positivity and productivity by partnering with Lucy Hall Massage in Cambridge! In today&rsquo;s fast-paced environment, it&rsquo;s more important than ever to prioritise the well-being of your team. Imagine an atmosphere where employees feel energised, supported, and motivated to give their best every day.
+                  </p>
+                  <a href="/corporate/enquire" className="splash-elaborate-cta">
+                    Download our employer PDF
+                  </a>
+                </div>
+
               </div>
-            </button>
+            </section>
 
-          </section>
+          </div>
+        </div>
 
-          {/* ── ZONE 2 — TWO-COLUMN ELABORATION ─────────────── */}
-          <section className="splash-elaborate">
+        {/* ── MOBILE/TABLET HERO (<1024px) ──────────────────── */}
+        <div className="splash-mobile-only">
+          <MobileScrollHero onChoose={choose} />
+
+          {/* Mobile elaboration — split into two separate sections
+              with the chevron-panels block sandwiched between.
+              Order: private (top) → panels → corporate (bottom). */}
+
+          {/* 1. Private elaboration */}
+          <section className="splash-elaborate splash-mobile-elaborate splash-mobile-elaborate--private">
             <div className="splash-elaborate-grid">
-
               <div className="splash-elaborate-col splash-elaborate-col--left">
-                <button
-                  type="button"
-                  className="splash-elaborate-arrow splash-elaborate-arrow--left"
-                  onClick={() => choose('private')}
-                  aria-label="Continue as private client"
-                >
-                  <span className="splash-elaborate-arrow-spacer" />
-                  <span className="splash-elaborate-arrow-label">Private client</span>
-                  <ChevronLeft />
-                </button>
                 <p className="splash-elaborate-lead">
-                  Our experienced team are specialised in physiotherapist and provide: Deep Tissue, Swedish massage and pregnancy
+                  Our experienced team are specialised in physiotherapist and provide: Deep Tissue, Swedish massage and pregnancy.
                 </p>
                 <p className="splash-elaborate-body">
                   Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage and physiotherapy, we help you move better, feel better, and get back to doing the things you love.
@@ -226,20 +389,69 @@ export default function SplashClient() {
                   Download our 5 tips to a healthy body
                 </a>
               </div>
+            </div>
+          </section>
 
-              <div className="splash-elaborate-gutter" aria-hidden="true" />
+          {/* 2. Mobile-only chevron-panels block — sandwiched
+              between the two elaborations. Two rows, each 20vh:
+              corporate row (image left, label right), private row
+              (label left, image right). Whole row is tappable. */}
+          <section className="splash-m-panels" aria-label="Choose Private or Corporate">
 
+            <button
+              type="button"
+              className="splash-m-row splash-m-row--corporate"
+              onClick={() => choose('corporate')}
+              aria-label="Choose corporate — My Team"
+            >
+              <div className="splash-m-row-image">
+                <Image
+                  src="/corporate-signature-img.jpg"
+                  alt=""
+                  fill
+                  sizes="50vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              </div>
+              <div className="splash-m-row-chevron">
+                <span className="splash-m-row-title">My Team</span>
+                <svg viewBox="0 0 24 24" fill="none" style={{ width: 48, height: 48 }} aria-hidden="true">
+                  <path d="M9 5l7 7-7 7" stroke="#fff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="splash-m-row-side">Corporate</span>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className="splash-m-row splash-m-row--private"
+              onClick={() => choose('private')}
+              aria-label="Choose private — My Body"
+            >
+              <div className="splash-m-row-chevron splash-m-row-chevron--left">
+                <span className="splash-m-row-title">My Body</span>
+                <svg viewBox="0 0 24 24" fill="none" style={{ width: 48, height: 48 }} aria-hidden="true">
+                  <path d="M15 5l-7 7 7 7" stroke="#fff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="splash-m-row-side">Private client</span>
+              </div>
+              <div className="splash-m-row-image">
+                <Image
+                  src="/Physiotherapy-desktop.jpg"
+                  alt=""
+                  fill
+                  sizes="50vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              </div>
+            </button>
+
+          </section>
+
+          {/* 3. Corporate elaboration */}
+          <section className="splash-elaborate splash-mobile-elaborate splash-mobile-elaborate--corporate">
+            <div className="splash-elaborate-grid">
               <div className="splash-elaborate-col splash-elaborate-col--right">
-                <button
-                  type="button"
-                  className="splash-elaborate-arrow splash-elaborate-arrow--right"
-                  onClick={() => choose('corporate')}
-                  aria-label="Continue as corporate enquiry"
-                >
-                  <ChevronRight />
-                  <span className="splash-elaborate-arrow-label">Corporate</span>
-                  <span className="splash-elaborate-arrow-spacer" />
-                </button>
                 <p className="splash-elaborate-lead">
                   Incorporating our wellness initiatives into your employee benefits can lead to a happier, more focused workforce.
                 </p>
@@ -250,20 +462,15 @@ export default function SplashClient() {
                   Download our employer PDF
                 </a>
               </div>
-
             </div>
           </section>
 
         </div>
 
-        {/* ── ZONE 3a — HAPPY COMPANY CLIENTS ─────────────────── */}
-        {/* Heading now uses styles.testimonialsHeading to match the
-            "Happy private clients include" h3 style below. The logo
-            row spreads logos out using space-between, mirroring the
-            booking logo layout. */}
+        {/* ── HAPPY COMPANY CLIENTS ───────────────────────────── */}
         <section className="splash-clients">
-          <h3 className={styles.testimonialsHeading}>
-            Happy company<br />clients include
+          <h3 className={headingClassName}>
+            Happy company clients include
           </h3>
           <div className="splash-clients-row">
             {companyClients.map(c => (
@@ -281,50 +488,8 @@ export default function SplashClient() {
 
         <div className="splash-divider" />
 
-        {/* ── ZONE 3b — HAPPY PRIVATE CLIENTS (TESTIMONIALS) ──── */}
-        {/* The .splash-wider-testimonials wrapper overrides the
-            grid's max-width to 1600px on desktop while leaving the
-            carousel (mobile) untouched. */}
-        <section className={`${styles.testimonialsSection} splash-wider-testimonials`}>
-          <h3 className={styles.testimonialsHeading}>Happy private<br />clients include</h3>
-
-          <div
-            className={tAnimate ? styles.testimonialsTrack : styles.testimonialsTrackNoAnim}
-            style={{ transform: `translateX(calc(-${tIndex * 100}%))` }}
-            onTransitionEnd={onTTransitionEnd}
-            onTouchStart={e => { tStartX.current = e.touches[0].clientX; }}
-            onTouchEnd={e => { const dx = tStartX.current - e.changedTouches[0].clientX; if (Math.abs(dx) > 40) goT(tIndex + (dx > 0 ? 1 : -1)); }}
-          >
-            {extended.map((t, i) => (
-              <div key={i} className={styles.testimonialSlide}>
-                <div className={styles.testimonialAvatar}>{t.avatar}</div>
-                <h4 className={styles.testimonialName}>{t.name}</h4>
-                <p className={styles.testimonialTitle}>{t.title}</p>
-                <p className={styles.testimonialBody}>{t.body}</p>
-                <div className={styles.testimonialStars}>{[...Array(5)].map((_, j) => <span key={j} className={styles.star}>★</span>)}</div>
-                <p className={styles.testimonialDate}>{t.date}</p>
-              </div>
-            ))}
-          </div>
-          <div className={styles.dots}>
-            {testimonials.map((_, i) => (
-              <button key={i} onClick={() => goT(i + 1)} className={`${styles.dot} ${i === tRealIndex ? styles.dotActive : ''}`} />
-            ))}
-          </div>
-
-          <div className={styles.testimonialsGrid}>
-            {testimonials.map((t, i) => (
-              <div key={i} className={styles.testimonialsGridSlide}>
-                <div className={styles.testimonialAvatar}>{t.avatar}</div>
-                <h4 className={styles.testimonialName}>{t.name}</h4>
-                <p className={styles.testimonialTitle}>{t.title}</p>
-                <p className={styles.testimonialBody}>{t.body}</p>
-                <div className={styles.testimonialStars}>{[...Array(5)].map((_, j) => <span key={j} className={styles.star}>★</span>)}</div>
-                <p className={styles.testimonialDate}>{t.date}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* ── TESTIMONIALS (shared component) ─────────────────── */}
+        <Testimonials heading="Happy private clients include" />
 
         {/* ── FIND US ON ──────────────────────────────────────── */}
         <div style={{ paddingTop: 40, paddingBottom: 40 }}>
@@ -344,50 +509,47 @@ export default function SplashClient() {
       </main>
 
       <style>{`
-        /* ── DECISION ZONE WRAPPER ──────────────────────────── */
+        /* ── VISIBILITY TOGGLES ──────────────────────────────── */
+        .splash-desktop-only { display: none; }
+        .splash-mobile-only  { display: block; }
+        @media (min-width: 1024px) {
+          .splash-desktop-only { display: block; }
+          .splash-mobile-only  { display: none; }
+        }
+
+        /* ── DESKTOP — original layout ───────────────────────── */
         .splash-decision-zone {
           position: relative;
           background: #000000;
         }
-
-        /* ── CONTINUOUS SPINE — extends UP further now ────────
-           top: -55px → -85px so the line reaches up through the
-           gap between My Body / My Team labels to the bottom of
-           the full logo. */
         .splash-spine {
-          display: none;
+          display: block;
+          position: absolute;
+          top: -85px;
+          bottom: 0;
+          left: 50%;
+          width: 2px;
+          background: #ffffff;
+          opacity: 0.7;
+          transform: translateX(-50%);
+          z-index: 3;
+          pointer-events: none;
         }
-        @media (min-width: 1024px) {
-          .splash-spine {
-            display: block;
-            position: absolute;
-            top: -85px;
-            bottom: 0;
-            left: 50%;
-            width: 2px;
-            background: #ffffff;
-            opacity: 0.7;
-            transform: translateX(-50%);
-            z-index: 3;
-            pointer-events: none;
-          }
-        }
-
-        /* ── HERO PANELS ─────────────────────────────────────── */
         .splash-panels {
           display: grid;
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr 90px 1fr;
           gap: 0;
           width: 100%;
         }
         .splash-panels-gutter {
-          display: none;
+          display: block;
+          background: #000000;
+          min-height: 78vh;
         }
-
         .splash-panel {
           position: relative;
           width: 100%;
-          min-height: 60vh;
+          min-height: 78vh;
           border: none;
           padding: 0;
           margin: 0;
@@ -410,8 +572,8 @@ export default function SplashClient() {
           display: flex;
           flex-direction: column;
           height: 100%;
-          min-height: 60vh;
-          padding: 80px 32px 60px;
+          min-height: 78vh;
+          padding: 120px 60px 70px;
           justify-content: flex-end;
         }
         .splash-panel--left .splash-panel-content {
@@ -422,7 +584,6 @@ export default function SplashClient() {
           text-align: left;
           align-items: flex-start;
         }
-
         .splash-panel-heading {
           font-size: clamp(1.6rem, 3.5vw, 2.4rem);
           font-weight: 600;
@@ -430,7 +591,7 @@ export default function SplashClient() {
           line-height: 1.15;
         }
         .splash-panel-sub {
-          font-size: clamp(1rem, 1.4vw, 1.2rem);
+          font-size: 1.2rem;
           font-weight: 300;
           margin: 0 0 28px;
           line-height: 1.5;
@@ -451,61 +612,38 @@ export default function SplashClient() {
           letter-spacing: 0.18em;
           color: #ffffff;
         }
-        .splash-panel-link--left {
-          text-align: left;
-        }
-        .splash-panel-link--right {
-          text-align: right;
-        }
-
+        .splash-panel-link--left  { text-align: left; }
+        .splash-panel-link--right { text-align: right; }
         .splash-panel:hover .splash-panel-overlay {
           background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.4) 100%);
         }
 
-        @media (min-width: 1024px) {
-          .splash-panels {
-            grid-template-columns: 1fr 90px 1fr;
-          }
-          .splash-panels-gutter {
-            display: block;
-            background: #000000;
-            min-height: 78vh;
-          }
-          .splash-panel {
-            min-height: 78vh;
-          }
-          .splash-panel-content {
-            min-height: 78vh;
-            padding: 120px 60px 70px;
-          }
-        }
-
-        /* ── ELABORATE / TWO-COLUMN BODY ─────────────────────── */
+        /* Two-column elaboration (desktop) */
         .splash-elaborate {
-          padding: 60px 24px 30px;
+          padding: 80px 60px 60px;
         }
         .splash-elaborate-grid {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 60px;
+          grid-template-columns: 1fr 90px 1fr;
+          gap: 0;
           max-width: 1600px;
           margin: 0 auto;
         }
         .splash-elaborate-gutter {
-          display: none;
+          display: block;
         }
-
         .splash-elaborate-col {
           position: relative;
           padding-top: 160px;
         }
         .splash-elaborate-col--left {
           text-align: right;
+          padding-right: 50px;
         }
         .splash-elaborate-col--right {
           text-align: left;
+          padding-left: 50px;
         }
-
         .splash-elaborate-arrow {
           position: absolute;
           top: 0;
@@ -525,48 +663,39 @@ export default function SplashClient() {
           width: 100%;
         }
         .splash-elaborate-arrow:hover { opacity: 1; }
-
-        .splash-elaborate-arrow-spacer {
-          flex: 1;
-        }
-
+        .splash-elaborate-arrow-spacer { flex: 1; }
         .splash-elaborate-arrow-label {
-          font-size: 1.1rem;
+          font-size: 1.5rem;
           letter-spacing: 0.05em;
           text-transform: none;
           font-weight: 400;
         }
-
         .splash-elaborate-lead {
-          font-size: 1.95rem;
+          font-size: 2.34rem;
           font-weight: 600;
           color: #ffffff;
-          line-height: 1.35;
+          line-height: 1.3;
           margin: 0 0 28px;
           letter-spacing: -0.01em;
         }
         .splash-elaborate-body {
-          font-size: 1.15rem;
+          font-size: 1.35rem;
           font-weight: 300;
           color: #ffffff;
-          line-height: 1.65;
+          line-height: 1.6;
           margin: 0 0 32px;
           opacity: 0.85;
-          letter-spacing: 0;
         }
-
         .splash-elaborate-cta {
           display: inline-block;
-          width: auto;
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           font-weight: 500;
           color: #ffffff;
           text-transform: uppercase;
           letter-spacing: 0.1em;
           line-height: 1.6;
-          padding: 16px 24px;
+          padding: 22px 32px;
           border: 1px solid rgba(255,255,255,0.4);
-          margin: 0;
           text-decoration: none;
           transition: background 0.2s ease, border-color 0.2s ease;
         }
@@ -575,45 +704,294 @@ export default function SplashClient() {
           border-color: rgba(255,255,255,0.7);
         }
 
-        @media (min-width: 1024px) {
-          .splash-elaborate {
-            padding: 80px 60px 60px;
+        /* ── MOBILE/TABLET — scroll-driven hero ─────────────── */
+        /* Scroll-snap (proximity) on the two mobile sections that
+           form the hero handoff. Each becomes a snap target so when
+           the user scrolls near the boundary, the browser nudges
+           them onto the next section. Outside the proximity zone
+           they free-scroll normally. The snap container is the
+           document root; targets are the hero section and the
+           elaboration block.
+
+           Important: scroll-snap-type lives on the SCROLL CONTAINER,
+           which is the document root on mobile. We apply it to the
+           html element only below 1024px so desktop stays free-scroll. */
+        @media (max-width: 1023px) {
+          html {
+            scroll-snap-type: y proximity;
           }
-          .splash-elaborate-grid {
-            grid-template-columns: 1fr 90px 1fr;
-            gap: 0;
-          }
-          .splash-elaborate-gutter {
-            display: block;
-          }
-          .splash-elaborate-col--left {
-            padding-right: 50px;
-          }
-          .splash-elaborate-col--right {
-            padding-left: 50px;
-          }
-          .splash-elaborate-lead {
-            font-size: 2.6rem;
-            line-height: 1.3;
-          }
-          .splash-elaborate-body {
-            font-size: 1.5rem;
-            line-height: 1.6;
-          }
-          .splash-elaborate-cta {
-            font-size: 0.95rem;
-            padding: 22px 32px;
-          }
-          .splash-elaborate-arrow-label {
-            font-size: 1.5rem;
+          .splash-m-hero,
+          .splash-mobile-elaborate--private,
+          .splash-m-panels,
+          .splash-mobile-elaborate--corporate {
+            scroll-snap-align: start;
+            scroll-snap-stop: normal;
           }
         }
 
+        .splash-m-hero {
+          position: relative;
+          background: #000000;
+          /* 200vh = 100vh per image. Scroll runway. */
+          height: 200vh;
+        }
+        .splash-m-hero-sticky {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          width: 100%;
+          overflow: hidden;
+        }
+        .splash-m-hero-track {
+          position: absolute;
+          inset: 0;
+          width: 200vw;
+          display: flex;
+          will-change: transform;
+        }
+        .splash-m-hero-frame {
+          position: relative;
+          width: 100vw;
+          height: 100%;
+          flex-shrink: 0;
+        }
+        .splash-m-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to bottom,
+            rgba(0,0,0,0.15) 0%,
+            rgba(0,0,0,0.35) 50%,
+            rgba(0,0,0,0.7) 100%);
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        /* Fixed text overlay */
+        .splash-m-hero-text {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 3;
+          padding: 0 24px 80px;
+          color: #ffffff;
+          pointer-events: none;
+        }
+        .splash-m-hero-text-grid {
+          display: grid;
+          grid-template-columns: 1fr 1px 1fr;
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+        .splash-m-hero-text-col {
+          display: flex;
+          flex-direction: column;
+        }
+        .splash-m-hero-text-col--left {
+          text-align: right;
+          padding-right: 16px;
+          align-items: flex-end;
+        }
+        .splash-m-hero-text-col--right {
+          text-align: left;
+          padding-left: 16px;
+          align-items: flex-start;
+        }
+        .splash-m-hero-spine {
+          width: 1px;
+          background: #ffffff;
+          align-self: stretch;
+        }
+        .splash-m-hero-headline {
+          font-size: 1.7rem;
+          font-weight: 600;
+          margin: 0 0 8px;
+          line-height: 1.15;
+        }
+        .splash-m-hero-sub {
+          font-size: 0.95rem;
+          font-weight: 300;
+          margin: 0;
+          line-height: 1.45;
+          opacity: 0.92;
+        }
+        .splash-m-hero-rule {
+          height: 1px;
+          background: rgba(255,255,255,0.7);
+          width: 100%;
+          margin-bottom: 14px;
+        }
+        .splash-m-hero-links {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .splash-m-hero-link {
+          font-size: 0.85rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+          color: #ffffff;
+        }
+
+        /* Tap layer — sits ABOVE the text overlay so taps register
+           even on the fixed text area. Buttons are transparent. */
+        .splash-m-hero-taps {
+          position: absolute;
+          inset: 0;
+          z-index: 4;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+        .splash-m-hero-tap {
+          background: transparent;
+          border: none;
+          padding: 0;
+          margin: 0;
+          cursor: pointer;
+          font-family: inherit;
+          color: transparent;
+        }
+        .splash-m-hero-tap:active {
+          background: rgba(255,255,255,0.05);
+        }
+
+        /* Tablet bumps text up a touch */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .splash-m-hero-text {
+            padding: 0 60px 100px;
+          }
+          .splash-m-hero-text-grid {
+            gap: 32px;
+            margin-bottom: 32px;
+          }
+          .splash-m-hero-text-col--left { padding-right: 32px; }
+          .splash-m-hero-text-col--right { padding-left: 32px; }
+          .splash-m-hero-headline {
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+          }
+          .splash-m-hero-sub {
+            font-size: 1.15rem;
+          }
+          .splash-m-hero-rule {
+            margin-bottom: 18px;
+          }
+          .splash-m-hero-link {
+            font-size: 1rem;
+          }
+        }
+
+        /* Mobile elaboration — single-column stack below the
+           horizontal-scroll hero. Shares some classes with the
+           desktop elaboration but overrides the grid template. */
+        .splash-mobile-elaborate {
+          padding: 60px 24px 30px;
+        }
+        .splash-mobile-elaborate .splash-elaborate-grid {
+          grid-template-columns: 1fr;
+          gap: 60px;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+        .splash-mobile-elaborate .splash-elaborate-col {
+          position: relative;
+          padding-top: 0;
+        }
+        .splash-mobile-elaborate .splash-elaborate-col--left {
+          text-align: left;
+          padding-right: 0;
+        }
+        .splash-mobile-elaborate .splash-elaborate-col--right {
+          text-align: left;
+          padding-left: 0;
+        }
+        .splash-mobile-elaborate .splash-elaborate-lead {
+          font-size: 1.95rem;
+          font-weight: 600;
+          color: #ffffff;
+          line-height: 1.35;
+          margin: 0 0 28px;
+          letter-spacing: -0.01em;
+        }
+        .splash-mobile-elaborate .splash-elaborate-body {
+          font-size: 1.15rem;
+          font-weight: 300;
+          color: #ffffff;
+          line-height: 1.65;
+          margin: 0 0 32px;
+          opacity: 0.85;
+        }
+        .splash-mobile-elaborate .splash-elaborate-cta {
+          font-size: 0.85rem;
+          padding: 16px 24px;
+        }
+
+        /* ── MOBILE PANELS-WITH-CHEVRONS BLOCK ──────────────── */
+        /* Two stacked rows below the elaboration. Each row is 40vh
+           and split 50/50 image | label. Whole row is a button. */
+        .splash-m-panels {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+        .splash-m-row {
+          position: relative;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: stretch;
+          width: 100%;
+          height: 20vh;
+          background: #000000;
+          border: none;
+          padding: 0;
+          margin: 0;
+          cursor: pointer;
+          font-family: inherit;
+          color: #ffffff;
+          overflow: hidden;
+        }
+        .splash-m-row-image {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        .splash-m-row-chevron {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: center;
+          gap: 4px;
+          padding: 0 24px;
+          text-align: right;
+          background: #000000;
+        }
+        .splash-m-row-chevron--left {
+          align-items: flex-start;
+          text-align: left;
+        }
+        .splash-m-row-title {
+          font-size: 1.4rem;
+          font-weight: 600;
+          color: #ffffff;
+          line-height: 1.1;
+        }
+        .splash-m-row-side {
+          font-size: 0.78rem;
+          font-weight: 400;
+          color: #ffffff;
+          opacity: 0.9;
+          letter-spacing: 0.02em;
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .splash-m-row-title { font-size: 2rem; }
+          .splash-m-row-side  { font-size: 0.95rem; }
+          .splash-m-row-chevron { padding: 0 48px; gap: 10px; }
+        }
+
         /* ── COMPANY CLIENTS STRIP ───────────────────────────── */
-        /* Logos now spread out across the available width using
-           justify-content: space-between, similar to the find-us-on
-           booking logos. No max-width constraint on desktop, just
-           padding from the viewport edges. */
         .splash-clients {
           padding: 40px 24px 40px;
           text-align: center;
@@ -630,9 +1008,7 @@ export default function SplashClient() {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-        .splash-clients-row::-webkit-scrollbar {
-          display: none;
-        }
+        .splash-clients-row::-webkit-scrollbar { display: none; }
         .splash-client-item {
           flex: 0 0 auto;
           display: flex;
@@ -651,7 +1027,6 @@ export default function SplashClient() {
           filter: brightness(0) invert(1);
           opacity: 0.9;
         }
-
         @media (min-width: 1024px) {
           .splash-clients {
             padding: 60px 60px 40px;
@@ -667,25 +1042,7 @@ export default function SplashClient() {
           }
         }
 
-        /* ── WIDER TESTIMONIALS WRAPPER ──────────────────────── */
-        /* The default page-module testimonialsGrid has a moderate
-           max-width. We override here to make it 1600px wide on
-           desktop, matching the elaboration zone above.
-
-           Using > * descendant selectors to reach the grid inside
-           without changing page.module.css (which would also affect
-           PrivateHomeClient). */
-        @media (min-width: 1024px) {
-          .splash-wider-testimonials [class*="testimonialsGrid"] {
-            max-width: 1600px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            padding-left: 40px !important;
-            padding-right: 40px !important;
-          }
-        }
-
-        /* ── DIVIDER (between sections) ──────────────────────── */
+        /* ── DIVIDER ─────────────────────────────────────────── */
         .splash-divider {
           height: 1px;
           background: rgba(255,255,255,0.2);

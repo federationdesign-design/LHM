@@ -1,22 +1,28 @@
 'use client';
 
-import { useId } from 'react';
+import { useEffect, useId, useState } from 'react';
 import styles from './page.module.css';
 
 /* ─────────────────────────────────────────────────────────────
    SplashNav — header used only on the splash page at /.
 
-   Updates in this revision:
-     - STICKY POSITIONING. The nav now sticks to the top of the
-       viewport as the user scrolls. Implemented via
-       position: sticky; top: 0 with a z-index high enough to sit
-       above the spine and panel content. Only applied here on
-       SplashNav — the regular Nav.tsx used on /private etc. is
-       unchanged.
+   Scroll-driven shrink behaviour:
+     - Tracks scroll position via a one-shot listener
+     - As soon as scrollY > 0 the `shrunk` state flips to true
+       and stays true for the rest of the session (does not
+       reset when scrolling back to top)
+     - In the shrunk state, the nav becomes a slim header that
+       echoes the standard Nav.tsx used on /private etc. but
+       keeps the two side logos (Private/Corporate) so the user
+       can still pick a side mid-page
+     - The full Lucy Hall logo and My Body / My Team labels
+       fade out and are removed from the layout (display: none
+       under the shrunk class)
+     - All transitions are CSS-driven (height, opacity) for a
+       smooth handoff
 
-   Header still 140px tall, side logos 36px, labels 2.4rem.
-   Centre block uses [1fr | 90px gutter | 1fr] grid matching the
-   hero panels below.
+   Header still 140px tall in the unshrunk state, side logos
+   36px, labels 2.4rem.
    ───────────────────────────────────────────────────────────── */
 
 // ── PRIVATE LOGO (LH with hand) ──────────────────────────────
@@ -49,9 +55,33 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
   const reactId = useId();
   const clipId = `clip-splashnav-${reactId.replace(/:/g, '')}`;
 
+  // One-way shrink trigger: flips true on first scroll past 0
+  // and stays true for the rest of the session.
+  const [shrunk, setShrunk] = useState(false);
+
+  useEffect(() => {
+    if (shrunk) return; // Already shrunk, no need to listen anymore
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setShrunk(true);
+      }
+    };
+    // Run once on mount in case the page loads pre-scrolled
+    // (e.g. browser restored scroll position on refresh)
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [shrunk]);
+
   return (
     <nav
-      className={`${styles.nav} ${styles.navSolid} splash-nav-tall splash-nav-sticky`}
+      className={[
+        styles.nav,
+        styles.navSolid,
+        'splash-nav-tall',
+        'splash-nav-sticky',
+        shrunk ? 'splash-nav-shrunk' : '',
+      ].join(' ').trim()}
       style={{ position: 'sticky', top: 0 }}
     >
 
@@ -65,7 +95,7 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
         <PrivateLogo clipId={clipId} />
       </button>
 
-      {/* CENTRE BLOCK */}
+      {/* CENTRE BLOCK — full logo + labels — fades out when shrunk */}
       <div className="splash-nav-centre">
         <div className="splash-nav-centre-grid">
           <img
@@ -115,7 +145,6 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
           position: sticky !important;
           top: 0;
           z-index: 100;
-          /* Make sure the sticky background is opaque */
           background: #000000;
         }
 
@@ -124,8 +153,38 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
           padding-top: 18px;
           padding-bottom: 18px;
           align-items: center;
+          /* Smoothly animate height/padding when shrinking */
+          transition: min-height 0.35s ease, padding 0.35s ease;
         }
 
+        /* ── SHRUNK STATE ────────────────────────────────────
+           Once the user scrolls past the top, the nav compresses
+           to a slim 64px header. The full LHM logo and My Body /
+           My Team labels are removed entirely (display: none on
+           the centre block) so only the side Private/Corporate
+           logos remain. */
+        .splash-nav-shrunk.splash-nav-tall {
+          min-height: 64px;
+          padding-top: 8px;
+          padding-bottom: 8px;
+        }
+        .splash-nav-shrunk .splash-nav-centre {
+          display: none;
+        }
+        .splash-nav-shrunk .splash-side-logo {
+          height: 24px;
+          transition: height 0.35s ease;
+        }
+        @media (max-width: 600px) {
+          .splash-nav-shrunk.splash-nav-tall {
+            min-height: 56px;
+          }
+          .splash-nav-shrunk .splash-side-logo {
+            height: 22px;
+          }
+        }
+
+        /* ── UNSHRUNK CENTRE BLOCK ──────────────────────────── */
         .splash-nav-centre {
           position: absolute;
           left: 0;
@@ -136,6 +195,8 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
           align-items: center;
           justify-content: center;
           pointer-events: none;
+          opacity: 1;
+          transition: opacity 0.25s ease;
         }
         .splash-nav-centre-grid {
           display: grid;
@@ -189,6 +250,7 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
           width: auto;
           object-fit: contain;
           display: block;
+          transition: height 0.35s ease;
         }
         .splash-corp-logo {
           width: auto !important;
