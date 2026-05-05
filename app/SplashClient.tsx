@@ -208,7 +208,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
             >
               <h2 className="splash-m-hero-headline">Need a massage?</h2>
               <p className="splash-m-hero-sub">
-                Book your appointment now, it only takes 2 minutes
+                Don&rsquo;t let poor posture, stress, or injury hold you back
               </p>
             </div>
             <div className="splash-m-hero-spine" aria-hidden="true" />
@@ -217,7 +217,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
               className="splash-m-hero-text-col splash-m-hero-text-col--right"
               style={{ opacity: 0.7 }}
             >
-              <h2 className="splash-m-hero-headline">Work in HR?</h2>
+              <h2 className="splash-m-hero-headline">Do you work in HR?</h2>
               <p className="splash-m-hero-sub">
                 We can reduce sickness &amp; absenteeism at work?
               </p>
@@ -310,9 +310,9 @@ export default function SplashClient() {
                 />
                 <div className="splash-panel-overlay" />
                 <div className="splash-panel-content">
-                  <h2 className="splash-panel-heading">Feeling Injured?</h2>
+                  <h2 className="splash-panel-heading">Need a massage?</h2>
                   <p className="splash-panel-sub">
-                    Don&rsquo;t let poor posture, stress,<br />or injury hold you back
+                    Don&rsquo;t let poor posture, stress, or injury hold you back
                   </p>
                   <div className="splash-panel-rule" />
                   <div className="splash-panel-link splash-panel-link--left">
@@ -340,7 +340,7 @@ export default function SplashClient() {
                 />
                 <div className="splash-panel-overlay" />
                 <div className="splash-panel-content">
-                  <h2 className="splash-panel-heading">Work in HR?</h2>
+                  <h2 className="splash-panel-heading">Do you work in HR?</h2>
                   <p className="splash-panel-sub">
                     We can help you reduce sickness &amp;<br />absenteeism in the workplace
                   </p>
