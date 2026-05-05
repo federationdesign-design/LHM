@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import InChairMassageClient from './InChairMassageClient';
+import PostureConsultationsClient from './PostureConsultationsClient';
 
 export const metadata: Metadata = {
-  title: 'In-Office Chair Massage Services | Lucy Hall Massage',
+  title: 'Assessments & Posture Consultations | Lucy Hall Massage',
   description:
-    'Bring chair massage into your Cambridge workplace. Reduce stress, boost productivity, and support your team\'s wellbeing with on-site massage from qualified therapists.',
+    'One-to-one posture consultations and assessments for your team in Cambridge. Improve posture, reduce pain, and prevent injury with personalised expert guidance.',
   alternates: {
-    canonical: 'https://www.lucyhallmassage.com/corporate/in-chair-massage',
+    canonical: 'https://www.lucyhallmassage.com/corporate/posture-consultations',
   },
 };
 
-export default function InChairMassagePage() {
-  return <InChairMassageClient />;
+export default function PostureConsultationsPage() {
+  return <PostureConsultationsClient />;
 }
