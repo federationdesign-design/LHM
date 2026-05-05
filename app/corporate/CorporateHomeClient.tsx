@@ -683,8 +683,8 @@ export default function CorporateHomeClient() {
             position: relative;
             inset: auto;
             width: 100%;
-            height: 60vh;
-            min-height: 380px;
+            height: 75vh;
+            min-height: 560px;
           }
           .corp-hero-pdf {
             position: relative;

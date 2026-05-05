@@ -217,10 +217,7 @@ export default function CorporateNav() {
               gap: 12px;
             }
             .corp-nav-cta {
-              font-size: 0.85rem;
-              text-align: right;
-              max-width: 60%;
-              line-height: 1.2;
+              display: none;
             }
           }
           @media (min-width: 768px) and (max-width: 1023px) {
