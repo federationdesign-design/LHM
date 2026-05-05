@@ -280,7 +280,7 @@ export default function CorporateHomeClient() {
 
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className="corp-hero">
-          <div className="corp-hero-image" style={{ background: '#1a1a1a' }}>
+          <div className="corp-hero-image" style={{ background: "#1a1a1a url(/corporate-hero.jpg) center/cover no-repeat" }}>
             <iframe
               src="https://player.vimeo.com/video/1189431154?autoplay=1&muted=1&loop=1&background=1&controls=0&autopause=0"
               title="Corporate hero video"
