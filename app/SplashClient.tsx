@@ -208,7 +208,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
             >
               <h2 className="splash-m-hero-headline">Need a massage now?</h2>
               <p className="splash-m-hero-sub">
-                Book your appointment now, it only takes 2 minutes with our online booking tool
+                Book your appointment now, it only takes 2 minutes
               </p>
             </div>
             <div className="splash-m-hero-spine" aria-hidden="true" />
