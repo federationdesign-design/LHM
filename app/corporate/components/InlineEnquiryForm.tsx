@@ -3,23 +3,30 @@
 import { useState, useEffect } from 'react';
 
 /* ─────────────────────────────────────────────────────────────
-   InlineEnquiryForm — restyled per the new mockup.
+   InlineEnquiryForm — corporate enquiry form for use inside
+   service page heroes.
+
+   Visual styling matches WellbeingForm exactly:
+     - Panel bg #0a0908 with subtle white border, 4px corners
+     - 1.6rem centered heading, sub text opacity 0.8
+     - White pill inputs that invert to black-on-white border on focus
+     - 24px white checkbox with SVG tick
+     - Full-width pill submit button with uppercase letter-spacing
 
    Fields:
      - Name    (required)
      - Email   (required, validated)
-     - Mobile  (required)
-     - Contact methods (optional multi-select):
-         Phone call, SMS/WhatsApp, Mobile call, Email
+     - Mobile  (required, validated)
+     - Contact methods (optional multi-select, 4 options)
 
    Three-state submit button:
      - GREY   #808080  — name/email/mobile incomplete
-     - ORANGE #ff8c00  — required fields filled, no contact method picked
-     - GREEN  #2cd12c  — required fields + at least 1 contact method picked
+     - ORANGE #ff8c00  — required filled, no contact method picked
+     - GREEN  #2cd12c  — required + at least 1 contact method picked
 
    Posts to /api/corporate-enquiry. The API route accepts the
-   contactMethods array and includes it in both the notification
-   email to Steve and the autoresponder PDF email.
+   contactMethods array and sends a notification email + the
+   PDF autoresponder.
    ───────────────────────────────────────────────────────────── */
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
@@ -32,10 +39,10 @@ const EMAIL_RE  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MOBILE_RE = /^[\d\s+()-]{7,}$/;
 
 const CONTACT_METHODS = [
-  { id: 'phone',     label: 'Phone call' },
-  { id: 'sms',       label: 'SMS/WhatsApp' },
-  { id: 'mobile',    label: 'Mobile call' },
-  { id: 'email',     label: 'Email' },
+  { id: 'phone',  label: 'Phone call' },
+  { id: 'sms',    label: 'SMS/WhatsApp' },
+  { id: 'mobile', label: 'Mobile call' },
+  { id: 'email',  label: 'Email' },
 ];
 
 declare global {
@@ -71,7 +78,6 @@ export default function InlineEnquiryForm({
       `script[src*="recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}"]`
     );
     if (existing) return;
-
     const script = document.createElement('script');
     script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
     script.async = true;
@@ -79,7 +85,6 @@ export default function InlineEnquiryForm({
     document.head.appendChild(script);
   }, []);
 
-  // ── Validation ──────────────────────────────────────────────
   const emailValid  = EMAIL_RE.test(email.trim());
   const mobileValid = MOBILE_RE.test(mobile.trim());
   const requiredOK  = name.trim().length > 0 && emailValid && mobileValid;
@@ -88,14 +93,12 @@ export default function InlineEnquiryForm({
   const buttonColor = !requiredOK ? COLOR_GREY : allOK ? COLOR_GREEN : COLOR_ORANGE;
   const canSubmit   = requiredOK && !submitting;
 
-  // ── Toggle method handler ───────────────────────────────────
   const toggleMethod = (id: string) => {
     setMethods((prev) =>
       prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
     );
   };
 
-  // ── Submit handler ──────────────────────────────────────────
   const handleSubmit = async () => {
     if (!canSubmit) return;
     setError(null);
@@ -145,255 +148,253 @@ export default function InlineEnquiryForm({
     }
   };
 
+  // Shared inline styles — match WellbeingForm exactly
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '14px 18px',
+    fontSize: '1.05rem',
+    fontWeight: 300,
+    background: '#ffffff',
+    color: '#000000',
+    border: 'none',
+    borderRadius: 999,
+    boxSizing: 'border-box',
+    fontFamily: 'inherit',
+  };
+
+  const labelStyle: React.CSSProperties = {
+    display: 'block',
+    fontSize: '1rem',
+    fontWeight: 400,
+    color: '#ffffff',
+    marginBottom: 10,
+    lineHeight: 1.4,
+  };
+
+  const dividerStyle: React.CSSProperties = {
+    height: 1,
+    background: 'rgba(255,255,255,0.2)',
+    marginBottom: 22,
+  };
+
   // ── Success state ───────────────────────────────────────────
   if (success) {
     return (
-      <div className="inline-enq inline-enq--success">
-        <h3 className="inline-enq-heading">Thanks, {name.split(' ')[0] || 'there'}!</h3>
-        <p className="inline-enq-success-body">
+      <div style={{
+        background: '#0a0908',
+        border: '1px solid rgba(255,255,255,0.25)',
+        padding: '48px 32px',
+        borderRadius: 4,
+        textAlign: 'center',
+        maxWidth: 560,
+        width: '100%',
+      }}>
+        <h3 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', marginBottom: 16 }}>
+          Thanks, {name.split(' ')[0] || 'there'}!
+        </h3>
+        <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, opacity: 0.92, margin: 0 }}>
           Your enquiry is in. The employer PDF is on its way to <strong>{email}</strong>. Lucy will be in touch within one working day.
         </p>
-        <style>{`
-          .inline-enq--success {
-            background: #000000;
-            padding: 36px 32px;
-            color: #ffffff;
-            max-width: 560px;
-            width: 100%;
-          }
-          .inline-enq-heading {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 0 0 16px;
-            line-height: 1.3;
-            text-align: center;
-          }
-          .inline-enq-success-body {
-            font-size: 1rem;
-            line-height: 1.5;
-            margin: 0;
-            opacity: 0.92;
-            text-align: center;
-          }
-        `}</style>
       </div>
     );
   }
 
   // ── Render ──────────────────────────────────────────────────
   return (
-    <div className="inline-enq">
-      <h3 className="inline-enq-heading">{heading}</h3>
-      <p className="inline-enq-sub">{subheading}</p>
-      <div className="inline-enq-rule" />
+    <>
+      <div style={{
+        background: '#0a0908',
+        border: '1px solid rgba(255,255,255,0.25)',
+        padding: '40px 32px',
+        borderRadius: 4,
+        maxWidth: 560,
+        width: '100%',
+      }}>
+        <h3 style={{
+          fontSize: '1.6rem',
+          fontWeight: 600,
+          color: '#ffffff',
+          textAlign: 'center',
+          lineHeight: 1.2,
+          marginBottom: 14,
+          marginTop: 0,
+        }}>
+          {heading}
+        </h3>
+        <p style={{
+          fontSize: '1rem',
+          fontWeight: 300,
+          color: '#ffffff',
+          textAlign: 'center',
+          lineHeight: 1.5,
+          opacity: 0.8,
+          marginBottom: 24,
+          marginTop: 0,
+        }}>
+          {subheading}
+        </p>
 
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        className="inline-enq-input"
-        autoComplete="name"
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="inline-enq-input"
-        autoComplete="email"
-      />
-      <input
-        type="tel"
-        placeholder="Mobile"
-        value={mobile}
-        onChange={(e) => setMobile(e.target.value)}
-        className="inline-enq-input"
-        autoComplete="tel"
-      />
+        <div style={dividerStyle} />
 
-      <div className="inline-enq-methods">
-        <p className="inline-enq-methods-label">Ideal method of initial contact</p>
-        <div className="inline-enq-methods-grid">
-          {CONTACT_METHODS.map((m) => (
-            <label key={m.id} className="inline-enq-checkbox">
-              <input
-                type="checkbox"
-                checked={methods.includes(m.id)}
-                onChange={() => toggleMethod(m.id)}
-              />
-              <span className="inline-enq-checkbox-box" aria-hidden="true" />
-              <span className="inline-enq-checkbox-label">{m.label}</span>
-            </label>
-          ))}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="intake-input"
+            style={inputStyle}
+            autoComplete="name"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="intake-input"
+            style={inputStyle}
+            autoComplete="email"
+          />
+          <input
+            type="tel"
+            placeholder="Mobile"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
+            className="intake-input"
+            style={inputStyle}
+            autoComplete="tel"
+          />
         </div>
-      </div>
 
-      {error && <p className="inline-enq-error">{error}</p>}
+        <div style={dividerStyle} />
 
-      <div className="inline-enq-actions">
+        <div style={{ marginBottom: 22 }}>
+          <label style={labelStyle}>Ideal method of initial contact</label>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '12px 16px',
+          }}>
+            {CONTACT_METHODS.map((m) => (
+              <label key={m.id} className="intake-checkbox-wrap" style={{ alignItems: 'center' }}>
+                <input
+                  type="checkbox"
+                  checked={methods.includes(m.id)}
+                  onChange={() => toggleMethod(m.id)}
+                  className="intake-checkbox-input"
+                />
+                <span className="intake-checkbox-box" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
+                    <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span style={{ fontSize: '0.95rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4 }}>
+                  {m.label}
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {error && (
+          <div style={{
+            marginBottom: 16,
+            padding: '12px 16px',
+            background: 'rgba(220, 38, 38, 0.15)',
+            border: '1px solid rgba(220, 38, 38, 0.5)',
+            borderRadius: 4,
+          }}>
+            <p style={{ fontSize: '0.9rem', fontWeight: 400, color: '#ff8c8c', textAlign: 'center', lineHeight: 1.5, margin: 0 }}>
+              {error}
+            </p>
+          </div>
+        )}
+
         <button
           type="button"
           onClick={handleSubmit}
           disabled={!canSubmit}
-          className="inline-enq-submit"
           style={{
+            width: '100%',
+            padding: '14px 22px',
+            fontSize: '0.95rem',
+            fontWeight: 500,
+            textTransform: 'uppercase',
+            letterSpacing: '0.18em',
+            color: '#ffffff',
             background: buttonColor,
+            border: 'none',
+            borderRadius: 999,
             cursor: canSubmit ? 'pointer' : 'not-allowed',
+            fontFamily: 'inherit',
+            transition: 'background 0.2s ease',
             opacity: submitting ? 0.7 : 1,
           }}
         >
-          {submitting ? 'SENDING…' : 'SUBMIT'}
+          {submitting ? 'Submitting…' : 'Submit'}
         </button>
       </div>
 
+      {/* Reuses .intake-input + .intake-checkbox-* styles from WellbeingForm.
+          Defined again here in case this form ever renders without
+          WellbeingForm on the same page. */}
       <style>{`
-        .inline-enq {
-          background: #000000;
-          padding: 36px 32px;
-          color: #ffffff;
-          max-width: 560px;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
+        .intake-input {
+          transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+          border: 1px solid transparent !important;
         }
-        .inline-enq-heading {
-          font-size: clamp(1.4rem, 1.8vw, 1.7rem);
-          font-weight: 600;
-          margin: 0;
-          line-height: 1.25;
-          text-align: center;
-          letter-spacing: -0.005em;
-        }
-        .inline-enq-sub {
-          font-size: clamp(0.95rem, 1.05vw, 1.05rem);
-          font-weight: 400;
-          margin: 0;
-          opacity: 0.92;
-          text-align: center;
-        }
-        .inline-enq-rule {
-          height: 1px;
-          background: rgba(255, 255, 255, 0.5);
-          margin: 6px 0 4px;
-          width: 100%;
-        }
-
-        /* ── INPUTS ──────────────────────────────────────────── */
-        .inline-enq-input {
-          width: 100%;
-          background: #ffffff;
-          color: #000000;
-          border: none;
-          padding: 14px 22px;
-          font-family: inherit;
-          font-size: 0.95rem;
-          border-radius: 999px;
+        .intake-input:focus {
           outline: none;
+          background: #000000 !important;
+          color: #ffffff !important;
+          border: 1px solid #ffffff !important;
         }
-        .inline-enq-input::placeholder {
-          color: #999;
-          opacity: 1;
-        }
-        .inline-enq-input:focus {
-          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+        .intake-input:focus::placeholder {
+          color: rgba(255,255,255,0.5);
         }
 
-        /* ── CHECKBOXES ─────────────────────────────────────── */
-        .inline-enq-methods {
-          margin-top: 8px;
-        }
-        .inline-enq-methods-label {
-          font-size: 0.95rem;
-          font-weight: 600;
-          margin: 0 0 12px;
-          color: #ffffff;
-        }
-        .inline-enq-methods-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px 16px;
-        }
-        .inline-enq-checkbox {
+        .intake-checkbox-wrap {
           display: flex;
-          align-items: center;
-          gap: 10px;
+          align-items: flex-start;
+          gap: 12px;
           cursor: pointer;
-          user-select: none;
+          width: 100%;
         }
-        .inline-enq-checkbox input {
-          /* Hide the native checkbox visually, but keep it
-             accessible to screen readers + keyboard nav */
+        .intake-checkbox-input {
           position: absolute;
           opacity: 0;
           width: 0;
           height: 0;
           pointer-events: none;
         }
-        .inline-enq-checkbox-box {
-          width: 22px;
-          height: 22px;
-          border: 1.5px solid #ffffff;
-          border-radius: 4px;
+        .intake-checkbox-box {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          min-width: 24px;
+          border: 2px solid #ffffff;
+          border-radius: 6px;
           background: transparent;
+          margin-top: 1px;
           flex-shrink: 0;
-          position: relative;
-          transition: background 0.15s ease;
+          transition: border-color 0.2s ease;
         }
-        .inline-enq-checkbox input:checked + .inline-enq-checkbox-box {
-          background: #ffffff;
+        .intake-checkbox-tick {
+          width: 18px;
+          height: 18px;
+          opacity: 0;
+          transition: opacity 0.15s ease;
         }
-        .inline-enq-checkbox input:checked + .inline-enq-checkbox-box::after {
-          content: '';
-          position: absolute;
-          left: 6px;
-          top: 2px;
-          width: 7px;
-          height: 12px;
-          border: solid #000000;
-          border-width: 0 2px 2px 0;
-          transform: rotate(45deg);
+        .intake-checkbox-input:checked + .intake-checkbox-box .intake-checkbox-tick {
+          opacity: 1;
         }
-        .inline-enq-checkbox input:focus-visible + .inline-enq-checkbox-box {
-          outline: 2px solid rgba(255, 255, 255, 0.5);
+        .intake-checkbox-input:focus-visible + .intake-checkbox-box {
+          outline: 2px solid #ffffff;
           outline-offset: 2px;
         }
-        .inline-enq-checkbox-label {
-          font-size: 0.9rem;
-          color: #ffffff;
-        }
-
-        /* ── ERROR ───────────────────────────────────────────── */
-        .inline-enq-error {
-          color: #ff9b9b;
-          font-size: 0.85rem;
-          margin: 0;
-          line-height: 1.4;
-        }
-
-        /* ── SUBMIT ──────────────────────────────────────────── */
-        .inline-enq-actions {
-          display: flex;
-          justify-content: flex-end;
-          margin-top: 8px;
-        }
-        .inline-enq-submit {
-          font-family: inherit;
-          font-size: 0.95rem;
-          font-weight: 700;
-          letter-spacing: 0.12em;
-          color: #ffffff;
-          padding: 14px 32px;
-          border: none;
-          border-radius: 999px;
-          min-width: 140px;
-          transition: background 0.3s ease, opacity 0.2s ease;
-        }
-        .inline-enq-submit:hover:not(:disabled) {
-          filter: brightness(1.1);
-        }
       `}</style>
-    </div>
+    </>
   );
 }
