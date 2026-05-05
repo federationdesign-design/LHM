@@ -756,12 +756,19 @@ export default function SplashClient() {
         .splash-m-hero {
           position: relative;
           background: #000000;
+          /* vh fallback for older browsers, dvh for modern.
+             dvh = "dynamic viewport height" — adjusts to the
+             actual visible area, accounting for mobile browser
+             URL bar showing/hiding. Without this, content gets
+             cropped under the URL bar on shorter phones. */
           height: 150vh;
+          height: 150dvh;
         }
         .splash-m-hero-sticky {
           position: sticky;
           top: 0;
           height: 100vh;
+          height: 100dvh;
           width: 100%;
           overflow: hidden;
         }
@@ -796,7 +803,11 @@ export default function SplashClient() {
           right: 0;
           bottom: 0;
           z-index: 3;
-          padding: 0 24px 80px;
+          /* Smaller bottom padding so on the shortest mobile
+             viewports the "<<PRIVATE / CORPORATE>>" links stay
+             clear of the browser URL bar even if dvh fallback
+             kicks in. */
+          padding: 0 24px 40px;
           color: #ffffff;
           pointer-events: none;
         }
@@ -884,7 +895,7 @@ export default function SplashClient() {
         /* Tablet */
         @media (min-width: 768px) and (max-width: 1023px) {
           .splash-m-hero-text {
-            padding: 0 60px 100px;
+            padding: 0 60px 60px;
           }
           .splash-m-hero-text-grid {
             gap: 32px;
