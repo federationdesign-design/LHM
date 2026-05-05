@@ -125,6 +125,14 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           </div>
         </section>
 
+        {/* Mobile-only standalone form section.
+            On desktop, the form sits inside the hero (above).
+            On mobile, the in-hero copy is hidden via CSS and
+            this version renders as its own block below. */}
+        <section className="cs-hero-form-mobile">
+          <InlineEnquiryForm />
+        </section>
+
         {/* ── WHAT IS / BENEFITS ─────────────────────────────── */}
         <section className="cs-detail">
           <div className="cs-detail-inner">
@@ -262,6 +270,22 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         .cs-hero-form {
           width: 100%;
           max-width: 360px;
+        }
+        /* Mobile: hide the in-hero form, show the standalone one below */
+        .cs-hero-form-mobile {
+          display: block;
+          padding: 32px 24px 60px;
+          background: #000000;
+        }
+        @media (min-width: 1024px) {
+          .cs-hero-form-mobile {
+            display: none;
+          }
+        }
+        @media (max-width: 1023px) {
+          .cs-hero-form {
+            display: none;
+          }
         }
 
         @media (min-width: 1024px) {

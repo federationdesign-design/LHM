@@ -660,13 +660,15 @@ export default function CorporateHomeClient() {
           max-width: 520px;
         }
         .corp-hero-enquire {
-          display: inline-block;
+          display: block;
           color: #ffffff;
           font-size: 0.95rem;
           font-weight: 400;
           letter-spacing: 0.05em;
           text-decoration: none;
-          padding-left: calc(50% - 80px);
+          width: 90%;
+          max-width: 520px;
+          text-align: right;
           transition: opacity 0.2s ease;
         }
         .corp-hero-enquire:hover { opacity: 0.85; }
