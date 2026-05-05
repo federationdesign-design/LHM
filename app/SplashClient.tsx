@@ -19,38 +19,36 @@ import styles from './page.module.css';
    Uses the same SCROLL-DRIVEN HORIZONTAL TRANSLATE pattern as
    ServicesCarousel on PrivateHomeClient.
 
-   The hero zone is a 150vh-tall section (was 200vh, shortened
-   to make a single mobile-sized swipe move the filmstrip
-   completely from private → corporate). Inside it sits a sticky
+   The hero zone is a 150vh-tall section. Inside it sits a sticky
    100vh viewport that contains:
      1. A 200vw filmstrip with two images side-by-side
         (private | corporate). A scroll listener translates this
         filmstrip from translateX(0) → translateX(-100vw) as the
         user scrolls through the 50vh of "runway" inside the
-        150vh section (i.e. section height − sticky height).
+        150vh section.
      2. A fixed text overlay (always visible, never translates):
-        - Two side-by-side headlines (Feeling Injured? | Work in HR?)
+        - Two side-by-side headlines
         - White rule across the bottom
         - "<< Private" left, "Corporate >>" right under the rule
-     3. A tap layer split 50/50:
-        - Left half → choose('private')
-        - Right half → choose('corporate')
-
-   The text overlay sits ABOVE the filmstrip via z-index so the
-   headline content remains legible regardless of which image is
-   currently visible underneath.
+        - The two text columns CROSSFADE based on scroll progress:
+          private 1.0 → 0.7 opacity, corporate 0.7 → 1.0 opacity.
+          Opacity is controlled inline by the same scroll handler
+          that translates the filmstrip.
+     3. A tap layer split 50/50.
 
    Scroll-snap behaviour (mobile only):
-     - html has `scroll-snap-type: y mandatory`
-     - Hero, private elaborate, panels, corporate elaborate are
-       all `scroll-snap-align: start` so the browser locks to
-       each in turn
-     - Hero specifically has `scroll-snap-stop: always` so the
-       user cannot scroll past it without first stopping. This
-       combined with the shortened 150vh runway means a single
-       short swipe inside the hero translates the filmstrip
-       fully from private → corporate before the browser snaps
-       on to the next section.
+     - html has `scroll-snap-type: y proximity` (proximity, not
+       mandatory, so the user can scroll all the way to the
+       footer without being trapped at any one section).
+     - Hero gets `scroll-snap-align: start` AND
+       `scroll-snap-stop: always` so the browser traps on the
+       hero specifically, forcing the user to swipe through the
+       filmstrip before they can scroll past. Combined with the
+       150vh runway, this gives the "one swipe per image" feel.
+     - All OTHER mobile sections (elaborations, panels, clients,
+       testimonials, find-us logos, footer) have NO snap-align,
+       so the user scrolls freely through them in one continuous
+       motion all the way to the footer.
    ───────────────────────────────────────────────────────────── */
 
 // ── CONFIG ────────────────────────────────────────────────────
@@ -91,28 +89,27 @@ const ChevronLeft = () => (
 );
 
 // ── MOBILE/TABLET SCROLL-HERO COMPONENT ───────────────────────
-// Tightly coupled to the surrounding splash markup so kept inline
-// rather than extracted. Mirrors the ServicesCarousel pattern from
-// PrivateHomeClient but with two fixed images and a fixed text
-// overlay rather than slide content embedded in each frame.
 function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const privateTextRef = useRef<HTMLDivElement>(null);
+  const corporateTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
+    const privateText = privateTextRef.current;
+    const corporateText = corporateTextRef.current;
     if (!section || !track) return;
 
     let raf = 0;
     const handleScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        // Desktop bypasses the scroll-driven translate entirely.
-        // The mobile section is hidden via CSS at ≥1024px so this
-        // is just a belt-and-braces guard.
         if (window.innerWidth >= 1024) {
           track.style.transform = '';
+          if (privateText) privateText.style.opacity = '';
+          if (corporateText) corporateText.style.opacity = '';
           return;
         }
         const sectionTop = section.offsetTop;
@@ -120,9 +117,16 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
         const scrollable = section.offsetHeight - window.innerHeight;
         if (scrollable <= 0) return;
         const p = Math.max(0, Math.min(1, (scrollY - sectionTop) / scrollable));
-        // Two images, single 100vw pan. p=0 shows private (left
-        // half of filmstrip), p=1 shows corporate (right half).
+        // Filmstrip translation: 0vw → -100vw
         track.style.transform = `translateX(-${p * 100}vw)`;
+        // Text crossfade: private starts 1.0 fades to 0.7,
+        // corporate starts 0.7 fades to 1.0. Linear interp on p.
+        if (privateText) {
+          privateText.style.opacity = String(1 - p * 0.3);
+        }
+        if (corporateText) {
+          corporateText.style.opacity = String(0.7 + p * 0.3);
+        }
       });
     };
 
@@ -180,14 +184,22 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
         {/* Fixed text overlay — never translates */}
         <div className="splash-m-hero-text">
           <div className="splash-m-hero-text-grid">
-            <div className="splash-m-hero-text-col splash-m-hero-text-col--left">
+            <div
+              ref={privateTextRef}
+              className="splash-m-hero-text-col splash-m-hero-text-col--left"
+              style={{ opacity: 1 }}
+            >
               <h2 className="splash-m-hero-headline">Feeling Injured?</h2>
               <p className="splash-m-hero-sub">
                 Don&rsquo;t let poor posture, stress, or injury hold you back
               </p>
             </div>
             <div className="splash-m-hero-spine" aria-hidden="true" />
-            <div className="splash-m-hero-text-col splash-m-hero-text-col--right">
+            <div
+              ref={corporateTextRef}
+              className="splash-m-hero-text-col splash-m-hero-text-col--right"
+              style={{ opacity: 0.7 }}
+            >
               <h2 className="splash-m-hero-headline">Work in HR?</h2>
               <p className="splash-m-hero-sub">
                 We can reduce sickness &amp; absenteeism at work?
@@ -203,7 +215,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
           </div>
         </div>
 
-        {/* Tap layer — left half = private, right half = corporate */}
+        {/* Tap layer */}
         <div className="splash-m-hero-taps" aria-hidden="false">
           <button
             type="button"
@@ -265,7 +277,7 @@ export default function SplashClient() {
                 className="splash-panel splash-panel--left"
                 style={{ background: PRIVATE_FALLBACK }}
                 onClick={() => choose('private')}
-                aria-label="Choose private — feeling injured? Don't let poor posture, stress, or injury hold you back"
+                aria-label="Choose private"
               >
                 <Image
                   src="/Physiotherapy-desktop.jpg"
@@ -299,7 +311,7 @@ export default function SplashClient() {
                 className="splash-panel splash-panel--right"
                 style={{ background: CORPORATE_FALLBACK }}
                 onClick={() => choose('corporate')}
-                aria-label="Choose corporate — work in HR? We can reduce sickness and absenteeism at work"
+                aria-label="Choose corporate"
               >
                 <Image
                   src="/corporate-signature-img.jpg"
@@ -383,10 +395,6 @@ export default function SplashClient() {
         <div className="splash-mobile-only">
           <MobileScrollHero onChoose={choose} />
 
-          {/* Mobile elaboration — split into two separate sections
-              with the chevron-panels block sandwiched between.
-              Order: private (top) → panels → corporate (bottom). */}
-
           {/* 1. Private elaboration */}
           <section className="splash-elaborate splash-mobile-elaborate splash-mobile-elaborate--private">
             <div className="splash-elaborate-grid">
@@ -404,15 +412,10 @@ export default function SplashClient() {
             </div>
           </section>
 
-          {/* 2. Mobile-only chevron-panels block — sandwiched
-              between the two elaborations. Two rows, each 20vh.
-              Order: Body/Private row sits on top, Team/Corporate
-              row below. Image position within each row is
-              preserved (private has image on the right; corporate
-              has image on the left). */}
+          {/* 2. Mobile-only chevron-panels block */}
           <section className="splash-m-panels" aria-label="Choose Private or Corporate">
 
-            {/* Row 1 (top): My Body / Private — image right, label left */}
+            {/* Row 1 (top): My Body / Private */}
             <button
               type="button"
               className="splash-m-row splash-m-row--private"
@@ -437,7 +440,7 @@ export default function SplashClient() {
               </div>
             </button>
 
-            {/* Row 2 (bottom): My Team / Corporate — image left, label right */}
+            {/* Row 2 (bottom): My Team / Corporate */}
             <button
               type="button"
               className="splash-m-row splash-m-row--corporate"
@@ -488,17 +491,21 @@ export default function SplashClient() {
           <h3 className={headingClassName}>
             Happy company clients include
           </h3>
-          <div className="splash-clients-row">
-            {companyClients.map(c => (
-              <div key={c.name} className="splash-client-item">
-                <img
-                  src={c.src}
-                  alt={c.name}
-                  className="splash-client-logo"
-                  draggable={false}
-                />
-              </div>
-            ))}
+          {/* Mobile: horizontal marquee. Desktop: static row. */}
+          <div className="splash-clients-marquee">
+            <div className="splash-clients-marquee-track">
+              {/* Duplicate set so the loop is seamless */}
+              {[...companyClients, ...companyClients].map((c, i) => (
+                <div key={`${c.name}-${i}`} className="splash-client-item">
+                  <img
+                    src={c.src}
+                    alt={c.name}
+                    className="splash-client-logo"
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -508,14 +515,18 @@ export default function SplashClient() {
         <Testimonials heading="Happy private clients include" />
 
         {/* ── FIND US ON ──────────────────────────────────────── */}
-        <div style={{ paddingTop: 40, paddingBottom: 40 }}>
-          <h3 style={{ fontSize: '0.9rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', color: '#ffffff', textAlign: 'center', marginBottom: 24, opacity: 0.7 }}>
-            Find us on:
-          </h3>
-          <div className={styles.logoSlider}>
-            <div className={styles.logoRow}>
-              {findUsLogos.map((logo) => (
-                <img key={logo.alt} src={logo.src} alt={logo.alt} className={styles.logoRowImg} draggable={false} />
+        <div className="splash-findus">
+          <h3 className="splash-findus-heading">Find us on:</h3>
+          <div className="splash-findus-marquee">
+            <div className="splash-findus-marquee-track">
+              {[...findUsLogos, ...findUsLogos].map((logo, i) => (
+                <img
+                  key={`${logo.alt}-${i}`}
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="splash-findus-logo"
+                  draggable={false}
+                />
               ))}
             </div>
           </div>
@@ -721,64 +732,30 @@ export default function SplashClient() {
         }
 
         /* ── MOBILE/TABLET — scroll-driven hero ─────────────── */
-        /* Scroll-snap (MANDATORY) on the four mobile sections:
-             - hero (150vh)
-             - private elaboration
-             - panels block
-             - corporate elaboration
-
-           Each elaboration section is given min-height: 100vh so it
-           occupies a full viewport when snapped to. This guarantees
-           the user sees a complete section at each stop rather than
-           being half-cropped between two.
-
-           Mandatory means the browser will always pull to the
-           nearest snap-align: start once the user stops scrolling.
-
-           The hero specifically has scroll-snap-stop: always
-           which prevents the user from scrolling PAST the hero in
-           a single swipe — the browser must stop on it. Combined
-           with the shortened 150vh runway, this means a single
-           short downward swipe inside the hero translates the
-           filmstrip fully (private → corporate) before the
-           browser locks back to the hero's snap point. The next
-           swipe then advances to the next section.
-
-           Desktop is untouched. */
+        /* Snap behaviour:
+           - html uses scroll-snap-type: y proximity (gentle pull,
+             user not trapped). The user can scroll all the way to
+             the footer in one continuous motion past every section.
+           - ONLY the hero has scroll-snap-align + scroll-snap-stop
+             always, which forces the browser to lock on the hero
+             so the user must swipe through the filmstrip before
+             continuing past it.
+           - All other mobile sections have NO snap-align, so the
+             user moves through them freely. */
         @media (max-width: 1023px) {
           html {
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: y proximity;
             -webkit-overflow-scrolling: touch;
           }
           .splash-m-hero {
             scroll-snap-align: start;
             scroll-snap-stop: always;
           }
-          .splash-mobile-elaborate--private,
-          .splash-m-panels,
-          .splash-mobile-elaborate--corporate {
-            scroll-snap-align: start;
-            scroll-snap-stop: normal;
-          }
-          /* Each elaboration section becomes its own viewport-sized
-             snap target. The content centres vertically so short
-             text doesn't sit at the top of an empty viewport. */
-          .splash-mobile-elaborate--private,
-          .splash-mobile-elaborate--corporate {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-          }
         }
 
         .splash-m-hero {
           position: relative;
           background: #000000;
-          /* 150vh = 100vh sticky viewport + 50vh of scroll runway.
-             Shortened from 200vh so a single mobile-sized swipe
-             through the runway translates the filmstrip the full
-             100vw distance. Combined with scroll-snap-stop: always
-             this gives a "one swipe per image" feel. */
           height: 150vh;
         }
         .splash-m-hero-sticky {
@@ -832,6 +809,9 @@ export default function SplashClient() {
         .splash-m-hero-text-col {
           display: flex;
           flex-direction: column;
+          /* Smooth inline-style opacity transition for a touch of
+             polish if the JS frame drops one. */
+          transition: opacity 0.1s linear;
         }
         .splash-m-hero-text-col--left {
           text-align: right;
@@ -880,8 +860,7 @@ export default function SplashClient() {
           color: #ffffff;
         }
 
-        /* Tap layer — sits ABOVE the text overlay so taps register
-           even on the fixed text area. Buttons are transparent. */
+        /* Tap layer */
         .splash-m-hero-taps {
           position: absolute;
           inset: 0;
@@ -902,7 +881,7 @@ export default function SplashClient() {
           background: rgba(255,255,255,0.05);
         }
 
-        /* Tablet bumps text up a touch */
+        /* Tablet */
         @media (min-width: 768px) and (max-width: 1023px) {
           .splash-m-hero-text {
             padding: 0 60px 100px;
@@ -928,9 +907,7 @@ export default function SplashClient() {
           }
         }
 
-        /* Mobile elaboration — single-column stack below the
-           horizontal-scroll hero. Shares some classes with the
-           desktop elaboration but overrides the grid template. */
+        /* Mobile elaboration */
         .splash-mobile-elaborate {
           padding: 60px 24px 30px;
         }
@@ -975,9 +952,6 @@ export default function SplashClient() {
         }
 
         /* ── MOBILE PANELS-WITH-CHEVRONS BLOCK ──────────────── */
-        /* Two stacked rows below the elaboration. Each row is 20vh
-           and split 50/50 image | label. Whole row is a button.
-           Order: Body/Private (top), Team/Corporate (bottom). */
         .splash-m-panels {
           display: flex;
           flex-direction: column;
@@ -1039,24 +1013,31 @@ export default function SplashClient() {
           .splash-m-row-chevron { padding: 0 48px; gap: 10px; }
         }
 
-        /* ── COMPANY CLIENTS STRIP ───────────────────────────── */
+        /* ── COMPANY CLIENTS MARQUEE ─────────────────────────── */
+        /* Mobile uses horizontal scrolling marquee animation
+           (matches the find-us-on logos pattern). Desktop overrides
+           below to hide the duplicates and lay them out statically. */
         .splash-clients {
           padding: 40px 24px 40px;
           text-align: center;
+          overflow: hidden;
         }
-        .splash-clients-row {
+        .splash-clients-marquee {
+          margin-top: 32px;
+          width: 100%;
+          overflow: hidden;
+        }
+        .splash-clients-marquee-track {
           display: flex;
-          flex-wrap: nowrap;
           align-items: center;
-          justify-content: space-between;
-          gap: 24px;
-          margin: 32px auto 0;
-          padding: 0 40px;
-          overflow-x: auto;
-          -ms-overflow-style: none;
-          scrollbar-width: none;
+          gap: 40px;
+          width: max-content;
+          animation: splash-marquee 25s linear infinite;
         }
-        .splash-clients-row::-webkit-scrollbar { display: none; }
+        @keyframes splash-marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
         .splash-client-item {
           flex: 0 0 auto;
           display: flex;
@@ -1079,9 +1060,22 @@ export default function SplashClient() {
           .splash-clients {
             padding: 60px 60px 40px;
           }
-          .splash-clients-row {
-            padding: 0 80px;
+          /* Desktop: kill the marquee animation, show statically */
+          .splash-clients-marquee {
             margin-top: 48px;
+          }
+          .splash-clients-marquee-track {
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: none;
+            transform: none !important;
+            padding: 0 80px;
+          }
+          /* Hide duplicate set on desktop so we don't show 8 logos */
+          .splash-clients-marquee-track > .splash-client-item:nth-child(n+5) {
+            display: none;
           }
           .splash-client-item { height: 80px; }
           .splash-client-logo {
@@ -1098,6 +1092,62 @@ export default function SplashClient() {
         }
         @media (min-width: 1024px) {
           .splash-divider { margin: 20px 80px; }
+        }
+
+        /* ── FIND US ON ──────────────────────────────────────── */
+        /* Always visible (mobile and desktop). Mobile: marquee.
+           Desktop: static row. */
+        .splash-findus {
+          padding: 40px 24px;
+          overflow: hidden;
+        }
+        .splash-findus-heading {
+          font-size: 0.9rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: #ffffff;
+          text-align: center;
+          margin: 0 0 24px;
+          opacity: 0.7;
+        }
+        .splash-findus-marquee {
+          width: 100%;
+          overflow: hidden;
+        }
+        .splash-findus-marquee-track {
+          display: flex;
+          align-items: center;
+          gap: 40px;
+          width: max-content;
+          animation: splash-marquee 25s linear infinite;
+        }
+        .splash-findus-logo {
+          flex: 0 0 auto;
+          height: 36px;
+          width: auto;
+          object-fit: contain;
+          display: block;
+          filter: brightness(0) invert(1);
+          opacity: 0.85;
+        }
+        @media (min-width: 1024px) {
+          .splash-findus {
+            padding: 40px 60px;
+          }
+          .splash-findus-marquee-track {
+            justify-content: center;
+            gap: 60px;
+            width: 100%;
+            animation: none;
+            transform: none !important;
+          }
+          .splash-findus-marquee-track > .splash-findus-logo:nth-child(n+5) {
+            display: none;
+          }
+          .splash-findus-logo {
+            height: 50px;
+          }
         }
       `}</style>
     </>
