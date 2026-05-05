@@ -339,8 +339,8 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           gap: 14px;
         }
         .cs-benefit-tick {
-          width: 22px;
-          height: 22px;
+          width: 88px;
+          height: 88px;
           flex-shrink: 0;
           margin-top: 4px;
         }
