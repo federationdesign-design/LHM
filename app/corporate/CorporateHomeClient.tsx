@@ -148,44 +148,44 @@ const videos = [
 //
 // To swap to real images later: replace each `src` with the real
 // path (e.g. /gallery/01.jpg) and adjust span/aspect to suit.
-const gallery: { src: string; alt: string; span: 2 | 3 | 6; aspect: string }[] = [
-  { src: '/21c4036c-feae-48b8-a539-64338850279d.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/26042d42-dec0-439d-a36c-6756ba1aeb94.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/b3ec0456-0550-469c-8121-99e3fef95064.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/chair.jpg',  alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/chair2.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/chair3.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/chair4.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/exercises1.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-23.jpg', alt: '', span: 6, aspect: '16 / 7' },
-  { src: '/lucy-hall-massage-25.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-36.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/exercises2.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/excercises3.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-42.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/b7d62880-47c2-46b1-bd1f-d99662f9895c.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/d730a508-6c23-4661-9335-64c79b68d5fe.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/lucy-hall-massage-44.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-47.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-57.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-74.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/lucy-hall-massage-95.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/lucy-hall-massage-96.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/lucy-hall-massage-112.jpg', alt: '', span: 6, aspect: '16 / 7' },
-  { src: '/lucy-hall-massage-114.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-116.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-124.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-160.jpg', alt: '', span: 2, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-177.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/lucy-hall-massage-202.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/lucy-hall-massage-218.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/lucy-hall-massage-223.jpg', alt: '', span: 2, aspect: '3 / 4' },
-  { src: '/lucy-hall-massage-227.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-228.jpg', alt: '', span: 3, aspect: '4 / 3' },
-  { src: '/lucy-hall-massage-232.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/lucy-hall-massage-233.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/lucy-hall-massage-235.jpg', alt: '', span: 2, aspect: '1 / 1' },
-  { src: '/lucy-hall-massage-236.jpg', alt: '', span: 6, aspect: '16 / 7' },
+const gallery: { src: string; alt: string; bg: string }[] = [
+  { src: '/21c4036c-feae-48b8-a539-64338850279d.jpg', alt: '', bg: '#2a2a2a' },
+  { src: '/26042d42-dec0-439d-a36c-6756ba1aeb94.jpg', alt: '', bg: '#3a2e2e' },
+  { src: '/b3ec0456-0550-469c-8121-99e3fef95064.jpg', alt: '', bg: '#2e3a3a' },
+  { src: '/chair.jpg', alt: '', bg: '#3a352e' },
+  { src: '/chair2.jpg', alt: '', bg: '#2e3a35' },
+  { src: '/chair3.jpg', alt: '', bg: '#352e3a' },
+  { src: '/chair4.jpg', alt: '', bg: '#3a2e35' },
+  { src: '/exercises1.jpg', alt: '', bg: '#2e2e3a' },
+  { src: '/lucy-hall-massage-23.jpg', alt: '', bg: '#2a2a2a' },
+  { src: '/lucy-hall-massage-25.jpg', alt: '', bg: '#3a2e2e' },
+  { src: '/lucy-hall-massage-36.jpg', alt: '', bg: '#2e3a3a' },
+  { src: '/exercises2.jpg', alt: '', bg: '#3a352e' },
+  { src: '/excercises3.jpg', alt: '', bg: '#2e3a35' },
+  { src: '/lucy-hall-massage-42.jpg', alt: '', bg: '#352e3a' },
+  { src: '/b7d62880-47c2-46b1-bd1f-d99662f9895c.jpg', alt: '', bg: '#3a2e35' },
+  { src: '/d730a508-6c23-4661-9335-64c79b68d5fe.jpg', alt: '', bg: '#2e2e3a' },
+  { src: '/lucy-hall-massage-44.jpg', alt: '', bg: '#2a2a2a' },
+  { src: '/lucy-hall-massage-47.jpg', alt: '', bg: '#3a2e2e' },
+  { src: '/lucy-hall-massage-57.jpg', alt: '', bg: '#2e3a3a' },
+  { src: '/lucy-hall-massage-74.jpg', alt: '', bg: '#3a352e' },
+  { src: '/lucy-hall-massage-95.jpg', alt: '', bg: '#2e3a35' },
+  { src: '/lucy-hall-massage-96.jpg', alt: '', bg: '#352e3a' },
+  { src: '/lucy-hall-massage-112.jpg', alt: '', bg: '#3a2e35' },
+  { src: '/lucy-hall-massage-114.jpg', alt: '', bg: '#2e2e3a' },
+  { src: '/lucy-hall-massage-116.jpg', alt: '', bg: '#2a2a2a' },
+  { src: '/lucy-hall-massage-124.jpg', alt: '', bg: '#3a2e2e' },
+  { src: '/lucy-hall-massage-160.jpg', alt: '', bg: '#2e3a3a' },
+  { src: '/lucy-hall-massage-177.jpg', alt: '', bg: '#3a352e' },
+  { src: '/lucy-hall-massage-202.jpg', alt: '', bg: '#2e3a35' },
+  { src: '/lucy-hall-massage-218.jpg', alt: '', bg: '#352e3a' },
+  { src: '/lucy-hall-massage-223.jpg', alt: '', bg: '#3a2e35' },
+  { src: '/lucy-hall-massage-227.jpg', alt: '', bg: '#2e2e3a' },
+  { src: '/lucy-hall-massage-228.jpg', alt: '', bg: '#2a2a2a' },
+  { src: '/lucy-hall-massage-232.jpg', alt: '', bg: '#3a2e2e' },
+  { src: '/lucy-hall-massage-233.jpg', alt: '', bg: '#2e3a3a' },
+  { src: '/lucy-hall-massage-235.jpg', alt: '', bg: '#3a352e' },
+  { src: '/lucy-hall-massage-236.jpg', alt: '', bg: '#2e3a35' },
 ];
 
 // ── TESTIMONIALS ──────────────────────────────────────────────
@@ -527,10 +527,7 @@ export default function CorporateHomeClient() {
               <div
                 key={i}
                 className="corp-gallery-item"
-                style={{
-                  gridColumn: `span ${g.span}`,
-                  aspectRatio: g.aspect,
-                }}
+                style={{ background: g.bg }}
               >
                 <img
                   src={g.src}
@@ -1219,12 +1216,10 @@ export default function CorporateHomeClient() {
         }
 
         /* ── GALLERY ─────────────────────────────────────────── */
-        /* CSS grid with 6-column base. Each item declares its
-           span via inline style so the layout can mix
-           portrait/landscape, full-width, and 2-up rows.
-           On mobile, span 2 stays as a third, span 3 becomes a
-           half, span 6 stays full-width. The grid drops to
-           2-column on small screens for legibility. */
+        /* Masonry layout via CSS columns. Images keep their
+           native aspect ratio; columns flow top-down. Each
+           image has its own background colour set inline so
+           the tile shows a coloured placeholder while loading. */
         .corp-gallery {
           padding: 60px 24px;
           max-width: 1600px;
@@ -1239,42 +1234,31 @@ export default function CorporateHomeClient() {
           letter-spacing: 0.02em;
         }
         .corp-gallery-grid {
-          display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          gap: 12px;
+          column-count: 2;
+          column-gap: 8px;
         }
         .corp-gallery-item {
-          position: relative;
+          break-inside: avoid;
+          margin-bottom: 8px;
           overflow: hidden;
-          background: #1a1a1a;
+          /* background set inline per-item via the bg field */
         }
         .corp-gallery-img {
           width: 100%;
-          height: 100%;
-          object-fit: cover;
+          height: auto;
           display: block;
-          transition: transform 0.5s ease;
+          transition: opacity 0.3s ease, transform 0.5s ease;
         }
         .corp-gallery-item:hover .corp-gallery-img {
           transform: scale(1.03);
         }
-        /* Mobile: collapse to 2 columns. span 2 -> 1 col,
-           span 3 -> 2 cols, span 6 -> 2 cols. */
-        @media (max-width: 767px) {
+        @media (min-width: 768px) {
           .corp-gallery-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            column-count: 3;
+            column-gap: 12px;
           }
           .corp-gallery-item {
-            grid-column: span 1 !important;
-          }
-          /* But keep the full-width ones full-width */
-          .corp-gallery-item[style*="span 6"] {
-            grid-column: span 2 !important;
-          }
-          /* And make half-width spans (3) take full row on mobile */
-          .corp-gallery-item[style*="span 3"] {
-            grid-column: span 2 !important;
+            margin-bottom: 12px;
           }
         }
         @media (min-width: 1024px) {
@@ -1282,7 +1266,10 @@ export default function CorporateHomeClient() {
             padding: 80px 80px;
           }
           .corp-gallery-grid {
-            gap: 16px;
+            column-gap: 16px;
+          }
+          .corp-gallery-item {
+            margin-bottom: 16px;
           }
         }
 
