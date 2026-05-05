@@ -239,7 +239,6 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           line-height: 1.1;
           margin: 0 0 24px;
           letter-spacing: -0.01em;
-          text-transform: uppercase;
         }
         .cs-hero-copy {
           font-size: clamp(1rem, 1.2vw, 1.1rem);
