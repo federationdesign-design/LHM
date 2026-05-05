@@ -881,7 +881,7 @@ export default function CorporateHomeClient() {
         .corp-services-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 0;
+          gap: 8px;
           max-width: 1600px;
           margin: 0 auto;
         }
@@ -907,6 +907,13 @@ export default function CorporateHomeClient() {
           inset: 0;
           background: linear-gradient(to bottom, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.7) 100%);
           z-index: 1;
+        }
+        .corp-service-card:hover .corp-service-overlay {
+          background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
+          transition: background 0.3s ease;
+        }
+        .corp-service-overlay {
+          transition: background 0.3s ease;
         }
         .corp-service-content {
           position: absolute;
@@ -950,7 +957,7 @@ export default function CorporateHomeClient() {
           }
           .corp-services-grid {
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 0;
+            gap: 8px;
           }
           .corp-service-card {
             aspect-ratio: 1 / 1;
