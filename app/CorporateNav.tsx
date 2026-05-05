@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const menuItems: [string, string][] = [
-  ['Home',                       '/corporate'],
+  ['Corporate',                  '/corporate'],
   ['In-Office Chair Massage',    '/corporate/in-chair-massage'],
   ['DSC Assessments',            '/corporate/dsc-assessments'],
   ['Posture Consultations',      '/corporate/posture-consultations'],
@@ -14,7 +14,8 @@ const menuItems: [string, string][] = [
   ['Locations',                  '/locations'],
   ['Blog',                       '/news'],
   ['Testimonials',               '/testimonials'],
-  ['Back to private site',       '/private'],
+  ['Switch to private client site', '/private'],
+  ['Back to main site',          '/'],
 ];
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
