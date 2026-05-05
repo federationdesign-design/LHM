@@ -581,7 +581,7 @@ export default function SplashClient() {
         }
         .splash-panels {
           display: grid;
-          grid-template-columns: 1fr 90px 1fr;
+          grid-template-columns: 1fr 50px 1fr;
           gap: 0;
           width: 100%;
         }
