@@ -4,16 +4,15 @@
    Shared styles for the <Testimonials /> component.
 
    Lifted from app/page.module.css and updated:
+     1. MOBILE TEXT SIZES — originally doubled from base, now
+        halved back to base (i.e. 50% of the previous mobile
+        sizes). Affects everything inside the mobile carousel:
+        avatar, name, title, body, stars, date, heading.
+        Tablet sizes also reduced proportionally.
 
-     1. ALL TEXT SIZES DOUBLED (avatar 1.2 → 2.4rem, name 1.1 →
-        2.2rem, title 0.85 → 1.7rem, body 0.88 → 1.76rem,
-        star 1.4 → 2.8rem, date 0.75 → 1.5rem). Heading sizes
-        also scaled (1.9 → 3.8rem mobile, 2.2 → 4.4rem tablet,
-        2.4 → 4.8rem desktop).
-
-        Avatar circle, slide padding, and gap values increased
-        to match the new larger type scale so layout stays
-        proportional rather than cramped.
+        Avatar circle and slide padding shrunk to match so
+        the layout stays proportional rather than oversized
+        relative to the new type scale.
 
      2. WIDTH FIX AT SOURCE. Old page.module.css had
         max-width: 1200px on .testimonialsSection at desktop,
@@ -28,6 +27,9 @@
      4. HEADING uses the same shared style for any consumer
         (private testimonials, company-clients heading on
         splash, etc.) so they all stay in visual sync.
+
+     5. DESKTOP SIZES UNCHANGED — only the mobile/tablet
+        carousel ranges have been reduced.
    ───────────────────────────────────────────────────────────── */
 
 /* ── SECTION WRAPPER ─────────────────────────────────────── */
@@ -44,7 +46,7 @@
    via the exported `headingClassName` constant in the
    component file. */
 .heading {
-  font-size: 1.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   text-align: center;
   color: #ffffff;
@@ -68,62 +70,62 @@
   width: 100%;
   flex-shrink: 0;
   text-align: center;
-  padding: 0 56px;
+  padding: 0 28px;
 }
 
 /* ── CARD INTERNALS (used by both carousel + grid) ───────── */
 .avatar {
-  width: 96px;
-  height: 96px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #333;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.4rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #fff;
-  margin: 0 auto 20px;
+  margin: 0 auto 14px;
 }
 
 .name {
-  font-size: 2.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #fff;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .title {
-  font-size: 1.7rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #fff;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .body {
-  font-size: 1.76rem;
+  font-size: 0.88rem;
   color: #fff;
-  line-height: 1.4;
-  margin-bottom: 24px;
+  line-height: 1.5;
+  margin-bottom: 16px;
 }
 
 .stars {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-bottom: 16px;
+  gap: 4px;
+  margin-bottom: 10px;
 }
 
 .star {
   color: #f5a623;
-  font-size: 2.8rem;
+  font-size: 1.4rem;
   line-height: 1;
 }
 
 .date {
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   color: #888480;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 /* ── DOTS (mobile carousel pager) ────────────────────────── */
@@ -161,10 +163,10 @@
 /* ── TABLET ──────────────────────────────────────────────── */
 @media (min-width: 768px) {
   .heading {
-    font-size: 2.2rem;
+    font-size: 1.1rem;
   }
   .slide {
-    padding: 0 80px;
+    padding: 0 40px;
   }
 }
 
