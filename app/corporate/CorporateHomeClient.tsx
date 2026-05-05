@@ -384,8 +384,16 @@ export default function CorporateHomeClient() {
           <div className="corp-included-grid">
             {whatsIncluded.map((item) => (
               <div key={item.title} className="corp-included-item">
-                <h3 className="corp-included-title">{item.title}</h3>
-                <p className="corp-included-body">{item.body}</p>
+                <img
+                  src="/tick-svg.svg"
+                  alt=""
+                  className="corp-included-tick"
+                  aria-hidden="true"
+                />
+                <div className="corp-included-text">
+                  <h3 className="corp-included-title">{item.title}</h3>
+                  <p className="corp-included-body">{item.body}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -1115,7 +1123,18 @@ export default function CorporateHomeClient() {
           gap: 28px 60px;
         }
         .corp-included-item {
-          /* Title + body stack */
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+        }
+        .corp-included-tick {
+          width: 88px;
+          height: 88px;
+          flex-shrink: 0;
+        }
+        .corp-included-text {
+          flex: 1;
+          min-width: 0;
         }
         .corp-included-title {
           font-size: 1rem;
