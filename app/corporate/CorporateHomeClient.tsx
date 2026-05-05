@@ -120,22 +120,22 @@ const videos = [
   {
     vimeoId: '478025499',
     title: 'Watch a recent Webinar',
-    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+    intro: 'Watch a recording of a recent webinar hosted by Lucy, learn about seating postures and at desk exercises.',
   },
   {
     vimeoId: '1189408231',
     title: 'Watch our promo for on site service',
-    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+    intro: 'We made an advert, view it here.',
   },
   {
     vimeoId: '1189408591',
     title: 'Watch Staff member testimonies',
-    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+    intro: 'See and hear real people talking about real solutions.',
   },
   {
     vimeoId: '1189408959',
     title: 'What our desk posture tutorial',
-    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+    intro: 'Watch one of our tutorials here. We have a whole archive of them for you and your team.',
   },
 ];
 
