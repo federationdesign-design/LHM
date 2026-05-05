@@ -219,7 +219,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
             >
               <h2 className="splash-m-hero-headline">Do you work in HR?</h2>
               <p className="splash-m-hero-sub">
-                We can reduce sickness &amp; absenteeism at work?
+                We can help you reduce sickness &amp; absenteeism
               </p>
             </div>
           </div>
@@ -342,7 +342,7 @@ export default function SplashClient() {
                 <div className="splash-panel-content">
                   <h2 className="splash-panel-heading">Do you work in HR?</h2>
                   <p className="splash-panel-sub">
-                    We can help you reduce sickness &amp;<br />absenteeism in the workplace
+                    We can help you reduce sickness &amp; absenteeism
                   </p>
                   <div className="splash-panel-rule" />
                   <div className="splash-panel-link splash-panel-link--right">
