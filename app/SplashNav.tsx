@@ -216,7 +216,7 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
 
         .splash-full-logo {
           grid-column: 1 / -1;
-          height: 53px;
+          height: 27px;
           width: auto;
           object-fit: contain;
           display: block;
@@ -228,7 +228,7 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
           border: none;
           color: #ffffff;
           font-family: inherit;
-          font-size: 2.4rem;
+          font-size: 1.8rem;
           font-weight: 500;
           padding: 4px 0;
           cursor: pointer;
