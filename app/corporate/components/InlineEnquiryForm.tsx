@@ -36,7 +36,7 @@ const COLOR_ORANGE = '#ff8c00';
 const COLOR_GREEN  = '#2cd12c';
 
 const EMAIL_RE  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MOBILE_RE = /^[\d\s+()-]{7,}$/;
+const MOBILE_RE = /^[\d\s+()-]{6,}$/;
 
 const CONTACT_METHODS = [
   { id: 'phone',  label: 'Phone call' },

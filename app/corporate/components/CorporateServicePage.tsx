@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import CorporateNav from '../../CorporateNav';
+import Testimonials from '../../components/Testimonials/Testimonials';
+import { corporateTestimonials } from '../../components/Testimonials/corporate-testimonials-data';
 import Footer from '../../Footer';
 import InlineEnquiryForm from './InlineEnquiryForm';
 
@@ -58,13 +60,6 @@ const services = [
 // Same on all 3 service pages per Steve's call. Sourced from
 // the corp testimonials — Maria Slater @ Spotify is the most
 // chair-massage-relevant entry.
-const testimonial = {
-  body:
-    '“Lucy provided corporate massage at our offices giving targeted help with specific discomfort or general relaxation from the all too real strains of a desk job. Unfailingly polite and supportive she also provided advice and guidance on exercises and posture outside of treatment. Her attentive and interested attitude to her clients was exceptional and quickly changed the sessions from a nice treat to an essential part of self care and well being.”',
-  attribution: 'University of Cambridge',
-  logo: '/university-cambridge.png',
-};
-
 // ── PROPS ─────────────────────────────────────────────────────
 export interface CorporateServicePageProps {
   /** Slug for filtering this page out of the "other services"
@@ -162,18 +157,12 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           </div>
         </section>
 
-        {/* ── TESTIMONIAL ────────────────────────────────────── */}
-        <section className="cs-testimonial">
-          <h2 className="cs-testimonial-heading">Credibility:</h2>
-          <div className="cs-testimonial-box">
-            <p className="cs-testimonial-body">{testimonial.body}</p>
-            <img
-              src={testimonial.logo}
-              alt={testimonial.attribution}
-              className="cs-testimonial-logo"
-              draggable={false}
-            />
-          </div>
+        {/* ── TESTIMONIALS ──────────────────────────────────── */}
+        <section style={{ padding: '40px 0 20px' }}>
+          <Testimonials
+            heading="Happy corporate clients include"
+            items={corporateTestimonials}
+          />
         </section>
 
         {/* ── OTHER SERVICES STRIP ──────────────────────────── */}
@@ -375,45 +364,14 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         }
 
         /* ── TESTIMONIAL ───────────────────────────────────── */
-        .cs-testimonial {
-          padding: 60px 24px;
-          max-width: 1400px;
-          margin: 0 auto;
-        }
-        .cs-testimonial-heading {
-          font-size: 1.3rem;
-          font-weight: 400;
-          margin: 0 0 24px;
-        }
-        .cs-testimonial-box {
-          padding: 32px;
-          border: 1px solid rgba(255,255,255,0.2);
-          border-radius: 4px;
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-        }
-        .cs-testimonial-body {
-          font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-          font-weight: 300;
-          line-height: 1.7;
-          margin: 0;
-          opacity: 0.92;
-        }
-        .cs-testimonial-logo {
-          max-height: 48px;
-          width: auto;
-          align-self: flex-start;
-          filter: brightness(0) invert(1);
-          opacity: 0.85;
-        }
+        
+        
+        
+        
+        
         @media (min-width: 1024px) {
-          .cs-testimonial {
-            padding: 80px 80px;
-          }
-          .cs-testimonial-box {
-            padding: 48px;
-          }
+          
+          
         }
 
         /* ── OTHER SERVICES STRIP ──────────────────────────── */

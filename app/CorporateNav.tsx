@@ -9,6 +9,11 @@ const menuItems: [string, string][] = [
   ['DSC Assessments',            '/corporate/dsc-assessments'],
   ['Posture Consultations',      '/corporate/posture-consultations'],
   ['Enquire',                    '/corporate/enquire'],
+  ['Contact Us',                 '/contact'],
+  ['Our Team',                   '/team'],
+  ['Locations',                  '/locations'],
+  ['Blog',                       '/news'],
+  ['Testimonials',               '/testimonials'],
   ['Back to private site',       '/private'],
 ];
 
