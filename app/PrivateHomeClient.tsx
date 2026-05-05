@@ -707,7 +707,7 @@ export default function PrivateHomeClient() {
           </span>
 
           <div className={styles.heroContent}>
-            <h1 className={styles.heroH1}>Need a massage now?</h1>
+            <h1 className={styles.heroH1}>Need a massage?</h1>
             <p className={styles.heroSub}>Book your appointment in just two minutes with our simple online booking system.</p>
             <hr className={styles.heroRule} />
             <a href="/treatments" className={`${styles.heroBookNow} hp-hero-cta`}>BOOK TREATMENT &gt;&gt;</a>
