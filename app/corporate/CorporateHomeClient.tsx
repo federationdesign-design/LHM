@@ -128,12 +128,12 @@ const videos = [
     intro: 'We made an advert, view it here.',
   },
   {
-    vimeoId: '1189408591',
+    vimeoId: '1189408959',
     title: 'Watch Staff member testimonies',
     intro: 'See and hear real people talking about real solutions.',
   },
   {
-    vimeoId: '1189408959',
+    vimeoId: '1189408591',
     title: 'What our desk posture tutorial',
     intro: 'Watch one of our tutorials here. We have a whole archive of them for you and your team.',
   },
