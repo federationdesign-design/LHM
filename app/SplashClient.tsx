@@ -206,9 +206,9 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
               className="splash-m-hero-text-col splash-m-hero-text-col--left"
               style={{ opacity: 1 }}
             >
-              <h2 className="splash-m-hero-headline">Feeling Injured?</h2>
+              <h2 className="splash-m-hero-headline">Need a massage now?</h2>
               <p className="splash-m-hero-sub">
-                Don&rsquo;t let poor posture, stress, or injury hold you back
+                Book your appointment now, it only takes 2 minutes with our online booking tool
               </p>
             </div>
             <div className="splash-m-hero-spine" aria-hidden="true" />
@@ -342,7 +342,7 @@ export default function SplashClient() {
                 <div className="splash-panel-content">
                   <h2 className="splash-panel-heading">Work in HR?</h2>
                   <p className="splash-panel-sub">
-                    We can reduce sickness &amp;<br />absenteeism at work?
+                    We can help you reduce sickness &amp;<br />absenteeism in the workplace
                   </p>
                   <div className="splash-panel-rule" />
                   <div className="splash-panel-link splash-panel-link--right">
