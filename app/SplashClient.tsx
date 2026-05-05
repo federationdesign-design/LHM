@@ -206,7 +206,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
               className="splash-m-hero-text-col splash-m-hero-text-col--left"
               style={{ opacity: 1 }}
             >
-              <h2 className="splash-m-hero-headline">Need a massage now?</h2>
+              <h2 className="splash-m-hero-headline">Need a massage?</h2>
               <p className="splash-m-hero-sub">
                 Book your appointment now, it only takes 2 minutes
               </p>
