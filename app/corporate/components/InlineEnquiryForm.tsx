@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import SecondaryEnquiryModal from './SecondaryEnquiryModal';
 
 /* ─────────────────────────────────────────────────────────────
    InlineEnquiryForm — corporate enquiry form for use inside
@@ -70,6 +71,7 @@ export default function InlineEnquiryForm({
 
   const [submitting, setSubmitting] = useState(false);
   const [success,    setSuccess]    = useState(false);
+  const [modalOpen,  setModalOpen]  = useState(false);
   const [error,      setError]      = useState<string | null>(null);
 
   useEffect(() => {
@@ -140,6 +142,7 @@ export default function InlineEnquiryForm({
       }
 
       setSuccess(true);
+      setModalOpen(true);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong';
       setError(msg);
@@ -395,6 +398,13 @@ export default function InlineEnquiryForm({
           outline-offset: 2px;
         }
       `}</style>
-    </>
+    <SecondaryEnquiryModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialName={name}
+        initialEmail={email}
+        initialMobile={mobile}
+      />
+      </>
   );
 }

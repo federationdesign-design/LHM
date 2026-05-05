@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Footer from '../../Footer';
 import CorporateNav from '../../CorporateNav';
+import SecondaryEnquiryModal from '../components/SecondaryEnquiryModal';
 
 /* ─────────────────────────────────────────────────────────────
    CorporateEnquireClient — /corporate/enquire (standalone page)
@@ -54,6 +55,7 @@ export default function CorporateEnquireClient() {
 
   const [submitting, setSubmitting] = useState(false);
   const [success,    setSuccess]    = useState(false);
+  const [modalOpen,  setModalOpen]  = useState(false);
   const [error,      setError]      = useState<string | null>(null);
 
   useEffect(() => {
@@ -124,6 +126,7 @@ export default function CorporateEnquireClient() {
       }
 
       setSuccess(true);
+      setModalOpen(true);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong';
       setError(msg);
@@ -433,6 +436,13 @@ export default function CorporateEnquireClient() {
           }
         }
       `}</style>
-    </>
+    <SecondaryEnquiryModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialName={name}
+        initialEmail={email}
+        initialMobile={mobile}
+      />
+      </>
   );
 }

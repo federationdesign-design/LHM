@@ -217,6 +217,15 @@ export async function POST(request: Request) {
     mobile?: string;
     contactMethods?: string[];
     recaptchaToken?: string;
+    // Secondary (enriched-lead) submission fields
+    secondary?: boolean;
+    phone?: string;
+    company?: string;
+    domain?: string;
+    postcode?: string;
+    position?: string;
+    specialArrangements?: string;
+    teamSize?: string;
   };
 
   try {
@@ -241,6 +250,105 @@ export async function POST(request: Request) {
   if (!mobile || !isValidMobile(mobile)) {
     return NextResponse.json({ error: 'A valid mobile number is required' }, { status: 400 });
   }
+
+  // ── Handle SECONDARY (enriched-lead) submission ─────────────
+  // The secondary form is triggered after the user has already
+  // submitted the initial enquiry (so we already have their basic
+  // details + sent the PDF). This is the optional follow-up where
+  // they can provide richer info. We send Steve a follow-up email
+  // tagged so he can spot it and link it back to the original lead.
+  if (body.secondary === true) {
+    const phone    = (body.phone    || '').trim();
+    const company  = (body.company  || '').trim();
+    const domain   = (body.domain   || '').trim();
+    const postcode = (body.postcode || '').trim();
+    const position = (body.position || '').trim();
+    const special  = (body.specialArrangements || '').trim();
+    const teamSize = (body.teamSize || '').trim();
+
+    const methodsLabels = contactMethods
+      .map((m) => METHOD_LABELS[m] || m)
+      .join(', ') || 'not specified';
+
+    const teamSizeLabels: Record<string, string> = {
+      small:  'Small (2-10)',
+      medium: 'Medium (10-25)',
+      large:  'Large (25+)',
+    };
+    const teamSizeLabel = teamSizeLabels[teamSize] || teamSize || 'not specified';
+
+    const specialLabels: Record<string, string> = {
+      yes:   'Yes',
+      no:    'No',
+      maybe: 'Maybe',
+    };
+    const specialLabel = specialLabels[special] || special || 'not specified';
+
+    const html = `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #000;">
+        <h2 style="color: #000; margin: 0 0 8px;">Lead Enriched</h2>
+        <p style="color: #888; font-size: 13px; margin: 0 0 24px;">
+          ${escapeHtml(name)} provided additional details after their initial enquiry.
+        </p>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 8px 0; font-weight: 600; width: 200px; vertical-align: top;">Name:</td><td style="padding: 8px 0;">${escapeHtml(name)}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Email:</td><td style="padding: 8px 0;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
+          <tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Mobile:</td><td style="padding: 8px 0;"><a href="tel:${escapeHtml(mobile)}">${escapeHtml(mobile)}</a></td></tr>
+          ${phone    ? `<tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Phone:</td><td style="padding: 8px 0;"><a href="tel:${escapeHtml(phone)}">${escapeHtml(phone)}</a></td></tr>` : ''}
+          ${company  ? `<tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Company:</td><td style="padding: 8px 0;">${escapeHtml(company)}</td></tr>` : ''}
+          ${domain   ? `<tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Domain:</td><td style="padding: 8px 0;">${escapeHtml(domain)}</td></tr>` : ''}
+          ${postcode ? `<tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Postcode:</td><td style="padding: 8px 0;">${escapeHtml(postcode)}</td></tr>` : ''}
+          ${position ? `<tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Position:</td><td style="padding: 8px 0;">${escapeHtml(position)}</td></tr>` : ''}
+          <tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Preferred contact:</td><td style="padding: 8px 0;">${escapeHtml(methodsLabels)}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Team size:</td><td style="padding: 8px 0;">${escapeHtml(teamSizeLabel)}</td></tr>
+          <tr><td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Special arrangements:</td><td style="padding: 8px 0;">${escapeHtml(specialLabel)}</td></tr>
+        </table>
+        <hr style="margin: 24px 0; border: none; border-top: 1px solid #eee;" />
+        <p style="color: #888; font-size: 12px; margin: 0;">
+          Submitted via the secondary enquiry modal on lucyhallmassage.com.
+        </p>
+      </div>
+    `;
+
+    const text = [
+      'Lead Enriched',
+      '',
+      `${name} provided additional details after their initial enquiry.`,
+      '',
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Mobile: ${mobile}`,
+      phone    ? `Phone: ${phone}` : '',
+      company  ? `Company: ${company}` : '',
+      domain   ? `Domain: ${domain}` : '',
+      postcode ? `Postcode: ${postcode}` : '',
+      position ? `Position: ${position}` : '',
+      `Preferred contact: ${methodsLabels}`,
+      `Team size: ${teamSizeLabel}`,
+      `Special arrangements: ${specialLabel}`,
+      '',
+      'Submitted via the secondary enquiry modal on lucyhallmassage.com.',
+    ].filter(Boolean).join('\n');
+
+    try {
+      await sendEmail({
+        to:      NOTIFICATION_RECIPIENT,
+        replyTo: email,
+        subject: `Lead Enriched - ${name} (additional details)`,
+        html,
+        text,
+      });
+    } catch (err) {
+      console.error('[corporate-enquiry] Secondary notification email failed:', err);
+      return NextResponse.json(
+        { error: 'Could not save your details, please try again or email info@lucyhallmassage.com directly.' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ ok: true });
+  }
+
 
   const recaptcha = await verifyRecaptcha(body.recaptchaToken || '');
   if (!recaptcha.ok) {
