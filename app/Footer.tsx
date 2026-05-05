@@ -9,6 +9,7 @@ const mainMenu: [string, string][] = [
   ['Blog', '/news'],
   ['FAQ', '/faq'],
   ['Contact', '/contact'],
+  ['Corporate', '/corporate'],
 ];
 
 // Useful Links — FAQ removed, "Request Receipts" and "Testimonials" added
