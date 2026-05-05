@@ -280,14 +280,13 @@ export default function CorporateHomeClient() {
 
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className="corp-hero">
-          <div className="corp-hero-image">
-            <Image
-              src="/corporate-hero.jpg"
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
+          <div className="corp-hero-image" style={{ background: '#1a1a1a' }}>
+            <iframe
+              src="https://player.vimeo.com/video/1189431154?autoplay=1&muted=1&loop=1&background=1&controls=0&autopause=0"
+              title="Corporate hero video"
+              allow="autoplay; fullscreen"
+              loading="eager"
+              className="corp-hero-video"
             />
             <div className="corp-hero-overlay" aria-hidden="true" />
           </div>
@@ -580,6 +579,18 @@ export default function CorporateHomeClient() {
         .corp-hero-image {
           position: absolute;
           inset: 0;
+        }
+        .corp-hero-video {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100vw;
+          height: 56.25vw;
+          min-height: 100%;
+          min-width: 177.78vh;
+          transform: translate(-50%, -50%);
+          border: none;
+          pointer-events: none;
         }
         .corp-hero-overlay {
           position: absolute;
