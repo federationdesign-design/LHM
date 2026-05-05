@@ -19,12 +19,15 @@ import styles from './page.module.css';
    Uses the same SCROLL-DRIVEN HORIZONTAL TRANSLATE pattern as
    ServicesCarousel on PrivateHomeClient.
 
-   The hero zone is a 200vh-tall section. Inside it sits a sticky
+   The hero zone is a 150vh-tall section (was 200vh, shortened
+   to make a single mobile-sized swipe move the filmstrip
+   completely from private → corporate). Inside it sits a sticky
    100vh viewport that contains:
      1. A 200vw filmstrip with two images side-by-side
         (private | corporate). A scroll listener translates this
         filmstrip from translateX(0) → translateX(-100vw) as the
-        user scrolls through the 200vh section.
+        user scrolls through the 50vh of "runway" inside the
+        150vh section (i.e. section height − sticky height).
      2. A fixed text overlay (always visible, never translates):
         - Two side-by-side headlines (Feeling Injured? | Work in HR?)
         - White rule across the bottom
@@ -37,8 +40,17 @@ import styles from './page.module.css';
    headline content remains legible regardless of which image is
    currently visible underneath.
 
-   Below the hero zone, the elaboration text follows in a single-
-   column stack (this is unchanged from the existing mobile layout).
+   Scroll-snap behaviour (mobile only):
+     - html has `scroll-snap-type: y mandatory`
+     - Hero, private elaborate, panels, corporate elaborate are
+       all `scroll-snap-align: start` so the browser locks to
+       each in turn
+     - Hero specifically has `scroll-snap-stop: always` so the
+       user cannot scroll past it without first stopping. This
+       combined with the shortened 150vh runway means a single
+       short swipe inside the hero translates the filmstrip
+       fully from private → corporate before the browser snaps
+       on to the next section.
    ───────────────────────────────────────────────────────────── */
 
 // ── CONFIG ────────────────────────────────────────────────────
@@ -171,14 +183,14 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
             <div className="splash-m-hero-text-col splash-m-hero-text-col--left">
               <h2 className="splash-m-hero-headline">Feeling Injured?</h2>
               <p className="splash-m-hero-sub">
-                Don&rsquo;t let poor posture, stress,<br />or injury hold you back
+                Don&rsquo;t let poor posture, stress, or injury hold you back
               </p>
             </div>
             <div className="splash-m-hero-spine" aria-hidden="true" />
             <div className="splash-m-hero-text-col splash-m-hero-text-col--right">
               <h2 className="splash-m-hero-headline">Work in HR?</h2>
               <p className="splash-m-hero-sub">
-                We can reduce sickness &amp;<br />absenteeism at work?
+                We can reduce sickness &amp; absenteeism at work?
               </p>
             </div>
           </div>
@@ -393,35 +405,14 @@ export default function SplashClient() {
           </section>
 
           {/* 2. Mobile-only chevron-panels block — sandwiched
-              between the two elaborations. Two rows, each 20vh:
-              corporate row (image left, label right), private row
-              (label left, image right). Whole row is tappable. */}
+              between the two elaborations. Two rows, each 20vh.
+              Order: Body/Private row sits on top, Team/Corporate
+              row below. Image position within each row is
+              preserved (private has image on the right; corporate
+              has image on the left). */}
           <section className="splash-m-panels" aria-label="Choose Private or Corporate">
 
-            <button
-              type="button"
-              className="splash-m-row splash-m-row--corporate"
-              onClick={() => choose('corporate')}
-              aria-label="Choose corporate — My Team"
-            >
-              <div className="splash-m-row-image">
-                <Image
-                  src="/corporate-signature-img.jpg"
-                  alt=""
-                  fill
-                  sizes="50vw"
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
-                />
-              </div>
-              <div className="splash-m-row-chevron">
-                <span className="splash-m-row-title">My Team</span>
-                <svg viewBox="0 0 24 24" fill="none" style={{ width: 48, height: 48 }} aria-hidden="true">
-                  <path d="M9 5l7 7-7 7" stroke="#fff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="splash-m-row-side">Corporate</span>
-              </div>
-            </button>
-
+            {/* Row 1 (top): My Body / Private — image right, label left */}
             <button
               type="button"
               className="splash-m-row splash-m-row--private"
@@ -443,6 +434,31 @@ export default function SplashClient() {
                   sizes="50vw"
                   style={{ objectFit: 'cover', objectPosition: 'center' }}
                 />
+              </div>
+            </button>
+
+            {/* Row 2 (bottom): My Team / Corporate — image left, label right */}
+            <button
+              type="button"
+              className="splash-m-row splash-m-row--corporate"
+              onClick={() => choose('corporate')}
+              aria-label="Choose corporate — My Team"
+            >
+              <div className="splash-m-row-image">
+                <Image
+                  src="/corporate-signature-img.jpg"
+                  alt=""
+                  fill
+                  sizes="50vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              </div>
+              <div className="splash-m-row-chevron">
+                <span className="splash-m-row-title">My Team</span>
+                <svg viewBox="0 0 24 24" fill="none" style={{ width: 48, height: 48 }} aria-hidden="true">
+                  <path d="M9 5l7 7-7 7" stroke="#fff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="splash-m-row-side">Corporate</span>
               </div>
             </button>
 
@@ -705,35 +721,65 @@ export default function SplashClient() {
         }
 
         /* ── MOBILE/TABLET — scroll-driven hero ─────────────── */
-        /* Scroll-snap (proximity) on the two mobile sections that
-           form the hero handoff. Each becomes a snap target so when
-           the user scrolls near the boundary, the browser nudges
-           them onto the next section. Outside the proximity zone
-           they free-scroll normally. The snap container is the
-           document root; targets are the hero section and the
-           elaboration block.
+        /* Scroll-snap (MANDATORY) on the four mobile sections:
+             - hero (150vh)
+             - private elaboration
+             - panels block
+             - corporate elaboration
 
-           Important: scroll-snap-type lives on the SCROLL CONTAINER,
-           which is the document root on mobile. We apply it to the
-           html element only below 1024px so desktop stays free-scroll. */
+           Each elaboration section is given min-height: 100vh so it
+           occupies a full viewport when snapped to. This guarantees
+           the user sees a complete section at each stop rather than
+           being half-cropped between two.
+
+           Mandatory means the browser will always pull to the
+           nearest snap-align: start once the user stops scrolling.
+
+           The hero specifically has scroll-snap-stop: always
+           which prevents the user from scrolling PAST the hero in
+           a single swipe — the browser must stop on it. Combined
+           with the shortened 150vh runway, this means a single
+           short downward swipe inside the hero translates the
+           filmstrip fully (private → corporate) before the
+           browser locks back to the hero's snap point. The next
+           swipe then advances to the next section.
+
+           Desktop is untouched. */
         @media (max-width: 1023px) {
           html {
-            scroll-snap-type: y proximity;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
           }
-          .splash-m-hero,
+          .splash-m-hero {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+          }
           .splash-mobile-elaborate--private,
           .splash-m-panels,
           .splash-mobile-elaborate--corporate {
             scroll-snap-align: start;
             scroll-snap-stop: normal;
           }
+          /* Each elaboration section becomes its own viewport-sized
+             snap target. The content centres vertically so short
+             text doesn't sit at the top of an empty viewport. */
+          .splash-mobile-elaborate--private,
+          .splash-mobile-elaborate--corporate {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+          }
         }
 
         .splash-m-hero {
           position: relative;
           background: #000000;
-          /* 200vh = 100vh per image. Scroll runway. */
-          height: 200vh;
+          /* 150vh = 100vh sticky viewport + 50vh of scroll runway.
+             Shortened from 200vh so a single mobile-sized swipe
+             through the runway translates the filmstrip the full
+             100vw distance. Combined with scroll-snap-stop: always
+             this gives a "one swipe per image" feel. */
+          height: 150vh;
         }
         .splash-m-hero-sticky {
           position: sticky;
@@ -893,6 +939,7 @@ export default function SplashClient() {
           gap: 60px;
           max-width: 1600px;
           margin: 0 auto;
+          width: 100%;
         }
         .splash-mobile-elaborate .splash-elaborate-col {
           position: relative;
@@ -928,8 +975,9 @@ export default function SplashClient() {
         }
 
         /* ── MOBILE PANELS-WITH-CHEVRONS BLOCK ──────────────── */
-        /* Two stacked rows below the elaboration. Each row is 40vh
-           and split 50/50 image | label. Whole row is a button. */
+        /* Two stacked rows below the elaboration. Each row is 20vh
+           and split 50/50 image | label. Whole row is a button.
+           Order: Body/Private (top), Team/Corporate (bottom). */
         .splash-m-panels {
           display: flex;
           flex-direction: column;
