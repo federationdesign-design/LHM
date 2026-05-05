@@ -92,12 +92,14 @@ const ChevronLeft = () => (
 function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const privateFrameRef = useRef<HTMLDivElement>(null);
   const privateTextRef = useRef<HTMLDivElement>(null);
   const corporateTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
+    const privateFrame = privateFrameRef.current;
     const privateText = privateTextRef.current;
     const corporateText = corporateTextRef.current;
     if (!section || !track) return;
@@ -108,6 +110,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
       raf = requestAnimationFrame(() => {
         if (window.innerWidth >= 1024) {
           track.style.transform = '';
+          if (privateFrame) privateFrame.style.opacity = '';
           if (privateText) privateText.style.opacity = '';
           if (corporateText) corporateText.style.opacity = '';
           return;
@@ -116,11 +119,24 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
         const scrollY = window.scrollY;
         const scrollable = section.offsetHeight - window.innerHeight;
         if (scrollable <= 0) return;
-        const p = Math.max(0, Math.min(1, (scrollY - sectionTop) / scrollable));
-        // Filmstrip translation: 0vw → -100vw
+        // Raw scroll progress 0 → 1 across the entire 250dvh
+        // section runway. The first 40% drives the filmstrip
+        // translation; the remaining 60% is "dwell" time where
+        // the corporate image stays locked in view, so the user
+        // must initiate a fresh scroll gesture to push past the
+        // hero into the elaboration sections.
+        const rawP = Math.max(0, Math.min(1, (scrollY - sectionTop) / scrollable));
+        // Remap: only the first 0.4 of rawP drives the translate.
+        // Anything past 0.4 keeps the filmstrip locked at -100vw.
+        const p = Math.min(1, rawP / 0.4);
+        // Filmstrip translation: 0vw → -100vw across p
         track.style.transform = `translateX(-${p * 100}vw)`;
-        // Text crossfade: private starts 1.0 fades to 0.7,
-        // corporate starts 0.7 fades to 1.0. Linear interp on p.
+        // Private image fades to black as it slides off (only
+        // the private frame; corporate stays at full brightness).
+        if (privateFrame) {
+          privateFrame.style.opacity = String(1 - p);
+        }
+        // Text crossfade: private 1.0 → 0.7, corporate 0.7 → 1.0
         if (privateText) {
           privateText.style.opacity = String(1 - p * 0.3);
         }
@@ -151,6 +167,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
         {/* Filmstrip — 200vw of images, translated via JS */}
         <div ref={trackRef} className="splash-m-hero-track">
           <div
+            ref={privateFrameRef}
             className="splash-m-hero-frame"
             style={{ background: PRIVATE_FALLBACK }}
           >
@@ -759,10 +776,19 @@ export default function SplashClient() {
           /* vh fallback for older browsers, dvh for modern.
              dvh = "dynamic viewport height" — adjusts to the
              actual visible area, accounting for mobile browser
-             URL bar showing/hiding. Without this, content gets
-             cropped under the URL bar on shorter phones. */
-          height: 150vh;
-          height: 150dvh;
+             URL bar showing/hiding.
+
+             Total height: 250dvh = 100dvh sticky viewport +
+             150dvh of scroll runway.
+             First 40% of runway (60dvh) drives the filmstrip
+             translation from private → corporate.
+             Remaining 60% of runway (90dvh) is "dwell" time:
+             the corporate image stays sticky and visible until
+             the user scrolls past, forcing a deliberate second
+             gesture before the page advances to the elaboration
+             sections below. */
+          height: 250vh;
+          height: 250dvh;
         }
         .splash-m-hero-sticky {
           position: sticky;
