@@ -8,41 +8,34 @@ import CorporateNav from '../../CorporateNav';
 /* ─────────────────────────────────────────────────────────────
    CorporateEnquireClient — /corporate/enquire
 
-   Standalone enquiry form. Reached from any "Download our
-   employer PDF" / "Enquire about your team here" CTA across
-   the corporate site.
+   Same fields and validation as the inline form on service
+   pages, just laid out as a full standalone page rather than
+   a hero overlay.
 
-   Flow:
-     1. User fills name + email + company + phone
-     2. Submit → reCAPTCHA v3 token (action: corporate_enquiry)
-     3. POSTs to /api/corporate-enquiry with form data + token
-     4. API verifies reCAPTCHA, sends notification email to
-        steve@lucyhallmassage.com, sends autoresponder to the
-        user with the employer PDF download link
-     5. UI shows success state thanking them and confirming
-        the PDF link is on its way
+   Three-state submit button:
+     - GREY   #808080  — required incomplete
+     - ORANGE #ff8c00  — required filled, no contact method
+     - GREEN  #2cd12c  — required + at least one method picked
 
-   Three-state button pattern (matches the wellbeing form):
-     - GREY (#808080)  — not enough info to submit
-     - ORANGE (#ff8c00) — required fields filled (name + valid
-       email + company), can submit
-     - GREEN (#2cd12c) — all fields including phone are filled,
-       full follow-up possible
-
-   Submitting in either ORANGE or GREEN state is fine; the
-   colour just signals data quality.
+   Submits to /api/corporate-enquiry. On success swaps to a
+   thank-you state with confirmation that the PDF is on its way.
    ───────────────────────────────────────────────────────────── */
 
-// ── reCAPTCHA SITE KEY ────────────────────────────────────────
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
 
-// ── CONSTANTS ─────────────────────────────────────────────────
 const COLOR_GREY   = '#808080';
 const COLOR_ORANGE = '#ff8c00';
 const COLOR_GREEN  = '#2cd12c';
 
-// Quick email validator — same pattern used elsewhere on the site
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MOBILE_RE = /^[\d\s+()-]{7,}$/;
+
+const CONTACT_METHODS = [
+  { id: 'phone',  label: 'Phone call' },
+  { id: 'sms',    label: 'SMS/WhatsApp' },
+  { id: 'mobile', label: 'Mobile call' },
+  { id: 'email',  label: 'Email' },
+];
 
 declare global {
   interface Window {
@@ -54,19 +47,15 @@ declare global {
 }
 
 export default function CorporateEnquireClient() {
-  // Form state
-  const [name,    setName]    = useState('');
-  const [email,   setEmail]   = useState('');
-  const [company, setCompany] = useState('');
-  const [phone,   setPhone]   = useState('');
+  const [name, setName]     = useState('');
+  const [email, setEmail]   = useState('');
+  const [mobile, setMobile] = useState('');
+  const [methods, setMethods] = useState<string[]>([]);
 
-  // UI state
   const [submitting, setSubmitting] = useState(false);
   const [success,    setSuccess]    = useState(false);
   const [error,      setError]      = useState<string | null>(null);
 
-  // Load reCAPTCHA v3 script on mount. Idempotent — checks
-  // for existing script tag before adding.
   useEffect(() => {
     if (!RECAPTCHA_SITE_KEY) return;
     const existing = document.querySelector(
@@ -81,26 +70,26 @@ export default function CorporateEnquireClient() {
     document.head.appendChild(script);
   }, []);
 
-  // ── Button colour state machine ───────────────────────────
-  const emailValid = EMAIL_RE.test(email.trim());
-  const requiredOK = name.trim().length > 0 && emailValid && company.trim().length > 0;
-  const allOK      = requiredOK && phone.trim().length > 0;
+  const emailValid  = EMAIL_RE.test(email.trim());
+  const mobileValid = MOBILE_RE.test(mobile.trim());
+  const requiredOK  = name.trim().length > 0 && emailValid && mobileValid;
+  const allOK       = requiredOK && methods.length > 0;
 
-  const buttonColor = !requiredOK
-    ? COLOR_GREY
-    : allOK
-    ? COLOR_GREEN
-    : COLOR_ORANGE;
-  const canSubmit = requiredOK && !submitting;
+  const buttonColor = !requiredOK ? COLOR_GREY : allOK ? COLOR_GREEN : COLOR_ORANGE;
+  const canSubmit   = requiredOK && !submitting;
 
-  // ── Submit handler ────────────────────────────────────────
+  const toggleMethod = (id: string) => {
+    setMethods((prev) =>
+      prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
+    );
+  };
+
   const handleSubmit = async () => {
     if (!canSubmit) return;
     setError(null);
     setSubmitting(true);
 
     try {
-      // Get reCAPTCHA token
       let recaptchaToken = '';
       if (RECAPTCHA_SITE_KEY && window.grecaptcha) {
         recaptchaToken = await new Promise<string>((resolve, reject) => {
@@ -118,15 +107,14 @@ export default function CorporateEnquireClient() {
         });
       }
 
-      // POST to API
       const res = await fetch('/api/corporate-enquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: name.trim(),
           email: email.trim(),
-          company: company.trim(),
-          phone: phone.trim(),
+          mobile: mobile.trim(),
+          contactMethods: methods,
           recaptchaToken,
         }),
       });
@@ -145,13 +133,11 @@ export default function CorporateEnquireClient() {
     }
   };
 
-  // ── Render ────────────────────────────────────────────────
   return (
     <>
       <CorporateNav />
 
       <main className="enq-main">
-
         <section className="enq-section">
           <div className="enq-container">
 
@@ -159,84 +145,79 @@ export default function CorporateEnquireClient() {
 
             {!success ? (
               <>
-                <h1 className="enq-headline">Get our Employer PDF</h1>
+                <h1 className="enq-headline">Get our employer PDF</h1>
                 <p className="enq-intro">
                   Tell us a little about you and your team. We&rsquo;ll email the employer PDF straight away, and Lucy will follow up within one working day to discuss how we can help.
                 </p>
 
                 <div className="enq-form">
+                  <div className="enq-rule" />
 
-                  <label className="enq-field">
-                    <span className="enq-label">Name *</span>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="enq-input"
-                      autoComplete="name"
-                      required
-                    />
-                  </label>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="enq-input"
+                    autoComplete="name"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="enq-input"
+                    autoComplete="email"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Mobile"
+                    value={mobile}
+                    onChange={(e) => setMobile(e.target.value)}
+                    className="enq-input"
+                    autoComplete="tel"
+                  />
 
-                  <label className="enq-field">
-                    <span className="enq-label">Email *</span>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="enq-input"
-                      autoComplete="email"
-                      required
-                    />
-                  </label>
+                  <div className="enq-methods">
+                    <p className="enq-methods-label">Ideal method of initial contact</p>
+                    <div className="enq-methods-grid">
+                      {CONTACT_METHODS.map((m) => (
+                        <label key={m.id} className="enq-checkbox">
+                          <input
+                            type="checkbox"
+                            checked={methods.includes(m.id)}
+                            onChange={() => toggleMethod(m.id)}
+                          />
+                          <span className="enq-checkbox-box" aria-hidden="true" />
+                          <span className="enq-checkbox-label">{m.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
 
-                  <label className="enq-field">
-                    <span className="enq-label">Company *</span>
-                    <input
-                      type="text"
-                      value={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                      className="enq-input"
-                      autoComplete="organization"
-                      required
-                    />
-                  </label>
+                  {error && <p className="enq-error">{error}</p>}
 
-                  <label className="enq-field">
-                    <span className="enq-label">Phone <span className="enq-optional">(optional, helps us follow up)</span></span>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="enq-input"
-                      autoComplete="tel"
-                    />
-                  </label>
-
-                  {error && (
-                    <p className="enq-error">{error}</p>
-                  )}
-
-                  <button
-                    type="button"
-                    onClick={handleSubmit}
-                    disabled={!canSubmit}
-                    className="enq-submit"
-                    style={{
-                      background: buttonColor,
-                      cursor: canSubmit ? 'pointer' : 'not-allowed',
-                      opacity: submitting ? 0.7 : 1,
-                    }}
-                  >
-                    {submitting ? 'Sending…' : 'Send my enquiry'}
-                  </button>
+                  <div className="enq-actions">
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      disabled={!canSubmit}
+                      className="enq-submit"
+                      style={{
+                        background: buttonColor,
+                        cursor: canSubmit ? 'pointer' : 'not-allowed',
+                        opacity: submitting ? 0.7 : 1,
+                      }}
+                    >
+                      {submitting ? 'SENDING…' : 'SUBMIT'}
+                    </button>
+                  </div>
 
                   <p className="enq-recaptcha-notice">
                     This site is protected by reCAPTCHA and the Google{' '}
                     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>{' '}and{' '}
                     <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.
                   </p>
-
                 </div>
               </>
             ) : (
@@ -266,16 +247,13 @@ export default function CorporateEnquireClient() {
           color: #ffffff;
           min-height: 100vh;
         }
-
         .enq-section {
           padding: 60px 24px 80px;
         }
-
         .enq-container {
           max-width: 640px;
           margin: 0 auto;
         }
-
         .enq-back {
           display: inline-block;
           color: #ffffff;
@@ -294,7 +272,6 @@ export default function CorporateEnquireClient() {
           margin: 0 0 24px;
           letter-spacing: -0.01em;
         }
-
         .enq-intro {
           font-size: clamp(1rem, 1.2vw, 1.15rem);
           font-weight: 300;
@@ -303,51 +280,102 @@ export default function CorporateEnquireClient() {
           opacity: 0.92;
         }
 
-        /* ── FORM ──────────────────────────────────────────── */
+        /* ── FORM ────────────────────────────────────────────── */
         .enq-form {
           margin-top: 40px;
           display: flex;
           flex-direction: column;
-          gap: 24px;
+          gap: 16px;
         }
-
-        .enq-field {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
+        .enq-rule {
+          height: 1px;
+          background: rgba(255, 255, 255, 0.4);
+          margin: 0 0 8px;
         }
-
-        .enq-label {
-          font-size: 0.9rem;
-          font-weight: 500;
-          opacity: 0.85;
-          letter-spacing: 0.02em;
-        }
-        .enq-optional {
-          font-weight: 400;
-          opacity: 0.55;
-          font-size: 0.85rem;
-        }
-
         .enq-input {
           width: 100%;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.2);
-          color: #ffffff;
+          background: #ffffff;
+          color: #000000;
+          border: none;
+          padding: 16px 24px;
           font-family: inherit;
           font-size: 1rem;
-          padding: 14px 16px;
-          border-radius: 4px;
-          transition: border-color 0.2s ease, background 0.2s ease;
+          border-radius: 999px;
+          outline: none;
+        }
+        .enq-input::placeholder {
+          color: #999;
+          opacity: 1;
         }
         .enq-input:focus {
-          outline: none;
-          border-color: rgba(255,255,255,0.6);
-          background: rgba(255,255,255,0.08);
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
         }
 
+        /* ── CHECKBOXES ─────────────────────────────────────── */
+        .enq-methods {
+          margin-top: 16px;
+        }
+        .enq-methods-label {
+          font-size: 1rem;
+          font-weight: 600;
+          margin: 0 0 14px;
+          color: #ffffff;
+        }
+        .enq-methods-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px 20px;
+        }
+        .enq-checkbox {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          cursor: pointer;
+          user-select: none;
+        }
+        .enq-checkbox input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+          pointer-events: none;
+        }
+        .enq-checkbox-box {
+          width: 24px;
+          height: 24px;
+          border: 1.5px solid #ffffff;
+          border-radius: 4px;
+          background: transparent;
+          flex-shrink: 0;
+          position: relative;
+          transition: background 0.15s ease;
+        }
+        .enq-checkbox input:checked + .enq-checkbox-box {
+          background: #ffffff;
+        }
+        .enq-checkbox input:checked + .enq-checkbox-box::after {
+          content: '';
+          position: absolute;
+          left: 7px;
+          top: 3px;
+          width: 7px;
+          height: 13px;
+          border: solid #000000;
+          border-width: 0 2.5px 2.5px 0;
+          transform: rotate(45deg);
+        }
+        .enq-checkbox input:focus-visible + .enq-checkbox-box {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
+        }
+        .enq-checkbox-label {
+          font-size: 0.95rem;
+          color: #ffffff;
+        }
+
+        /* ── ERROR ───────────────────────────────────────────── */
         .enq-error {
-          color: #ff6b6b;
+          color: #ff9b9b;
           font-size: 0.95rem;
           margin: 0;
           padding: 12px 16px;
@@ -356,20 +384,26 @@ export default function CorporateEnquireClient() {
           border-radius: 4px;
         }
 
+        /* ── SUBMIT ──────────────────────────────────────────── */
+        .enq-actions {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 16px;
+        }
         .enq-submit {
           font-family: inherit;
           font-size: 1rem;
-          font-weight: 600;
+          font-weight: 700;
+          letter-spacing: 0.12em;
           color: #ffffff;
-          padding: 16px 32px;
+          padding: 16px 40px;
           border: none;
-          border-radius: 4px;
-          margin-top: 8px;
-          letter-spacing: 0.02em;
+          border-radius: 999px;
+          min-width: 160px;
           transition: background 0.3s ease, opacity 0.2s ease;
         }
         .enq-submit:hover:not(:disabled) {
-          filter: brightness(1.08);
+          filter: brightness(1.1);
         }
 
         .enq-recaptcha-notice {
@@ -383,7 +417,7 @@ export default function CorporateEnquireClient() {
           text-decoration: underline;
         }
 
-        /* ── SUCCESS STATE ─────────────────────────────────── */
+        /* ── SUCCESS ─────────────────────────────────────────── */
         .enq-success {
           padding: 20px 0;
         }
@@ -399,7 +433,6 @@ export default function CorporateEnquireClient() {
         }
         .enq-success-cta:hover { opacity: 1; }
 
-        /* ── DESKTOP ───────────────────────────────────────── */
         @media (min-width: 1024px) {
           .enq-section {
             padding: 100px 60px 120px;

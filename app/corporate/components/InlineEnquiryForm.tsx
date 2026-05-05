@@ -3,26 +3,23 @@
 import { useState, useEffect } from 'react';
 
 /* ─────────────────────────────────────────────────────────────
-   InlineEnquiryForm — compact enquiry form for use inside hero
-   overlays on service pages.
+   InlineEnquiryForm — restyled per the new mockup.
 
-   Same backend as the standalone /corporate/enquire page (POSTs
-   to /api/corporate-enquiry, same three-state submit button).
-   Just packaged tighter for inline use.
+   Fields:
+     - Name    (required)
+     - Email   (required, validated)
+     - Mobile  (required)
+     - Contact methods (optional multi-select):
+         Phone call, SMS/WhatsApp, Mobile call, Email
 
-   Same fields:
-     - Name (required)
-     - Email (required, validated)
-     - Company (required)
-     - Phone (optional)
+   Three-state submit button:
+     - GREY   #808080  — name/email/mobile incomplete
+     - ORANGE #ff8c00  — required fields filled, no contact method picked
+     - GREEN  #2cd12c  — required fields + at least 1 contact method picked
 
-   Three-state button:
-     - GREY (#808080)  — name OR email OR company missing
-     - ORANGE (#ff8c00) — required filled, can submit
-     - GREEN (#2cd12c) — all fields including phone filled
-
-   On success, the form swaps to a thank-you message in the same
-   space.
+   Posts to /api/corporate-enquiry. The API route accepts the
+   contactMethods array and includes it in both the notification
+   email to Steve and the autoresponder PDF email.
    ───────────────────────────────────────────────────────────── */
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
@@ -31,7 +28,15 @@ const COLOR_GREY   = '#808080';
 const COLOR_ORANGE = '#ff8c00';
 const COLOR_GREEN  = '#2cd12c';
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MOBILE_RE = /^[\d\s+()-]{7,}$/;
+
+const CONTACT_METHODS = [
+  { id: 'phone',     label: 'Phone call' },
+  { id: 'sms',       label: 'SMS/WhatsApp' },
+  { id: 'mobile',    label: 'Mobile call' },
+  { id: 'email',     label: 'Email' },
+];
 
 declare global {
   interface Window {
@@ -43,9 +48,7 @@ declare global {
 }
 
 interface InlineEnquiryFormProps {
-  /** Heading shown above the form, e.g. "Enquire now about corporate massages" */
   heading?: string;
-  /** Sub-text below heading, e.g. "Get a call or email back from us" */
   subheading?: string;
 }
 
@@ -53,10 +56,10 @@ export default function InlineEnquiryForm({
   heading = 'Enquire now about corporate massages',
   subheading = 'Get a call or email back from us',
 }: InlineEnquiryFormProps) {
-  const [name,    setName]    = useState('');
-  const [email,   setEmail]   = useState('');
-  const [company, setCompany] = useState('');
-  const [phone,   setPhone]   = useState('');
+  const [name, setName]     = useState('');
+  const [email, setEmail]   = useState('');
+  const [mobile, setMobile] = useState('');
+  const [methods, setMethods] = useState<string[]>([]);
 
   const [submitting, setSubmitting] = useState(false);
   const [success,    setSuccess]    = useState(false);
@@ -76,13 +79,23 @@ export default function InlineEnquiryForm({
     document.head.appendChild(script);
   }, []);
 
-  const emailValid = EMAIL_RE.test(email.trim());
-  const requiredOK = name.trim().length > 0 && emailValid && company.trim().length > 0;
-  const allOK      = requiredOK && phone.trim().length > 0;
+  // ── Validation ──────────────────────────────────────────────
+  const emailValid  = EMAIL_RE.test(email.trim());
+  const mobileValid = MOBILE_RE.test(mobile.trim());
+  const requiredOK  = name.trim().length > 0 && emailValid && mobileValid;
+  const allOK       = requiredOK && methods.length > 0;
 
   const buttonColor = !requiredOK ? COLOR_GREY : allOK ? COLOR_GREEN : COLOR_ORANGE;
-  const canSubmit = requiredOK && !submitting;
+  const canSubmit   = requiredOK && !submitting;
 
+  // ── Toggle method handler ───────────────────────────────────
+  const toggleMethod = (id: string) => {
+    setMethods((prev) =>
+      prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
+    );
+  };
+
+  // ── Submit handler ──────────────────────────────────────────
   const handleSubmit = async () => {
     if (!canSubmit) return;
     setError(null);
@@ -112,8 +125,8 @@ export default function InlineEnquiryForm({
         body: JSON.stringify({
           name: name.trim(),
           email: email.trim(),
-          company: company.trim(),
-          phone: phone.trim(),
+          mobile: mobile.trim(),
+          contactMethods: methods,
           recaptchaToken,
         }),
       });
@@ -132,6 +145,7 @@ export default function InlineEnquiryForm({
     }
   };
 
+  // ── Success state ───────────────────────────────────────────
   if (success) {
     return (
       <div className="inline-enq inline-enq--success">
@@ -141,31 +155,32 @@ export default function InlineEnquiryForm({
         </p>
         <style>{`
           .inline-enq--success {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 32px 28px;
-            border-radius: 6px;
+            background: #000000;
+            padding: 36px 32px;
             color: #ffffff;
-            max-width: 360px;
+            max-width: 560px;
+            width: 100%;
           }
           .inline-enq-heading {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 600;
             margin: 0 0 16px;
             line-height: 1.3;
+            text-align: center;
           }
           .inline-enq-success-body {
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.5;
             margin: 0;
             opacity: 0.92;
+            text-align: center;
           }
         `}</style>
       </div>
     );
   }
 
+  // ── Render ──────────────────────────────────────────────────
   return (
     <div className="inline-enq">
       <h3 className="inline-enq-heading">{heading}</h3>
@@ -189,107 +204,190 @@ export default function InlineEnquiryForm({
         autoComplete="email"
       />
       <input
-        type="text"
-        placeholder="Company"
-        value={company}
-        onChange={(e) => setCompany(e.target.value)}
-        className="inline-enq-input"
-        autoComplete="organization"
-      />
-      <input
         type="tel"
-        placeholder="Phone (optional)"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        placeholder="Mobile"
+        value={mobile}
+        onChange={(e) => setMobile(e.target.value)}
         className="inline-enq-input"
         autoComplete="tel"
       />
 
+      <div className="inline-enq-methods">
+        <p className="inline-enq-methods-label">Ideal method of initial contact</p>
+        <div className="inline-enq-methods-grid">
+          {CONTACT_METHODS.map((m) => (
+            <label key={m.id} className="inline-enq-checkbox">
+              <input
+                type="checkbox"
+                checked={methods.includes(m.id)}
+                onChange={() => toggleMethod(m.id)}
+              />
+              <span className="inline-enq-checkbox-box" aria-hidden="true" />
+              <span className="inline-enq-checkbox-label">{m.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
       {error && <p className="inline-enq-error">{error}</p>}
 
-      <button
-        type="button"
-        onClick={handleSubmit}
-        disabled={!canSubmit}
-        className="inline-enq-submit"
-        style={{
-          background: buttonColor,
-          cursor: canSubmit ? 'pointer' : 'not-allowed',
-          opacity: submitting ? 0.7 : 1,
-        }}
-      >
-        {submitting ? 'Sending…' : 'SUBMIT'}
-      </button>
+      <div className="inline-enq-actions">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          className="inline-enq-submit"
+          style={{
+            background: buttonColor,
+            cursor: canSubmit ? 'pointer' : 'not-allowed',
+            opacity: submitting ? 0.7 : 1,
+          }}
+        >
+          {submitting ? 'SENDING…' : 'SUBMIT'}
+        </button>
+      </div>
 
       <style>{`
         .inline-enq {
-          background: rgba(0, 0, 0, 0.65);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          padding: 24px 22px;
-          border-radius: 6px;
+          background: #000000;
+          padding: 36px 32px;
           color: #ffffff;
-          max-width: 360px;
+          max-width: 560px;
           width: 100%;
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 16px;
         }
         .inline-enq-heading {
-          font-size: 1.15rem;
+          font-size: clamp(1.4rem, 1.8vw, 1.7rem);
           font-weight: 600;
           margin: 0;
-          line-height: 1.3;
+          line-height: 1.25;
           text-align: center;
+          letter-spacing: -0.005em;
         }
         .inline-enq-sub {
-          font-size: 0.85rem;
-          font-weight: 300;
+          font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+          font-weight: 400;
           margin: 0;
-          opacity: 0.9;
+          opacity: 0.92;
           text-align: center;
         }
         .inline-enq-rule {
           height: 1px;
-          background: rgba(255, 255, 255, 0.3);
-          margin: 4px 0 8px;
+          background: rgba(255, 255, 255, 0.5);
+          margin: 6px 0 4px;
+          width: 100%;
         }
+
+        /* ── INPUTS ──────────────────────────────────────────── */
         .inline-enq-input {
           width: 100%;
           background: #ffffff;
           color: #000000;
           border: none;
-          padding: 12px 14px;
+          padding: 14px 22px;
           font-family: inherit;
-          font-size: 0.9rem;
+          font-size: 0.95rem;
           border-radius: 999px;
           outline: none;
         }
         .inline-enq-input::placeholder {
-          color: #888;
+          color: #999;
+          opacity: 1;
         }
         .inline-enq-input:focus {
-          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+          box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
         }
+
+        /* ── CHECKBOXES ─────────────────────────────────────── */
+        .inline-enq-methods {
+          margin-top: 8px;
+        }
+        .inline-enq-methods-label {
+          font-size: 0.95rem;
+          font-weight: 600;
+          margin: 0 0 12px;
+          color: #ffffff;
+        }
+        .inline-enq-methods-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px 16px;
+        }
+        .inline-enq-checkbox {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          user-select: none;
+        }
+        .inline-enq-checkbox input {
+          /* Hide the native checkbox visually, but keep it
+             accessible to screen readers + keyboard nav */
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+          pointer-events: none;
+        }
+        .inline-enq-checkbox-box {
+          width: 22px;
+          height: 22px;
+          border: 1.5px solid #ffffff;
+          border-radius: 4px;
+          background: transparent;
+          flex-shrink: 0;
+          position: relative;
+          transition: background 0.15s ease;
+        }
+        .inline-enq-checkbox input:checked + .inline-enq-checkbox-box {
+          background: #ffffff;
+        }
+        .inline-enq-checkbox input:checked + .inline-enq-checkbox-box::after {
+          content: '';
+          position: absolute;
+          left: 6px;
+          top: 2px;
+          width: 7px;
+          height: 12px;
+          border: solid #000000;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+        }
+        .inline-enq-checkbox input:focus-visible + .inline-enq-checkbox-box {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
+        }
+        .inline-enq-checkbox-label {
+          font-size: 0.9rem;
+          color: #ffffff;
+        }
+
+        /* ── ERROR ───────────────────────────────────────────── */
         .inline-enq-error {
           color: #ff9b9b;
-          font-size: 0.82rem;
-          margin: 4px 0 0;
+          font-size: 0.85rem;
+          margin: 0;
           line-height: 1.4;
         }
+
+        /* ── SUBMIT ──────────────────────────────────────────── */
+        .inline-enq-actions {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 8px;
+        }
         .inline-enq-submit {
-          margin-top: 6px;
           font-family: inherit;
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           font-weight: 700;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.12em;
           color: #ffffff;
-          padding: 12px 20px;
+          padding: 14px 32px;
           border: none;
           border-radius: 999px;
-          align-self: flex-end;
-          width: auto;
-          min-width: 100px;
+          min-width: 140px;
           transition: background 0.3s ease, opacity 0.2s ease;
         }
         .inline-enq-submit:hover:not(:disabled) {

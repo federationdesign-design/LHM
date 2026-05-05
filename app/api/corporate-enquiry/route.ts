@@ -4,28 +4,34 @@ import { sendEmail } from '@/app/lib/send-email';
 /* ─────────────────────────────────────────────────────────────
    POST /api/corporate-enquiry
 
-   Receives a JSON body with name, email, company, phone, and a
-   reCAPTCHA v3 token. Verifies the token with Google, then
-   sends two emails via Resend:
+   Receives a JSON body with:
+     - name
+     - email
+     - mobile
+     - contactMethods (array of strings, optional)
+     - recaptchaToken
 
+   Verifies the reCAPTCHA token, then sends two emails:
      1. Internal notification to steve@lucyhallmassage.com
-        (initially — will expand to lucy@ once Lucy is set up
-        with an inbox)
-     2. Autoresponder to the enquirer with a download link to
-        the employer PDF
+     2. Autoresponder to enquirer with employer PDF download link
 
    The flow forces enquirers to provide their details before
    they can grab the PDF, so every download is also a captured
    lead.
    ───────────────────────────────────────────────────────────── */
 
-// ── CONFIG ────────────────────────────────────────────────────
 const NOTIFICATION_RECIPIENT =
   process.env.CORPORATE_ENQUIRY_TO || 'steve@lucyhallmassage.com';
-const FROM_ADDRESS = 'noreply@lucyhallmassage.com';
 const PDF_URL = 'https://www.lucyhallmassage.com/employer-info.pdf';
 const RECAPTCHA_THRESHOLD = 0.5;
 const RECAPTCHA_EXPECTED_ACTION = 'corporate_enquiry';
+
+const METHOD_LABELS: Record<string, string> = {
+  phone:  'Phone call',
+  sms:    'SMS/WhatsApp',
+  mobile: 'Mobile call',
+  email:  'Email',
+};
 
 // ── reCAPTCHA verification ────────────────────────────────────
 async function verifyRecaptcha(token: string): Promise<{
@@ -35,9 +41,7 @@ async function verifyRecaptcha(token: string): Promise<{
 }> {
   const secret = process.env.RECAPTCHA_SECRET_KEY;
   if (!secret) {
-    // No secret set means we're in dev or misconfigured — let
-    // the request through but flag it in the logs.
-    console.warn('[corporate-enquiry] RECAPTCHA_SECRET_KEY missing — skipping verification');
+    console.warn('[corporate-enquiry] RECAPTCHA_SECRET_KEY missing - skipping verification');
     return { ok: true };
   }
   if (!token) {
@@ -73,17 +77,22 @@ async function verifyRecaptcha(token: string): Promise<{
 function buildNotificationEmail(opts: {
   name: string;
   email: string;
-  company: string;
-  phone: string;
+  mobile: string;
+  contactMethods: string[];
   recaptchaScore?: number;
 }) {
-  const { name, email, company, phone, recaptchaScore } = opts;
+  const { name, email, mobile, contactMethods, recaptchaScore } = opts;
+  const methodsLabels = contactMethods
+    .map((m) => METHOD_LABELS[m] || m)
+    .join(', ');
+  const methodsDisplay = methodsLabels || '<em style="color: #888;">none specified</em>';
+
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #000;">
       <h2 style="color: #000; margin: 0 0 24px;">New Corporate Enquiry</h2>
       <table style="width: 100%; border-collapse: collapse;">
         <tr>
-          <td style="padding: 8px 0; font-weight: 600; width: 120px; vertical-align: top;">Name:</td>
+          <td style="padding: 8px 0; font-weight: 600; width: 180px; vertical-align: top;">Name:</td>
           <td style="padding: 8px 0;">${escapeHtml(name)}</td>
         </tr>
         <tr>
@@ -91,12 +100,12 @@ function buildNotificationEmail(opts: {
           <td style="padding: 8px 0;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td>
         </tr>
         <tr>
-          <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Company:</td>
-          <td style="padding: 8px 0;">${escapeHtml(company)}</td>
+          <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Mobile:</td>
+          <td style="padding: 8px 0;"><a href="tel:${escapeHtml(mobile)}">${escapeHtml(mobile)}</a></td>
         </tr>
         <tr>
-          <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Phone:</td>
-          <td style="padding: 8px 0;">${phone ? `<a href="tel:${escapeHtml(phone)}">${escapeHtml(phone)}</a>` : '<em style="color: #888;">not provided</em>'}</td>
+          <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Preferred contact:</td>
+          <td style="padding: 8px 0;">${methodsDisplay}</td>
         </tr>
       </table>
       <hr style="margin: 24px 0; border: none; border-top: 1px solid #eee;" />
@@ -113,8 +122,8 @@ function buildNotificationEmail(opts: {
     '',
     `Name: ${name}`,
     `Email: ${email}`,
-    `Company: ${company}`,
-    `Phone: ${phone || 'not provided'}`,
+    `Mobile: ${mobile}`,
+    `Preferred contact: ${methodsLabels || 'none specified'}`,
     '',
     'Submitted via the corporate enquiry form on lucyhallmassage.com.',
     'The enquirer was sent the employer PDF link automatically.',
@@ -176,7 +185,7 @@ function buildAutoresponderEmail(opts: { name: string }) {
     '---',
     'Lucy Hall Massage Therapy',
     '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU',
-    '07765 555078 — info@lucyhallmassage.com',
+    '07765 555078 - info@lucyhallmassage.com',
   ].join('\n');
 
   return { html, text };
@@ -196,13 +205,17 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function isValidMobile(mobile: string): boolean {
+  return /^[\d\s+()-]{7,}$/.test(mobile);
+}
+
 // ── Route handler ─────────────────────────────────────────────
 export async function POST(request: Request) {
   let body: {
     name?: string;
     email?: string;
-    company?: string;
-    phone?: string;
+    mobile?: string;
+    contactMethods?: string[];
     recaptchaToken?: string;
   };
 
@@ -212,23 +225,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
 
-  const name    = (body.name    || '').trim();
-  const email   = (body.email   || '').trim();
-  const company = (body.company || '').trim();
-  const phone   = (body.phone   || '').trim();
+  const name   = (body.name   || '').trim();
+  const email  = (body.email  || '').trim();
+  const mobile = (body.mobile || '').trim();
+  const contactMethods = Array.isArray(body.contactMethods)
+    ? body.contactMethods.filter((m) => typeof m === 'string')
+    : [];
 
-  // Validate required fields
   if (!name) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
   }
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'A valid email address is required' }, { status: 400 });
   }
-  if (!company) {
-    return NextResponse.json({ error: 'Company is required' }, { status: 400 });
+  if (!mobile || !isValidMobile(mobile)) {
+    return NextResponse.json({ error: 'A valid mobile number is required' }, { status: 400 });
   }
 
-  // Verify reCAPTCHA
   const recaptcha = await verifyRecaptcha(body.recaptchaToken || '');
   if (!recaptcha.ok) {
     console.warn('[corporate-enquiry] reCAPTCHA rejected:', recaptcha.reason);
@@ -238,18 +251,14 @@ export async function POST(request: Request) {
     );
   }
 
-  // Build emails
-  const notification  = buildNotificationEmail({ name, email, company, phone, recaptchaScore: recaptcha.score });
+  const notification  = buildNotificationEmail({ name, email, mobile, contactMethods, recaptchaScore: recaptcha.score });
   const autoresponder = buildAutoresponderEmail({ name });
 
-  // Send both emails. Notification is critical (we need to know
-  // about the lead). Autoresponder is best-effort — if it fails
-  // we still want to confirm to the user, since the lead is in.
   try {
     await sendEmail({
       to:      NOTIFICATION_RECIPIENT,
       replyTo: email,
-      subject: `New Corporate Enquiry — ${company} (${name})`,
+      subject: `New Corporate Enquiry - ${name}`,
       html:    notification.html,
       text:    notification.text,
     });
@@ -270,7 +279,6 @@ export async function POST(request: Request) {
       text:    autoresponder.text,
     });
   } catch (err) {
-    // Non-fatal — log it but still return success to user
     console.error('[corporate-enquiry] Autoresponder email failed:', err);
   }
 
