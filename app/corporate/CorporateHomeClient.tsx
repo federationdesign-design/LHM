@@ -79,6 +79,113 @@ const services = [
   },
 ];
 
+// ── WHAT'S INCLUDED ───────────────────────────────────────────
+const whatsIncluded = [
+  {
+    title: 'Posture Assessments:',
+    body: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+  },
+  {
+    title: 'Pain Reduction Techniques:',
+    body: 'We utilise specialised methods designed to alleviate stress, reduce pain, and relieve tight muscles caused by prolonged desk work.',
+  },
+  {
+    title: 'Hybrid Solutions:',
+    body: 'Offer ergonomic guidance and online consultations to support remote employees.',
+  },
+  {
+    title: 'Custom Work Adaptations:',
+    body: 'We assess how employees interact with their equipment and surroundings, advising on better practices to enhance efficiency and comfort.',
+  },
+  {
+    title: 'Wellness Programmes:',
+    body: 'We offer programs that focus on both physical and mental well-being, equipping staff with the tools they need to manage workplace stress and maintain a healthy work-life balance.',
+  },
+  {
+    title: 'Access to remote documents:',
+    body: 'including engaging presentations and informative videos — empowers your staff with valuable knowledge to effectively manage pain and foster good health and well-being in the workplace.',
+  },
+  {
+    title: 'Flexibility:',
+    body: 'Our fully customised plans adapt to your business needs, with flexible scheduling that integrates seamlessly into your operations, ensuring minimal disruption.',
+  },
+];
+
+// ── VIDEOS ────────────────────────────────────────────────────
+// Each video has a Vimeo ID (the numeric ID from the Vimeo URL),
+// a title, and a short intro. To add a real video, replace the
+// placeholder vimeoId with the actual ID (e.g. "123456789").
+// Leave as empty string to render a placeholder tile.
+const videos = [
+  {
+    vimeoId: '',
+    title: 'Watch a recent Webinar',
+    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+  },
+  {
+    vimeoId: '',
+    title: 'Watch our promo for on site service',
+    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+  },
+  {
+    vimeoId: '',
+    title: 'Watch Staff member testimonies',
+    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+  },
+  {
+    vimeoId: '',
+    title: 'What our desk posture tutorial',
+    intro: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
+  },
+];
+
+// ── GALLERY ───────────────────────────────────────────────────
+// Each gallery item declares its column span (out of 6) so the
+// layout can mix portrait + landscape, full-width + half-width,
+// 3-up + 2-up rows. `span: 2` means 3-per-row, `span: 3` means
+// 2-per-row, `span: 6` means full-width. `aspect` controls the
+// ratio so portraits render tall.
+//
+// To swap to real images later: replace each `src` with the real
+// path (e.g. /gallery/01.jpg) and adjust span/aspect to suit.
+const gallery: { src: string; alt: string; span: 2 | 3 | 6; aspect: string }[] = [
+  // Row 1: 3 portraits
+  { src: '/gallery-placeholder-portrait.jpg',  alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/gallery-placeholder-portrait.jpg',  alt: '', span: 2, aspect: '3 / 4' },
+  { src: '/gallery-placeholder-portrait.jpg',  alt: '', span: 2, aspect: '3 / 4' },
+  // Row 2: 1 landscape (half) + 1 landscape (half)
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  // Row 3: 3 squares
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  // Row 4: 2 landscape
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  // Row 5: 2 landscape
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  // Row 6: 3 squares
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  // Row 7: 1 full-width landscape
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 6, aspect: '16 / 7' },
+  // Row 8: 2 landscape
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  // Row 9: 3 squares
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 2, aspect: '1 / 1' },
+  // Row 10: 2 landscape
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 3, aspect: '4 / 3' },
+  // Row 11: 1 full-width
+  { src: '/gallery-placeholder-landscape.jpg', alt: '', span: 6, aspect: '16 / 7' },
+];
+
 // ── TESTIMONIALS ──────────────────────────────────────────────
 // Real corporate testimonials. Logos point to /public assets;
 // /company-placeholder.png is used for companies we don't have a
@@ -270,6 +377,21 @@ export default function CorporateHomeClient() {
 
         <div className="corp-divider" />
 
+        {/* ── WHAT'S INCLUDED ──────────────────────────────── */}
+        <section className="corp-included">
+          <h2 className="corp-included-heading">What&rsquo;s Included</h2>
+          <div className="corp-included-grid">
+            {whatsIncluded.map((item) => (
+              <div key={item.title} className="corp-included-item">
+                <h3 className="corp-included-title">{item.title}</h3>
+                <p className="corp-included-body">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="corp-divider" />
+
         {/* ── SERVICES STRIP ───────────────────────────────── */}
         <section className="corp-services">
           <h2 className="corp-services-heading">Services</h2>
@@ -293,6 +415,37 @@ export default function CorporateHomeClient() {
                   <span className="corp-service-cta">{s.cta}</span>
                 </div>
               </Link>
+            ))}
+          </div>
+        </section>
+
+        <div className="corp-divider" />
+
+        {/* ── VIDEOS ───────────────────────────────────────── */}
+        <section className="corp-videos">
+          <h2 className="corp-videos-heading">Videos</h2>
+          <div className="corp-videos-grid">
+            {videos.map((v, i) => (
+              <div key={i} className="corp-video-item">
+                <h3 className="corp-video-title">{v.title}</h3>
+                <div className="corp-video-frame">
+                  {v.vimeoId ? (
+                    <iframe
+                      src={`https://player.vimeo.com/video/${v.vimeoId}?byline=0&portrait=0&title=0`}
+                      title={v.title}
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      loading="lazy"
+                      className="corp-video-iframe"
+                    />
+                  ) : (
+                    <div className="corp-video-placeholder">
+                      <span>Video coming soon</span>
+                    </div>
+                  )}
+                </div>
+                <p className="corp-video-intro">{v.intro}</p>
+              </div>
             ))}
           </div>
         </section>
@@ -359,6 +512,31 @@ export default function CorporateHomeClient() {
                     <p className="corp-credibility-company">{t.company}</p>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── GALLERY ──────────────────────────────────────── */}
+        <section className="corp-gallery">
+          <h2 className="corp-gallery-heading">Gallery</h2>
+          <div className="corp-gallery-grid">
+            {gallery.map((g, i) => (
+              <div
+                key={i}
+                className="corp-gallery-item"
+                style={{
+                  gridColumn: `span ${g.span}`,
+                  aspectRatio: g.aspect,
+                }}
+              >
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  className="corp-gallery-img"
+                  loading="lazy"
+                  draggable={false}
+                />
               </div>
             ))}
           </div>
@@ -897,6 +1075,205 @@ export default function CorporateHomeClient() {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px 60px;
+          }
+        }
+
+        /* ── WHAT'S INCLUDED ─────────────────────────────────── */
+        .corp-included {
+          padding: 60px 24px;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+        .corp-included-heading {
+          font-size: clamp(1.4rem, 2vw, 1.8rem);
+          font-weight: 400;
+          color: #ffffff;
+          text-align: center;
+          margin: 0 0 40px;
+          letter-spacing: 0.02em;
+        }
+        .corp-included-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 28px 60px;
+        }
+        .corp-included-item {
+          /* Title + body stack */
+        }
+        .corp-included-title {
+          font-size: 1rem;
+          font-weight: 700;
+          color: #ffffff;
+          margin: 0 0 8px;
+          letter-spacing: 0.01em;
+        }
+        .corp-included-body {
+          font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+          font-weight: 300;
+          color: #ffffff;
+          line-height: 1.6;
+          margin: 0;
+          opacity: 0.9;
+        }
+        @media (min-width: 768px) {
+          .corp-included-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+        @media (min-width: 1024px) {
+          .corp-included {
+            padding: 80px 80px;
+          }
+          .corp-included-grid {
+            gap: 36px 80px;
+          }
+        }
+
+        /* ── VIDEOS ──────────────────────────────────────────── */
+        .corp-videos {
+          padding: 60px 24px;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+        .corp-videos-heading {
+          font-size: clamp(1.4rem, 2vw, 1.8rem);
+          font-weight: 400;
+          color: #ffffff;
+          text-align: center;
+          margin: 0 0 40px;
+          letter-spacing: 0.02em;
+        }
+        .corp-videos-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .corp-video-item {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .corp-video-title {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0;
+          letter-spacing: 0.01em;
+        }
+        .corp-video-frame {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          background: #1a1a1a;
+          overflow: hidden;
+          border-radius: 4px;
+        }
+        .corp-video-iframe {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+        .corp-video-placeholder {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #ffffff;
+          font-size: 0.9rem;
+          opacity: 0.5;
+          font-style: italic;
+        }
+        .corp-video-intro {
+          font-size: clamp(0.9rem, 1vw, 1rem);
+          font-weight: 300;
+          color: #ffffff;
+          line-height: 1.6;
+          margin: 0;
+          opacity: 0.85;
+        }
+        @media (min-width: 768px) {
+          .corp-videos-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+          }
+        }
+        @media (min-width: 1024px) {
+          .corp-videos {
+            padding: 80px 80px;
+          }
+          .corp-videos-grid {
+            gap: 60px;
+          }
+        }
+
+        /* ── GALLERY ─────────────────────────────────────────── */
+        /* CSS grid with 6-column base. Each item declares its
+           span via inline style so the layout can mix
+           portrait/landscape, full-width, and 2-up rows.
+           On mobile, span 2 stays as a third, span 3 becomes a
+           half, span 6 stays full-width. The grid drops to
+           2-column on small screens for legibility. */
+        .corp-gallery {
+          padding: 60px 24px;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+        .corp-gallery-heading {
+          font-size: clamp(1.4rem, 2vw, 1.8rem);
+          font-weight: 400;
+          color: #ffffff;
+          text-align: center;
+          margin: 0 0 40px;
+          letter-spacing: 0.02em;
+        }
+        .corp-gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 12px;
+        }
+        .corp-gallery-item {
+          position: relative;
+          overflow: hidden;
+          background: #1a1a1a;
+        }
+        .corp-gallery-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.5s ease;
+        }
+        .corp-gallery-item:hover .corp-gallery-img {
+          transform: scale(1.03);
+        }
+        /* Mobile: collapse to 2 columns. span 2 -> 1 col,
+           span 3 -> 2 cols, span 6 -> 2 cols. */
+        @media (max-width: 767px) {
+          .corp-gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+          }
+          .corp-gallery-item {
+            grid-column: span 1 !important;
+          }
+          /* But keep the full-width ones full-width */
+          .corp-gallery-item[style*="span 6"] {
+            grid-column: span 2 !important;
+          }
+          /* And make half-width spans (3) take full row on mobile */
+          .corp-gallery-item[style*="span 3"] {
+            grid-column: span 2 !important;
+          }
+        }
+        @media (min-width: 1024px) {
+          .corp-gallery {
+            padding: 80px 80px;
+          }
+          .corp-gallery-grid {
+            gap: 16px;
           }
         }
 

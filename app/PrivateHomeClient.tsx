@@ -708,7 +708,7 @@ export default function PrivateHomeClient() {
 
           <div className={styles.heroContent}>
             <h1 className={styles.heroH1}>Need a massage now?</h1>
-            <p className={styles.heroSub}>Book your appointment now, it only takes 2 minutes with our online booking tool</p>
+            <p className={styles.heroSub}>Book your appointment in just two minutes with our simple online booking system.</p>
             <hr className={styles.heroRule} />
             <a href="/treatments" className={`${styles.heroBookNow} hp-hero-cta`}>BOOK TREATMENT &gt;&gt;</a>
           </div>
@@ -738,7 +738,7 @@ export default function PrivateHomeClient() {
             maxWidth: 'min(1200px, 90vw)',
             margin: '0 auto',
           }}>
-            Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage and physiotherapy, we help you move better, feel better, and get back to doing the things you love.
+            Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply taking time to reset, our treatments are tailored to your body, your needs, and your lifestyle. From easing pain and improving mobility to helping you relax and unwind, we&rsquo;re here to help you move better, feel better, and get back to doing the things you love.
           </p>
         </section>
 

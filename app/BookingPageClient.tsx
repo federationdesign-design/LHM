@@ -203,7 +203,7 @@ export default function BookingPageClient() {
             style={{ objectFit:'cover', objectPosition:'center 40%', filter:'brightness(0.62)', display:'none' }}/>
           <div className={styles.heroContent}>
             <h1 className={styles.heroH1}>Deep Tissue Massage</h1>
-            <p className={styles.heroSub}>Book your appointment now, it only takes 2 minutes with our online booking tool</p>
+            <p className={styles.heroSub}>Book your appointment in just two minutes with our simple online booking system.</p>
             <hr className={styles.heroRule} />
             <a href="#booking-widget" className={styles.heroBookNow}>BOOK NOW ↓</a>
             <p className={styles.heroEnquire}>Enquire now &gt;&gt;</p>

@@ -119,7 +119,7 @@
 }
 
 .heroH1 {
-  font-size: 1.55rem;
+  font-size: 3.1rem;
   font-weight: 600;
   color: #ffffff;
   margin-bottom: 8px;
@@ -127,7 +127,7 @@
 }
 
 .heroSub {
-  font-size: 0.88rem;
+  font-size: 1.76rem;
   color: #ffffff;
   font-weight: 400;
   margin-bottom: 12px;
@@ -422,15 +422,15 @@
   }
 
   .heroH1 {
-    font-size: 2.2rem;
+    font-size: 4.4rem;
   }
 
   .heroSub {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   .heroBookNow {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   .widgetWrapper {
@@ -443,7 +443,7 @@
   }
 
   .testimonialsHeading {
-    font-size: 2.2rem;
+    font-size: 4.4rem;
   }
 
   .testimonialSlide {
@@ -518,8 +518,8 @@
     max-width: 640px;
   }
 
-  .heroH1 { font-size: 2.6rem; }
-  .heroSub { font-size: 1.05rem; }
+  .heroH1 { font-size: 5.2rem; }
+  .heroSub { font-size: 2.1rem; }
 
   .serviceIntro {
     max-width: 720px;

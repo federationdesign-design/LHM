@@ -368,7 +368,7 @@ export default function SplashClient() {
                     <ChevronLeft />
                   </button>
                   <p className="splash-elaborate-lead">
-                    Our experienced team are specialised in physiotherapist and provide: Deep Tissue, Swedish massage and pregnancy.
+                    Our experienced team specialises in massage therapy and physiotherapy, offering treatments including Deep Tissue Massage, Swedish Massage, Pregnancy Massage, and more.
                   </p>
                   <p className="splash-elaborate-body">
                     Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage and physiotherapy, we help you move better, feel better, and get back to doing the things you love.
@@ -417,7 +417,7 @@ export default function SplashClient() {
             <div className="splash-elaborate-grid">
               <div className="splash-elaborate-col splash-elaborate-col--left">
                 <p className="splash-elaborate-lead">
-                  Our experienced team are specialised in physiotherapist and provide: Deep Tissue, Swedish massage and pregnancy.
+                  Our experienced team specialises in massage therapy and physiotherapy, offering treatments including Deep Tissue Massage, Swedish Massage, Pregnancy Massage, and more.
                 </p>
                 <p className="splash-elaborate-body">
                   Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage and physiotherapy, we help you move better, feel better, and get back to doing the things you love.
