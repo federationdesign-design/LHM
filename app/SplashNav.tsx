@@ -6,7 +6,7 @@ import styles from './page.module.css';
 /* ─────────────────────────────────────────────────────────────
    SplashNav — header used only on the splash page at /.
 
-   Scroll-driven shrink behaviour:
+   Scroll-driven shrink behaviour (DESKTOP ≥1024px):
      - Tracks scroll position via a one-shot listener
      - As soon as scrollY > 0 the `shrunk` state flips to true
        and stays true for the rest of the session (does not
@@ -23,6 +23,14 @@ import styles from './page.module.css';
 
    Header still 140px tall in the unshrunk state, side logos
    36px, labels 2.4rem.
+
+   MOBILE (<1024px):
+     - Always renders in the shrunk state, regardless of scroll
+       position. Three logos visible at the top of the page felt
+       cluttered on small viewports. The shrunk style gives a
+       slim 56px nav with just the two side Private/Corporate
+       logos. Achieved purely via CSS by reusing the .splash-
+       nav-shrunk styles on mobile irrespective of the JS state.
    ───────────────────────────────────────────────────────────── */
 
 // ── PRIVATE LOGO (LH with hand) ──────────────────────────────
@@ -57,6 +65,9 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
 
   // One-way shrink trigger: flips true on first scroll past 0
   // and stays true for the rest of the session.
+  // Note: on mobile the nav is forced into shrunk state by CSS
+  // regardless of this value, but we keep the JS so desktop's
+  // expand-then-shrink behaviour still works.
   const [shrunk, setShrunk] = useState(false);
 
   useEffect(() => {
@@ -95,7 +106,8 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
         <PrivateLogo clipId={clipId} />
       </button>
 
-      {/* CENTRE BLOCK — full logo + labels — fades out when shrunk */}
+      {/* CENTRE BLOCK — full logo + labels — fades out when shrunk
+          and is hidden entirely on mobile via CSS */}
       <div className="splash-nav-centre">
         <div className="splash-nav-centre-grid">
           <img
@@ -175,14 +187,6 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
           height: 24px;
           transition: height 0.35s ease;
         }
-        @media (max-width: 600px) {
-          .splash-nav-shrunk.splash-nav-tall {
-            min-height: 56px;
-          }
-          .splash-nav-shrunk .splash-side-logo {
-            height: 22px;
-          }
-        }
 
         /* ── UNSHRUNK CENTRE BLOCK ──────────────────────────── */
         .splash-nav-centre {
@@ -256,21 +260,23 @@ export default function SplashNav({ onSelect }: SplashNavProps) {
           width: auto !important;
         }
 
-        @media (max-width: 600px) {
+        /* ── MOBILE OVERRIDE ────────────────────────────────
+           On mobile (<1024px), force the nav into its shrunk
+           state regardless of the JS-driven .splash-nav-shrunk
+           class. We override the same properties as the shrunk
+           class so the result is identical. Hide the centre
+           block entirely; render only the two side logos. */
+        @media (max-width: 1023px) {
           .splash-nav-tall {
-            min-height: 110px;
+            min-height: 56px;
+            padding-top: 8px;
+            padding-bottom: 8px;
           }
-          .splash-nav-label {
-            font-size: 1.6rem;
-          }
-          .splash-full-logo {
-            height: 42px;
+          .splash-nav-centre {
+            display: none;
           }
           .splash-side-logo {
-            height: 30px;
-          }
-          .splash-nav-centre-grid {
-            grid-template-columns: 1fr 24px 1fr;
+            height: 22px;
           }
         }
       `}</style>
