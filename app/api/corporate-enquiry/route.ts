@@ -247,7 +247,6 @@ export async function POST(request: Request) {
   // we still want to confirm to the user, since the lead is in.
   try {
     await sendEmail({
-      from:    FROM_ADDRESS,
       to:      NOTIFICATION_RECIPIENT,
       replyTo: email,
       subject: `New Corporate Enquiry — ${company} (${name})`,
@@ -264,7 +263,6 @@ export async function POST(request: Request) {
 
   try {
     await sendEmail({
-      from:    FROM_ADDRESS,
       to:      email,
       replyTo: 'info@lucyhallmassage.com',
       subject: 'Your Lucy Hall Massage Employer PDF',
