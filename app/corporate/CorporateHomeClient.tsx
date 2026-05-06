@@ -47,7 +47,7 @@ const companyClients = [
 
 // ── FIND-US-ON LOGOS ──────────────────────────────────────────
 const findUsLogos = [
-  { src: '/booking-page-logo.png', alt: 'Booking Page' },
+  { src: '/bookingpage.png', alt: 'Booking Page' },
   { src: '/tripadisvor.svg',       alt: 'Tripadvisor' },
   { src: '/SBM-logo.png',          alt: 'SimplyBook.me' },
   { src: '/linked_in.png',         alt: 'LinkedIn' },
