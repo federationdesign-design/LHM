@@ -219,6 +219,8 @@ export async function POST(request: Request) {
     recaptchaToken?: string;
     // Secondary (enriched-lead) submission fields
     secondary?: boolean;
+    detailed?: boolean;
+    // Legacy secondary fields (kept for backward compat)
     phone?: string;
     company?: string;
     domain?: string;
@@ -226,6 +228,14 @@ export async function POST(request: Request) {
     position?: string;
     specialArrangements?: string;
     teamSize?: string;
+    // NEW detailed lead capture fields
+    officeLocation?: string;
+    employeeCount?: string;
+    serviceTypes?: string[];
+    timing?: string;
+    budget?: string;
+    enquiryDetails?: string;
+    heardAbout?: string;
   };
 
   try {
@@ -249,6 +259,146 @@ export async function POST(request: Request) {
   }
   if (!mobile || !isValidMobile(mobile)) {
     return NextResponse.json({ error: 'A valid mobile number is required' }, { status: 400 });
+  }
+
+  // ── Handle DETAILED (qualified-lead) submission ──────
+  // The rebuilt SecondaryEnquiryModal posts with detailed:true.
+  // We send Steve a richer "Detailed Lead Capture" email with
+  // the new field set.
+  if (body.secondary === true && body.detailed === true) {
+    const officeLocation = (body.officeLocation || '').trim();
+    const employeeCount  = (body.employeeCount  || '').trim();
+    const serviceTypes   = Array.isArray(body.serviceTypes) ? body.serviceTypes : [];
+    const timing         = (body.timing         || '').trim();
+    const budget         = (body.budget         || '').trim();
+    const enquiryDetails = (body.enquiryDetails || '').trim();
+    const heardAbout     = (body.heardAbout     || '').trim();
+
+    const employeeLabels: Record<string, string> = {
+      'under-20':  'Under 20',
+      '20-50':     '20-50',
+      '50-100':    '50-100',
+      '100-250':   '100-250',
+      '250-plus':  '250+',
+    };
+    const employeeLabel = employeeLabels[employeeCount] || employeeCount || 'not specified';
+
+    const serviceLabels: Record<string, string> = {
+      'one-off':       'One-off wellbeing day',
+      'event-massage': 'Event massage',
+      'monthly':       'Monthly workplace massage',
+      'quarterly':     'Quarterly wellbeing sessions',
+      'weekly':        'Weekly onsite massage',
+      'unsure':        'Unsure / would like recommendations',
+    };
+    const serviceLabelsList = serviceTypes.map((s) => serviceLabels[s] || s).join(', ') || 'not specified';
+
+    const timingLabels: Record<string, string> = {
+      'asap':           'ASAP',
+      'within-1-month': 'Within 1 month',
+      '1-3-months':     '1-3 months',
+      '3-plus-months':  '3+ months',
+      'exploring':      'Just exploring options',
+    };
+    const timingLabel = timingLabels[timing] || timing || 'not specified';
+
+    const budgetLabels: Record<string, string> = {
+      'under-500':  'Under £500',
+      '500-1000':   '£500-£1,000',
+      '1000-2500':  '£1,000-£2,500',
+      '2500-plus':  '£2,500+',
+      'unsure':     'Unsure',
+    };
+    const budgetLabel = budgetLabels[budget] || budget || 'not specified';
+
+    const heardAboutLabels: Record<string, string> = {
+      'google':           'Google search',
+      'referral':         'Referral',
+      'linkedin':         'LinkedIn',
+      'social-media':     'Social media',
+      'existing-client':  'Existing client recommendation',
+      'event':            'Event',
+      'other':            'Other',
+    };
+    const heardAboutLabel = heardAboutLabels[heardAbout] || heardAbout || 'not specified';
+
+    const html = `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #000;">
+        <h2 style="color: #000; margin: 0 0 8px;">Detailed Lead Capture</h2>
+        <p style="color: #888; font-size: 13px; margin: 0 0 24px;">
+          ${escapeHtml(name)} provided detailed qualifying information after their initial enquiry.
+        </p>
+
+        <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #555; margin: 24px 0 8px;">Contact</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 6px 0; font-weight: 600; width: 200px; vertical-align: top;">Name:</td><td style="padding: 6px 0;">${escapeHtml(name)}</td></tr>
+          <tr><td style="padding: 6px 0; font-weight: 600; vertical-align: top;">Email:</td><td style="padding: 6px 0;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
+          <tr><td style="padding: 6px 0; font-weight: 600; vertical-align: top;">Mobile:</td><td style="padding: 6px 0;"><a href="tel:${escapeHtml(mobile)}">${escapeHtml(mobile)}</a></td></tr>
+        </table>
+
+        <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #555; margin: 24px 0 8px;">Company &amp; Office</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 6px 0; font-weight: 600; width: 200px; vertical-align: top;">Office Location:</td><td style="padding: 6px 0;">${escapeHtml(officeLocation) || '<em>not specified</em>'}</td></tr>
+          <tr><td style="padding: 6px 0; font-weight: 600; vertical-align: top;">Employees Onsite:</td><td style="padding: 6px 0;">${escapeHtml(employeeLabel)}</td></tr>
+          <tr><td style="padding: 6px 0; font-weight: 600; vertical-align: top;">Service Interest:</td><td style="padding: 6px 0;">${escapeHtml(serviceLabelsList)}</td></tr>
+          <tr><td style="padding: 6px 0; font-weight: 600; vertical-align: top;">Timing:</td><td style="padding: 6px 0;">${escapeHtml(timingLabel)}</td></tr>
+          <tr><td style="padding: 6px 0; font-weight: 600; vertical-align: top;">Budget:</td><td style="padding: 6px 0;">${escapeHtml(budgetLabel)}</td></tr>
+        </table>
+
+        <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #555; margin: 24px 0 8px;">Enquiry Details</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 6px 0; font-weight: 600; width: 200px; vertical-align: top;">What prompted enquiry:</td><td style="padding: 6px 0;">${escapeHtml(enquiryDetails) || '<em>not specified</em>'}</td></tr>
+          <tr><td style="padding: 6px 0; font-weight: 600; vertical-align: top;">Heard about us via:</td><td style="padding: 6px 0;">${escapeHtml(heardAboutLabel)}</td></tr>
+        </table>
+
+        <hr style="margin: 24px 0; border: none; border-top: 1px solid #eee;" />
+        <p style="color: #888; font-size: 12px; margin: 0;">
+          Submitted via the detailed enquiry modal on lucyhallmassage.com.
+        </p>
+      </div>
+    `;
+
+    const text = [
+      'Detailed Lead Capture',
+      '',
+      `${name} provided detailed qualifying information after their initial enquiry.`,
+      '',
+      '--- Contact ---',
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Mobile: ${mobile}`,
+      '',
+      '--- Company & Office ---',
+      `Office Location: ${officeLocation || 'not specified'}`,
+      `Employees Onsite: ${employeeLabel}`,
+      `Service Interest: ${serviceLabelsList}`,
+      `Timing: ${timingLabel}`,
+      `Budget: ${budgetLabel}`,
+      '',
+      '--- Enquiry Details ---',
+      `What prompted enquiry: ${enquiryDetails || 'not specified'}`,
+      `Heard about us via: ${heardAboutLabel}`,
+      '',
+      'Submitted via the detailed enquiry modal on lucyhallmassage.com.',
+    ].join('\n');
+
+    try {
+      await sendEmail({
+        to:      NOTIFICATION_RECIPIENT,
+        replyTo: email,
+        subject: `Detailed Lead Capture - ${name}`,
+        html,
+        text,
+      });
+    } catch (err) {
+      console.error('[corporate-enquiry] Detailed lead notification email failed:', err);
+      return NextResponse.json(
+        { error: 'Could not save your details, please try again or email info@lucyhallmassage.com directly.' },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ ok: true });
   }
 
   // ── Handle SECONDARY (enriched-lead) submission ─────────────
