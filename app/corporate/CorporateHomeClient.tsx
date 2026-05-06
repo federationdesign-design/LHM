@@ -1308,7 +1308,6 @@ export default function CorporateHomeClient() {
            scroll handler). Click any image to open in Lightbox. */
         .corp-gallery {
           padding: 60px 0;
-          overflow: hidden;
         }
         .corp-gallery-heading {
           font-size: clamp(1.4rem, 2vw, 1.8rem);
