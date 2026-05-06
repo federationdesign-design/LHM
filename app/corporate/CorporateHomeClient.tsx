@@ -750,7 +750,6 @@ export default function CorporateHomeClient() {
           height: auto;
           object-fit: contain;
           display: block;
-          filter: brightness(0) invert(1);
           opacity: 0.9;
         }
         @media (min-width: 1024px) {
@@ -1058,7 +1057,6 @@ export default function CorporateHomeClient() {
           height: auto;
           object-fit: contain;
           flex-shrink: 0;
-          filter: brightness(0) invert(1);
           opacity: 0.9;
         }
         .corp-credibility-name {
@@ -1337,7 +1335,6 @@ export default function CorporateHomeClient() {
           width: auto;
           object-fit: contain;
           display: block;
-          filter: brightness(0) invert(1);
           opacity: 0.85;
         }
         @media (min-width: 1024px) {
