@@ -8,14 +8,12 @@ const menuItems: [string, string][] = [
   ['In-Office Chair Massage',    '/corporate/in-chair-massage'],
   ['DSC Assessments',            '/corporate/dsc-assessments'],
   ['Posture Consultations',      '/corporate/posture-consultations'],
-  ['Enquire',                    '/corporate/enquire'],
   ['Contact Us',                 '/contact'],
   ['Our Team',                   '/team'],
-  ['Locations',                  '/locations'],
   ['Blog',                       '/news'],
   ['Testimonials',               '/testimonials'],
-  ['Switch to private client site', '/private'],
-  ['Back to main site',          '/'],
+  ['Book a massage',             '/private'],
+  ['Homepage',                   '/'],
 ];
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
