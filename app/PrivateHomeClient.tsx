@@ -725,7 +725,7 @@ export default function PrivateHomeClient() {
             maxWidth: 'min(1200px, 90vw)',
             margin: '0 auto 36px',
           }}>
-            Our experienced team are specialised in physiotherapist and provide: Deep Tissue, Swedish massage and pregnancy massage.
+            Our experienced team are specialised in Sports Massage Therapy and provide: Sports Therapy, Deep Tissue, Swedish massage, and pregnancy massage.
           </p>
 
           <p style={{
