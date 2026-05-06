@@ -746,8 +746,6 @@ export default function PrivateHomeClient() {
           </p>
         </section>
 
-        <PromoCards />
-
         <ServicesCarousel />
 
         <div className="hp-view-all-services" style={{ padding: '40px 24px 80px', display: 'flex', justifyContent: 'center', background: '#000000' }}>
