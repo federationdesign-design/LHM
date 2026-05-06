@@ -274,7 +274,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         /* Mobile: hide the in-hero form, show the standalone one below */
         .cs-hero-form-mobile {
           display: block;
-          padding: 32px 24px 60px;
+          padding: 32px 24px 16px;
           background: #000000;
         }
         @media (min-width: 1024px) {

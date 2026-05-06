@@ -118,7 +118,7 @@ export default function CorporateNav() {
 
         <div className="corp-nav-right">
           <Link href="/corporate/enquire" className="corp-nav-cta">
-            Enquire about your team here
+            Enquire about your team
           </Link>
 
           <button

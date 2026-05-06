@@ -783,12 +783,12 @@ export default function CorporateHomeClient() {
           text-align: center;
         }
         .corp-intro-para {
-          font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+          font-size: clamp(1.15rem, 1.3vw, 1.35rem);
           font-weight: 300;
           color: #ffffff;
           line-height: 1.6;
           margin: 0 0 28px;
-          opacity: 0.92;
+          opacity: 0.85;
         }
         .corp-intro-para:last-child {
           margin-bottom: 0;
@@ -1038,8 +1038,9 @@ export default function CorporateHomeClient() {
         }
         .corp-credibility-attribution {
           display: flex;
-          align-items: center;
-          gap: 16px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
         }
         .corp-credibility-logo {
           max-height: 36px;
