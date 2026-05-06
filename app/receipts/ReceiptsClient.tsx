@@ -150,7 +150,7 @@ function ReceiptForm() {
           style={{ accentColor: '#ffffff', width: 18, height: 18, marginTop: 3, flexShrink: 0 }}
         />
         <label htmlFor="rec-consent" style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.5, cursor: 'pointer', opacity: 0.85 }}>
-          I agree to Lucy Hall Massage Therapy contacting me in response to this request. My data will be handled in accordance with the <a href="/legal/privacy-policy" style={{ color: '#ffffff', textDecoration: 'underline' }}>privacy policy</a>.
+          By submitting this form, you agree to us processing your information to provide your receipt. Your data will be handled in accordance with our <a href="/legal/privacy-policy" style={{ color: '#ffffff', textDecoration: 'underline' }}>Privacy Policy</a>.
         </label>
       </div>
 

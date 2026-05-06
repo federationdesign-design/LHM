@@ -251,7 +251,7 @@ const corpTestimonials = [
       '“We\'ve been lucky enough to benefit from Lucy\'s assessments and treatments over the years. It\'s a nice perk to look forward to, yet for others the consultative advice Lucy gives (about work stations, posture, remedial stretches and exercises etc.) has really made a genuine difference to their wellbeing and happiness. I cannot recommend her enough!”',
     name: 'Steve Mann',
     company: 'Brand Recruitment',
-    logo: '/company-placeholder.png',
+    logo: '/costello-medical.png',
   },
 ];
 

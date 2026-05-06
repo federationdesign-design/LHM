@@ -300,7 +300,6 @@
   width: auto;
   max-width: 140px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
   pointer-events: none;
 }
 
@@ -592,7 +591,6 @@
     width: auto;
     max-width: 160px;
     object-fit: contain;
-    filter: brightness(0) invert(1);
   }
 
   /* 5-col footer */
@@ -646,10 +644,7 @@
 }
 
 /* ── TRIPADVISOR SVG FIX ─────────────────────────────────── */
-.logoImg[alt="Tripadvisor"],
-.logoRowImg[alt="Tripadvisor"] {
-  filter: brightness(0) invert(1);
-}
+
 
 /* ── ULTRA-WIDE: 1450px ──────────────────────────────────── */
 @media (min-width: 1450px) {

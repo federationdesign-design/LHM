@@ -38,7 +38,7 @@ function GiftVoucherWidget() {
             timeline_hide_unavailable: '1', hide_past_days: '0', timeline_show_end_time: '0',
             timeline_modern_display: 'as_slots', light_font_color: '#ffffff', sb_secondary_base: '#000000',
             sb_base_color: '#ffffff', display_item_mode: 'block', booking_nav_bg_color: '#000000',
-            sb_review_image: '', dark_font_color: '#000000', btn_color_1: '#34b823',
+            sb_review_image: '', dark_font_color: '#000000', btn_color_1: '#b9e8a0',
             sb_company_label_color: '#275a9b', hide_img_mode: '0', show_sidebar: '1',
             sb_busy: '#c7b3b3', sb_available: '#d6ebff',
           },
