@@ -988,7 +988,7 @@
         }
 
         /* ── GALLERY (CSS masonry) ──────────────────── */
-        /* Pure CSS masonry using the `columns` property.
+        /* Pure CSS masonry using the columns property.
            Each image keeps its natural aspect ratio (width:100%
            + height:auto), and CSS distributes them across the
            columns automatically. Click any image to open the
