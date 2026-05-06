@@ -773,6 +773,8 @@ export default function PrivateHomeClient() {
           </a>
         </div>
 
+        <PromoCards />
+
         <div style={{ height: 1, background: '#ffffff', margin: '0 48px' }} />
 
         <LocationsCarousel />
