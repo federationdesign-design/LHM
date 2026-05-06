@@ -228,6 +228,7 @@ function DesktopTreatments() {
             const dist = Math.abs(i - activeIndex);
             const isHovered = hoverIndex === i;
             const brightness = isHovered ? 1 : dist === 0 ? 1 : dist === 1 ? 0.75 : 0.5;
+            const grayscale = isHovered || dist === 0 ? 0 : 100;
             const imgScale = dist === 0 ? 1.03 : 1;
 
             return (
@@ -243,7 +244,7 @@ function DesktopTreatments() {
                   overflow: 'hidden',
                   borderRight: '5px solid #000000',
                   transition: 'filter 0.5s ease',
-                  filter: `brightness(${brightness})`,
+                  filter: `brightness(${brightness}) grayscale(${grayscale}%)`,
                 }}
               >
                 {slide.type === 'intro' ? (
