@@ -248,7 +248,7 @@ function PromoCards() {
           .hp-hero-img-mobile { display: none !important; }
           .hp-hero-img-desktop { display: block !important; }
         }
-        .hp-promo-card-link:hover .hp-promo-card-img { filter: brightness(0.7); }
+        .hp-promo-card-link:hover .hp-promo-card-img { filter: grayscale(0%) brightness(0.7); }
 
         .hp-promo-card-title {
           font-size: 2rem;
@@ -394,7 +394,7 @@ function ServicesCarousel() {
           .hp-locations-mobile { display: none !important; }
           .hp-locations-desktop { display: block !important; }
         }
-        .hp-service-card:hover .hp-service-card-image { filter: brightness(0.7); }
+        .hp-service-card:hover .hp-service-card-image { filter: grayscale(0%) brightness(0.7); }
         .hp-service-card:hover { transform: translateY(-4px); }
         .hp-hero-cta:hover { text-decoration: underline; }
         .hp-cta-btn:hover { text-decoration: underline; }
@@ -549,7 +549,7 @@ function LocationsCarousel() {
       </section>
 
       <style>{`
-        .hp-location-card:hover .hp-location-card-image { filter: brightness(0.7); }
+        .hp-location-card:hover .hp-location-card-image { filter: grayscale(0%) brightness(0.7); }
         .hp-location-card:hover { transform: translateY(-4px); }
       `}</style>
     </>
