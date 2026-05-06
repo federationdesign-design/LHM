@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '../Footer';
 import CorporateNav from '../CorporateNav';
+import Lightbox from './components/Lightbox';
 
 /* ─────────────────────────────────────────────────────────────
    CorporateHomeClient — /corporate
@@ -148,44 +149,43 @@ const videos = [
 //
 // To swap to real images later: replace each `src` with the real
 // path (e.g. /gallery/01.jpg) and adjust span/aspect to suit.
-const gallery: { src: string; alt: string; bg: string }[] = [
-  { src: '/21c4036c-feae-48b8-a539-64338850279d.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/26042d42-dec0-439d-a36c-6756ba1aeb94.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/b3ec0456-0550-469c-8121-99e3fef95064.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/chair.jpg', alt: '', bg: '#3a352e' },
-  { src: '/chair2.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/chair3.jpg', alt: '', bg: '#352e3a' },
-  { src: '/chair4.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/exercises1.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-23.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-25.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-36.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/exercises2.jpg', alt: '', bg: '#3a352e' },
-  { src: '/excercises3.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/lucy-hall-massage-42.jpg', alt: '', bg: '#352e3a' },
-  { src: '/b7d62880-47c2-46b1-bd1f-d99662f9895c.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/d730a508-6c23-4661-9335-64c79b68d5fe.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-44.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-47.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-57.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/lucy-hall-massage-74.jpg', alt: '', bg: '#3a352e' },
-  { src: '/lucy-hall-massage-95.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/lucy-hall-massage-96.jpg', alt: '', bg: '#352e3a' },
-  { src: '/lucy-hall-massage-112.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/lucy-hall-massage-114.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-116.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-124.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-160.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/lucy-hall-massage-177.jpg', alt: '', bg: '#3a352e' },
-  { src: '/lucy-hall-massage-202.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/lucy-hall-massage-218.jpg', alt: '', bg: '#352e3a' },
-  { src: '/lucy-hall-massage-223.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/lucy-hall-massage-227.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-228.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-232.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-233.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/lucy-hall-massage-235.jpg', alt: '', bg: '#3a352e' },
-  { src: '/lucy-hall-massage-236.jpg', alt: '', bg: '#2e3a35' },
+const gallery: { src: string; alt: string; bg: string; size: 'full' | 'half' | 'quarter' }[] = [
+  { src: '/21c4036c-feae-48b8-a539-64338850279d.jpg', alt: '', bg: '#2a2a2a', size: 'full' },
+  { src: '/26042d42-dec0-439d-a36c-6756ba1aeb94.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
+  { src: '/b3ec0456-0550-469c-8121-99e3fef95064.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
+  { src: '/chair.jpg', alt: '', bg: '#3a352e', size: 'half' },
+  { src: '/chair2.jpg', alt: '', bg: '#2e3a35', size: 'quarter' },
+  { src: '/chair3.jpg', alt: '', bg: '#352e3a', size: 'quarter' },
+  { src: '/chair4.jpg', alt: '', bg: '#3a2e35', size: 'full' },
+  { src: '/exercises1.jpg', alt: '', bg: '#2e2e3a', size: 'half' },
+  { src: '/lucy-hall-massage-23.jpg', alt: '', bg: '#2a2a2a', size: 'quarter' },
+  { src: '/lucy-hall-massage-25.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
+  { src: '/lucy-hall-massage-36.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
+  { src: '/exercises2.jpg', alt: '', bg: '#3a352e', size: 'full' },
+  { src: '/excercises3.jpg', alt: '', bg: '#2e3a35', size: 'quarter' },
+  { src: '/lucy-hall-massage-42.jpg', alt: '', bg: '#352e3a', size: 'half' },
+  { src: '/b7d62880-47c2-46b1-bd1f-d99662f9895c.jpg', alt: '', bg: '#3a2e35', size: 'quarter' },
+  { src: '/d730a508-6c23-4661-9335-64c79b68d5fe.jpg', alt: '', bg: '#2e2e3a', size: 'half' },
+  { src: '/lucy-hall-massage-44.jpg', alt: '', bg: '#2a2a2a', size: 'full' },
+  { src: '/lucy-hall-massage-47.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
+  { src: '/lucy-hall-massage-57.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
+  { src: '/lucy-hall-massage-74.jpg', alt: '', bg: '#3a352e', size: 'quarter' },
+  { src: '/lucy-hall-massage-95.jpg', alt: '', bg: '#2e3a35', size: 'full' },
+  { src: '/lucy-hall-massage-96.jpg', alt: '', bg: '#352e3a', size: 'half' },
+  { src: '/lucy-hall-massage-112.jpg', alt: '', bg: '#3a2e35', size: 'quarter' },
+  { src: '/lucy-hall-massage-114.jpg', alt: '', bg: '#2e2e3a', size: 'half' },
+  { src: '/lucy-hall-massage-116.jpg', alt: '', bg: '#2a2a2a', size: 'full' },
+  { src: '/lucy-hall-massage-124.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
+  { src: '/lucy-hall-massage-160.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
+  { src: '/lucy-hall-massage-177.jpg', alt: '', bg: '#3a352e', size: 'half' },
+  { src: '/lucy-hall-massage-202.jpg', alt: '', bg: '#2e3a35', size: 'quarter' },
+  { src: '/lucy-hall-massage-218.jpg', alt: '', bg: '#352e3a', size: 'full' },
+  { src: '/lucy-hall-massage-223.jpg', alt: '', bg: '#3a2e35', size: 'half' },
+  { src: '/lucy-hall-massage-227.jpg', alt: '', bg: '#2e2e3a', size: 'quarter' },
+  { src: '/lucy-hall-massage-228.jpg', alt: '', bg: '#2a2a2a', size: 'quarter' },
+  { src: '/lucy-hall-massage-232.jpg', alt: '', bg: '#3a2e2e', size: 'half' },
+  { src: '/lucy-hall-massage-233.jpg', alt: '', bg: '#2e3a3a', size: 'full' },
+  { src: '/lucy-hall-massage-235.jpg', alt: '', bg: '#3a352e', size: 'quarter' },
 ];
 
 // ── TESTIMONIALS ──────────────────────────────────────────────
@@ -263,6 +263,9 @@ const ChevronRight = ({ size = 24 }: { size?: number }) => (
 export default function CorporateHomeClient() {
   // Mobile carousel state for the testimonials block
   const [activeIdx, setActiveIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxSrc, setLightboxSrc]   = useState<string | null>(null);
+  const galleryTrackRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   // Sync carousel translation when active index changes
@@ -271,6 +274,44 @@ export default function CorporateHomeClient() {
       trackRef.current.style.transform = `translateX(-${activeIdx * 100}%)`;
     }
   }, [activeIdx]);
+
+  // Per-image fade based on viewport position. Uses
+  // IntersectionObserver with multiple thresholds so each image
+  // gets an opacity proportional to how visible it is. Centred
+  // images render at full opacity; images at the edges fade
+  // toward 0 as they approach the viewport boundary.
+  useEffect(() => {
+    const track = galleryTrackRef.current;
+    if (!track) return;
+
+    const items = Array.from(track.querySelectorAll<HTMLElement>('[data-gallery-item]'));
+    if (items.length === 0) return;
+
+    const compute = () => {
+      const trackRect = track.getBoundingClientRect();
+      const trackCentre = trackRect.left + trackRect.width / 2;
+      const fadeRange = trackRect.width / 2; // distance from centre at which opacity = 0
+
+      items.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const centre = r.left + r.width / 2;
+        const dist = Math.abs(centre - trackCentre);
+        // 1.0 at centre, 0 at edge. Power curve so middle band stays bright longer.
+        const t = Math.max(0, 1 - dist / fadeRange);
+        const opacity = Math.pow(t, 0.7);
+        el.style.opacity = String(opacity);
+      });
+    };
+
+    compute();
+    track.addEventListener('scroll', compute, { passive: true });
+    window.addEventListener('resize', compute);
+    return () => {
+      track.removeEventListener('scroll', compute);
+      window.removeEventListener('resize', compute);
+    };
+  }, []);
+
 
   return (
     <>
@@ -526,15 +567,19 @@ export default function CorporateHomeClient() {
           </div>
         </section>
 
-        {/* ── GALLERY ──────────────────────────────────────── */}
+        {/* ── GALLERY (horizontal scroll) ──────────── */}
         <section className="corp-gallery">
           <h2 className="corp-gallery-heading">Gallery</h2>
-          <div className="corp-gallery-grid">
+          <div className="corp-gallery-track" ref={galleryTrackRef}>
             {gallery.map((g, i) => (
-              <div
+              <button
                 key={i}
-                className="corp-gallery-item"
+                type="button"
+                onClick={() => { setLightboxSrc(g.src); setLightboxOpen(true); }}
+                data-gallery-item
+                className={`corp-gallery-item corp-gallery-item--${g.size}`}
                 style={{ background: g.bg }}
+                aria-label="Open image"
               >
                 <img
                   src={g.src}
@@ -543,7 +588,7 @@ export default function CorporateHomeClient() {
                   loading="lazy"
                   draggable={false}
                 />
-              </div>
+              </button>
             ))}
           </div>
         </section>
@@ -1255,15 +1300,15 @@ export default function CorporateHomeClient() {
           }
         }
 
-        /* ── GALLERY ─────────────────────────────────────────── */
-        /* Masonry layout via CSS columns. Images keep their
-           native aspect ratio; columns flow top-down. Each
-           image has its own background colour set inline so
-           the tile shows a coloured placeholder while loading. */
+        /* ── GALLERY (horizontal scroll) ───────── */
+        /* Cinematic horizontal scroll: full-width / half-width /
+           quarter-width images flow horizontally. User swipes or
+           drags to advance. Each image fades based on how close
+           it is to the edge of the viewport (computed in JS via
+           scroll handler). Click any image to open in Lightbox. */
         .corp-gallery {
-          padding: 60px 24px;
-          max-width: 1600px;
-          margin: 0 auto;
+          padding: 60px 0;
+          overflow: hidden;
         }
         .corp-gallery-heading {
           font-size: clamp(1.4rem, 2vw, 1.8rem);
@@ -1272,44 +1317,69 @@ export default function CorporateHomeClient() {
           text-align: center;
           margin: 0 0 40px;
           letter-spacing: 0.02em;
+          padding: 0 24px;
         }
-        .corp-gallery-grid {
-          column-count: 2;
-          column-gap: 8px;
+        .corp-gallery-track {
+          display: flex;
+          gap: 16px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          padding: 0 50vw;
+          scroll-snap-type: x proximity;
+          -webkit-overflow-scrolling: touch;
+          /* Hide scrollbar */
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .corp-gallery-track::-webkit-scrollbar {
+          display: none;
         }
         .corp-gallery-item {
-          break-inside: avoid;
-          margin-bottom: 8px;
+          flex: 0 0 auto;
+          height: 60vh;
+          min-height: 380px;
+          max-height: 700px;
+          border: none;
+          padding: 0;
+          margin: 0;
+          cursor: zoom-in;
           overflow: hidden;
-          /* background set inline per-item via the bg field */
+          scroll-snap-align: center;
+          transition: opacity 0.1s linear;
+          /* opacity is set by JS scroll handler */
+        }
+        .corp-gallery-item--full {
+          width: min(90vw, 1200px);
+        }
+        .corp-gallery-item--half {
+          width: min(50vw, 600px);
+        }
+        .corp-gallery-item--quarter {
+          width: min(28vw, 340px);
         }
         .corp-gallery-img {
           width: 100%;
-          height: auto;
+          height: 100%;
+          object-fit: cover;
           display: block;
-          transition: opacity 0.3s ease, transform 0.5s ease;
         }
-        .corp-gallery-item:hover .corp-gallery-img {
-          transform: scale(1.03);
-        }
-        @media (min-width: 768px) {
-          .corp-gallery-grid {
-            column-count: 3;
-            column-gap: 12px;
+        @media (max-width: 767px) {
+          .corp-gallery-track {
+            gap: 10px;
+            padding: 0 30vw;
           }
           .corp-gallery-item {
-            margin-bottom: 12px;
+            height: 50vh;
+            min-height: 280px;
           }
-        }
-        @media (min-width: 1024px) {
-          .corp-gallery {
-            padding: 80px 80px;
+          .corp-gallery-item--full {
+            width: 90vw;
           }
-          .corp-gallery-grid {
-            column-gap: 16px;
+          .corp-gallery-item--half {
+            width: 60vw;
           }
-          .corp-gallery-item {
-            margin-bottom: 16px;
+          .corp-gallery-item--quarter {
+            width: 40vw;
           }
         }
 
@@ -1356,6 +1426,11 @@ export default function CorporateHomeClient() {
           }
         }
       `}</style>
-    </>
+    <Lightbox
+        open={lightboxOpen}
+        src={lightboxSrc}
+        onClose={() => setLightboxOpen(false)}
+      />
+      </>
   );
 }
