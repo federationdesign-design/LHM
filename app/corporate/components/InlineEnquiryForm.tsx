@@ -183,22 +183,31 @@ export default function InlineEnquiryForm({
   // ── Success state ───────────────────────────────────────────
   if (success) {
     return (
-      <div style={{
-        background: '#0a0908',
-        border: '1px solid rgba(255,255,255,0.25)',
-        padding: '48px 32px',
-        borderRadius: 4,
-        textAlign: 'center',
-        maxWidth: 560,
-        width: '100%',
-      }}>
-        <h3 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', marginBottom: 16 }}>
-          Thanks, {name.split(' ')[0] || 'there'}!
-        </h3>
-        <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, opacity: 0.92, margin: 0 }}>
-          Your enquiry is in. The employer PDF is on its way to <strong>{email}</strong>. Lucy will be in touch within one working day.
-        </p>
-      </div>
+      <>
+        <div style={{
+          background: '#0a0908',
+          border: '1px solid rgba(255,255,255,0.25)',
+          padding: '48px 32px',
+          borderRadius: 4,
+          textAlign: 'center',
+          maxWidth: 560,
+          width: '100%',
+        }}>
+          <h3 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', marginBottom: 16 }}>
+            Thanks, {name.split(' ')[0] || 'there'}!
+          </h3>
+          <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, opacity: 0.92, margin: 0 }}>
+            Your enquiry is in. The employer PDF is on its way to <strong>{email}</strong>. Lucy will be in touch within one working day.
+          </p>
+        </div>
+        <SecondaryEnquiryModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          initialName={name}
+          initialEmail={email}
+          initialMobile={mobile}
+        />
+      </>
     );
   }
 
