@@ -821,7 +821,14 @@ export default function PrivateHomeClient() {
           main .hp-service-card:hover .hp-service-card-image,
           main .hp-promo-card-link:hover .hp-promo-card-img,
           main .hp-location-card:hover .hp-location-card-image {
-            filter: grayscale(0%) brightness(0.7);
+            filter: grayscale(0%) brightness(0.7) !important;
+          }
+          /* ALSO: when card is hovered, force the inner img to colour.
+             The Next.js Image renders as <img>, so we target it directly. */
+          main .hp-service-card:hover img,
+          main .hp-promo-card-link:hover img,
+          main .hp-location-card:hover img {
+            filter: grayscale(0%) brightness(0.7) !important;
           }
           /* Avatars are <div> not <img>, so already excluded. */
         `}</style>

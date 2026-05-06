@@ -105,9 +105,9 @@
 .heroRule {
   display: none;
   border: none;
-  border-top: 1px solid rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(255,255,255,0.85);
   margin: 16px 0;
-  width: 40%;
+  width: 90%;
 }
 
 .heroEnquire {
