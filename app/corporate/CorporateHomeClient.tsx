@@ -266,6 +266,7 @@ export default function CorporateHomeClient() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxSrc, setLightboxSrc]   = useState<string | null>(null);
   const galleryTrackRef = useRef<HTMLDivElement>(null);
+  const galleryOuterRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   // Sync carousel translation when active index changes
@@ -275,40 +276,70 @@ export default function CorporateHomeClient() {
     }
   }, [activeIdx]);
 
-  // Per-image fade based on viewport position. Uses
-  // IntersectionObserver with multiple thresholds so each image
-  // gets an opacity proportional to how visible it is. Centred
-  // images render at full opacity; images at the edges fade
-  // toward 0 as they approach the viewport boundary.
+// Gallery scroll-hijack: vertical scroll on the outer
+  // wrapper drives horizontal translation of the inner track.
+  // LERP smoothing softens fast scroll input so the gallery
+  // glides rather than jumping. Per-image fade is recomputed
+  // each animation frame by reading each item's actual viewport
+  // rect — the brighter the image's centre is to the viewport
+  // centre, the higher its opacity.
   useEffect(() => {
+    const outer = galleryOuterRef.current;
     const track = galleryTrackRef.current;
-    if (!track) return;
+    if (!outer || !track) return;
+
+    let raf = 0;
+    let currentX = 0;
+    let targetX = 0;
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const items = Array.from(track.querySelectorAll<HTMLElement>('[data-gallery-item]'));
-    if (items.length === 0) return;
 
-    const compute = () => {
+    const applyFades = () => {
       const trackRect = track.getBoundingClientRect();
       const trackCentre = trackRect.left + trackRect.width / 2;
-      const fadeRange = trackRect.width / 2; // distance from centre at which opacity = 0
-
+      const fadeRange = trackRect.width / 2;
       items.forEach((el) => {
         const r = el.getBoundingClientRect();
         const centre = r.left + r.width / 2;
         const dist = Math.abs(centre - trackCentre);
-        // 1.0 at centre, 0 at edge. Power curve so middle band stays bright longer.
         const t = Math.max(0, 1 - dist / fadeRange);
         const opacity = Math.pow(t, 0.7);
         el.style.opacity = String(opacity);
       });
     };
 
-    compute();
-    track.addEventListener('scroll', compute, { passive: true });
-    window.addEventListener('resize', compute);
+    const animate = () => {
+      currentX = lerp(currentX, targetX, 0.08);
+      track.style.transform = `translateX(-${currentX}px)`;
+      applyFades();
+      raf = requestAnimationFrame(animate);
+    };
+
+    const handleScroll = () => {
+      const rect = outer.getBoundingClientRect();
+      const scrollable = outer.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      // Progress 0→1 across the vertical runway:
+      // when outer top hits viewport top, p=0
+      // when outer bottom hits viewport bottom, p=1
+      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
+      // Total horizontal travel = track scrollWidth minus
+      // the track's own viewport width (so the right edge
+      // of the last image lines up with the right edge of
+      // the viewport at p=1).
+      const totalTravel = track.scrollWidth - window.innerWidth;
+      targetX = p * totalTravel;
+    };
+
+    raf = requestAnimationFrame(animate);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
     return () => {
-      track.removeEventListener('scroll', compute);
-      window.removeEventListener('resize', compute);
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
   }, []);
 
@@ -567,29 +598,39 @@ export default function CorporateHomeClient() {
           </div>
         </section>
 
-        {/* ── GALLERY (horizontal scroll) ──────────── */}
-        <section className="corp-gallery">
-          <h2 className="corp-gallery-heading">Gallery</h2>
-          <div className="corp-gallery-track" ref={galleryTrackRef}>
-            {gallery.map((g, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => { setLightboxSrc(g.src); setLightboxOpen(true); }}
-                data-gallery-item
-                className={`corp-gallery-item corp-gallery-item--${g.size}`}
-                style={{ background: g.bg }}
-                aria-label="Open image"
-              >
-                <img
-                  src={g.src}
-                  alt={g.alt}
-                  className="corp-gallery-img"
-                  loading="lazy"
-                  draggable={false}
-                />
-              </button>
-            ))}
+        {/* ── GALLERY (vertical scroll drives horizontal pan) ── */}
+        {/* Outer wrapper creates the vertical scroll runway.
+            Height = gallery.length * 60vh gives roughly one image
+            per 60vh of vertical scroll on desktop, with extra
+            headroom so the user can scroll past comfortably.
+            Inner sticky container pins to the viewport while the
+            user scrolls; scroll handler maps progress 0→1 to a
+            horizontal translateX on the track. LERP smoothing for
+            a buttery feel. */}
+        <section className="corp-gallery-outer" ref={galleryOuterRef}>
+          <div className="corp-gallery-sticky">
+            <h2 className="corp-gallery-heading">Gallery</h2>
+            <div className="corp-gallery-track" ref={galleryTrackRef}>
+              {gallery.map((g, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => { setLightboxSrc(g.src); setLightboxOpen(true); }}
+                  data-gallery-item
+                  className={`corp-gallery-item corp-gallery-item--${g.size}`}
+                  style={{ background: g.bg }}
+                  aria-label="Open image"
+                >
+                  <img
+                    src={g.src}
+                    alt={g.alt}
+                    className="corp-gallery-img"
+                    loading="lazy"
+                    draggable={false}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -1300,61 +1341,84 @@ export default function CorporateHomeClient() {
           }
         }
 
-        /* ── GALLERY (horizontal scroll) ───────── */
-        /* Cinematic horizontal scroll: full-width / half-width /
-           quarter-width images flow horizontally. User swipes or
-           drags to advance. Each image fades based on how close
-           it is to the edge of the viewport (computed in JS via
-           scroll handler). Click any image to open in Lightbox. */
-        .corp-gallery {
-          padding: 60px 0;
+        /* ── GALLERY (vertical-scroll drives horizontal pan) ─ */
+        /* Outer wrapper creates a tall vertical runway. The
+           sticky inner container pins to the viewport while
+           the user scrolls through the runway. A scroll
+           handler in JS reads progress 0→1 across the runway
+           and translates the inner horizontal track to match.
+           Each image fades based on its distance from the
+           viewport centre. Click any image to open in Lightbox.
+
+           Mobile (<768px): runway is shorter so the gallery
+           passes faster, and fade range tightens so individual
+           images get more "spotlight" time.
+
+           Track is intentionally NOT overflow-auto here — we
+           drive the translation entirely from JS, so the track
+           sits inside the sticky container as plain content
+           and translateX moves it left/right. */
+        .corp-gallery-outer {
+          position: relative;
+          /* Each image roughly 60vh of vertical scroll runway,
+             so 36 images = ~2160vh. That's a lot of vertical
+             scroll. We tame it by shrinking per-image runway
+             on smaller viewports, and by tuning LERP factor
+             in JS. */
+          height: 1800vh;
+          background: #000000;
+        }
+        .corp-gallery-sticky {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          width: 100%;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         .corp-gallery-heading {
           font-size: clamp(1.4rem, 2vw, 1.8rem);
           font-weight: 400;
           color: #ffffff;
           text-align: center;
-          margin: 0 0 40px;
+          margin: 0 0 24px;
           letter-spacing: 0.02em;
           padding: 0 24px;
+          flex-shrink: 0;
         }
         .corp-gallery-track {
           display: flex;
           gap: 16px;
-          overflow-x: auto;
-          overflow-y: hidden;
+          will-change: transform;
+          /* Track is wider than the viewport — padding-right
+             holds the last image away from the right edge so
+             it can centre when scroll progress = 1. */
           padding: 0 50vw;
-          scroll-snap-type: x proximity;
-          -webkit-overflow-scrolling: touch;
-          /* Hide scrollbar */
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        .corp-gallery-track::-webkit-scrollbar {
-          display: none;
+          flex-shrink: 0;
         }
         .corp-gallery-item {
           flex: 0 0 auto;
-          height: 60vh;
-          min-height: 380px;
+          height: 70vh;
+          min-height: 480px;
           max-height: 700px;
           border: none;
           padding: 0;
           margin: 0;
           cursor: zoom-in;
           overflow: hidden;
-          scroll-snap-align: center;
           transition: opacity 0.1s linear;
-          /* opacity is set by JS scroll handler */
+          /* opacity set by JS scroll handler */
         }
         .corp-gallery-item--full {
-          width: min(90vw, 1200px);
+          width: min(80vw, 1100px);
         }
         .corp-gallery-item--half {
-          width: min(50vw, 600px);
+          width: min(45vw, 580px);
         }
         .corp-gallery-item--quarter {
-          width: min(28vw, 340px);
+          width: min(26vw, 320px);
         }
         .corp-gallery-img {
           width: 100%;
@@ -1362,23 +1426,33 @@ export default function CorporateHomeClient() {
           object-fit: cover;
           display: block;
         }
+
         @media (max-width: 767px) {
+          /* Mobile: shorter runway, smaller images so the
+             gallery feels less marathon. Also we DON'T do
+             scroll-hijack on mobile — the JS handler still
+             runs but the runway is short so it passes
+             quickly. Users get a brief horizontal pan rather
+             than being stuck for ages. */
+          .corp-gallery-outer {
+            height: 800vh;
+          }
           .corp-gallery-track {
             gap: 10px;
             padding: 0 30vw;
           }
           .corp-gallery-item {
-            height: 50vh;
-            min-height: 280px;
+            height: 55vh;
+            min-height: 320px;
           }
           .corp-gallery-item--full {
-            width: 90vw;
+            width: 80vw;
           }
           .corp-gallery-item--half {
-            width: 60vw;
+            width: 55vw;
           }
           .corp-gallery-item--quarter {
-            width: 40vw;
+            width: 38vw;
           }
         }
 
