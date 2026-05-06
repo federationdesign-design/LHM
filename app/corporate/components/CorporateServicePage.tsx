@@ -169,7 +169,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         <section style={{ padding: '40px 0 20px' }}>
           <Testimonials
             heading="Happy corporate clients include"
-            items={corporateTestimonials}
+            items={corporateTestimonials.slice(0, 3)}
           />
         </section>
 
