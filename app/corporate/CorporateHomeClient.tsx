@@ -1,347 +1,5 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import Footer from '../Footer';
-import CorporateNav from '../CorporateNav';
-import Lightbox from './components/Lightbox';
-
-/* ─────────────────────────────────────────────────────────────
-   CorporateHomeClient — /corporate
-
-   Layout sections in order:
-     1. CorporateNav (sticky)
-     2. Hero — full-bleed image with overlay text and CTA links.
-        Top-right of the hero has a chevron-CTA "Download our
-        employer PDF" so the most-likely user goal (employer
-        getting info to share internally) is visible immediately.
-     3. Company-clients logo strip (Spotify, Cambridge, Amazon,
-        Redgate). Same marquee-on-mobile pattern as the splash.
-     4. Credibility intro — two centered paragraphs introducing
-        the corporate massage offering.
-     5. Two-column "duty of care" zone:
-        - Left col: bordered box with the duty-of-care narrative
-          + "Download our employer PDF" chevron CTA at bottom
-        - Right col: plain text "what is corporate massage" copy
-          + "Enquire About your team here" underlined CTA
-     6. Services strip — three image cards linking to the
-        individual service pages
-     7. Two-column testimonial block (Cambridge testimonials,
-        currently duplicated as placeholders)
-     8. Find-us-on logos (BookingPage, Tripadvisor, SimplyBook,
-        LinkedIn, Wheree)
-     9. Footer
-
-   Mobile collapses the two-column zones into single-column
-   stacks. The hero text sits over a darker gradient overlay so
-   it stays legible against the photographed image.
-   ───────────────────────────────────────────────────────────── */
-
-// ── COMPANY CLIENT LOGOS ──────────────────────────────────────
-const companyClients = [
-  { name: 'Spotify',                 src: '/spotify.png' },
-  { name: 'University of Cambridge', src: '/university-cambridge.png' },
-  { name: 'Amazon',                  src: '/amazon.png' },
-  { name: 'Redgate',                 src: '/redgate-logo.png' },
-];
-
-// ── FIND-US-ON LOGOS ──────────────────────────────────────────
-const findUsLogos = [
-  { src: '/bookingpage.png', alt: 'Booking Page' },
-  { src: '/tripadisvor.svg',       alt: 'Tripadvisor' },
-  { src: '/SBM-logo.png',          alt: 'SimplyBook.me' },
-  { src: '/linked_in.png',         alt: 'LinkedIn' },
-  { src: '/where-logo.png',        alt: 'Wheree' },
-];
-
-// ── SERVICES ──────────────────────────────────────────────────
-const services = [
-  {
-    n: '1',
-    title: 'Display screen equipment Assessments',
-    cta: 'DCS Assessments >>',
-    href: '/corporate/dsc-assessments',
-    img: '/corporate-dsc.jpg',
-  },
-  {
-    n: '2',
-    title: 'In-Office Chair Massage',
-    cta: 'Chair Massage >>',
-    href: '/corporate/in-chair-massage',
-    img: '/corporate-chair-massage.jpg',
-  },
-  {
-    n: '3',
-    title: 'Assessments & Posture Consultations',
-    cta: 'Assessments >>',
-    href: '/corporate/posture-consultations',
-    img: '/corporate-posture.jpg',
-  },
-];
-
-// ── WHAT'S INCLUDED ───────────────────────────────────────────
-const whatsIncluded = [
-  {
-    title: 'Posture Assessments:',
-    body: 'We identify how individuals are sitting at their desks and provide tailored advice on improving their workstation setups to prevent discomfort and injury.',
-  },
-  {
-    title: 'Pain Reduction Techniques:',
-    body: 'We utilise specialised methods designed to alleviate stress, reduce pain, and relieve tight muscles caused by prolonged desk work.',
-  },
-  {
-    title: 'Hybrid Solutions:',
-    body: 'Offer ergonomic guidance and online consultations to support remote employees.',
-  },
-  {
-    title: 'Custom Work Adaptations:',
-    body: 'We assess how employees interact with their equipment and surroundings, advising on better practices to enhance efficiency and comfort.',
-  },
-  {
-    title: 'Wellness Programmes:',
-    body: 'We offer programs that focus on both physical and mental well-being, equipping staff with the tools they need to manage workplace stress and maintain a healthy work-life balance.',
-  },
-  {
-    title: 'Access to remote documents:',
-    body: 'including engaging presentations and informative videos — empowers your staff with valuable knowledge to effectively manage pain and foster good health and well-being in the workplace.',
-  },
-  {
-    title: 'Flexibility:',
-    body: 'Our fully customised plans adapt to your business needs, with flexible scheduling that integrates seamlessly into your operations, ensuring minimal disruption.',
-  },
-];
-
-// ── VIDEOS ────────────────────────────────────────────────────
-// Each video has a Vimeo ID (the numeric ID from the Vimeo URL),
-// a title, and a short intro. To add a real video, replace the
-// placeholder vimeoId with the actual ID (e.g. "123456789").
-// Leave as empty string to render a placeholder tile.
-const videos = [
-  {
-    vimeoId: '478025499',
-    title: 'Watch a recent Webinar',
-    intro: 'Watch a recording of a recent webinar hosted by Lucy, learn about seating postures and at desk exercises.',
-  },
-  {
-    vimeoId: '1189408231',
-    title: 'Watch our promo for on site service',
-    intro: 'We made an advert, view it here.',
-  },
-  {
-    vimeoId: '1189408959',
-    title: 'Watch Staff member testimonies',
-    intro: 'See and hear real people talking about real solutions.',
-  },
-  {
-    vimeoId: '1189408591',
-    title: 'What our desk posture tutorial',
-    intro: 'Watch one of our tutorials here. We have a whole archive of them for you and your team.',
-  },
-];
-
-// ── GALLERY ───────────────────────────────────────────────────
-// Each gallery item declares its column span (out of 6) so the
-// layout can mix portrait + landscape, full-width + half-width,
-// 3-up + 2-up rows. `span: 2` means 3-per-row, `span: 3` means
-// 2-per-row, `span: 6` means full-width. `aspect` controls the
-// ratio so portraits render tall.
-//
-// To swap to real images later: replace each `src` with the real
-// path (e.g. /gallery/01.jpg) and adjust span/aspect to suit.
-const gallery: { src: string; alt: string; bg: string; size: 'full' | 'half' | 'quarter' }[] = [
-  { src: '/21c4036c-feae-48b8-a539-64338850279d.jpg', alt: '', bg: '#2a2a2a', size: 'full' },
-  { src: '/26042d42-dec0-439d-a36c-6756ba1aeb94.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
-  { src: '/b3ec0456-0550-469c-8121-99e3fef95064.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
-  { src: '/chair.jpg', alt: '', bg: '#3a352e', size: 'half' },
-  { src: '/chair2.jpg', alt: '', bg: '#2e3a35', size: 'quarter' },
-  { src: '/chair3.jpg', alt: '', bg: '#352e3a', size: 'quarter' },
-  { src: '/chair4.jpg', alt: '', bg: '#3a2e35', size: 'full' },
-  { src: '/exercises1.jpg', alt: '', bg: '#2e2e3a', size: 'half' },
-  { src: '/lucy-hall-massage-23.jpg', alt: '', bg: '#2a2a2a', size: 'quarter' },
-  { src: '/lucy-hall-massage-25.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
-  { src: '/lucy-hall-massage-36.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
-  { src: '/exercises2.jpg', alt: '', bg: '#3a352e', size: 'full' },
-  { src: '/excercises3.jpg', alt: '', bg: '#2e3a35', size: 'quarter' },
-  { src: '/lucy-hall-massage-42.jpg', alt: '', bg: '#352e3a', size: 'half' },
-  { src: '/b7d62880-47c2-46b1-bd1f-d99662f9895c.jpg', alt: '', bg: '#3a2e35', size: 'quarter' },
-  { src: '/d730a508-6c23-4661-9335-64c79b68d5fe.jpg', alt: '', bg: '#2e2e3a', size: 'half' },
-  { src: '/lucy-hall-massage-44.jpg', alt: '', bg: '#2a2a2a', size: 'full' },
-  { src: '/lucy-hall-massage-47.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
-  { src: '/lucy-hall-massage-57.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
-  { src: '/lucy-hall-massage-74.jpg', alt: '', bg: '#3a352e', size: 'quarter' },
-  { src: '/lucy-hall-massage-95.jpg', alt: '', bg: '#2e3a35', size: 'full' },
-  { src: '/lucy-hall-massage-96.jpg', alt: '', bg: '#352e3a', size: 'half' },
-  { src: '/lucy-hall-massage-112.jpg', alt: '', bg: '#3a2e35', size: 'quarter' },
-  { src: '/lucy-hall-massage-114.jpg', alt: '', bg: '#2e2e3a', size: 'half' },
-  { src: '/lucy-hall-massage-116.jpg', alt: '', bg: '#2a2a2a', size: 'full' },
-  { src: '/lucy-hall-massage-124.jpg', alt: '', bg: '#3a2e2e', size: 'quarter' },
-  { src: '/lucy-hall-massage-160.jpg', alt: '', bg: '#2e3a3a', size: 'quarter' },
-  { src: '/lucy-hall-massage-177.jpg', alt: '', bg: '#3a352e', size: 'half' },
-  { src: '/lucy-hall-massage-202.jpg', alt: '', bg: '#2e3a35', size: 'quarter' },
-  { src: '/lucy-hall-massage-218.jpg', alt: '', bg: '#352e3a', size: 'full' },
-  { src: '/lucy-hall-massage-223.jpg', alt: '', bg: '#3a2e35', size: 'half' },
-  { src: '/lucy-hall-massage-227.jpg', alt: '', bg: '#2e2e3a', size: 'quarter' },
-  { src: '/lucy-hall-massage-228.jpg', alt: '', bg: '#2a2a2a', size: 'quarter' },
-  { src: '/lucy-hall-massage-232.jpg', alt: '', bg: '#3a2e2e', size: 'half' },
-  { src: '/lucy-hall-massage-233.jpg', alt: '', bg: '#2e3a3a', size: 'full' },
-  { src: '/lucy-hall-massage-235.jpg', alt: '', bg: '#3a352e', size: 'quarter' },
-];
-
-// ── TESTIMONIALS ──────────────────────────────────────────────
-// Real corporate testimonials. Logos point to /public assets;
-// /company-placeholder.png is used for companies we don't have a
-// brand logo for.
-const corpTestimonials = [
-  {
-    body:
-      '“We have always been big fans of Lucy and her team when they would visit the offices for in-person massages. Unfortunately, due to the current situation we knew those would not be an option for the foreseeable future, but we jumped at the chance to offer the next best thing — zoom consultations with a therapist. Amazing experience! Attendees were able to have 1:1 time with one of Lucy\'s expert team to talk through any niggles, aches and pains they were experiencing, and get personally tailored advice, exercises and stretches to alleviate these. We have been using Lucy Hall massage for years at Redgate, initially for in-person massages and recently the zoom consultations. No matter the format of the interactions the feedback is always the same — expert therapists, actionable advice, personable and professional.”',
-    name: 'Louise Domeisen',
-    company: 'Redgate',
-    logo: '/redgate-logo.png',
-  },
-  {
-    body:
-      '“Lucy and her team have a great reputation in the industry and we wanted the best for our staff. Her team make you feel like you are important, they listen to what you say and advise accordingly, they give their full attention to you during your time and nothing is too much trouble. Lucy\'s team listen to what you need as a business, advising and giving their expertise but happy to do what is good for you and your team. All of our staff come back into the office singing their praises. Lucy feels like a member of our team, part of the family. Everybody looks forward to the days when Lucy and her team come into the office, she is so relaxed and organised makes everyone feel at ease nobody feels uncomfortable and if they do after one visit they realise how important and special she makes you feel you are totally at ease.”',
-    name: 'Maria Slater',
-    company: 'Spotify',
-    logo: '/spotify.png',
-  },
-  {
-    body:
-      '“This review is on behalf of Costello Medical. We regularly use Lucy Hall Massage as part of our ongoing wellbeing initiative and consistently receive excellent feedback from our employees. Lucy takes the time to provide employees with personalised advice and guidance on their posture, which has been highly valued by staff. We look forward to continue working with Lucy in the future.”',
-    name: 'Emma King',
-    company: 'Costello Medical',
-    logo: '/company-placeholder.png',
-  },
-  {
-    body:
-      '“Lucy and her team are always professional, prompt and provides a friendly service. The entire Spotify office love her and the team! Many members of staff have also used Lucy Hall Massage privately since. Highly recommended!”',
-    name: 'Ginelle Richardson',
-    company: 'Spotify',
-    logo: '/spotify.png',
-  },
-  {
-    body:
-      '“The sessions are not only relaxing but also really helpful for posture correction, especially for those of us who spend long hours at our desks. We noticed reduced tension and overall better well-being. It\'s a great way to relieve stress and improve workplace comfort. Thanks for providing this service — it\'s definitely making a positive impact!”',
-    name: 'Nataliia Matsuk',
-    company: 'Amazon',
-    logo: '/amazon.png',
-  },
-  {
-    body:
-      '“We have been regular clients of Lucy for the past two years. Both she and Katerina check our posture at our desks and offer valuable advice that has significantly helped us improve our pain management and overall health. Their visits are always positive, and it is a pleasure to have them in the office.”',
-    name: 'Natasha Gobec',
-    company: 'Softwire',
-    logo: '/company-placeholder.png',
-  },
-  {
-    body:
-      '“We use Lucy Hall as part of supporting Wellbeing for colleagues at the Clinical School, these sessions are always in high demand! Thank you Lucy and your team.”',
-    name: 'Isobel Jordan',
-    company: 'Clinical School of Medicine',
-    logo: '/university-cambridge.png',
-  },
-  {
-    body:
-      '“We\'ve been lucky enough to benefit from Lucy\'s assessments and treatments over the years. It\'s a nice perk to look forward to, yet for others the consultative advice Lucy gives (about work stations, posture, remedial stretches and exercises etc.) has really made a genuine difference to their wellbeing and happiness. I cannot recommend her enough!”',
-    name: 'Steve Mann',
-    company: 'Brand Recruitment',
-    logo: '/company-placeholder.png',
-  },
-];
-
-// ── ARROWS ────────────────────────────────────────────────────
-const ChevronRight = ({ size = 24 }: { size?: number }) => (
-  <svg viewBox="0 0 24 24" fill="none" style={{ width: size, height: size, flexShrink: 0 }} aria-hidden="true">
-    <path d="M9 5l7 7-7 7" stroke="#fff" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-// ── MAIN ──────────────────────────────────────────────────────
-
-export default function CorporateHomeClient() {
-  // Mobile carousel state for the testimonials block
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxSrc, setLightboxSrc]   = useState<string | null>(null);
-  const galleryTrackRef = useRef<HTMLDivElement>(null);
-  const galleryOuterRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  // Sync carousel translation when active index changes
-  useEffect(() => {
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translateX(-${activeIdx * 100}%)`;
-    }
-  }, [activeIdx]);
-
-// Gallery scroll-hijack: vertical scroll on the outer
-  // wrapper drives horizontal translation of the inner track.
-  // LERP smoothing softens fast scroll input so the gallery
-  // glides rather than jumping. Per-image fade is recomputed
-  // each animation frame by reading each item's actual viewport
-  // rect — the brighter the image's centre is to the viewport
-  // centre, the higher its opacity.
-  useEffect(() => {
-    const outer = galleryOuterRef.current;
-    const track = galleryTrackRef.current;
-    if (!outer || !track) return;
-
-    let raf = 0;
-    let currentX = 0;
-    let targetX = 0;
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-    const items = Array.from(track.querySelectorAll<HTMLElement>('[data-gallery-item]'));
-
-    const applyFades = () => {
-      const trackRect = track.getBoundingClientRect();
-      const trackCentre = trackRect.left + trackRect.width / 2;
-      const fadeRange = trackRect.width / 2;
-      items.forEach((el) => {
-        const r = el.getBoundingClientRect();
-        const centre = r.left + r.width / 2;
-        const dist = Math.abs(centre - trackCentre);
-        const t = Math.max(0, 1 - dist / fadeRange);
-        const opacity = Math.pow(t, 0.7);
-        el.style.opacity = String(opacity);
-      });
-    };
-
-    const animate = () => {
-      currentX = lerp(currentX, targetX, 0.08);
-      track.style.transform = `translateX(-${currentX}px)`;
-      applyFades();
-      raf = requestAnimationFrame(animate);
-    };
-
-    const handleScroll = () => {
-      const rect = outer.getBoundingClientRect();
-      const scrollable = outer.offsetHeight - window.innerHeight;
-      if (scrollable <= 0) return;
-      // Progress 0→1 across the vertical runway:
-      // when outer top hits viewport top, p=0
-      // when outer bottom hits viewport bottom, p=1
-      const p = Math.max(0, Math.min(1, -rect.top / scrollable));
-      // Total horizontal travel = track scrollWidth minus
-      // the track's own viewport width (so the right edge
-      // of the last image lines up with the right edge of
-      // the viewport at p=1).
-      const totalTravel = track.scrollWidth - window.innerWidth;
-      targetX = p * totalTravel;
-    };
-
-    raf = requestAnimationFrame(animate);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, []);
 
 
   return (
@@ -598,39 +256,27 @@ export default function CorporateHomeClient() {
           </div>
         </section>
 
-        {/* ── GALLERY (vertical scroll drives horizontal pan) ── */}
-        {/* Outer wrapper creates the vertical scroll runway.
-            Height = gallery.length * 60vh gives roughly one image
-            per 60vh of vertical scroll on desktop, with extra
-            headroom so the user can scroll past comfortably.
-            Inner sticky container pins to the viewport while the
-            user scrolls; scroll handler maps progress 0→1 to a
-            horizontal translateX on the track. LERP smoothing for
-            a buttery feel. */}
-        <section className="corp-gallery-outer" ref={galleryOuterRef}>
-          <div className="corp-gallery-sticky">
-            <h2 className="corp-gallery-heading">Gallery</h2>
-            <div className="corp-gallery-track" ref={galleryTrackRef}>
-              {gallery.map((g, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => { setLightboxSrc(g.src); setLightboxOpen(true); }}
-                  data-gallery-item
-                  className={`corp-gallery-item corp-gallery-item--${g.size}`}
-                  style={{ background: g.bg }}
-                  aria-label="Open image"
-                >
-                  <img
-                    src={g.src}
-                    alt={g.alt}
-                    className="corp-gallery-img"
-                    loading="lazy"
-                    draggable={false}
-                  />
-                </button>
-              ))}
-            </div>
+        {/* ── GALLERY (CSS masonry, 3 cols desktop / 2 mobile) ─ */}
+        <section className="corp-gallery">
+          <h2 className="corp-gallery-heading">Gallery</h2>
+          <div className="corp-gallery-masonry">
+            {gallery.map((g, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => { setLightboxSrc(g.src); setLightboxOpen(true); }}
+                className="corp-gallery-item"
+                aria-label="Open image"
+              >
+                <img
+                  src={g.src}
+                  alt={g.alt}
+                  className="corp-gallery-img"
+                  loading="lazy"
+                  draggable={false}
+                />
+              </button>
+            ))}
           </div>
         </section>
 
@@ -1341,118 +987,65 @@ export default function CorporateHomeClient() {
           }
         }
 
-        /* ── GALLERY (vertical-scroll drives horizontal pan) ─ */
-        /* Outer wrapper creates a tall vertical runway. The
-           sticky inner container pins to the viewport while
-           the user scrolls through the runway. A scroll
-           handler in JS reads progress 0→1 across the runway
-           and translates the inner horizontal track to match.
-           Each image fades based on its distance from the
-           viewport centre. Click any image to open in Lightbox.
-
-           Mobile (<768px): runway is shorter so the gallery
-           passes faster, and fade range tightens so individual
-           images get more "spotlight" time.
-
-           Track is intentionally NOT overflow-auto here — we
-           drive the translation entirely from JS, so the track
-           sits inside the sticky container as plain content
-           and translateX moves it left/right. */
-        .corp-gallery-outer {
-          position: relative;
-          /* Each image roughly 60vh of vertical scroll runway,
-             so 36 images = ~2160vh. That's a lot of vertical
-             scroll. We tame it by shrinking per-image runway
-             on smaller viewports, and by tuning LERP factor
-             in JS. */
-          height: 1800vh;
+        /* ── GALLERY (CSS masonry) ──────────────────── */
+        /* Pure CSS masonry using the `columns` property.
+           Each image keeps its natural aspect ratio (width:100%
+           + height:auto), and CSS distributes them across the
+           columns automatically. Click any image to open the
+           Lightbox. */
+        .corp-gallery {
+          padding: 60px 24px;
           background: #000000;
-        }
-        .corp-gallery-sticky {
-          position: sticky;
-          top: 0;
-          height: 100vh;
-          width: 100%;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+          max-width: 1600px;
+          margin: 0 auto;
         }
         .corp-gallery-heading {
           font-size: clamp(1.4rem, 2vw, 1.8rem);
           font-weight: 400;
           color: #ffffff;
           text-align: center;
-          margin: 0 0 24px;
+          margin: 0 0 40px;
           letter-spacing: 0.02em;
-          padding: 0 24px;
-          flex-shrink: 0;
         }
-        .corp-gallery-track {
-          display: flex;
-          gap: 16px;
-          will-change: transform;
-          /* Track is wider than the viewport — padding-right
-             holds the last image away from the right edge so
-             it can centre when scroll progress = 1. */
-          padding: 0 50vw;
-          flex-shrink: 0;
+        .corp-gallery-masonry {
+          column-count: 2;
+          column-gap: 16px;
+          /* Mobile-first: 2 columns. Desktop: 3 columns below. */
         }
         .corp-gallery-item {
-          flex: 0 0 auto;
-          height: 70vh;
-          min-height: 480px;
-          max-height: 700px;
-          border: none;
+          /* break-inside avoids splitting an image across columns */
+          break-inside: avoid;
+          -webkit-column-break-inside: avoid;
+          page-break-inside: avoid;
+          display: block;
+          width: 100%;
+          margin: 0 0 16px 0;
           padding: 0;
-          margin: 0;
+          border: none;
+          background: transparent;
           cursor: zoom-in;
           overflow: hidden;
-          transition: opacity 0.1s linear;
-          /* opacity set by JS scroll handler */
+          /* Subtle hover effect to suggest clickability */
+          transition: opacity 0.2s ease;
         }
-        .corp-gallery-item--full {
-          width: min(80vw, 1100px);
-        }
-        .corp-gallery-item--half {
-          width: min(45vw, 580px);
-        }
-        .corp-gallery-item--quarter {
-          width: min(26vw, 320px);
+        .corp-gallery-item:hover {
+          opacity: 0.85;
         }
         .corp-gallery-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
           display: block;
+          width: 100%;
+          height: auto;
         }
-
-        @media (max-width: 767px) {
-          /* Mobile: shorter runway, smaller images so the
-             gallery feels less marathon. Also we DON'T do
-             scroll-hijack on mobile — the JS handler still
-             runs but the runway is short so it passes
-             quickly. Users get a brief horizontal pan rather
-             than being stuck for ages. */
-          .corp-gallery-outer {
-            height: 800vh;
+        @media (min-width: 768px) {
+          .corp-gallery {
+            padding: 80px 40px;
           }
-          .corp-gallery-track {
-            gap: 10px;
-            padding: 0 30vw;
+          .corp-gallery-masonry {
+            column-count: 3;
+            column-gap: 20px;
           }
           .corp-gallery-item {
-            height: 55vh;
-            min-height: 320px;
-          }
-          .corp-gallery-item--full {
-            width: 80vw;
-          }
-          .corp-gallery-item--half {
-            width: 55vw;
-          }
-          .corp-gallery-item--quarter {
-            width: 38vw;
+            margin-bottom: 20px;
           }
         }
 
