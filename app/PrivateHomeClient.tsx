@@ -814,6 +814,15 @@ export default function PrivateHomeClient() {
           main img:not(.no-bw):hover {
             filter: grayscale(0%);
           }
+          /* Card-hover variants — when the parent card is hovered,
+             the inner image goes to colour. Pairs with the existing
+             brightness(0.7) hover effects which dim the image at
+             the same time. */
+          main .hp-service-card:hover .hp-service-card-image,
+          main .hp-promo-card-link:hover .hp-promo-card-img,
+          main .hp-location-card:hover .hp-location-card-image {
+            filter: grayscale(0%) brightness(0.7);
+          }
           /* Avatars are <div> not <img>, so already excluded. */
         `}</style>
         <Footer />
