@@ -43,16 +43,11 @@ const companyClients = [
   { name: 'University of Cambridge', src: '/university-cambridge.png' },
   { name: 'Amazon',                  src: '/amazon.png' },
   { name: 'Redgate',                 src: '/redgate-logo.png' },
+  { name: 'Speechmatics',            src: '/speechmatics.png' },
+  { name: 'AstraZeneca',             src: '/astrazeneca-img.png' },
 ];
 
 // ── FIND-US-ON LOGOS ──────────────────────────────────────────
-const findUsLogos = [
-  { src: '/bookingpage.png', alt: 'Booking Page' },
-  { src: '/tripadisvor.svg',       alt: 'Tripadvisor' },
-  { src: '/SBM-logo.png',          alt: 'SimplyBook.me' },
-  { src: '/linked_in.png',         alt: 'LinkedIn' },
-  { src: '/where-logo.png',        alt: 'Wheree' },
-];
 
 // ── SERVICES ──────────────────────────────────────────────────
 const services = [
@@ -552,24 +547,6 @@ export default function CorporateHomeClient() {
           </div>
         </section>
 
-        {/* ── FIND US ON ───────────────────────────────────── */}
-        <div className="corp-findus">
-          <div className="corp-findus-marquee">
-            <div className="corp-findus-marquee-track">
-              {[...findUsLogos, ...findUsLogos].map((logo, i) => (
-                <img
-                  key={`${logo.alt}-${i}`}
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="corp-findus-logo"
-                  draggable={false}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <Footer />
       </main>
 
       <style>{`
@@ -1317,49 +1294,7 @@ export default function CorporateHomeClient() {
           }
         }
 
-        /* ── FIND US ON ──────────────────────────────────────── */
-        .corp-findus {
-          padding: 40px 24px 60px;
-          overflow: hidden;
-        }
-        .corp-findus-marquee {
-          width: 100%;
-          overflow: hidden;
-        }
-        .corp-findus-marquee-track {
-          display: flex;
-          align-items: center;
-          gap: 40px;
-          width: max-content;
-          animation: corp-marquee 25s linear infinite;
-        }
-        .corp-findus-logo {
-          flex: 0 0 auto;
-          height: 36px;
-          width: auto;
-          object-fit: contain;
-          display: block;
-          opacity: 0.85;
-        }
-        @media (min-width: 1024px) {
-          .corp-findus {
-            padding: 60px 80px;
-          }
-          .corp-findus-marquee-track {
-            justify-content: center;
-            gap: 60px;
-            width: 100%;
-            animation: none;
-            transform: none !important;
-          }
-          .corp-findus-marquee-track > .corp-findus-logo:nth-child(n+6) {
-            display: none;
-          }
-          .corp-findus-logo {
-            height: 50px;
-          }
-        }
-      `}</style>
+`}</style>
     </>
   );
 }

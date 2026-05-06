@@ -373,7 +373,7 @@ export default function SplashClient() {
                     Our experienced team specialises in massage therapy and physiotherapy, offering all sorts of treatments.
                   </p>
                   <p className="splash-elaborate-body">
-                    Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage and physiotherapy, we help you move better, feel better, and get back to doing the things you love.
+                    Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage, we help you move better, feel better, and get back to doing the things you love.
                   </p>
                   <a href="/tips-download" className="splash-elaborate-cta">
                     Download our 5 tips to a healthy body
@@ -422,7 +422,7 @@ export default function SplashClient() {
                   Our experienced team specialises in massage therapy and physiotherapy, offering treatments including Deep Tissue Massage, Swedish Massage, Pregnancy Massage, and more.
                 </p>
                 <p className="splash-elaborate-body">
-                  Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage and physiotherapy, we help you move better, feel better, and get back to doing the things you love.
+                  Whether you&rsquo;re recovering from an injury, managing ongoing tension, or simply in need of time to reset, our tailored treatments are designed around your body and your lifestyle. From deep tissue massage to pregnancy massage, we help you move better, feel better, and get back to doing the things you love.
                 </p>
                 <a href="/tips-download" className="splash-elaborate-cta">
                   Download our 5 tips to a healthy body
@@ -1092,7 +1092,6 @@ export default function SplashClient() {
           height: auto;
           object-fit: contain;
           display: block;
-          filter: brightness(0) invert(1);
           opacity: 0.9;
         }
         @media (min-width: 1024px) {
