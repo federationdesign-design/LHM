@@ -56,11 +56,11 @@ const promoCards = [
 ];
 
 const logos = [
-  { src: '/bookingpage.png', alt: 'BookingPage' },
-  { src: '/tripadisvor.svg', alt: 'Tripadvisor' },
-  { src: '/SBM-logo.png', alt: 'SimplyBook.me' },
-  { src: '/linked_in.png', alt: 'LinkedIn' },
-  { src: '/where-logo.png', alt: 'Wheree' },
+  { src: '/bookingpage.png', alt: 'BookingPage', href: 'https://booking.page/en/company/page/lucyhallmassage' },
+  { src: '/tripadisvor.svg', alt: 'Tripadvisor', href: 'https://www.tripadvisor.co.uk/Attraction_Review-g186225-d19454707-Reviews-Lucy_Hall_Massage-Cambridge_Cambridgeshire_England.html' },
+  { src: '/SBM-logo.png', alt: 'SimplyBook.me', href: 'https://lucyhallmassage.simplybook.it/v2/' },
+  { src: '/linked_in.png', alt: 'LinkedIn', href: 'https://www.linkedin.com/in/lucy-hall-massage-47369141/' },
+  { src: '/where-logo.png', alt: 'Wheree', href: 'https://lucy-hall-massage-therapy.wheree.com' },
 ];
 
 function mapboxStaticUrl(lat: number, lng: number, width = 800, height = 600): string {
@@ -583,13 +583,17 @@ function LogoSliderWithHeading() {
         >
           {extended.map((logo, i) => (
             <div key={i} className={styles.logoSlide}>
-              <img src={logo.src} alt={logo.alt} className={styles.logoImg} draggable={false} />
+              <a href={logo.href} target="_blank" rel="noopener noreferrer" aria-label={logo.alt}>
+                <img src={logo.src} alt={logo.alt} className={styles.logoImg} draggable={false} />
+              </a>
             </div>
           ))}
         </div>
         <div className={styles.logoRow}>
           {logos.map((logo) => (
-            <img key={logo.alt} src={logo.src} alt={logo.alt} className={styles.logoRowImg} draggable={false} />
+            <a key={logo.alt} href={logo.href} target="_blank" rel="noopener noreferrer" aria-label={logo.alt}>
+              <img src={logo.src} alt={logo.alt} className={styles.logoRowImg} draggable={false} />
+            </a>
           ))}
         </div>
       </div>
@@ -799,6 +803,19 @@ export default function PrivateHomeClient() {
         <div className={styles.divider} />
         <Testimonials heading="Happy private clients include" />
         <LogoSliderWithHeading />
+        <style>{`
+          /* B&W → colour hover for private homepage images.
+             Roll back: delete this block. Applied only to <img> and <Image> tags
+             on the homepage. Excludes logos, avatars, brand logos via :not() */
+          main img:not(.no-bw) {
+            filter: grayscale(100%);
+            transition: filter 0.4s ease;
+          }
+          main img:not(.no-bw):hover {
+            filter: grayscale(0%);
+          }
+          /* Avatars are <div> not <img>, so already excluded. */
+        `}</style>
         <Footer />
       </main>
     </>
