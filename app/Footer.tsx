@@ -30,7 +30,7 @@ const treatments: [string, string][] = [
   ['Hopi Ear', '/hopi-ear'],
   ['Hot Stone', '/hot-stone-massage'],
   ['Indian Head', '/indian-head-massage'],
-  ['Physiotherapy', '/physiotherapy-treatment'],
+  ['Sports Therapy', '/physiotherapy-treatment'],
   ['Pregnancy', '/pregnancy-massage'],
   ['Relaxation', '/relaxation-massage'],
   ['Sports Massage', '/sports-massage'],
@@ -47,13 +47,13 @@ export default function Footer() {
       </div>
       <p className={styles.footerHoursTitle}>Opening Times</p>
       <div className={styles.footerHours}>
-        Monday &nbsp;&nbsp;&nbsp;~ 9am to 8pm<br />
-        Tuesday &nbsp;&nbsp;~ 9am to 8pm<br />
-        Wednesday ~ 9am to 8pm<br />
-        Thursday &nbsp;~ 9am to 8pm<br />
-        Friday &nbsp;&nbsp;&nbsp;&nbsp;~ 9am to 6pm<br />
-        Saturday &nbsp;~ 9am to 5.30pm<br />
-        Sunday &nbsp;&nbsp;&nbsp;~ 10am to 5pm
+        Monday &nbsp;&nbsp;&nbsp;~ 12pm to 8pm<br />
+        Tuesday &nbsp;&nbsp;~ 10am to 6pm<br />
+        Wednesday ~ 10am to 8pm<br />
+        Thursday &nbsp;~ 10am to 6pm<br />
+        Friday &nbsp;&nbsp;&nbsp;&nbsp;~ 9am to 5pm<br />
+        Saturday &nbsp;~ 9am to 5pm<br />
+        Sunday &nbsp;&nbsp;&nbsp;~ 9am to 5pm
       </div>
 
       {/* Desktop: 5-column grid.
@@ -102,13 +102,13 @@ export default function Footer() {
         <div className={styles.footerCol}>
           <h4>Opening Times</h4>
           <p style={{ fontSize: '0.82rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.9 }}>
-            Monday – 9am to 8pm<br />
-            Tuesday – 9am to 8pm<br />
-            Wednesday – 9am to 8pm<br />
-            Thursday – 9am to 8pm<br />
-            Friday – 9am to 6pm<br />
-            Saturday – 9am to 5.30pm<br />
-            Sunday – 10am to 5pm
+            Monday – 12pm to 8pm<br />
+            Tuesday – 10am to 6pm<br />
+            Wednesday – 10am to 8pm<br />
+            Thursday – 10am to 6pm<br />
+            Friday – 9am to 5pm<br />
+            Saturday – 9am to 5pm<br />
+            Sunday – 9am to 5pm
           </p>
         </div>
 

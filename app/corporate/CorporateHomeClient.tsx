@@ -39,7 +39,7 @@ import CorporateNav from '../CorporateNav';
 
 // ── COMPANY CLIENT LOGOS ──────────────────────────────────────
 const companyClients = [
-  { name: 'Spotify',                 src: '/spotify.png' },
+  { name: 'Clayton Hotel',           src: '/Clayton-img.png' },
   { name: 'University of Cambridge', src: '/university-cambridge.png' },
   { name: 'Amazon',                  src: '/amazon.png' },
   { name: 'Redgate',                 src: '/redgate-logo.png' },
@@ -108,6 +108,10 @@ const whatsIncluded = [
   {
     title: 'Flexibility:',
     body: 'Our fully customised plans adapt to your business needs, with flexible scheduling that integrates seamlessly into your operations, ensuring minimal disruption.',
+  },
+  {
+    title: 'Direct Expert Support',
+    body: 'We are not an agency — your team works directly with qualified workplace health professionals, ensuring personalised, consistent support without delays, handovers, or generic one-size-fits-all advice. We provide practical, tailored guidance from start to finish to help create a healthier, more comfortable workplace.',
   },
 ];
 
@@ -212,7 +216,7 @@ const corpTestimonials = [
       '“This review is on behalf of Costello Medical. We regularly use Lucy Hall Massage as part of our ongoing wellbeing initiative and consistently receive excellent feedback from our employees. Lucy takes the time to provide employees with personalised advice and guidance on their posture, which has been highly valued by staff. We look forward to continue working with Lucy in the future.”',
     name: 'Emma King',
     company: 'Costello Medical',
-    logo: '/company-placeholder.png',
+    logo: '/softwire-logo.png',
   },
   {
     body:
@@ -233,7 +237,7 @@ const corpTestimonials = [
       '“We have been regular clients of Lucy for the past two years. Both she and Katerina check our posture at our desks and offer valuable advice that has significantly helped us improve our pain management and overall health. Their visits are always positive, and it is a pleasure to have them in the office.”',
     name: 'Natasha Gobec',
     company: 'Softwire',
-    logo: '/company-placeholder.png',
+    logo: '/brand-recruitment.png',
   },
   {
     body:

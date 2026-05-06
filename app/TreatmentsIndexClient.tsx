@@ -13,7 +13,7 @@ const therapiesList = [
   { label: 'Relaxation Massage', href: '/relaxation-massage', slideIndex: 4 },
   { label: 'Pregnancy Massage', href: '/pregnancy-massage', slideIndex: 5 },
   { label: 'Hopi Ear & Back Massage', href: '/hopi-ear', slideIndex: 6 },
-  { label: 'Physiotherapy', href: '/physiotherapy-treatment', slideIndex: 7 },
+  { label: 'Sports Therapy', href: '/physiotherapy-treatment', slideIndex: 7 },
   { label: 'Indian Head Massage', href: '/indian-head-massage', slideIndex: 8 },
   { label: 'Hot Stone Massage', href: '/hot-stone-massage', slideIndex: 9 },
   { label: 'Cupping', href: '/cupping', slideIndex: 10 },
@@ -56,7 +56,7 @@ const slides = [
     image: '/hopi-mobile.jpg', color: '#d57640', cta: 'Book Now', ctaHref: '/hopi-ear',
   },
   {
-    type: 'treatment' as const, slug: 'physiotherapy-treatment', title: 'Physiotherapy',
+    type: 'treatment' as const, slug: 'physiotherapy-treatment', title: 'Sports Therapy',
     tagline: 'Our physiotherapy service provides expert assessment and hands-on treatment for a wide range of musculoskeletal conditions. From acute injuries to chronic pain and postural problems, our qualified physiotherapists use evidence-based techniques to restore function and reduce pain.',
     image: '/Physiotherapy-mobile.jpg', color: '#b46a51', cta: 'Book Now', ctaHref: '/physiotherapy-treatment',
   },
@@ -73,7 +73,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'cupping', title: 'Cupping Therapy',
     tagline: 'A traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access — releasing deep-seated tension and supporting natural recovery.',
-    image: '/Cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/cupping',
+    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/cupping',
   },
   { type: 'treatment' as const, slug: 'locations', title: 'Our Locations', tagline: 'Two clinics in Cambridge — Thoday Street and Cromwell Road. All treatments available at both locations.', image: '/deep-tissue-img.jpg', color: '#28303a', cta: 'View Locations', ctaHref: '/locations' },
   { type: 'treatment' as const, slug: 'gift-vouchers', title: 'Gift Vouchers', tagline: 'Give the gift of relaxation — the perfect treat for someone special. Redeemable against any treatment at either clinic. Valid for 12 months.', image: '/gift-voucher-hero.jpg', color: '#3a3028', cta: 'Buy a Voucher', ctaHref: '/gift-vouchers' },

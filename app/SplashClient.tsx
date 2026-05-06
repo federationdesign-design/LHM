@@ -62,10 +62,12 @@ type Side = 'private' | 'corporate';
 
 // ── COMPANY CLIENT LOGOS ──────────────────────────────────────
 const companyClients = [
-  { name: 'Spotify',                 src: '/spotify.png' },
+  { name: 'Clayton Hotel',           src: '/Clayton-img.png' },
   { name: 'University of Cambridge', src: '/university-cambridge.png' },
   { name: 'Amazon',                  src: '/amazon.png' },
   { name: 'Redgate',                 src: '/redgate-logo.png' },
+  { name: 'Speechmatics',            src: '/speechmatics.png' },
+  { name: 'AstraZeneca',             src: '/astrazeneca-img.png' },
 ];
 
 // ── FIND-US-ON LOGOS ──────────────────────────────────────────

@@ -6,13 +6,13 @@ import Link from 'next/link';
 const menuItems: [string, string][] = [
   ['Corporate',                  '/corporate'],
   ['In-Office Chair Massage',    '/corporate/in-chair-massage'],
-  ['DSC Assessments',            '/corporate/dsc-assessments'],
+  ['DSE Assessments',            '/corporate/dsc-assessments'],
   ['Posture Consultations',      '/corporate/posture-consultations'],
   ['Contact Us',                 '/contact'],
   ['Our Team',                   '/team'],
   ['Blog',                       '/news'],
   ['Testimonials',               '/testimonials'],
-  ['Book a massage',             '/private'],
+  ['Book myself a massage',      '/private'],
   ['Homepage',                   '/'],
 ];
 

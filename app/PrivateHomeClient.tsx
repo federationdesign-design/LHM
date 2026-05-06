@@ -16,7 +16,7 @@ const services = [
   { slug: 'relaxation-massage', title: 'Relaxation Massage', image: '/relaxation-mobile.jpg', href: '/relaxation-massage', cta: 'Book Treatment' },
   { slug: 'pregnancy-massage', title: 'Pregnancy Massage', image: '/Pregnancy-mobile.jpg', href: '/pregnancy-massage', cta: 'Book Treatment' },
   { slug: 'hopi-ear', title: 'Hopi Ear & Back Massage', image: '/hopi-mobile.jpg', href: '/hopi-ear', cta: 'Book Treatment' },
-  { slug: 'physiotherapy-treatment', title: 'Physiotherapy', image: '/Physiotherapy-mobile.jpg', href: '/physiotherapy-treatment', cta: 'Book Treatment' },
+  { slug: 'physiotherapy-treatment', title: 'Sports Therapy', image: '/Physiotherapy-mobile.jpg', href: '/physiotherapy-treatment', cta: 'Book Treatment' },
   { slug: 'indian-head-massage', title: 'Indian Head Massage', image: '/Indian-Head-mobile.jpg', href: '/indian-head-massage', cta: 'Book Treatment' },
   { slug: 'hot-stone-massage', title: 'Hot Stone Massage', image: '/Hot-Stone-mobile.jpg', href: '/hot-stone-massage', cta: 'Book Treatment' },
   { slug: 'cupping', title: 'Cupping Therapy', image: '/cupping-mobile.jpg', href: '/cupping', cta: 'Book Treatment' },
@@ -323,9 +323,7 @@ function ServicesCarousel() {
       >
         <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px 24px 16px', flexShrink: 0 }}>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 600, color: '#ffffff', textAlign: 'center', margin: 0 }}>Services</h2>
-          </div>
+
 
           <div
             ref={trackRef}
@@ -362,9 +360,7 @@ function ServicesCarousel() {
       </section>
 
       <section className="hp-services-desktop" style={{ display: 'none', padding: '30px 0 80px', background: '#000000' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 32, padding: '0 24px' }}>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 600, color: '#ffffff', textAlign: 'center', margin: 0 }}>Services</h2>
-        </div>
+
 
         <div className="hp-grid-wrap">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
