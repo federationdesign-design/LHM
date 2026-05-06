@@ -790,6 +790,15 @@ export default function CorporateHomeClient() {
           margin: 0 0 28px;
           opacity: 0.85;
         }
+        .corp-intro-para:first-child {
+          font-size: clamp(1.95rem, 2.2vw, 2.34rem);
+          font-weight: 600;
+          line-height: 1.3;
+          letter-spacing: -0.01em;
+          opacity: 1;
+          margin: 0 auto 36px;
+          max-width: min(1200px, 90vw);
+        }
         .corp-intro-para:last-child {
           margin-bottom: 0;
         }
