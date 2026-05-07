@@ -5,38 +5,33 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '../../Nav';
 import Footer from '../../Footer';
-import styles from '../../page.module.css';
 
 /* ─────────────────────────────────────────────────────────────
-   /treatments/sports-therapy
+   /treatments/sports-therapy — V3
 
-   Layout:
-     - Hero: H1 "Sports Therapy" + sub "Choose your duration"
-     - Horizontal scroll-driven carousel: 4 slides (30/60/90/120 min)
-       Each slide is a card with the duration as title.
-       Clicking a card scrolls to that duration's anchor section.
-     - 4 anchor sections below the carousel, each with:
-         * H2 "30 minutes" (etc.)
-         * Unique intro paragraph
-         * 3 generic Sports Therapy explainer paragraphs
-         * SimplyBook iframe pre-selecting the right service ID
-
-   Service ID mapping (per Lucy's SimplyBook config):
-     30 min  → service ID 1
-     60 min  → service ID 2
-     90 min  → service ID 3
-     120 min → service ID 4
-
-   Image: shared sports-therapy-mobile.jpg / -desktop.jpg
-   for all 4 cards.
+   Changes from V2:
+     - Unique image per duration (/30-img.jpg, /60-img.jpg, etc.)
+     - Replaces plain iframe with SimplyBook embed widget pattern
+       (matches existing service pages — themed, dark, green CTAs)
+     - Shorter unique paragraph per duration
+     - No generic shared paragraphs
+     - Tightened gap between hero and carousel
    ───────────────────────────────────────────────────────────── */
+
+// SimplyBook widget global typing
+declare global {
+  interface Window {
+    SimplybookWidget?: new (config: Record<string, unknown>) => void;
+  }
+}
 
 type Duration = {
   id: string;        // anchor id
-  label: string;     // card title — "30 min"
-  fullLabel: string; // section H2 — "30 minutes"
-  serviceId: number; // SimplyBook service ID
-  intro: string;     // unique opening paragraph
+  label: string;     // card title — '30 min'
+  fullLabel: string; // section H2 — '30 minutes'
+  serviceId: string; // SimplyBook predefined service id
+  image: string;     // unique card image
+  copy: string;      // unique short paragraph
 };
 
 const DURATIONS: Duration[] = [
@@ -44,66 +39,124 @@ const DURATIONS: Duration[] = [
     id: '30',
     label: '30 min',
     fullLabel: '30 minutes',
-    serviceId: 1,
-    intro:
-      "Not sure what type of massage you need? Or maybe you have one specific area of tension that needs attention. If so then the 30 minute massage is the right one for you. Best for: targeted relief on a single area — neck, shoulders, lower back, or calves. A quick reset between meetings or before a busy week.",
+    serviceId: '1',
+    image: '/30-img.jpg',
+    copy:
+      "A focused session on one trouble area. Ideal if you've got a single tight spot — neck, shoulders, lower back — that needs attention before a busy week. Quick to fit in over a lunch break and you'll leave noticeably looser.",
   },
   {
     id: '60',
     label: '60 min',
     fullLabel: '60 minutes',
-    serviceId: 2,
-    intro:
-      "Not sure what type of massage you need? Or maybe you have a couple of troublesome areas you want addressing in one session. If so then the 60 minute massage is the right one for you. Best for: a balanced full-body or focused multi-area session — the most popular choice for those wanting both treatment and relaxation.",
+    serviceId: '2',
+    image: '/60-img.jpg',
+    copy:
+      "Our most popular choice. Time enough to address two or three areas, balanced between treatment and relaxation. Suits anyone wanting solid pressure on problem spots without committing to a longer session.",
   },
   {
     id: '90',
     label: '90 min',
     fullLabel: '90 minutes',
-    serviceId: 3,
-    intro:
-      "Not sure what type of massage you need? Or maybe you've got persistent issues that need real depth and time to work through. If so then the 90 minute massage is the right one for you. Best for: deeper work, layered technique, and full-body coverage with attention to problem areas — ideal post-event, or after a high-stress period.",
+    serviceId: '3',
+    image: '/90-img.jpg',
+    copy:
+      "Deeper work with room to breathe. We can layer techniques, cover the full body, and still spend extra time on persistent issues. Good post-event, after a high-stress period, or when 60 minutes hasn't been quite enough.",
   },
   {
     id: '120',
     label: '120 min',
     fullLabel: '120 minutes',
-    serviceId: 4,
-    intro:
-      "Not sure what type of massage you need? Or maybe you've been carrying long-standing tension and want a complete reset. If so then the 120 minute massage is the right one for you. Best for: a full mind-body restoration — the deepest work we offer, with time for full-body coverage plus extended focus on chronic problem areas. Bring a notebook of where it hurts.",
+    serviceId: '4',
+    image: '/120-img.jpg',
+    copy:
+      "The full reset. Two hours gives space for complete head-to-toe coverage plus extended attention to long-standing tension. Best for chronic issues, recovery from heavy training blocks, or when you simply need the deepest work we offer.",
   },
 ];
 
-// Generic Sports Therapy explainer — shown at the bottom of every section
-const GENERIC_PARAGRAPHS = [
-  "Sports massage aims to reduce pain and improve joint mobility. It combines deep-tissue massage, neuromuscular techniques and stretching to relieve tension. This is available to anybody — whether you're a runner, rower, athlete, or non-athlete, sports massage can alleviate acute pain. Chronic muscular tension is massaged away to improve quality of life.",
-  "A sports massage involves our therapists using intense massage techniques that often involve quite a fast pace, heavy kneading of the body's soft tissue areas — such as muscles, tendons and fascia — and some specific techniques such as active release and trigger point therapy. However, it should not be daunting. It is one of the most effective ways to maintain and protect the body from aches, pains and injuries.",
-  "The therapist will adapt the massage to your exact needs.",
-];
+/* ─────────────────────────────────────────────────────────────
+   SimplyBook widget component — clones the pattern from
+   ServiceBookingClient. One instance per duration. Each gets a
+   unique container_id so 4 widgets coexist on the page.
+   ───────────────────────────────────────────────────────────── */
+function SimplyBookWidget({ serviceId, containerId }: { serviceId: string; containerId: string }) {
+  const ref = useRef<HTMLDivElement>(null);
 
-// Build the SimplyBook iframe URL for a given service ID
-function iframeUrl(serviceId: number): string {
-  return `https://lucyhallmassage.simplybook.it/v2/?widget=widget-config&service=${serviceId}`;
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = '//widget.simplybook.it/v2/widget/widget.js';
+    script.onload = () => {
+      if (typeof window === 'undefined' || !window.SimplybookWidget) return;
+      new window.SimplybookWidget({
+        widget_type: 'iframe',
+        url: 'https://lucyhallmassage.simplybook.it',
+        theme: 'concise',
+        theme_settings: {
+          timeline_hide_unavailable: '1',
+          hide_past_days: '0',
+          timeline_show_end_time: '0',
+          timeline_modern_display: 'as_slots',
+          light_font_color: '#ffffff',
+          sb_secondary_base: '#000000',
+          sb_base_color: '#545557',
+          display_item_mode: 'block',
+          booking_nav_bg_color: '#000000',
+          sb_review_image: '115',
+          sb_review_image_preview:
+            '/uploads/lucyhallmassage/image_files/preview/4ecc8dab4516d05ab44aa11a3cfd7405.jpg',
+          dark_font_color: '#000000',
+          btn_color_1: '#2cd12c',
+          sb_company_label_color: '#000000',
+          hide_img_mode: '0',
+          show_sidebar: '1',
+          sb_busy: '#db1f4b',
+          sb_available: '#2cd12c',
+        },
+        timeline: 'modern_week',
+        datepicker: 'top_calendar',
+        is_rtl: false,
+        app_config: {
+          clear_session: 0,
+          allow_switch_to_ada: 0,
+          predefined: { service: serviceId },
+        },
+        container_id: containerId,
+      });
+    };
+    document.head.appendChild(script);
+    return () => {
+      // The remove can fail silently if React strict-mode unmounts it
+      try {
+        document.head.removeChild(script);
+      } catch {
+        /* noop */
+      }
+    };
+  }, [serviceId, containerId]);
+
+  return <div id={containerId} ref={ref} />;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Main page component
+   ───────────────────────────────────────────────────────────── */
 export default function SportsTherapyClient() {
   return (
     <>
       <Nav solid />
 
       <main style={{ background: '#000000', color: '#ffffff' }}>
-        {/* ── HERO ────────────────────────────────────────── */}
+        {/* HERO — shorter than V2 (50vh) so carousel sits closer */}
         <section
           style={{
             position: 'relative',
             width: '100%',
-            height: '70vh',
-            minHeight: 480,
+            height: '50vh',
+            minHeight: 360,
             overflow: 'hidden',
             background: '#1a1a1a',
           }}
         >
-          {/* Mobile hero image */}
           <Image
             src="/sports-therapy-mobile.jpg"
             alt="Sports Therapy — Lucy Hall Massage"
@@ -113,7 +166,6 @@ export default function SportsTherapyClient() {
             priority
             className="st-hero-mobile"
           />
-          {/* Desktop hero image */}
           <Image
             src="/sports-therapy-desktop.jpg"
             alt="Sports Therapy — Lucy Hall Massage"
@@ -124,7 +176,6 @@ export default function SportsTherapyClient() {
             className="st-hero-desktop"
           />
 
-          {/* Gradient overlay for legibility */}
           <div
             style={{
               position: 'absolute',
@@ -142,16 +193,16 @@ export default function SportsTherapyClient() {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-end',
-              padding: '0 32px 64px',
+              padding: '0 32px 48px',
               zIndex: 2,
             }}
           >
             <h1
               style={{
-                fontSize: 'clamp(2.4rem, 6vw, 4.8rem)',
+                fontSize: 'clamp(2.4rem, 6vw, 4.4rem)',
                 fontWeight: 600,
                 lineHeight: 1.1,
-                margin: '0 0 16px',
+                margin: '0 0 12px',
                 color: '#ffffff',
               }}
             >
@@ -159,7 +210,7 @@ export default function SportsTherapyClient() {
             </h1>
             <p
               style={{
-                fontSize: 'clamp(1.1rem, 2vw, 1.5rem)',
+                fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)',
                 fontWeight: 300,
                 lineHeight: 1.4,
                 margin: 0,
@@ -172,16 +223,16 @@ export default function SportsTherapyClient() {
           </div>
         </section>
 
-        {/* ── 4-DURATION CAROUSEL ─────────────────────────── */}
+        {/* CAROUSEL — sits flush against hero */}
         <DurationCarousel />
 
-        {/* ── 4 ANCHOR SECTIONS ───────────────────────────── */}
+        {/* 4 ANCHOR SECTIONS */}
         {DURATIONS.map((d) => (
           <section
             key={d.id}
             id={d.id}
             style={{
-              padding: '80px 24px 96px',
+              padding: '64px 24px 80px',
               borderTop: '1px solid rgba(255,255,255,0.15)',
               scrollMarginTop: 80,
             }}
@@ -193,7 +244,7 @@ export default function SportsTherapyClient() {
                   fontSize: 'clamp(2rem, 4vw, 3rem)',
                   fontWeight: 600,
                   lineHeight: 1.15,
-                  margin: '0 0 32px',
+                  margin: '0 0 24px',
                   color: '#ffffff',
                 }}
               >
@@ -205,48 +256,28 @@ export default function SportsTherapyClient() {
                   fontSize: '1.05rem',
                   fontWeight: 300,
                   lineHeight: 1.75,
-                  marginBottom: 24,
+                  marginBottom: 40,
                   color: '#ffffff',
                   opacity: 0.95,
                 }}
               >
-                {d.intro}
+                {d.copy}
               </p>
 
-              {GENERIC_PARAGRAPHS.map((p, i) => (
-                <p
-                  key={i}
-                  style={{
-                    fontSize: '1rem',
-                    fontWeight: 300,
-                    lineHeight: 1.75,
-                    marginBottom: 20,
-                    color: '#ffffff',
-                    opacity: 0.9,
-                  }}
-                >
-                  {p}
-                </p>
-              ))}
-
-              {/* IFRAME */}
+              {/* SimplyBook widget container */}
               <div
                 style={{
-                  marginTop: 48,
+                  marginTop: 32,
                   border: '1px solid rgba(255,255,255,0.2)',
                   borderRadius: 4,
                   overflow: 'hidden',
                   background: '#1a1a1a',
+                  minHeight: 600,
                 }}
               >
-                <iframe
-                  src={iframeUrl(d.serviceId)}
-                  width="100%"
-                  height="780"
-                  style={{ border: 0, display: 'block' }}
-                  title={`Book a ${d.fullLabel} massage`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
+                <SimplyBookWidget
+                  serviceId={d.serviceId}
+                  containerId={`sbw_st_${d.id}`}
                 />
               </div>
             </div>
@@ -257,7 +288,6 @@ export default function SportsTherapyClient() {
       </main>
 
       <style>{`
-        /* Hero image responsive show/hide */
         .st-hero-desktop {
           display: none;
         }
@@ -271,7 +301,7 @@ export default function SportsTherapyClient() {
         }
         @media (min-width: 768px) {
           .st-anchor-section {
-            padding: 100px 40px 120px !important;
+            padding: 80px 40px 100px !important;
           }
         }
       `}</style>
@@ -280,13 +310,9 @@ export default function SportsTherapyClient() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   DurationCarousel — horizontal scroll-driven carousel that
-   mirrors the TreatmentsIndexClient pattern but with only 4
-   cards. As the user scrolls vertically, the cards pan
-   horizontally inside a sticky container.
-
-   On mobile (<768px) it falls back to a simple horizontal
-   scroll with snap-points so users can swipe.
+   DurationCarousel — same scroll-driven horizontal pan as V2,
+   but with unique images per slide. Section height tuned down
+   from 180vh → 140vh so the carousel finishes faster.
    ───────────────────────────────────────────────────────────── */
 function DurationCarousel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -295,11 +321,9 @@ function DurationCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(-1);
 
-  // On desktop, transform the track based on scroll progress
-  // through the section (same idea as DesktopTreatments).
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if (window.innerWidth < 768) return; // mobile uses native scroll
+    if (window.innerWidth < 768) return;
 
     const section = sectionRef.current;
     const track = trackRef.current;
@@ -314,16 +338,13 @@ function DurationCarousel() {
       const total = rect.height - window.innerHeight;
       if (total <= 0) return;
       const passed = Math.max(0, Math.min(total, -rect.top));
-      const progress = passed / total; // 0 → 1
+      const progress = passed / total;
 
-      // 4 slides — the centre slide changes as we progress.
-      // Total horizontal travel = (cards-1) * cardWidth + spacing
       const trackWidth = track.scrollWidth;
       const viewportWidth = window.innerWidth;
       const maxShift = Math.max(0, trackWidth - viewportWidth);
       target = progress * maxShift;
 
-      // Determine active index based on progress
       const idx = Math.min(
         DURATIONS.length - 1,
         Math.max(0, Math.round(progress * (DURATIONS.length - 1)))
@@ -332,7 +353,6 @@ function DurationCarousel() {
     };
 
     const tick = () => {
-      // LERP for smoothness
       current += (target - current) * 0.15;
       if (track) {
         track.style.transform = `translateX(${-current}px)`;
@@ -358,10 +378,7 @@ function DurationCarousel() {
       className="dc-section"
       style={{
         position: 'relative',
-        // Make the section TALL on desktop so user has room to
-        // scroll-pan through the horizontal carousel.
-        // 4 cards × 60vh per card ~= 240vh
-        height: '180vh',
+        height: '140vh',
       }}
     >
       <div
@@ -421,7 +438,7 @@ function DurationCarousel() {
                   }}
                 >
                   <Image
-                    src="/sports-therapy-desktop.jpg"
+                    src={d.image}
                     alt={`Sports Therapy ${d.fullLabel}`}
                     fill
                     sizes="(max-width: 768px) 75vw, 460px"
@@ -429,7 +446,6 @@ function DurationCarousel() {
                   />
                 </div>
 
-                {/* Bottom gradient + label */}
                 <div
                   style={{
                     position: 'absolute',
