@@ -333,10 +333,11 @@ function DurationCarousel() {
         ref={innerRef}
         style={{
           position: 'sticky',
-          top: 0,
-          height: '100vh',
+          top: 10,
+          height: 'calc(70vh + 10px)',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
+          paddingTop: 10,
           overflow: 'hidden',
         }}
       >
