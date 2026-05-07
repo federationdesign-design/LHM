@@ -25,16 +25,16 @@ const usefulLinks: [string, string][] = [
 ];
 
 const treatments: [string, string][] = [
-  ['Cupping', '/cupping'],
-  ['Deep Tissue', '/deep-tissue-massage'],
-  ['Hopi Ear', '/hopi-ear'],
-  ['Hot Stone', '/hot-stone-massage'],
-  ['Indian Head', '/indian-head-massage'],
-  ['Sports Therapy', '/sports-therapy'],
-  ['Pregnancy', '/pregnancy-massage'],
-  ['Relaxation', '/relaxation-massage'],
-  ['Sports Massage', '/sports-massage'],
-  ['Swedish', '/swedish-massage'],
+  ['Cupping', '/treatments/cupping'],
+  ['Deep Tissue', '/treatments/deep-tissue-massage'],
+  ['Hopi Ear', '/treatments/hopi-ear'],
+  ['Hot Stone', '/treatments/hot-stone-massage'],
+  ['Indian Head', '/treatments/indian-head-massage'],
+  ['Sports Therapy', '/treatments/sports-therapy'],
+  ['Pregnancy', '/treatments/pregnancy-massage'],
+  ['Relaxation', '/treatments/relaxation-massage'],
+  ['Sports Massage', '/treatments/sports-massage'],
+  ['Swedish', '/treatments/swedish-massage'],
 ];
 
 export default function Footer() {

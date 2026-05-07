@@ -1,8 +1,8 @@
-// app/[slug]/page.tsx
+// app/treatments/[slug]/page.tsx
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { services } from '../data/services';
-import ServiceBookingClient from '../ServiceBookingClient';
+import { services } from '../../data/services';
+import ServiceBookingClient from '../../ServiceBookingClient';
 
 export async function generateStaticParams() {
   return Object.keys(services).map((slug) => ({ slug }));
