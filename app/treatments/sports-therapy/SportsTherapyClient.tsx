@@ -385,11 +385,12 @@ function DurationCarousel() {
         ref={innerRef}
         style={{
           position: 'sticky',
-          top: 0,
-          height: '100vh',
+          top: 10,
+          height: '75vh',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
+          marginTop: 10,
         }}
       >
         <div
@@ -420,7 +421,7 @@ function DurationCarousel() {
                 style={{
                   flex: '0 0 auto',
                   width: 'min(75vw, 460px)',
-                  height: '70vh',
+                  height: '65vh',
                   position: 'relative',
                   overflow: 'hidden',
                   textDecoration: 'none',
