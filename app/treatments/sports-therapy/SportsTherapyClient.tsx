@@ -6,19 +6,6 @@ import Link from 'next/link';
 import Nav from '../../Nav';
 import Footer from '../../Footer';
 
-/* ─────────────────────────────────────────────────────────────
-   /treatments/sports-therapy — V3
-
-   Changes from V2:
-     - Unique image per duration (/30-img.jpg, /60-img.jpg, etc.)
-     - Replaces plain iframe with SimplyBook embed widget pattern
-       (matches existing service pages — themed, dark, green CTAs)
-     - Shorter unique paragraph per duration
-     - No generic shared paragraphs
-     - Tightened gap between hero and carousel
-   ───────────────────────────────────────────────────────────── */
-
-// SimplyBook widget global typing
 declare global {
   interface Window {
     SimplybookWidget?: new (config: Record<string, unknown>) => void;
@@ -26,12 +13,12 @@ declare global {
 }
 
 type Duration = {
-  id: string;        // anchor id
-  label: string;     // card title — '30 min'
-  fullLabel: string; // section H2 — '30 minutes'
-  serviceId: string; // SimplyBook predefined service id
-  image: string;     // unique card image
-  copy: string;      // unique short paragraph
+  id: string;
+  label: string;
+  fullLabel: string;
+  serviceId: string;
+  image: string;
+  copy: string;
 };
 
 const DURATIONS: Duration[] = [
@@ -73,11 +60,6 @@ const DURATIONS: Duration[] = [
   },
 ];
 
-/* ─────────────────────────────────────────────────────────────
-   SimplyBook widget component — clones the pattern from
-   ServiceBookingClient. One instance per duration. Each gets a
-   unique container_id so 4 widgets coexist on the page.
-   ───────────────────────────────────────────────────────────── */
 function SimplyBookWidget({ serviceId, containerId }: { serviceId: string; containerId: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -125,28 +107,20 @@ function SimplyBookWidget({ serviceId, containerId }: { serviceId: string; conta
     };
     document.head.appendChild(script);
     return () => {
-      // The remove can fail silently if React strict-mode unmounts it
-      try {
-        document.head.removeChild(script);
-      } catch {
-        /* noop */
-      }
+      try { document.head.removeChild(script); } catch { /* noop */ }
     };
   }, [serviceId, containerId]);
 
   return <div id={containerId} ref={ref} />;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Main page component
-   ───────────────────────────────────────────────────────────── */
 export default function SportsTherapyClient() {
   return (
     <>
       <Nav solid />
 
       <main style={{ background: '#000000', color: '#ffffff' }}>
-        {/* HERO — shorter than V2 (50vh) so carousel sits closer */}
+        {/* HERO — 50vh, flush against carousel */}
         <section
           style={{
             position: 'relative',
@@ -176,54 +150,45 @@ export default function SportsTherapyClient() {
             className="st-hero-desktop"
           />
 
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background:
-                'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.85) 100%)',
-              zIndex: 1,
-            }}
-          />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.85) 100%)',
+            zIndex: 1,
+          }} />
 
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              padding: '0 32px 48px',
-              zIndex: 2,
-            }}
-          >
-            <h1
-              style={{
-                fontSize: 'clamp(2.4rem, 6vw, 4.4rem)',
-                fontWeight: 600,
-                lineHeight: 1.1,
-                margin: '0 0 12px',
-                color: '#ffffff',
-              }}
-            >
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            padding: '0 32px 48px',
+            zIndex: 2,
+          }}>
+            <h1 style={{
+              fontSize: 'clamp(2.4rem, 6vw, 4.4rem)',
+              fontWeight: 600,
+              lineHeight: 1.1,
+              margin: '0 0 12px',
+              color: '#ffffff',
+            }}>
               Sports Therapy
             </h1>
-            <p
-              style={{
-                fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)',
-                fontWeight: 300,
-                lineHeight: 1.4,
-                margin: 0,
-                color: '#ffffff',
-                opacity: 0.92,
-              }}
-            >
+            <p style={{
+              fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)',
+              fontWeight: 300,
+              lineHeight: 1.4,
+              margin: 0,
+              color: '#ffffff',
+              opacity: 0.92,
+            }}>
               Choose your duration
             </p>
           </div>
         </section>
 
-        {/* CAROUSEL — sits flush against hero */}
+        {/* CAROUSEL */}
         <DurationCarousel />
 
         {/* 4 ANCHOR SECTIONS */}
@@ -239,42 +204,33 @@ export default function SportsTherapyClient() {
             className="st-anchor-section"
           >
             <div style={{ maxWidth: 880, margin: '0 auto' }}>
-              <h2
-                style={{
-                  fontSize: 'clamp(2rem, 4vw, 3rem)',
-                  fontWeight: 600,
-                  lineHeight: 1.15,
-                  margin: '0 0 24px',
-                  color: '#ffffff',
-                }}
-              >
+              <h2 style={{
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                fontWeight: 600,
+                lineHeight: 1.15,
+                margin: '0 0 24px',
+                color: '#ffffff',
+              }}>
                 {d.fullLabel}
               </h2>
-
-              <p
-                style={{
-                  fontSize: '1.05rem',
-                  fontWeight: 300,
-                  lineHeight: 1.75,
-                  marginBottom: 40,
-                  color: '#ffffff',
-                  opacity: 0.95,
-                }}
-              >
+              <p style={{
+                fontSize: '1.05rem',
+                fontWeight: 300,
+                lineHeight: 1.75,
+                marginBottom: 40,
+                color: '#ffffff',
+                opacity: 0.95,
+              }}>
                 {d.copy}
               </p>
-
-              {/* SimplyBook widget container */}
-              <div
-                style={{
-                  marginTop: 32,
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  background: '#1a1a1a',
-                  minHeight: 600,
-                }}
-              >
+              <div style={{
+                marginTop: 32,
+                border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: 4,
+                overflow: 'hidden',
+                background: '#1a1a1a',
+                minHeight: 600,
+              }}>
                 <SimplyBookWidget
                   serviceId={d.serviceId}
                   containerId={`sbw_st_${d.id}`}
@@ -288,16 +244,10 @@ export default function SportsTherapyClient() {
       </main>
 
       <style>{`
-        .st-hero-desktop {
-          display: none;
-        }
+        .st-hero-desktop { display: none; }
         @media (min-width: 1025px) {
-          .st-hero-mobile {
-            display: none;
-          }
-          .st-hero-desktop {
-            display: block;
-          }
+          .st-hero-mobile { display: none; }
+          .st-hero-desktop { display: block; }
         }
         @media (min-width: 768px) {
           .st-anchor-section {
@@ -310,9 +260,12 @@ export default function SportsTherapyClient() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   DurationCarousel — same scroll-driven horizontal pan as V2,
-   but with unique images per slide. Section height tuned down
-   from 180vh → 140vh so the carousel finishes faster.
+   DurationCarousel V4
+   - First slide is a TITLE CARD (dark bg, breadcrumb, H1, menu,
+     scroll-to-explore)
+   - Then 4 duration cards
+   - Sticky height tightened from 100vh → 80vh
+   - Section run-up tightened from 140vh → 120vh
    ───────────────────────────────────────────────────────────── */
 function DurationCarousel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -320,6 +273,9 @@ function DurationCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(-1);
+
+  // Total slides = 1 title + 4 durations
+  const totalSlides = 1 + DURATIONS.length;
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -346,8 +302,8 @@ function DurationCarousel() {
       target = progress * maxShift;
 
       const idx = Math.min(
-        DURATIONS.length - 1,
-        Math.max(0, Math.round(progress * (DURATIONS.length - 1)))
+        totalSlides - 1,
+        Math.max(0, Math.round(progress * (totalSlides - 1)))
       );
       setActiveIndex(idx);
     };
@@ -370,7 +326,7 @@ function DurationCarousel() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, []);
+  }, [totalSlides]);
 
   return (
     <section
@@ -378,19 +334,18 @@ function DurationCarousel() {
       className="dc-section"
       style={{
         position: 'relative',
-        height: '140vh',
+        height: '120vh',
       }}
     >
       <div
         ref={innerRef}
         style={{
           position: 'sticky',
-          top: 10,
-          height: '75vh',
+          top: 0,
+          height: '80vh',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
-          marginTop: 10,
         }}
       >
         <div
@@ -399,15 +354,104 @@ function DurationCarousel() {
           style={{
             display: 'flex',
             gap: 24,
-            paddingLeft: '12vw',
+            paddingLeft: '6vw',
             paddingRight: '12vw',
             willChange: 'transform',
             transition: 'transform 0.05s linear',
           }}
         >
+          {/* TITLE CARD — first slide */}
+          <div
+            className="dc-card dc-titlecard"
+            style={{
+              flex: '0 0 auto',
+              width: 'min(75vw, 460px)',
+              height: '70vh',
+              position: 'relative',
+              overflow: 'hidden',
+              background: '#000000',
+              border: '1px solid rgba(255,255,255,0.15)',
+              padding: '64px 48px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
+            <p style={{
+              fontSize: '0.72rem',
+              fontWeight: 400,
+              textTransform: 'uppercase',
+              letterSpacing: '0.18em',
+              color: '#ffffff',
+              marginBottom: 24,
+              opacity: 0.5,
+            }}>
+              <a href="/treatments" style={{ color: '#ffffff', textDecoration: 'none' }}>Treatments</a> / Sports Therapy
+            </p>
+            <h2 style={{
+              fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)',
+              fontWeight: 600,
+              color: '#ffffff',
+              lineHeight: 1.1,
+              marginBottom: 32,
+              margin: '0 0 32px',
+            }}>
+              Sports Therapy
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {DURATIONS.map((d) => (
+                <a
+                  key={d.id}
+                  href={`#${d.id}`}
+                  className="dc-menu-item"
+                  style={{
+                    fontSize: '0.96rem',
+                    fontWeight: 300,
+                    color: '#ffffff',
+                    lineHeight: 1.4,
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    textDecoration: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    opacity: 0.85,
+                    transition: 'opacity 0.2s ease',
+                  }}
+                >
+                  <span style={{ display: 'inline-flex', opacity: 0, transition: 'opacity 0.2s ease' }} className="dc-menu-arrow">
+                    →
+                  </span>
+                  {d.fullLabel}
+                </a>
+              ))}
+            </div>
+            <div style={{
+              marginTop: 36,
+              height: 1,
+              width: 48,
+              background: 'rgba(255,255,255,0.2)',
+            }} />
+            <p style={{
+              fontSize: '0.68rem',
+              fontWeight: 300,
+              color: 'rgba(255,255,255,0.35)',
+              marginTop: 18,
+              textTransform: 'uppercase',
+              letterSpacing: '0.15em',
+            }}>
+              Scroll to explore →
+            </p>
+          </div>
+
+          {/* DURATION CARDS */}
           {DURATIONS.map((d, i) => {
-            const isHovered = hoverIndex === i;
-            const isActive = activeIndex === i;
+            const slideIndex = i + 1; // 0 is title, 1+ are durations
+            const isHovered = hoverIndex === slideIndex;
+            const isActive = activeIndex === slideIndex;
             const grayscale = isHovered || isActive ? 0 : 100;
             const brightness = isHovered || isActive ? 1 : 0.65;
 
@@ -416,12 +460,12 @@ function DurationCarousel() {
                 key={d.id}
                 href={`#${d.id}`}
                 className="dc-card"
-                onMouseEnter={() => setHoverIndex(i)}
+                onMouseEnter={() => setHoverIndex(slideIndex)}
                 onMouseLeave={() => setHoverIndex(-1)}
                 style={{
                   flex: '0 0 auto',
                   width: 'min(75vw, 460px)',
-                  height: '65vh',
+                  height: '70vh',
                   position: 'relative',
                   overflow: 'hidden',
                   textDecoration: 'none',
@@ -430,14 +474,12 @@ function DurationCarousel() {
                   transition: 'transform 0.3s ease',
                 }}
               >
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    transition: 'filter 0.4s ease',
-                    filter: `brightness(${brightness}) grayscale(${grayscale}%)`,
-                  }}
-                >
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  transition: 'filter 0.4s ease',
+                  filter: `brightness(${brightness}) grayscale(${grayscale}%)`,
+                }}>
                   <Image
                     src={d.image}
                     alt={`Sports Therapy ${d.fullLabel}`}
@@ -446,45 +488,35 @@ function DurationCarousel() {
                     style={{ objectFit: 'cover' }}
                   />
                 </div>
-
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background:
-                      'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)',
-                  }}
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    padding: '32px 28px',
-                    color: '#ffffff',
-                  }}
-                >
-                  <h3
-                    style={{
-                      fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
-                      fontWeight: 600,
-                      lineHeight: 1.05,
-                      margin: '0 0 8px',
-                    }}
-                  >
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)',
+                }} />
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: '32px 28px',
+                  color: '#ffffff',
+                }}>
+                  <h3 style={{
+                    fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+                    fontWeight: 600,
+                    lineHeight: 1.05,
+                    margin: '0 0 8px',
+                  }}>
                     {d.label}
                   </h3>
-                  <p
-                    style={{
-                      fontSize: '0.9rem',
-                      fontWeight: 500,
-                      letterSpacing: '0.18em',
-                      textTransform: 'uppercase',
-                      margin: 0,
-                      opacity: 0.85,
-                    }}
-                  >
+                  <p style={{
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    margin: 0,
+                    opacity: 0.85,
+                  }}>
                     Book Now &raquo;
                   </p>
                 </div>
@@ -495,6 +527,12 @@ function DurationCarousel() {
       </div>
 
       <style>{`
+        .dc-menu-item:hover {
+          opacity: 1 !important;
+        }
+        .dc-menu-item:hover .dc-menu-arrow {
+          opacity: 1 !important;
+        }
         @media (max-width: 767px) {
           .dc-section {
             height: auto !important;
@@ -515,6 +553,9 @@ function DurationCarousel() {
           }
           .dc-card {
             scroll-snap-align: start;
+          }
+          .dc-titlecard {
+            padding: 48px 32px !important;
           }
         }
       `}</style>
