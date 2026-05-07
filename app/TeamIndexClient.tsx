@@ -4,7 +4,9 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import Nav from './Nav';
+import CorporateNav from './CorporateNav';
 import Footer from './Footer';
+import CorporateFooter from './CorporateFooter';
 
 const members = [
   {
@@ -75,7 +77,16 @@ const members = [
   },
 ];
 
-export default function TeamIndexClient() {
+interface TeamIndexClientProps {
+  variant?: 'private' | 'corporate';
+}
+
+export default function TeamIndexClient({ variant = 'private' }: TeamIndexClientProps = {}) {
+  const corpSlugs = ['lucy-hall', 'claire'];
+  const isCorpVariant = variant === 'corporate';
+  const displayTeam = isCorpVariant
+    ? corpSlugs.map((s) => members.find((m) => m.slug === s)).filter((m): m is (typeof members)[number] => m !== undefined)
+    : members;
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
 
@@ -111,7 +122,7 @@ export default function TeamIndexClient() {
         {/* TEAM GRID — uses .team-grid class so we can apply media queries.
             Mobile (<768px): 1 column. Tablet+ (768px+): 2 columns. */}
         <div className="team-grid">
-          {members.map((m) => (
+          {displayTeam.map((m) => (
             <div key={m.slug} className="team-card">
 
               {/* Profile photo + name */}
@@ -173,7 +184,7 @@ export default function TeamIndexClient() {
         {/* DIVIDER */}
         <div className={styles.divider} />
 
-        <Footer />
+        {variant === 'corporate' ? <CorporateFooter /> : <Footer />}
 
         {/* Responsive grid styles.
             Mobile (<768px): 1 column, narrower padding.
