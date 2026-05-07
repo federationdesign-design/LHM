@@ -496,8 +496,9 @@ export default function SecondaryEnquiryModal({
                 />
               </div>
 
-              {/* How would you prefer to be contacted? — pill row */}
-              <div style={{ marginBottom: 22 }}>
+              <div className="sef-row sef-row--2col" style={{ marginBottom: 22 }}>
+                {/* How would you prefer to be contacted? — pill row */}
+                <div>
                 <label style={labelStyle}>How would you prefer to be contacted?</label>
                 <div className="sef-pill-row">
                   {CONTACT_PREFERENCE_OPTIONS.map((opt) => {
@@ -519,10 +520,10 @@ export default function SecondaryEnquiryModal({
                     );
                   })}
                 </div>
-              </div>
+                </div>
 
-              {/* How did you hear about us */}
-              <div style={{ marginBottom: 22 }}>
+                {/* How did you hear about us */}
+                <div>
                 <label style={labelStyle}>How did you hear about us?</label>
                 <select
                   value={heardAbout}
@@ -534,6 +535,7 @@ export default function SecondaryEnquiryModal({
                     <option key={opt.id} value={opt.id}>{opt.label}</option>
                   ))}
                 </select>
+                </div>
               </div>
 
               {error && (
