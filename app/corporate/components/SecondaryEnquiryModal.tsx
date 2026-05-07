@@ -1,66 +1,87 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 /* ─────────────────────────────────────────────────────────────
-   SecondaryEnquiryModal — lightbox shown after the user submits
-   the initial corporate enquiry form. Captures additional
-   detail from the people willing to give it.
+   SecondaryEnquiryModal — REBUILT (May 2026)
+
+   Lightbox shown after the user submits the initial corporate
+   enquiry form. Captures DETAILED qualifying information.
 
    Pre-filled from initial submission:
      - Name, Email, Mobile
 
-   New fields:
-     - Phone (additional/work line)
-     - Company, Domain, Postcode, Position Held
-     - Special Arrangements needed (Yes / No / Maybe)
-     - Ideal method of initial contact (multi-select)
-     - Size of Team (Small / Medium / Large)
+   New fields (per client spec):
+     COMPANY & OFFICE INFORMATION
+     - Office Location (text)                  [REQUIRED]
+     - Approximate Number of Employees         [REQUIRED]
+     - Service type interested in (multi)      [REQUIRED]
+     - Timing (when looking to organise)       [REQUIRED]
+     - Approximate budget (optional)
+     ENQUIRY DETAILS
+     - What prompted your enquiry (textarea)   [optional]
+     - How did you hear about us               [optional]
 
-   Submit posts to /api/corporate-enquiry with secondary:true.
-   The API treats this as a "lead enriched" event, sends a
-   follow-up email to Steve with all the extra fields.
+   Submit button enables only when 4 required fields filled.
+   On success, posts to /api/corporate-enquiry with
+   { secondary: true, detailed: true, ...fields } so the API
+   can route to "Detailed Lead Capture - [Name]" email subject.
 
-   Dismiss via click-outside, X button, or ESC key.
-
-   Three-state submit button:
-     - GREEN — at least one new field filled beyond pre-filled
-       Name/Email/Mobile (button is essentially always usable
-       since secondary form is for adding extra info)
-     - GREY  — no new info added (avoids empty submissions)
+   Dismiss via click-outside, X button, ESC key.
    ───────────────────────────────────────────────────────────── */
 
 const COLOR_GREY  = '#808080';
 const COLOR_GREEN = '#2cd12c';
 
 interface SecondaryEnquiryModalProps {
-  /** Whether the modal is open. */
   open: boolean;
-  /** Called when user dismisses (X button, click-outside, ESC). */
   onClose: () => void;
-  /** Pre-fill values from the initial form submission. */
   initialName: string;
   initialEmail: string;
   initialMobile: string;
 }
 
-const CONTACT_METHODS = [
-  { id: 'phone',  label: 'Phone call' },
-  { id: 'mobile', label: 'Mobile call' },
-  { id: 'sms',    label: 'SMS/whatsapp' },
-  { id: 'email',  label: 'Email' },
+const EMPLOYEE_RANGES = [
+  { id: 'under-20',   label: 'Under 20' },
+  { id: '20-50',      label: '20–50' },
+  { id: '50-100',     label: '50–100' },
+  { id: '100-250',    label: '100–250' },
+  { id: '250-plus',   label: '250+' },
 ];
 
-const SPECIAL_OPTIONS = [
-  { id: 'yes',   label: 'Yes' },
-  { id: 'no',    label: 'No' },
-  { id: 'maybe', label: 'Maybe' },
+const SERVICE_TYPES = [
+  { id: 'one-off',          label: 'One-off wellbeing day' },
+  { id: 'event-massage',    label: 'Event massage' },
+  { id: 'monthly',          label: 'Monthly workplace massage' },
+  { id: 'quarterly',        label: 'Quarterly wellbeing sessions' },
+  { id: 'weekly',           label: 'Weekly onsite massage' },
+  { id: 'unsure',           label: 'Unsure / would like recommendations' },
 ];
 
-const TEAM_SIZES = [
-  { id: 'small',  label: 'Small (2-10)' },
-  { id: 'medium', label: 'Medium (10-25)' },
-  { id: 'large',  label: 'Large (25+)' },
+const TIMING_OPTIONS = [
+  { id: 'asap',             label: 'ASAP' },
+  { id: 'within-1-month',   label: 'Within 1 month' },
+  { id: '1-3-months',       label: '1–3 months' },
+  { id: '3-plus-months',    label: '3+ months' },
+  { id: 'exploring',        label: 'Just exploring options' },
+];
+
+const BUDGET_OPTIONS = [
+  { id: 'under-500',        label: 'Under £500' },
+  { id: '500-1000',         label: '£500–£1,000' },
+  { id: '1000-2500',        label: '£1,000–£2,500' },
+  { id: '2500-plus',        label: '£2,500+' },
+  { id: 'unsure',           label: 'Unsure' },
+];
+
+const HEARD_ABOUT_OPTIONS = [
+  { id: 'google',           label: 'Google search' },
+  { id: 'referral',         label: 'Referral' },
+  { id: 'linkedin',         label: 'LinkedIn' },
+  { id: 'social-media',     label: 'Social media' },
+  { id: 'existing-client',  label: 'Existing client recommendation' },
+  { id: 'event',            label: 'Event' },
+  { id: 'other',            label: 'Other' },
 ];
 
 export default function SecondaryEnquiryModal({
@@ -75,34 +96,33 @@ export default function SecondaryEnquiryModal({
   const [email,  setEmail]  = useState(initialEmail);
   const [mobile, setMobile] = useState(initialMobile);
 
-  // New fields
-  const [phone,    setPhone]    = useState('');
-  const [company,  setCompany]  = useState('');
-  const [domain,   setDomain]   = useState('');
-  const [postcode, setPostcode] = useState('');
-  const [position, setPosition] = useState('');
-  const [methods,  setMethods]  = useState<string[]>([]);
-  const [special,  setSpecial]  = useState<string>('');
-  const [teamSize, setTeamSize] = useState<string>('');
+  // Required new fields
+  const [officeLocation, setOfficeLocation] = useState('');
+  const [employeeCount,  setEmployeeCount]  = useState('');
+  const [serviceTypes,   setServiceTypes]   = useState<string[]>([]);
+  const [timing,         setTiming]         = useState('');
+
+  // Optional new fields
+  const [budget,         setBudget]         = useState('');
+  const [enquiryDetails, setEnquiryDetails] = useState('');
+  const [heardAbout,     setHeardAbout]     = useState('');
 
   const [submitting, setSubmitting] = useState(false);
   const [success,    setSuccess]    = useState(false);
   const [error,      setError]      = useState<string | null>(null);
 
-  // Sync pre-fill values if they change while modal is open
+  // Sync pre-fill when modal opens
   useEffect(() => {
     if (open) {
       setName(initialName);
       setEmail(initialEmail);
       setMobile(initialMobile);
-      // Reset success state when modal reopens
       setSuccess(false);
       setError(null);
     }
   }, [open, initialName, initialEmail, initialMobile]);
 
-  // Lock body scroll when open. Cleanup ensures we don't leave
-  // the body locked if the component unmounts.
+  // Lock body scroll when open
   useEffect(() => {
     if (!open) return;
     document.body.style.overflow = 'hidden';
@@ -119,25 +139,21 @@ export default function SecondaryEnquiryModal({
     return () => window.removeEventListener('keydown', handler);
   }, [open, onClose]);
 
-  const toggleMethod = (id: string) => {
-    setMethods((prev) =>
+  const toggleService = (id: string) => {
+    setServiceTypes((prev) =>
       prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
     );
   };
 
-  // Has the user added any new info beyond pre-filled name/email/mobile?
-  const hasNewInfo =
-    phone.trim().length > 0 ||
-    company.trim().length > 0 ||
-    domain.trim().length > 0 ||
-    postcode.trim().length > 0 ||
-    position.trim().length > 0 ||
-    methods.length > 0 ||
-    special !== '' ||
-    teamSize !== '';
+  // Required fields check — Office Location, Employee Count, Service Type, Timing
+  const requiredFilled =
+    officeLocation.trim().length > 0 &&
+    employeeCount !== '' &&
+    serviceTypes.length > 0 &&
+    timing !== '';
 
-  const buttonColor = hasNewInfo ? COLOR_GREEN : COLOR_GREY;
-  const canSubmit   = hasNewInfo && !submitting;
+  const buttonColor = requiredFilled ? COLOR_GREEN : COLOR_GREY;
+  const canSubmit   = requiredFilled && !submitting;
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -150,17 +166,18 @@ export default function SecondaryEnquiryModal({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           secondary: true,
-          name:     name.trim(),
-          email:    email.trim(),
-          mobile:   mobile.trim(),
-          phone:    phone.trim(),
-          company:  company.trim(),
-          domain:   domain.trim(),
-          postcode: postcode.trim(),
-          position: position.trim(),
-          contactMethods: methods,
-          specialArrangements: special,
-          teamSize: teamSize,
+          detailed: true,
+          name:   name.trim(),
+          email:  email.trim(),
+          mobile: mobile.trim(),
+          // New fields
+          officeLocation: officeLocation.trim(),
+          employeeCount,
+          serviceTypes,
+          timing,
+          budget,
+          enquiryDetails: enquiryDetails.trim(),
+          heardAbout,
         }),
       });
 
@@ -180,7 +197,7 @@ export default function SecondaryEnquiryModal({
 
   if (!open) return null;
 
-  // Shared inline styles for fields
+  // Shared input styles
   const inputStyle: React.CSSProperties = {
     width: '100%',
     padding: '14px 18px',
@@ -194,18 +211,38 @@ export default function SecondaryEnquiryModal({
     fontFamily: 'inherit',
   };
 
+  const selectStyle: React.CSSProperties = {
+    ...inputStyle,
+    appearance: 'none',
+    cursor: 'pointer',
+    backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>\")",
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right 18px center',
+    backgroundSize: '18px',
+    paddingRight: 44,
+  };
+
   const labelStyle: React.CSSProperties = {
     display: 'block',
-    fontSize: '1rem',
+    fontSize: '0.95rem',
     fontWeight: 600,
     color: '#ffffff',
-    marginBottom: 12,
+    marginBottom: 8,
     lineHeight: 1.4,
+  };
+
+  const sectionTitleStyle: React.CSSProperties = {
+    fontSize: '1.05rem',
+    fontWeight: 600,
+    color: '#ffffff',
+    margin: '0 0 16px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.08em',
+    opacity: 0.85,
   };
 
   return (
     <>
-      {/* Backdrop — click to close */}
       <div
         onClick={onClose}
         style={{
@@ -220,7 +257,6 @@ export default function SecondaryEnquiryModal({
           overflowY: 'auto',
         }}
       >
-        {/* Modal panel — stop click from bubbling to backdrop */}
         <div
           onClick={(e) => e.stopPropagation()}
           style={{
@@ -254,6 +290,7 @@ export default function SecondaryEnquiryModal({
               lineHeight: 1,
               opacity: 0.7,
               transition: 'opacity 0.2s ease',
+              zIndex: 1,
             }}
             onMouseEnter={(e) => { (e.target as HTMLButtonElement).style.opacity = '1'; }}
             onMouseLeave={(e) => { (e.target as HTMLButtonElement).style.opacity = '0.7'; }}
@@ -292,7 +329,6 @@ export default function SecondaryEnquiryModal({
             </div>
           ) : (
             <>
-              {/* Headlines */}
               <h2 style={{
                 fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)',
                 fontWeight: 400,
@@ -301,7 +337,7 @@ export default function SecondaryEnquiryModal({
                 margin: '0 auto 24px',
                 maxWidth: 800,
               }}>
-                Choose a specialist corporate massage to enhance your employee wellness programs, relieve stress, and create a more positive &amp; productive work environment.
+                Tell us a bit more so Lucy can tailor a response to you.
               </h2>
 
               <h3 style={{
@@ -311,7 +347,7 @@ export default function SecondaryEnquiryModal({
                 margin: '0 0 8px',
                 lineHeight: 1.2,
               }}>
-                Enquire now
+                A few extra details
               </h3>
               <p style={{
                 fontSize: '1rem',
@@ -321,141 +357,149 @@ export default function SecondaryEnquiryModal({
                 margin: '0 0 24px',
                 lineHeight: 1.5,
               }}>
-                Get a call or email back from us
+                Required fields marked *
               </p>
 
               <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 28 }} />
 
-              {/* Three-column layout on desktop, stacked on mobile */}
-              <div className="sef-grid">
+              {/* Pre-filled name/email/mobile (3-col) */}
+              <div className="sef-row sef-row--3col">
+                <input
+                  type="text" placeholder="Name"
+                  value={name} onChange={(e) => setName(e.target.value)}
+                  style={inputStyle}
+                />
+                <input
+                  type="email" placeholder="Email"
+                  value={email} onChange={(e) => setEmail(e.target.value)}
+                  style={inputStyle}
+                />
+                <input
+                  type="tel" placeholder="Mobile"
+                  value={mobile} onChange={(e) => setMobile(e.target.value)}
+                  style={inputStyle}
+                />
+              </div>
 
-                {/* Column 1 — personal contact */}
-                <div className="sef-col">
-                  <input
-                    type="text" placeholder="Name"
-                    value={name} onChange={(e) => setName(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                  />
-                  <input
-                    type="email" placeholder="Email"
-                    value={email} onChange={(e) => setEmail(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                  />
-                  <input
-                    type="tel" placeholder="Mobile"
-                    value={mobile} onChange={(e) => setMobile(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                  />
-                  <input
-                    type="tel" placeholder="Phone"
-                    value={phone} onChange={(e) => setPhone(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                  />
+              {/* ── COMPANY & OFFICE INFORMATION ─────────────── */}
+              <h4 style={sectionTitleStyle}>Company &amp; Office Information</h4>
 
-                  {/* Methods */}
-                  <div style={{ marginTop: 8 }}>
-                    <p style={labelStyle}>Ideal method of initial contact</p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                      {CONTACT_METHODS.map((m) => (
-                        <label key={m.id} className="intake-checkbox-wrap" style={{ alignItems: 'center' }}>
-                          <input
-                            type="checkbox"
-                            checked={methods.includes(m.id)}
-                            onChange={() => toggleMethod(m.id)}
-                            className="intake-checkbox-input"
-                          />
-                          <span className="intake-checkbox-box" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
-                              <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                          </span>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.4 }}>
-                            {m.label}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
+              {/* Row: Office Location + Employee Count */}
+              <div className="sef-row sef-row--2col" style={{ marginBottom: 18 }}>
+                <div>
+                  <label style={labelStyle}>Office Location <span style={{ color: '#ff8c8c' }}>*</span></label>
+                  <input
+                    type="text" placeholder="Town/city or postcode"
+                    value={officeLocation}
+                    onChange={(e) => setOfficeLocation(e.target.value)}
+                    style={inputStyle}
+                  />
                 </div>
-
-                {/* Column 2 — company info */}
-                <div className="sef-col">
-                  <input
-                    type="text" placeholder="Company"
-                    value={company} onChange={(e) => setCompany(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                    autoComplete="organization"
-                  />
-                  <input
-                    type="text" placeholder="Domain"
-                    value={domain} onChange={(e) => setDomain(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                  />
-                  <input
-                    type="text" placeholder="Postcode"
-                    value={postcode} onChange={(e) => setPostcode(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                    autoComplete="postal-code"
-                  />
-                  <input
-                    type="text" placeholder="Position Held"
-                    value={position} onChange={(e) => setPosition(e.target.value)}
-                    className="intake-input" style={inputStyle}
-                    autoComplete="organization-title"
-                  />
-
-                  {/* Team size */}
-                  <div style={{ marginTop: 8 }}>
-                    <p style={labelStyle}>Size of Team</p>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                      {TEAM_SIZES.map((t) => (
-                        <label key={t.id} className="intake-checkbox-wrap" style={{ alignItems: 'center' }}>
-                          <input
-                            type="radio"
-                            name="team-size"
-                            checked={teamSize === t.id}
-                            onChange={() => setTeamSize(t.id)}
-                            className="intake-checkbox-input"
-                          />
-                          <span className="intake-checkbox-box" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
-                              <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                          </span>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.4 }}>
-                            {t.label}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Column 3 — special arrangements + submit */}
-                <div className="sef-col">
-                  <p style={labelStyle}>Special Arrangements needed</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
-                    {SPECIAL_OPTIONS.map((s) => (
-                      <label key={s.id} className="intake-checkbox-wrap" style={{ alignItems: 'center' }}>
-                        <input
-                          type="radio"
-                          name="special-arr"
-                          checked={special === s.id}
-                          onChange={() => setSpecial(s.id)}
-                          className="intake-checkbox-input"
-                        />
-                        <span className="intake-checkbox-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
-                            <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        <span style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.4 }}>
-                          {s.label}
-                        </span>
-                      </label>
+                <div>
+                  <label style={labelStyle}>Approximate Number of Employees Onsite <span style={{ color: '#ff8c8c' }}>*</span></label>
+                  <select
+                    value={employeeCount}
+                    onChange={(e) => setEmployeeCount(e.target.value)}
+                    style={selectStyle}
+                  >
+                    <option value="">Select range</option>
+                    {EMPLOYEE_RANGES.map((opt) => (
+                      <option key={opt.id} value={opt.id}>{opt.label}</option>
                     ))}
-                  </div>
+                  </select>
                 </div>
+              </div>
+
+              {/* Service type — full width because checkboxes need room */}
+              <div style={{ marginBottom: 22 }}>
+                <label style={labelStyle}>What type of service are you interested in? <span style={{ color: '#ff8c8c' }}>*</span></label>
+                <div className="sef-checkbox-grid">
+                  {SERVICE_TYPES.map((s) => (
+                    <label key={s.id} className="intake-checkbox-wrap" style={{ alignItems: 'center' }}>
+                      <input
+                        type="checkbox"
+                        checked={serviceTypes.includes(s.id)}
+                        onChange={() => toggleService(s.id)}
+                        className="intake-checkbox-input"
+                      />
+                      <span className="intake-checkbox-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
+                          <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                      <span style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.4 }}>
+                        {s.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Row: Timing + Budget */}
+              <div className="sef-row sef-row--2col" style={{ marginBottom: 22 }}>
+                <div>
+                  <label style={labelStyle}>When are you looking to organise this? <span style={{ color: '#ff8c8c' }}>*</span></label>
+                  <select
+                    value={timing}
+                    onChange={(e) => setTiming(e.target.value)}
+                    style={selectStyle}
+                  >
+                    <option value="">Select timing</option>
+                    {TIMING_OPTIONS.map((opt) => (
+                      <option key={opt.id} value={opt.id}>{opt.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label style={labelStyle}>Do you have an approximate budget in mind?</label>
+                  <select
+                    value={budget}
+                    onChange={(e) => setBudget(e.target.value)}
+                    style={selectStyle}
+                  >
+                    <option value="">Select budget</option>
+                    {BUDGET_OPTIONS.map((opt) => (
+                      <option key={opt.id} value={opt.id}>{opt.label}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* ── ENQUIRY DETAILS ──────────────────────────── */}
+              <h4 style={sectionTitleStyle}>Enquiry Details</h4>
+
+              {/* What prompted your enquiry — textarea */}
+              <div style={{ marginBottom: 22 }}>
+                <label style={labelStyle}>What prompted your enquiry?</label>
+                <textarea
+                  value={enquiryDetails}
+                  onChange={(e) => setEnquiryDetails(e.target.value)}
+                  placeholder="e.g. Employee wellbeing initiative, staff appreciation, workplace stress support, event or awareness week, retention &amp; morale, general wellbeing support…"
+                  rows={4}
+                  style={{
+                    ...inputStyle,
+                    borderRadius: 16,
+                    resize: 'vertical',
+                    minHeight: 100,
+                    paddingTop: 14,
+                    fontFamily: 'inherit',
+                  }}
+                />
+              </div>
+
+              {/* How did you hear about us */}
+              <div style={{ marginBottom: 22 }}>
+                <label style={labelStyle}>How did you hear about us?</label>
+                <select
+                  value={heardAbout}
+                  onChange={(e) => setHeardAbout(e.target.value)}
+                  style={selectStyle}
+                >
+                  <option value="">Select an option</option>
+                  {HEARD_ABOUT_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>{opt.label}</option>
+                  ))}
+                </select>
               </div>
 
               {error && (
@@ -503,20 +547,30 @@ export default function SecondaryEnquiryModal({
       </div>
 
       <style>{`
-        .sef-grid {
+        .sef-row {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 24px;
+          gap: 16px;
+          margin-bottom: 22px;
         }
-        .sef-col {
-          display: flex;
-          flex-direction: column;
+        @media (min-width: 768px) {
+          .sef-row--3col {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
+          .sef-row--2col {
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+          }
+        }
+        .sef-checkbox-grid {
+          display: grid;
+          grid-template-columns: 1fr;
           gap: 12px;
         }
         @media (min-width: 768px) {
-          .sef-grid {
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 32px;
+          .sef-checkbox-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 24px;
           }
         }
       `}</style>
