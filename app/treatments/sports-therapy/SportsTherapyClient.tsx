@@ -140,7 +140,7 @@ export default function SportsTherapyClient() {
   return (
     <>
       {/* Nav uses scrollRef for transparent-on-hero, solid-on-scroll behaviour */}
-      <Nav scrollRef={heroRef as React.RefObject<HTMLElement>} />
+      <Nav scrollRef={heroRef} />
 
       <main style={{ background: '#000000', color: '#ffffff' }}>
         {/* HERO — full-height, mirrors private side */}
