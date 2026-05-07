@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Nav from './Nav';
 import Footer from './Footer';
+import CorporateNav from './CorporateNav';
+import CorporateFooter from './CorporateFooter';
 
 /* ─────────────────────────────────────────────────────────────
    ContactClient — /contact page.
@@ -103,7 +105,11 @@ function OpenStatus() {
   );
 }
 
-export default function ContactClient() {
+interface ContactClientProps {
+  variant?: 'private' | 'corporate';
+}
+
+export default function ContactClient({ variant = 'private' }: ContactClientProps = {}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -227,7 +233,7 @@ export default function ContactClient() {
 
   return (
     <>
-      <Nav solid />
+      {variant === 'corporate' ? <CorporateNav /> : <Nav solid />}
 
       <main className={styles.page} style={{ paddingTop: 56 }}>
 
@@ -463,7 +469,7 @@ export default function ContactClient() {
             </div>
           </div>
         </div>
-        <Footer />
+        {variant === 'corporate' ? <CorporateFooter /> : <Footer />}
       </main>
     </>
   );
