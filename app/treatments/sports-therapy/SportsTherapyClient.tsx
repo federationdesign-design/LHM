@@ -200,7 +200,7 @@ export default function SportsTherapyClient() {
             style={{
               padding: '64px 24px 80px',
               borderTop: '1px solid rgba(255,255,255,0.15)',
-              scrollMarginTop: 80,
+              scrollMarginTop: 320,
             }}
             className="st-anchor-section"
           >
@@ -452,8 +452,8 @@ function DurationCarousel() {
             const slideIndex = i + 1;
             const isHovered = hoverIndex === slideIndex;
             const isActive = activeIndex === slideIndex;
-            const grayscale = 100;
-            const brightness = 0.65;
+            const grayscale = isActive ? 0 : 100;
+            const brightness = isActive ? 0.85 : 0.55;
 
             return (
               <Link
