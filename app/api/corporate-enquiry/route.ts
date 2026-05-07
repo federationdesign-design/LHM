@@ -236,6 +236,7 @@ export async function POST(request: Request) {
     budget?: string;
     enquiryDetails?: string;
     heardAbout?: string;
+    contactPref?: string;
   };
 
   try {
@@ -273,6 +274,7 @@ export async function POST(request: Request) {
     const budget         = (body.budget         || '').trim();
     const enquiryDetails = (body.enquiryDetails || '').trim();
     const heardAbout     = (body.heardAbout     || '').trim();
+    const contactPref    = (body.contactPref    || '').trim();
 
     const employeeLabels: Record<string, string> = {
       'under-20':  'Under 20',
@@ -321,6 +323,14 @@ export async function POST(request: Request) {
       'other':            'Other',
     };
     const heardAboutLabel = heardAboutLabels[heardAbout] || heardAbout || 'not specified';
+
+    const contactPrefLabels: Record<string, string> = {
+      'phone':  'Phone call',
+      'email':  'Email',
+      'text':   'Text message',
+      'either': 'Either is fine',
+    };
+    const contactPrefLabel = contactPrefLabels[contactPref] || contactPref || 'not specified';
 
     const html = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #000;">

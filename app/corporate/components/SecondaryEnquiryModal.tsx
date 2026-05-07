@@ -74,6 +74,13 @@ const BUDGET_OPTIONS = [
   { id: 'unsure',           label: 'Unsure' },
 ];
 
+const CONTACT_PREFERENCE_OPTIONS = [
+  { id: 'phone',   label: 'Phone call' },
+  { id: 'email',   label: 'Email' },
+  { id: 'text',    label: 'Text message' },
+  { id: 'either',  label: 'Either is fine' },
+];
+
 const HEARD_ABOUT_OPTIONS = [
   { id: 'google',           label: 'Google search' },
   { id: 'referral',         label: 'Referral' },
@@ -106,6 +113,7 @@ export default function SecondaryEnquiryModal({
   const [budget,         setBudget]         = useState('');
   const [enquiryDetails, setEnquiryDetails] = useState('');
   const [heardAbout,     setHeardAbout]     = useState('');
+  const [contactPref,    setContactPref]    = useState('');
 
   const [submitting, setSubmitting] = useState(false);
   const [success,    setSuccess]    = useState(false);
@@ -178,6 +186,7 @@ export default function SecondaryEnquiryModal({
           budget,
           enquiryDetails: enquiryDetails.trim(),
           heardAbout,
+          contactPref,
         }),
       });
 
@@ -487,6 +496,31 @@ export default function SecondaryEnquiryModal({
                 />
               </div>
 
+              {/* How would you prefer to be contacted? — pill row */}
+              <div style={{ marginBottom: 22 }}>
+                <label style={labelStyle}>How would you prefer to be contacted?</label>
+                <div className="sef-pill-row">
+                  {CONTACT_PREFERENCE_OPTIONS.map((opt) => {
+                    const active = contactPref === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => setContactPref(active ? '' : opt.id)}
+                        className="sef-pill"
+                        style={{
+                          background: active ? '#ffffff' : 'transparent',
+                          color: active ? '#000000' : '#ffffff',
+                          borderColor: active ? '#ffffff' : 'rgba(255,255,255,0.5)',
+                        }}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* How did you hear about us */}
               <div style={{ marginBottom: 22 }}>
                 <label style={labelStyle}>How did you hear about us?</label>
@@ -562,13 +596,55 @@ export default function SecondaryEnquiryModal({
             gap: 24px;
           }
         }
+        .sef-pill-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        .sef-pill {
+          padding: 10px 22px;
+          font-size: 0.9rem;
+          font-weight: 400;
+          letter-spacing: 0.04em;
+          border: 1px solid rgba(255,255,255,0.5);
+          border-radius: 999px;
+          background: transparent;
+          color: #ffffff;
+          cursor: pointer;
+          font-family: inherit;
+          transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+        .sef-pill:hover {
+          border-color: #ffffff;
+        }
         .sef-checkbox-grid {
           display: grid;
           grid-template-columns: 1fr;
           gap: 12px;
         }
         @media (min-width: 768px) {
-          .sef-checkbox-grid {
+          .sef-pill-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        .sef-pill {
+          padding: 10px 22px;
+          font-size: 0.9rem;
+          font-weight: 400;
+          letter-spacing: 0.04em;
+          border: 1px solid rgba(255,255,255,0.5);
+          border-radius: 999px;
+          background: transparent;
+          color: #ffffff;
+          cursor: pointer;
+          font-family: inherit;
+          transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+        .sef-pill:hover {
+          border-color: #ffffff;
+        }
+        .sef-checkbox-grid {
             grid-template-columns: 1fr 1fr;
             gap: 12px 24px;
           }
