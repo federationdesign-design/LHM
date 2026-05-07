@@ -24,8 +24,8 @@ const locations = [
       { day: 'Saturday', time: '9am – 5.30pm' },
       { day: 'Sunday', time: '10am – 5pm' },
     ],
-    lat: 52.19850,
-    lng: 0.13580,
+    lat: 52.199047,
+    lng: 0.147060,
     team: [
       { name: 'Antonia', photo: '/antonia.png', slug: 'antonia' },
       { name: 'Orla', photo: '/orla.png', slug: 'orla' },
@@ -40,8 +40,8 @@ const locations = [
       { day: 'Wednesday', time: '9am – 8pm' },
       { day: 'Friday', time: '9am – 6pm' },
     ],
-    lat: 52.19480,
-    lng: 0.13920,
+    lat: 52.204506,
+    lng: 0.147914,
     team: [
       { name: 'Safia', photo: '/safia.png', slug: 'safia' },
     ],

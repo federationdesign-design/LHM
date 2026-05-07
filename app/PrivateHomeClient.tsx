@@ -27,8 +27,8 @@ const services = [
 ];
 
 const locations = [
-  { slug: 'thoday-street', name: 'Thoday Street', address: '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU', lat: 52.19850, lng: 0.13580 },
-  { slug: 'cromwell-road', name: 'Cromwell Road', address: '96 Cromwell Road, Cambridge, CB1 3EG', lat: 52.19480, lng: 0.13920 },
+  { slug: 'thoday-street', name: 'Thoday Street', address: '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU', lat: 52.199047, lng: 0.147060 },
+  { slug: 'cromwell-road', name: 'Cromwell Road', address: '96 Cromwell Road, Cambridge, CB1 3EG', lat: 52.204506, lng: 0.147914 },
 ];
 
 const promoCards = [
@@ -647,7 +647,7 @@ export default function PrivateHomeClient() {
                 postalCode: 'CB1 3AU',
                 addressCountry: 'GB',
               },
-              geo: { '@type': 'GeoCoordinates', latitude: 52.1951, longitude: 0.1313 },
+              geo: { '@type': 'GeoCoordinates', latitude: 52.204506, longitude: 0.147914 },
               openingHoursSpecification: [
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday'], opens: '09:00', closes: '20:00' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday'], opens: '09:00', closes: '18:00' },
