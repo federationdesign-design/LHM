@@ -391,8 +391,6 @@ export default function SecondaryEnquiryModal({
               </div>
 
               {/* ── COMPANY & OFFICE INFORMATION ─────────────── */}
-              <h4 style={sectionTitleStyle}>Company &amp; Office Information</h4>
-
               {/* Row: Office Location + Employee Count */}
               <div className="sef-row sef-row--2col" style={{ marginBottom: 18 }}>
                 <div>
@@ -475,8 +473,6 @@ export default function SecondaryEnquiryModal({
               </div>
 
               {/* ── ENQUIRY DETAILS ──────────────────────────── */}
-              <h4 style={sectionTitleStyle}>Enquiry Details</h4>
-
               <div className="sef-row sef-row--2col" style={{ marginBottom: 22 }}>
                 {/* LEFT: What prompted your enquiry — textarea */}
                 <div>
