@@ -165,7 +165,8 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
     email.trim().length > 0 &&
     email.includes('@') &&
     message.trim().length > 0 &&
-    consent;
+    consent &&
+    (variant !== 'corporate' || phone.trim().length > 0);
 
   const allFilled = requiredFilled && phone.trim().length > 0;
 
@@ -382,7 +383,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#ffffff', marginBottom: 8 }}>Phone number (optional)</label>
+                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#ffffff', marginBottom: 8 }}>{variant === 'corporate' ? 'Phone number *' : 'Phone number (optional)'}</label>
                     <input
                       type="tel"
                       value={phone}
