@@ -287,6 +287,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
             </div>
 
             {/* TWO MAPS side by side with gutter */}
+            {variant !== 'corporate' && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, marginBottom: 64 }}>
 
               {/* Thoday Street */}
@@ -327,6 +328,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                 />
               </div>
             </div>
+            )}
 
             {/* CONTACT FORM — centred below maps */}
             <div style={{ maxWidth: 680, margin: '0 auto' }}>
