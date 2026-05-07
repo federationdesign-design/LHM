@@ -125,8 +125,8 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
           {displayTeam.map((m) => (
             <div key={m.slug} className="team-card">
 
-              {/* Profile photo + name */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginBottom: 28 }}>
+              {/* Profile photo + name (clickable) */}
+              <a href={`/team/${m.slug}`} style={{ display: 'flex', alignItems: 'center', gap: 24, marginBottom: 28, textDecoration: 'none' }} className="team-card-headlink">
                 <div style={{ width: 100, height: 100, borderRadius: '50%', overflow: 'hidden', border: '1px solid #ffffff', position: 'relative', flexShrink: 0 }}>
                   <Image src={m.photo} alt={m.name} fill style={{ objectFit: 'cover' }} />
                 </div>
@@ -134,7 +134,7 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
                   <h2 style={{ fontSize: '2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 6 }}>{m.name}</h2>
                   <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', opacity: 0.6, letterSpacing: '0.06em' }}>{m.title}</p>
                 </div>
-              </div>
+              </a>
 
               {/* Bio */}
               <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.75, marginBottom: 28 }}>{m.bio}</p>
