@@ -119,7 +119,9 @@ export default function SportsTherapyClient() {
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
 
-  // Hero scroll-overlay fade
+  // Drive the hero scroll-overlay fade based on scroll progress.
+  // Mirrors the pattern from PrivateHomeClient/TreatmentsIndexClient
+  // so we get the same "fade-as-you-scroll" feel.
   useEffect(() => {
     const onScroll = () => {
       const hero = heroRef.current;
@@ -137,62 +139,51 @@ export default function SportsTherapyClient() {
 
   return (
     <>
+      {/* Nav uses scrollRef for transparent-on-hero, solid-on-scroll behaviour */}
       <Nav scrollRef={heroRef} />
 
       <main style={{ background: '#000000', color: '#ffffff' }}>
-        {/* HERO + CAROUSEL — wrapped in a parent so hero can stick over carousel */}
-        <div className="st-hero-carousel-wrapper" style={{ position: 'relative' }}>
-          {/* HERO — sticky at top of wrapper. As user scrolls past 50vh,
-              this hero pins (sticky) until the wrapper exits the viewport. */}
-          <div
-            ref={heroRef}
-            className={styles.hero}
-            style={{
-              position: 'sticky',
-              top: 0,
-              height: '100vh',
-              minHeight: '100vh',
-              backgroundColor: '#1a1a1a',
-              zIndex: 1,
-            }}
-          >
-            <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
-            <div className={styles.heroGradient} />
+        {/* HERO — full-height, mirrors private side */}
+        <div
+          ref={heroRef}
+          className={styles.hero}
+          style={{ height: '100vh', minHeight: '100vh', backgroundColor: '#1a1a1a' }}
+        >
+          <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
+          <div className={styles.heroGradient} />
 
-            <span className="st-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
-              <Image
-                src="/sports-therapy-mobile.jpg"
-                alt="Sports Therapy"
-                fill
-                priority
-                sizes="100vw"
-                style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
-              />
-            </span>
+          {/* Mobile hero */}
+          <span className="st-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
+            <Image
+              src="/sports-therapy-mobile.jpg"
+              alt="Sports Therapy"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
 
-            <span className="st-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
-              <Image
-                src="/sports-therapy-desktop.jpg"
-                alt="Sports Therapy"
-                fill
-                priority
-                sizes="100vw"
-                style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
-              />
-            </span>
+          {/* Desktop hero */}
+          <span className="st-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
+            <Image
+              src="/sports-therapy-desktop.jpg"
+              alt="Sports Therapy"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
 
-            <div className={styles.heroContent} style={{ zIndex: 10 }}>
-              <h1 className={styles.heroH1}>Sports Therapy</h1>
-              <p className={styles.heroSub}>Choose your duration</p>
-            </div>
+          <div className={styles.heroContent} style={{ zIndex: 10 }}>
+            <h1 className={styles.heroH1}>Sports Therapy</h1>
+            <p className={styles.heroSub}>Choose your duration</p>
           </div>
-
-          {/* CAROUSEL — sits below hero, scrolls UP to overlap once hero pins.
-              Top margin -50vh creates the "hero stays visible" effect:
-              user scrolls 50vh past hero start, then the carousel begins
-              its horizontal pan from below the hero. */}
-          <DurationCarousel />
         </div>
+
+        {/* CAROUSEL */}
+        <DurationCarousel />
 
         {/* 4 ANCHOR SECTIONS */}
         {DURATIONS.map((d) => (
@@ -263,14 +254,10 @@ export default function SportsTherapyClient() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   DurationCarousel V6
-   Layout:
-     - Section starts with a 50vh top margin INSIDE so the
-       carousel's "active" zone doesn't begin until user has
-       scrolled 50% past the hero.
-     - Sticky inner sits at top:0 with hero (sticky above)
-       overlapping it visually — set z-index so cards sit BELOW
-       hero. Cards become visible as they pan in horizontally.
+   DurationCarousel V5
+   - Section run-up extended 120vh → 250vh (more scroll = more
+     resistance, slower pan)
+   - LERP factor 0.15 → 0.06 (heavier feel as you scroll)
    ───────────────────────────────────────────────────────────── */
 function DurationCarousel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -313,6 +300,7 @@ function DurationCarousel() {
     };
 
     const tick = () => {
+      // Slowed LERP — gives a heavy/resistant feel as scroll happens
       current += (target - current) * 0.06;
       if (track) {
         track.style.transform = `translateX(${-current}px)`;
@@ -339,20 +327,18 @@ function DurationCarousel() {
       style={{
         position: 'relative',
         height: '250vh',
-        zIndex: 2, // above the sticky hero container so cards render on top
-        marginTop: '-50vh', // start carousel content 50vh "earlier" so hero overlap creates the pinned effect
       }}
     >
       <div
         ref={innerRef}
         style={{
           position: 'sticky',
-          top: 'calc(100vh + 20px)',
-          height: '70vh',
+          top: 10,
+          height: 'calc(70vh + 10px)',
           display: 'flex',
           alignItems: 'flex-start',
+          paddingTop: 10,
           overflow: 'hidden',
-          marginTop: '50vh', // counteract the negative margin so the section's start aligns visually
         }}
       >
         <div
@@ -542,13 +528,10 @@ function DurationCarousel() {
         @media (max-width: 767px) {
           .dc-section {
             height: auto !important;
-            margin-top: 0 !important;
           }
           .dc-section > div {
             position: relative !important;
-            top: auto !important;
             height: auto !important;
-            margin-top: 0 !important;
             overflow-x: auto !important;
             overflow-y: hidden;
             scroll-snap-type: x mandatory;
