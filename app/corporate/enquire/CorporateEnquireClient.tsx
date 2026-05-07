@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Footer from '../../Footer';
+import CorporateFooter from '../../CorporateFooter';
 import CorporateNav from '../../CorporateNav';
 import SecondaryEnquiryModal from '../components/SecondaryEnquiryModal';
 
@@ -370,7 +370,7 @@ export default function CorporateEnquireClient() {
           </div>
         </section>
 
-        <Footer />
+        <CorporateFooter />
       </main>
 
       <style>{`

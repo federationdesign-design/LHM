@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Footer from '../Footer';
+import CorporateFooter from '../CorporateFooter';
 import CorporateNav from '../CorporateNav';
 
 /* ─────────────────────────────────────────────────────────────

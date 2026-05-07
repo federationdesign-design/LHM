@@ -5,7 +5,7 @@ import Link from 'next/link';
 import CorporateNav from '../../CorporateNav';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import { corporateTestimonials } from '../../components/Testimonials/corporate-testimonials-data';
-import Footer from '../../Footer';
+import CorporateFooter from '../../CorporateFooter';
 import InlineEnquiryForm from './InlineEnquiryForm';
 
 /* ─────────────────────────────────────────────────────────────
@@ -199,7 +199,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           </div>
         </section>
 
-        <Footer />
+        <CorporateFooter />
       </main>
 
       <style>{`
