@@ -143,11 +143,18 @@ export default function SportsTherapyClient() {
       <Nav scrollRef={heroRef} />
 
       <main style={{ background: '#000000', color: '#ffffff' }}>
-        {/* HERO — full-height, mirrors private side */}
+        {/* HERO — sticky so it pins when H1 reaches nav, then unpins after carousel */}
         <div
           ref={heroRef}
           className={styles.hero}
-          style={{ height: '100vh', minHeight: '100vh', backgroundColor: '#1a1a1a' }}
+          style={{
+            position: 'sticky',
+            top: 'calc(-100vh + 220px)',
+            height: '100vh',
+            minHeight: '100vh',
+            backgroundColor: '#1a1a1a',
+            zIndex: 5,
+          }}
         >
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
           <div className={styles.heroGradient} />
@@ -327,7 +334,6 @@ function DurationCarousel() {
       style={{
         position: 'relative',
         height: '250vh',
-        marginTop: '-200px',
       }}
     >
       <div
