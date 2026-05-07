@@ -452,16 +452,14 @@ function DurationCarousel() {
             const slideIndex = i + 1;
             const isHovered = hoverIndex === slideIndex;
             const isActive = activeIndex === slideIndex;
-            const grayscale = isHovered || isActive ? 0 : 100;
-            const brightness = isHovered || isActive ? 0.85 : 0.55;
+            const grayscale = isActive ? 0 : 100;
+            const brightness = isActive ? 0.85 : 0.55;
 
             return (
               <Link
                 key={d.id}
                 href={`#${d.id}`}
                 className="dc-card"
-                onMouseEnter={() => setHoverIndex(slideIndex)}
-                onMouseLeave={() => setHoverIndex(-1)}
                 style={{
                   flex: '0 0 auto',
                   width: 'min(75vw, 460px)',
