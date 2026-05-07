@@ -327,6 +327,7 @@ function DurationCarousel() {
       style={{
         position: 'relative',
         height: '250vh',
+        marginTop: '-200px',
       }}
     >
       <div
