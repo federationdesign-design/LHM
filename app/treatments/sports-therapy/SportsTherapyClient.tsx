@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '../../Nav';
 import Footer from '../../Footer';
+import styles from '../../page.module.css';
 
 declare global {
   interface Window {
@@ -115,78 +116,71 @@ function SimplyBookWidget({ serviceId, containerId }: { serviceId: string; conta
 }
 
 export default function SportsTherapyClient() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const scrollOverlayRef = useRef<HTMLDivElement>(null);
+
+  // Drive the hero scroll-overlay fade based on scroll progress.
+  // Mirrors the pattern from PrivateHomeClient/TreatmentsIndexClient
+  // so we get the same "fade-as-you-scroll" feel.
+  useEffect(() => {
+    const onScroll = () => {
+      const hero = heroRef.current;
+      const overlay = scrollOverlayRef.current;
+      if (!hero || !overlay) return;
+      const heroH = hero.offsetHeight;
+      const scrolled = Math.max(0, Math.min(heroH, window.scrollY));
+      const opacity = scrolled / heroH;
+      overlay.style.opacity = String(opacity);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
-      <Nav solid />
+      {/* Nav uses scrollRef for transparent-on-hero, solid-on-scroll behaviour */}
+      <Nav scrollRef={heroRef as React.RefObject<HTMLElement>} />
 
       <main style={{ background: '#000000', color: '#ffffff' }}>
-        {/* HERO — 50vh, flush against carousel */}
-        <section
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: '50vh',
-            minHeight: 360,
-            overflow: 'hidden',
-            background: '#1a1a1a',
-          }}
+        {/* HERO — full-height, mirrors private side */}
+        <div
+          ref={heroRef}
+          className={styles.hero}
+          style={{ height: '100vh', minHeight: '100vh', backgroundColor: '#1a1a1a' }}
         >
-          <Image
-            src="/sports-therapy-mobile.jpg"
-            alt="Sports Therapy — Lucy Hall Massage"
-            fill
-            sizes="(max-width: 1024px) 100vw, 0px"
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-            priority
-            className="st-hero-mobile"
-          />
-          <Image
-            src="/sports-therapy-desktop.jpg"
-            alt="Sports Therapy — Lucy Hall Massage"
-            fill
-            sizes="(min-width: 1025px) 100vw, 0px"
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
-            priority
-            className="st-hero-desktop"
-          />
+          <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
+          <div className={styles.heroGradient} />
 
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.85) 100%)',
-            zIndex: 1,
-          }} />
+          {/* Mobile hero */}
+          <span className="st-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
+            <Image
+              src="/sports-therapy-mobile.jpg"
+              alt="Sports Therapy"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
 
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            padding: '0 32px 48px',
-            zIndex: 2,
-          }}>
-            <h1 style={{
-              fontSize: 'clamp(2.4rem, 6vw, 4.4rem)',
-              fontWeight: 600,
-              lineHeight: 1.1,
-              margin: '0 0 12px',
-              color: '#ffffff',
-            }}>
-              Sports Therapy
-            </h1>
-            <p style={{
-              fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)',
-              fontWeight: 300,
-              lineHeight: 1.4,
-              margin: 0,
-              color: '#ffffff',
-              opacity: 0.92,
-            }}>
-              Choose your duration
-            </p>
+          {/* Desktop hero */}
+          <span className="st-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
+            <Image
+              src="/sports-therapy-desktop.jpg"
+              alt="Sports Therapy"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
+
+          <div className={styles.heroContent} style={{ zIndex: 10 }}>
+            <h1 className={styles.heroH1}>Sports Therapy</h1>
+            <p className={styles.heroSub}>Choose your duration</p>
           </div>
-        </section>
+        </div>
 
         {/* CAROUSEL */}
         <DurationCarousel />
@@ -244,10 +238,10 @@ export default function SportsTherapyClient() {
       </main>
 
       <style>{`
-        .st-hero-desktop { display: none; }
+        .st-hero-img-desktop { display: none; }
         @media (min-width: 1025px) {
-          .st-hero-mobile { display: none; }
-          .st-hero-desktop { display: block; }
+          .st-hero-img-mobile { display: none !important; }
+          .st-hero-img-desktop { display: block !important; }
         }
         @media (min-width: 768px) {
           .st-anchor-section {
@@ -260,12 +254,10 @@ export default function SportsTherapyClient() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   DurationCarousel V4
-   - First slide is a TITLE CARD (dark bg, breadcrumb, H1, menu,
-     scroll-to-explore)
-   - Then 4 duration cards
-   - Sticky height tightened from 100vh → 80vh
-   - Section run-up tightened from 140vh → 120vh
+   DurationCarousel V5
+   - Section run-up extended 120vh → 250vh (more scroll = more
+     resistance, slower pan)
+   - LERP factor 0.15 → 0.06 (heavier feel as you scroll)
    ───────────────────────────────────────────────────────────── */
 function DurationCarousel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -274,7 +266,6 @@ function DurationCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(-1);
 
-  // Total slides = 1 title + 4 durations
   const totalSlides = 1 + DURATIONS.length;
 
   useEffect(() => {
@@ -309,7 +300,8 @@ function DurationCarousel() {
     };
 
     const tick = () => {
-      current += (target - current) * 0.15;
+      // Slowed LERP — gives a heavy/resistant feel as scroll happens
+      current += (target - current) * 0.06;
       if (track) {
         track.style.transform = `translateX(${-current}px)`;
       }
@@ -334,7 +326,7 @@ function DurationCarousel() {
       className="dc-section"
       style={{
         position: 'relative',
-        height: '120vh',
+        height: '250vh',
       }}
     >
       <div
@@ -342,7 +334,7 @@ function DurationCarousel() {
         style={{
           position: 'sticky',
           top: 0,
-          height: '80vh',
+          height: '100vh',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
@@ -360,7 +352,7 @@ function DurationCarousel() {
             transition: 'transform 0.05s linear',
           }}
         >
-          {/* TITLE CARD — first slide */}
+          {/* TITLE CARD */}
           <div
             className="dc-card dc-titlecard"
             style={{
@@ -393,7 +385,6 @@ function DurationCarousel() {
               fontWeight: 600,
               color: '#ffffff',
               lineHeight: 1.1,
-              marginBottom: 32,
               margin: '0 0 32px',
             }}>
               Sports Therapy
@@ -449,7 +440,7 @@ function DurationCarousel() {
 
           {/* DURATION CARDS */}
           {DURATIONS.map((d, i) => {
-            const slideIndex = i + 1; // 0 is title, 1+ are durations
+            const slideIndex = i + 1;
             const isHovered = hoverIndex === slideIndex;
             const isActive = activeIndex === slideIndex;
             const grayscale = isHovered || isActive ? 0 : 100;
