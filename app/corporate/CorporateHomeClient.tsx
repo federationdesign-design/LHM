@@ -547,6 +547,7 @@ export default function CorporateHomeClient() {
           </div>
         </section>
 
+        <CorporateFooter />
       </main>
 
       <style>{`
