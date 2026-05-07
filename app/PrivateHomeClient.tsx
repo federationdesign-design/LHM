@@ -670,7 +670,7 @@ export default function PrivateHomeClient() {
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
           <div className={styles.heroGradient} />
 
-          {/* Mobile hero — uses Physiotherapy-mobile.jpg.
+          {/* Mobile hero — uses sports-therapy-mobile.jpg.
               Not named with viewTransitionName because the splash
               uses the desktop file; on mobile the browser falls back
               to the root crossfade rather than morphing. */}
