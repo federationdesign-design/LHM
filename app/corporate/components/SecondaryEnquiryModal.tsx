@@ -477,68 +477,71 @@ export default function SecondaryEnquiryModal({
               {/* ── ENQUIRY DETAILS ──────────────────────────── */}
               <h4 style={sectionTitleStyle}>Enquiry Details</h4>
 
-              {/* What prompted your enquiry — textarea */}
-              <div style={{ marginBottom: 22 }}>
-                <label style={labelStyle}>What prompted your enquiry?</label>
-                <textarea
-                  value={enquiryDetails}
-                  onChange={(e) => setEnquiryDetails(e.target.value)}
-                  placeholder="e.g. Employee wellbeing initiative, staff appreciation, workplace stress support, event or awareness week, retention &amp; morale, general wellbeing support…"
-                  rows={4}
-                  style={{
-                    ...inputStyle,
-                    borderRadius: 16,
-                    resize: 'vertical',
-                    minHeight: 100,
-                    paddingTop: 14,
-                    fontFamily: 'inherit',
-                  }}
-                />
-              </div>
-
               <div className="sef-row sef-row--2col" style={{ marginBottom: 22 }}>
-                {/* How would you prefer to be contacted? — pill row */}
+                {/* LEFT: What prompted your enquiry — textarea */}
                 <div>
-                <label style={labelStyle}>How would you prefer to be contacted?</label>
-                <div className="sef-pill-row">
-                  {CONTACT_PREFERENCE_OPTIONS.map((opt) => {
-                    const active = contactPref === opt.id;
-                    return (
-                      <button
-                        key={opt.id}
-                        type="button"
-                        onClick={() => setContactPref(active ? '' : opt.id)}
-                        className="sef-pill"
-                        style={{
-                          background: active ? '#ffffff' : 'transparent',
-                          color: active ? '#000000' : '#ffffff',
-                          borderColor: active ? '#ffffff' : 'rgba(255,255,255,0.5)',
-                        }}
-                      >
-                        {opt.label}
-                      </button>
-                    );
-                  })}
-                </div>
+                  <label style={labelStyle}>What prompted your enquiry?</label>
+                  <textarea
+                    value={enquiryDetails}
+                    onChange={(e) => setEnquiryDetails(e.target.value)}
+                    placeholder="e.g. Employee wellbeing initiative, staff appreciation, workplace stress support, event or awareness week, retention &amp; morale, general wellbeing support…"
+                    rows={8}
+                    style={{
+                      ...inputStyle,
+                      borderRadius: 16,
+                      resize: 'vertical',
+                      minHeight: 200,
+                      paddingTop: 14,
+                      fontFamily: 'inherit',
+                    }}
+                  />
                 </div>
 
-                {/* How did you hear about us */}
-                <div>
-                <label style={labelStyle}>How did you hear about us?</label>
-                <select
-                  value={heardAbout}
-                  onChange={(e) => setHeardAbout(e.target.value)}
-                  style={selectStyle}
-                >
-                  <option value="">Select an option</option>
-                  {HEARD_ABOUT_OPTIONS.map((opt) => (
-                    <option key={opt.id} value={opt.id}>{opt.label}</option>
-                  ))}
-                </select>
+                {/* RIGHT: contact pref + heard about us, stacked */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
+                  {/* How would you prefer to be contacted — pill row */}
+                  <div>
+                    <label style={labelStyle}>How would you prefer to be contacted?</label>
+                    <div className="sef-pill-row">
+                      {CONTACT_PREFERENCE_OPTIONS.map((opt) => {
+                        const active = contactPref === opt.id;
+                        return (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => setContactPref(active ? '' : opt.id)}
+                            className="sef-pill"
+                            style={{
+                              background: active ? '#ffffff' : 'transparent',
+                              color: active ? '#000000' : '#ffffff',
+                              borderColor: active ? '#ffffff' : 'rgba(255,255,255,0.5)',
+                            }}
+                          >
+                            {opt.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* How did you hear about us */}
+                  <div>
+                    <label style={labelStyle}>How did you hear about us?</label>
+                    <select
+                      value={heardAbout}
+                      onChange={(e) => setHeardAbout(e.target.value)}
+                      style={selectStyle}
+                    >
+                      <option value="">Select an option</option>
+                      {HEARD_ABOUT_OPTIONS.map((opt) => (
+                        <option key={opt.id} value={opt.id}>{opt.label}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              {error && (
+{error && (
                 <div style={{
                   marginTop: 16,
                   padding: '12px 16px',
