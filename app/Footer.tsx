@@ -30,7 +30,7 @@ const treatments: [string, string][] = [
   ['Hopi Ear', '/hopi-ear'],
   ['Hot Stone', '/hot-stone-massage'],
   ['Indian Head', '/indian-head-massage'],
-  ['Sports Therapy', '/physiotherapy-treatment'],
+  ['Sports Therapy', '/sports-therapy'],
   ['Pregnancy', '/pregnancy-massage'],
   ['Relaxation', '/relaxation-massage'],
   ['Sports Massage', '/sports-massage'],

@@ -16,7 +16,7 @@ const services = [
   { slug: 'relaxation-massage', title: 'Relaxation Massage', image: '/relaxation-mobile.jpg', href: '/relaxation-massage', cta: 'Book Treatment' },
   { slug: 'pregnancy-massage', title: 'Pregnancy Massage', image: '/Pregnancy-mobile.jpg', href: '/pregnancy-massage', cta: 'Book Treatment' },
   { slug: 'hopi-ear', title: 'Hopi Ear & Back Massage', image: '/hopi-mobile.jpg', href: '/hopi-ear', cta: 'Book Treatment' },
-  { slug: 'physiotherapy-treatment', title: 'Sports Therapy', image: '/Physiotherapy-mobile.jpg', href: '/physiotherapy-treatment', cta: 'Book Treatment' },
+  { slug: 'sports-therapy', title: 'Sports Therapy', image: '/sports-therapy-mobile.jpg', href: '/sports-therapy', cta: 'Book Treatment' },
   { slug: 'indian-head-massage', title: 'Indian Head Massage', image: '/Indian-Head-mobile.jpg', href: '/indian-head-massage', cta: 'Book Treatment' },
   { slug: 'hot-stone-massage', title: 'Hot Stone Massage', image: '/Hot-Stone-mobile.jpg', href: '/hot-stone-massage', cta: 'Book Treatment' },
   { slug: 'cupping', title: 'Cupping Therapy', image: '/cupping-mobile.jpg', href: '/cupping', cta: 'Book Treatment' },
@@ -676,7 +676,7 @@ export default function PrivateHomeClient() {
               to the root crossfade rather than morphing. */}
           <span className="hp-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
             <Image
-              src="/Physiotherapy-mobile.jpg"
+              src="/sports-therapy-mobile.jpg"
               alt="Physiotherapy treatment"
               fill
               priority
@@ -692,7 +692,7 @@ export default function PrivateHomeClient() {
               when the splash invokes document.startViewTransition(). */}
           <span className="hp-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
             <Image
-              src="/Physiotherapy-desktop.jpg"
+              src="/sports-therapy-desktop.jpg"
               alt="Physiotherapy treatment"
               fill
               priority

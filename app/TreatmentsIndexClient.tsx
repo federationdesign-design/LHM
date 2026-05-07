@@ -13,7 +13,7 @@ const therapiesList = [
   { label: 'Relaxation Massage', href: '/relaxation-massage', slideIndex: 4 },
   { label: 'Pregnancy Massage', href: '/pregnancy-massage', slideIndex: 5 },
   { label: 'Hopi Ear & Back Massage', href: '/hopi-ear', slideIndex: 6 },
-  { label: 'Sports Therapy', href: '/physiotherapy-treatment', slideIndex: 7 },
+  { label: 'Sports Therapy', href: '/sports-therapy', slideIndex: 7 },
   { label: 'Indian Head Massage', href: '/indian-head-massage', slideIndex: 8 },
   { label: 'Hot Stone Massage', href: '/hot-stone-massage', slideIndex: 9 },
   { label: 'Cupping', href: '/cupping', slideIndex: 10 },
@@ -56,9 +56,9 @@ const slides = [
     image: '/hopi-mobile.jpg', color: '#d57640', cta: 'Book Now', ctaHref: '/hopi-ear',
   },
   {
-    type: 'treatment' as const, slug: 'physiotherapy-treatment', title: 'Sports Therapy',
-    tagline: 'Our physiotherapy service provides expert assessment and hands-on treatment for a wide range of musculoskeletal conditions. From acute injuries to chronic pain and postural problems, our qualified physiotherapists use evidence-based techniques to restore function and reduce pain.',
-    image: '/Physiotherapy-mobile.jpg', color: '#b46a51', cta: 'Book Now', ctaHref: '/physiotherapy-treatment',
+    type: 'treatment' as const, slug: 'sports-therapy', title: 'Sports Therapy',
+    tagline: 'Our sports therapy service provides expert assessment and hands-on treatment for a wide range of musculoskeletal conditions. From acute injuries to chronic pain and postural problems, our qualified sports therapists use evidence-based techniques to restore function and reduce pain.',
+    image: '/sports-therapy-mobile.jpg', color: '#b46a51', cta: 'Book Now', ctaHref: '/sports-therapy',
   },
   {
     type: 'treatment' as const, slug: 'indian-head-massage', title: 'Indian Head Massage',

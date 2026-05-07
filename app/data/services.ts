@@ -220,7 +220,7 @@ export const services: Record<string, Service> = {
     ],
   },
 
-  'physiotherapy-treatment': {
+  'sports-therapy': {
     slug: 'physiotherapy-treatment',
     title: 'Physiotherapy',
     h1: 'Physiotherapy',

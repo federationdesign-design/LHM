@@ -8,7 +8,7 @@
 //     letting the user pick their preferred location during booking
 //   - If a service is NOT in this map: falls through to the legacy
 //     `widgetLocation` field on the Service type (currently used by
-//     physiotherapy-treatment until further decisions are made)
+//     sports-therapy until further decisions are made)
 //
 // Location IDs match SimplyBook.me:
 //   '2' = Thoday Street
@@ -27,5 +27,5 @@ export const serviceAvailability: Record<string, string[]> = {
   'indian-head-massage':  ['2'],        // Thoday only (Antonia) — service ID 9
   'hot-stone-massage':    ['2'],        // Thoday only (Antonia) — service ID 26
   'cupping':              ['2'],        // Thoday only (Orla)    — service ID 24
-  // 'physiotherapy-treatment' — intentionally omitted; falls through to legacy widgetLocation
+  // 'sports-therapy' — intentionally omitted; falls through to legacy widgetLocation
 };
