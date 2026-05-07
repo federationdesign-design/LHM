@@ -453,7 +453,7 @@ function DurationCarousel() {
             const isHovered = hoverIndex === slideIndex;
             const isActive = activeIndex === slideIndex;
             const grayscale = isHovered || isActive ? 0 : 100;
-            const brightness = isHovered || isActive ? 1 : 0.65;
+            const brightness = isHovered || isActive ? 0.85 : 0.55;
 
             return (
               <Link
@@ -491,7 +491,7 @@ function DurationCarousel() {
                 <div style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)',
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 65%, transparent 100%)',
                 }} />
                 <div style={{
                   position: 'absolute',
