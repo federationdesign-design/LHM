@@ -452,8 +452,8 @@ function DurationCarousel() {
             const slideIndex = i + 1;
             const isHovered = hoverIndex === slideIndex;
             const isActive = activeIndex === slideIndex;
-            const grayscale = isActive ? 0 : 100;
-            const brightness = isActive ? 0.85 : 0.55;
+            const grayscale = 100;
+            const brightness = 0.65;
 
             return (
               <Link
