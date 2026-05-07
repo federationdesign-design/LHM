@@ -149,7 +149,7 @@ export default function SportsTherapyClient() {
           className={styles.hero}
           style={{
             position: 'sticky',
-            top: 'calc(-100vh + 220px)',
+            top: 'calc(-100vh + 280px)',
             height: '100vh',
             minHeight: '100vh',
             backgroundColor: '#1a1a1a',
@@ -334,17 +334,18 @@ function DurationCarousel() {
       style={{
         position: 'relative',
         height: '250vh',
+        zIndex: 1,
       }}
     >
       <div
         ref={innerRef}
         style={{
           position: 'sticky',
-          top: 10,
-          height: 'calc(70vh + 10px)',
+          top: 280,
+          height: 'calc(100vh - 280px)',
           display: 'flex',
           alignItems: 'flex-start',
-          paddingTop: 10,
+          paddingTop: 20,
           overflow: 'hidden',
         }}
       >
@@ -464,7 +465,7 @@ function DurationCarousel() {
                 style={{
                   flex: '0 0 auto',
                   width: 'min(75vw, 460px)',
-                  height: '70vh',
+                  height: 'calc(100vh - 320px)',
                   position: 'relative',
                   overflow: 'hidden',
                   textDecoration: 'none',
