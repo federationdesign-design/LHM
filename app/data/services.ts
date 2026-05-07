@@ -220,38 +220,6 @@ export const services: Record<string, Service> = {
     ],
   },
 
-  'sports-therapy': {
-    slug: 'sports-therapy',
-    title: 'Sports Therapy',
-    h1: 'Sports Therapy',
-    tagline: 'Book your appointment in just two minutes with our simple online booking system.',
-    heroMobile: '/sports-therapy-mobile.jpg',
-    heroDesktop: '/sports-therapy-desktop.jpg',
-    heroColor: '#b46a51',
-    metaTitle: 'Sports Therapy Cambridge | Lucy Hall Massage Therapy',
-    metaDescription: 'Book sports therapy in Cambridge with Lucy Hall Massage Therapy. Expert assessment and treatment for injury, pain and movement problems. Book online in 2 minutes.',
-    keywords: ['sports therapy cambridge', 'sports therapist cambridge', 'injury treatment cambridge', 'back pain sports therapy cambridge'],
-    canonicalUrl: 'https://www.lucyhallmassage.com/treatments/sports-therapy/',
-    widgetService: '11',
-    widgetLocation: '4',
-    intro: 'Our sports therapy service provides expert assessment and hands-on treatment for a wide range of musculoskeletal conditions. From acute injuries to chronic pain and postural problems, our qualified sports therapists use evidence-based techniques to restore function, reduce pain and help you move well again.',
-    benefits: [
-      'Expert assessment of injury and movement',
-      'Evidence-based hands-on treatment',
-      'Reduces acute and chronic pain',
-      'Restores full range of movement',
-      'Addresses the root cause, not just symptoms',
-      'Includes tailored exercise and aftercare advice',
-    ],
-    recommendedFor: [
-      'People recovering from injury or surgery',
-      'Those with chronic back, neck or joint pain',
-      'Anyone with a movement restriction',
-      'People with postural problems from desk work',
-      'Those who have been referred by their GP',
-      'Athletes seeking injury rehabilitation',
-    ],
-  },
 
   'indian-head-massage': {
     slug: 'indian-head-massage',
