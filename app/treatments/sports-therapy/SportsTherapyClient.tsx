@@ -475,6 +475,7 @@ function DurationCarousel() {
                 <div style={{
                   position: 'absolute',
                   inset: 0,
+                  zIndex: 1,
                   transition: 'filter 0.4s ease',
                   filter: `brightness(${brightness}) grayscale(${grayscale}%)`,
                 }}>
@@ -489,6 +490,7 @@ function DurationCarousel() {
                 <div style={{
                   position: 'absolute',
                   inset: 0,
+                  zIndex: 2,
                   background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 65%, transparent 100%)',
                 }} />
                 <div style={{
@@ -498,6 +500,7 @@ function DurationCarousel() {
                   right: 0,
                   padding: '32px 28px',
                   color: '#ffffff',
+                  zIndex: 3,
                 }}>
                   <h3 style={{
                     fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
