@@ -474,11 +474,71 @@ function MobileTreatments() {
 
 export default function YourSportsMassageClient() {
   const isMobile = useIsMobile();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const scrollOverlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const hero = heroRef.current;
+      const overlay = scrollOverlayRef.current;
+      if (!hero || !overlay) return;
+      const heroH = hero.offsetHeight;
+      const scrolled = Math.max(0, Math.min(heroH, window.scrollY));
+      const opacity = scrolled / heroH;
+      overlay.style.opacity = String(opacity);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <>
-      <Nav solid />
+      <Nav scrollRef={heroRef} />
       <main style={{ background: '#000000' }}>
+        <div
+          ref={heroRef}
+          className={styles.hero}
+          style={{
+            position: 'sticky',
+            top: 'calc(-100vh + 280px)',
+            height: '100vh',
+            minHeight: '100vh',
+            backgroundColor: '#1a1a1a',
+            zIndex: 5,
+          }}
+        >
+          <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
+          <div className={styles.heroGradient} />
+
+          <span className="ysm-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
+            <Image
+              src="/sports-therapy-mobile.jpg"
+              alt="Sports Therapy"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
+
+          <span className="ysm-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
+            <Image
+              src="/sports-therapy-desktop.jpg"
+              alt="Sports Therapy"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
+
+          <div className={styles.heroContent} style={{ zIndex: 10 }}>
+            <h1 className={styles.heroH1}>Sports Therapy</h1>
+            <p className={styles.heroSub}>Choose your duration</p>
+          </div>
+        </div>
+
         {isMobile === null ? (
           <div style={{ height: '100vh' }} />
         ) : isMobile ? (
@@ -488,6 +548,14 @@ export default function YourSportsMassageClient() {
         )}
         <Footer />
       </main>
+
+      <style>{`
+        .ysm-hero-img-desktop { display: none; }
+        @media (min-width: 1025px) {
+          .ysm-hero-img-mobile { display: none !important; }
+          .ysm-hero-img-desktop { display: block !important; }
+        }
+      `}</style>
     </>
   );
 }
