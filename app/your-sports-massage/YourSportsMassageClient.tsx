@@ -26,22 +26,22 @@ const therapiesList = [
 const slides = [
   { type: 'intro' as const, slug: 'intro', title: null, tagline: null, image: null, color: '#000000', cta: null, ctaHref: null },
   {
-    type: 'treatment' as const, slug: 'deep-tissue-massage', title: 'Deep Tissue Massage',
+    type: 'treatment' as const, slug: 'deep-tissue-massage', title: '30 minutes',
     tagline: 'Deep tissue massage targets the deeper layers of muscle and connective tissue, using slow, firm strokes to release chronic tension and knots. Unlike a relaxation massage, deep tissue work focuses on specific problem areas — helping to restore movement, reduce pain and improve posture over time.',
     image: '/hero.jpg', color: '#4e3225', cta: 'Book Now', ctaHref: '/treatments/deep-tissue-massage',
   },
   {
-    type: 'treatment' as const, slug: 'swedish-massage', title: 'Swedish Massage',
+    type: 'treatment' as const, slug: 'swedish-massage', title: '60 minutes',
     tagline: 'Swedish massage is a classic full-body treatment using long, flowing strokes, kneading and circular movements to promote deep relaxation. It improves circulation, eases muscle tension and leaves you feeling calm and restored.',
     image: '/swedish-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/swedish-massage',
   },
   {
-    type: 'treatment' as const, slug: 'sports-massage', title: 'Sports Massage',
+    type: 'treatment' as const, slug: 'sports-massage', title: '90 minutes',
     tagline: 'Sports massage is a targeted treatment designed for active individuals, combining deep tissue techniques with stretching to prevent injury, aid recovery and improve performance. Whether you are training regularly or recovering from an event, sports massage keeps your body functioning at its best.',
     image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/sports-massage',
   },
   {
-    type: 'treatment' as const, slug: 'relaxation-massage', title: 'Relaxation Massage',
+    type: 'treatment' as const, slug: 'relaxation-massage', title: '120 minutes',
     tagline: 'A relaxation massage uses light to medium pressure with long, slow strokes to calm the nervous system and ease both physical and mental tension. It is a deeply restorative treatment — the perfect way to step away from the demands of daily life.',
     image: '/relaxation-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/relaxation-massage',
   },
