@@ -470,6 +470,7 @@ function DurationCarousel() {
                   border: '1px solid rgba(255,255,255,0.15)',
                   background: '#0a0908',
                   transition: 'transform 0.3s ease',
+                  isolation: 'isolate',
                 }}
               >
                 <div style={{
