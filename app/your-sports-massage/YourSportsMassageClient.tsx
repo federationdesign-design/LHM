@@ -7,20 +7,10 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 
 const therapiesList = [
-  { label: 'Deep Tissue Massage', href: '/treatments/deep-tissue-massage', slideIndex: 1 },
-  { label: 'Swedish Massage', href: '/treatments/swedish-massage', slideIndex: 2 },
-  { label: 'Sports Massage', href: '/treatments/sports-massage', slideIndex: 3 },
-  { label: 'Relaxation Massage', href: '/treatments/relaxation-massage', slideIndex: 4 },
-  { label: 'Pregnancy Massage', href: '/treatments/pregnancy-massage', slideIndex: 5 },
-  { label: 'Hopi Ear & Back Massage', href: '/treatments/hopi-ear', slideIndex: 6 },
-  { label: 'Sports Therapy', href: '/treatments/sports-therapy', slideIndex: 7 },
-  { label: 'Indian Head Massage', href: '/treatments/indian-head-massage', slideIndex: 8 },
-  { label: 'Hot Stone Massage', href: '/treatments/hot-stone-massage', slideIndex: 9 },
-  { label: 'Cupping', href: '/treatments/cupping', slideIndex: 10 },
-  { label: 'Our Locations', href: '/locations', slideIndex: 11 },
-  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 12 },
-  { label: 'Get in Touch', href: '/contact', slideIndex: 13 },
-  { label: 'Claiming Receipts', href: '/contact', slideIndex: 14 },
+  { label: '30 minutes', href: '#', slideIndex: 1 },
+  { label: '60 minutes', href: '#', slideIndex: 2 },
+  { label: '90 minutes', href: '#', slideIndex: 3 },
+  { label: '120 minutes', href: '#', slideIndex: 4 },
 ];
 
 const slides = [
@@ -45,40 +35,6 @@ const slides = [
     tagline: 'A relaxation massage uses light to medium pressure with long, slow strokes to calm the nervous system and ease both physical and mental tension. It is a deeply restorative treatment — the perfect way to step away from the demands of daily life.',
     image: '/relaxation-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/relaxation-massage',
   },
-  {
-    type: 'treatment' as const, slug: 'pregnancy-massage', title: 'Pregnancy Massage',
-    tagline: 'Pregnancy massage is a specially adapted treatment designed to support the physical and emotional changes of pregnancy. Our therapists help relieve common discomforts including back pain, swelling and fatigue — providing both physical relief and a much-needed moment of calm.',
-    image: '/Pregnancy-mobile.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/treatments/pregnancy-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'hopi-ear', title: 'Hopi Ear & Back Massage',
-    tagline: 'A combined treatment pairing the traditional Hopi Ear ritual with a focused back massage. The gentle warmth of the hollow Hopi candle eases pressure around the ears and sinuses, while the back massage releases tension across the shoulders, neck and upper back.',
-    image: '/hopi-mobile.jpg', color: '#d57640', cta: 'Book Now', ctaHref: '/treatments/hopi-ear',
-  },
-  {
-    type: 'treatment' as const, slug: 'sports-therapy', title: 'Sports Therapy',
-    tagline: 'Our sports therapy service provides expert assessment and hands-on treatment for a wide range of musculoskeletal conditions. From acute injuries to chronic pain and postural problems, our qualified sports therapists use evidence-based techniques to restore function and reduce pain.',
-    image: '/sports-therapy-mobile.jpg', color: '#b46a51', cta: 'Book Now', ctaHref: '/treatments/sports-therapy',
-  },
-  {
-    type: 'treatment' as const, slug: 'indian-head-massage', title: 'Indian Head Massage',
-    tagline: 'A traditional therapy focused on the head, scalp, neck and shoulders — the areas where most of us hold daily stress. Using a blend of firm and gentle techniques, the treatment eases muscular tension, calms a busy mind and leaves you feeling deeply restored.',
-    image: '/Indian-Head-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/indian-head-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'hot-stone-massage', title: 'Hot Stone Massage',
-    tagline: 'Smooth, heated basalt stones placed on key points of the body and used as an extension of the therapist\'s hands. The penetrating warmth allows muscles to relax far more deeply than they would under hands alone — releasing tension that lighter treatments cannot reach.',
-    image: '/Hot-Stone-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/hot-stone-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'cupping', title: 'Cupping Therapy',
-    tagline: 'A traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access — releasing deep-seated tension and supporting natural recovery.',
-    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/cupping',
-  },
-  { type: 'treatment' as const, slug: 'locations', title: 'Our Locations', tagline: 'Two clinics in Cambridge — Thoday Street and Cromwell Road. All treatments available at both locations.', image: '/deep-tissue-img.jpg', color: '#28303a', cta: 'View Locations', ctaHref: '/locations' },
-  { type: 'treatment' as const, slug: 'gift-vouchers', title: 'Gift Vouchers', tagline: 'Give the gift of relaxation — the perfect treat for someone special. Redeemable against any treatment at either clinic. Valid for 12 months.', image: '/gift-voucher-hero.jpg', color: '#3a3028', cta: 'Buy a Voucher', ctaHref: '/gift-vouchers' },
-  { type: 'treatment' as const, slug: 'contact', title: 'Get in Touch', tagline: "Have a question? We're always happy to help. Get in touch with our team and we'll get back to you as soon as possible.", image: '/get-in-touch-img.jpg', color: '#2a2a2a', cta: 'Contact Us', ctaHref: '/contact' },
-  { type: 'treatment' as const, slug: 'receipts', title: 'Claiming Receipts', tagline: 'Need a receipt for your treatment? We can provide one on request — useful if you are claiming through private health insurance or a corporate wellness scheme.', image: '/claiming-receipts.jpg', color: '#28303a', cta: 'Learn More', ctaHref: '/contact' },
 ];
 
 const CARD_WIDTH_VW = 40;
