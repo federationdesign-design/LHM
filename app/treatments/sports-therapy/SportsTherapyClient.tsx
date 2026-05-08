@@ -469,29 +469,20 @@ function DurationCarousel() {
                   textDecoration: 'none',
                   border: '1px solid rgba(255,255,255,0.15)',
                   background: '#0a0908',
-                  transition: 'transform 0.3s ease',
-                  isolation: 'isolate',
+                  transition: 'filter 0.5s ease',
+                  filter: `brightness(${brightness}) grayscale(${grayscale}%)`,
                 }}
               >
+                <Image
+                  src={d.image}
+                  alt={`Sports Therapy ${d.fullLabel}`}
+                  fill
+                  sizes="(max-width: 768px) 75vw, 460px"
+                  style={{ objectFit: 'cover' }}
+                />
                 <div style={{
                   position: 'absolute',
                   inset: 0,
-                  zIndex: 1,
-                  transition: 'filter 0.4s ease',
-                  filter: `brightness(${brightness}) grayscale(${grayscale}%)`,
-                }}>
-                  <Image
-                    src={d.image}
-                    alt={`Sports Therapy ${d.fullLabel}`}
-                    fill
-                    sizes="(max-width: 768px) 75vw, 460px"
-                    style={{ objectFit: 'cover' }}
-                  />
-                </div>
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  zIndex: 2,
                   background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 65%, transparent 100%)',
                 }} />
                 <div style={{
@@ -501,7 +492,6 @@ function DurationCarousel() {
                   right: 0,
                   padding: '32px 28px',
                   color: '#ffffff',
-                  zIndex: 3,
                 }}>
                   <h3 style={{
                     fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
