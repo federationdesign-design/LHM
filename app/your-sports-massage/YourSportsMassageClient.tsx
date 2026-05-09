@@ -8,10 +8,10 @@ import Footer from '../Footer';
 import Testimonials from '../components/Testimonials/Testimonials';
 
 const therapiesList = [
-  { label: '30 minutes', href: '#', slideIndex: 1 },
-  { label: '60 minutes', href: '#', slideIndex: 2 },
-  { label: '90 minutes', href: '#', slideIndex: 3 },
-  { label: '120 minutes', href: '#', slideIndex: 4 },
+  { label: '30 minutes', href: '/treatments/30-min-massage', slideIndex: 1 },
+  { label: '60 minutes', href: '/treatments/60-min-massage', slideIndex: 2 },
+  { label: '90 minutes', href: '/treatments/90-min-massage', slideIndex: 3 },
+  { label: '120 minutes', href: '/treatments/120-min-massage', slideIndex: 4 },
 ];
 
 const slides = [
@@ -214,7 +214,7 @@ function DesktopTreatments() {
                       {therapiesList.map((item) => (
                         <button
                           key={item.label}
-                          onClick={() => scrollToSlide(item.slideIndex)}
+                          onClick={() => { window.location.href = item.href; }}
                           style={{ fontSize: '0.96rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4, background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', textDecoration: 'none', display: 'flex', alignItems: 'flex-start', gap: 10, opacity: 0.85 }}
                           onMouseEnter={e => { e.currentTarget.style.opacity = '1'; (e.currentTarget.querySelector('.li-arrow') as HTMLElement).style.opacity = '1'; }}
                           onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; (e.currentTarget.querySelector('.li-arrow') as HTMLElement).style.opacity = '0'; }}
@@ -277,9 +277,11 @@ function MobileTreatments() {
   const trackRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wheelLockRef = useRef(false);
+  // On mobile, only render the intro slide — duration menu links direct to /treatments/X-min-massage
+  const mobileSlides = slides.filter(s => s.type === 'intro');
 
   const goTo = useCallback((i: number) => {
-    const clamped = Math.max(0, Math.min(slides.length - 1, i));
+    const clamped = Math.max(0, Math.min(mobileSlides.length - 1, i));
     setIndex(clamped);
   }, []);
 
@@ -330,7 +332,7 @@ function MobileTreatments() {
         style={{
           display: 'flex',
           height: '100%',
-          width: `${slides.length * 100}vw`,
+          width: `${mobileSlides.length * 100}vw`,
           transform: `translateX(-${index * 100}vw)`,
           transition: 'transform 0.4s ease',
           willChange: 'transform',
@@ -339,7 +341,7 @@ function MobileTreatments() {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {slides.map((slide, i) => (
+        {mobileSlides.map((slide, i) => (
           <div
             key={slide.slug}
             style={{
@@ -360,7 +362,7 @@ function MobileTreatments() {
                   {therapiesList.map((item) => (
                     <button
                       key={item.label}
-                      onClick={() => goTo(item.slideIndex)}
+                      onClick={() => { window.location.href = item.href; }}
                       style={{
                         fontSize: '1rem',
                         fontWeight: 300,
@@ -416,7 +418,7 @@ function MobileTreatments() {
       {/* Bottom pagination dots — homepage-style 15px circles, 2px border,
           transparent off-state. Replaces the previous 16px white pills. */}
       <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 20, display: 'flex', gap: 8, alignItems: 'center' }}>
-        {slides.map((_, i) => (
+        {mobileSlides.map((_, i) => (
           <NavDot
             key={i}
             active={i === index}
