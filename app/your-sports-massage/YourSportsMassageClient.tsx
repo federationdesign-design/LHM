@@ -164,7 +164,7 @@ function DesktopTreatments() {
 
   return (
     <div ref={sectionRef} style={{ height: `${slides.length * 75}vh`, position: 'relative' }}>
-      <div style={{ position: 'sticky', top: 0, height: '67vh', overflow: 'hidden' }}>
+      <div style={{ position: 'sticky', top: 280, height: '67vh', overflow: 'hidden' }}>
 
         {/* Bottom progress dots — homepage-style 15px circles, 2px border,
             transparent off-state. Replaces the previous 18px white pills. */}
