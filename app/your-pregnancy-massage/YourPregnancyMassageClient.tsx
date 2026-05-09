@@ -22,7 +22,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: '90-min-pregnancy-massage', title: '90 minutes',
     tagline: 'Extended head-to-toe care with room to address swelling, sciatic discomfort and accumulated tension. Best for later trimester support, recovery from a long week, or when 60 minutes is not quite enough.',
-    image: '/Pregnancy-desktop.jpg', color: '#7ba88a', cta: 'Book Now', ctaHref: '/treatments/90-min-pregnancy-massage',
+    image: '/prenancy-90-min-mobile-img.jpg', color: '#7ba88a', cta: 'Book Now', ctaHref: '/treatments/90-min-pregnancy-massage',
   },
 ];
 
