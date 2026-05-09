@@ -537,7 +537,7 @@ export default function YourSportsMassageClient() {
             />
           </span>
 
-          <div className={styles.heroContent} style={{ zIndex: 10 }}>
+          <div className={styles.heroContent} style={{ zIndex: 10, paddingRight: 0, maxWidth: 'none' }}>
             <h1 className={styles.heroH1}>Your Sports Massage</h1>
             <p className={styles.heroSub}>Choose your duration</p>
           </div>
