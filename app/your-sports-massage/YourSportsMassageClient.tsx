@@ -281,6 +281,8 @@ function MobileTreatments() {
   const mobileSlides = slides.filter(s => s.type === 'intro');
   // On mobile, only render the intro slide — duration menu links direct to /treatments/X-min-massage
   const mobileSlides = slides.filter(s => s.type === 'intro');
+  // On mobile, only render the intro slide — duration menu links direct to /treatments/X-min-massage
+  const mobileSlides = slides.filter(s => s.type === 'intro');
 
   const goTo = useCallback((i: number) => {
     const clamped = Math.max(0, Math.min(mobileSlides.length - 1, i));
