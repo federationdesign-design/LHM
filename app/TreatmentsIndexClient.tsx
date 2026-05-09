@@ -11,7 +11,7 @@ const therapiesList = [
   { label: 'Swedish Massage', href: '/treatments/swedish-massage', slideIndex: 2 },
   { label: 'Sports Massage', href: '/treatments/sports-massage', slideIndex: 3 },
   { label: 'Relaxation Massage', href: '/treatments/relaxation-massage', slideIndex: 4 },
-  { label: 'Pregnancy Massage', href: '/treatments/pregnancy-massage', slideIndex: 5 },
+  { label: 'Pregnancy Massage', href: '/your-pregnancy-massage', slideIndex: 5 },
   { label: 'Hopi Ear & Back Massage', href: '/treatments/hopi-ear', slideIndex: 6 },
   { label: 'Sports Therapy', href: '/treatments/sports-therapy', slideIndex: 7 },
   { label: 'Indian Head Massage', href: '/treatments/indian-head-massage', slideIndex: 8 },
@@ -49,7 +49,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'pregnancy-massage', title: 'Pregnancy Massage',
     tagline: 'Pregnancy massage is a specially adapted treatment designed to support the physical and emotional changes of pregnancy. Our therapists help relieve common discomforts including back pain, swelling and fatigue — providing both physical relief and a much-needed moment of calm.',
-    image: '/Pregnancy-mobile.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/treatments/pregnancy-massage',
+    image: '/Pregnancy-mobile.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/your-pregnancy-massage',
   },
   {
     type: 'treatment' as const, slug: 'hopi-ear', title: 'Hopi Ear & Back Massage',
