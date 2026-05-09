@@ -494,7 +494,7 @@ export default function YourSportsMassageClient() {
       <main style={{ background: '#000000' }}>
         <div
           ref={heroRef}
-          className={styles.hero}
+          className={`${styles.hero} ysm-hero-block`}
           style={{
             position: 'sticky',
             top: 'calc(-100vh + 280px)',
@@ -590,6 +590,14 @@ export default function YourSportsMassageClient() {
         @media (min-width: 1025px) {
           .ysm-hero-img-mobile { display: none !important; }
           .ysm-hero-img-desktop { display: block !important; }
+        }
+        @media (max-width: 767px) {
+          .ysm-hero-block {
+            position: relative !important;
+            top: 0 !important;
+            height: 280px !important;
+            min-height: 280px !important;
+          }
         }
       `}</style>
     </>
