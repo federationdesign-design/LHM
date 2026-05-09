@@ -195,9 +195,9 @@ function DesktopTreatments() {
                 {slide.type === 'intro' ? (
                   <div style={{ position: 'absolute', inset: 0, background: '#000000', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '72px 54px' }}>
                     <p style={{ fontSize: '0.72rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', marginBottom: 24, opacity: 0.5 }}>
-                      <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments
+                      <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments / Pregnancy
                     </p>
-                    <h1 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 32 }}>All Treatments</h1>
+                    <h1 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 32 }}>Pregnancy Treatments</h1>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                       {therapiesList.map((item) => (
                         <button
@@ -343,9 +343,9 @@ function MobileTreatments() {
             {slide.type === 'intro' ? (
               <div style={{ position: 'absolute', inset: 0, background: '#000000', display: 'flex', flexDirection: 'column', padding: '40px 28px 60px', overflowY: 'auto' }}>
                 <p style={{ fontSize: '0.7rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', marginBottom: 16, opacity: 0.5 }}>
-                  <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments
+                  <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments / Pregnancy
                 </p>
-                <h1 style={{ fontSize: '2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 28 }}>All Treatments</h1>
+                <h1 style={{ fontSize: '2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 28 }}>Pregnancy Treatments</h1>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   {therapiesList.map((item) => (
                     <button
