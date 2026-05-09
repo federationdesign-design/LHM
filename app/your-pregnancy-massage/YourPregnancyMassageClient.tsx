@@ -8,7 +8,7 @@ import Footer from '../Footer';
 import Testimonials from '../components/Testimonials/Testimonials';
 
 const therapiesList = [
-  { label: '60 minutes', href: '/treatments/60-min-pregnancy-massage', slideIndex: 1 },
+  { label: '60 minutes', href: '/treatments/pregnancy-massage', slideIndex: 1 },
   { label: '90 minutes', href: '/treatments/90-min-pregnancy-massage', slideIndex: 2 },
 ];
 
@@ -17,7 +17,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: '60-min-pregnancy-massage', title: '60 minutes',
     tagline: 'A safe, supportive treatment focused on the most common pregnancy aches — lower back, hips and shoulders. Time enough to ease tension and leave you feeling lighter, without committing to a longer session.',
-    image: '/Pregnancy-mobile.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/treatments/60-min-pregnancy-massage',
+    image: '/Pregnancy-mobile.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/treatments/pregnancy-massage',
   },
   {
     type: 'treatment' as const, slug: '90-min-pregnancy-massage', title: '90 minutes',
