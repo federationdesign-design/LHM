@@ -310,7 +310,7 @@ function MobileTreatments() {
   return (
     <div
       ref={wrapperRef}
-      style={{ position: 'relative', height: 'calc(67vh - 56px)', overflow: 'hidden', background: '#000000' }}
+      style={{ position: 'relative', height: '500px', overflow: 'hidden', background: '#000000' }}
     >
       <div
         ref={trackRef}
@@ -595,8 +595,8 @@ export default function YourSportsMassageClient() {
           .ysm-hero-block {
             position: relative !important;
             top: 0 !important;
-            height: 280px !important;
-            min-height: 280px !important;
+            height: 380px !important;
+            min-height: 380px !important;
           }
         }
       `}</style>
