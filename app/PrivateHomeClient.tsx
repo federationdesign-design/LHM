@@ -10,6 +10,10 @@ import Testimonials from './components/Testimonials/Testimonials';
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 
 const services = [
+  { slug: '30-min-massage', title: '30 Minute Massage', image: '/30-img.jpg', href: '/treatments/30-min-massage', cta: 'Book Treatment' },
+  { slug: '60-min-massage', title: '60 Minute Massage', image: '/60-img.jpg', href: '/treatments/60-min-massage', cta: 'Book Treatment' },
+  { slug: '90-min-massage', title: '90 Minute Massage', image: '/90-img.jpg', href: '/treatments/90-min-massage', cta: 'Book Treatment' },
+  { slug: '120-min-massage', title: '120 Minute Massage', image: '/120-img.jpg', href: '/treatments/120-min-massage', cta: 'Book Treatment' },
   { slug: 'deep-tissue-massage', title: 'Deep Tissue Massage', image: '/deep-tissue-img.jpg', href: '/treatments/deep-tissue-massage', cta: 'Book Treatment' },
   { slug: 'swedish-massage', title: 'Swedish Massage', image: '/swedish-mobile.jpg', href: '/treatments/swedish-massage', cta: 'Book Treatment' },
   { slug: 'sports-massage', title: 'Sports Massage', image: '/sports-mobile.jpg', href: '/treatments/sports-massage', cta: 'Book Treatment' },
@@ -138,6 +142,7 @@ function PromoCards() {
         border: '1px solid #ffffff',
         background: '#000000',
         height: '100%',
+        transition: 'transform 0.3s ease',
       }}
     >
       <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', overflow: 'hidden', background: '#1a1a1a' }}>
@@ -249,6 +254,7 @@ function PromoCards() {
           .hp-hero-img-desktop { display: block !important; }
         }
         .hp-promo-card-link:hover .hp-promo-card-img { filter: grayscale(0%) brightness(0.7); }
+        .hp-promo-card-link:hover { transform: translateY(-4px); }
 
         .hp-promo-card-title {
           font-size: 2rem;
