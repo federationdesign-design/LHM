@@ -239,7 +239,7 @@ function DesktopTreatments() {
                     )}
                     <div style={{ position: 'absolute', inset: 0, background: slide.image ? `${slide.color}44` : slide.color }} />
                     {slide.image && (
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)' }} />
+                      
                     )}
                     <div style={{ position: 'absolute', top: 90, left: 0, right: 0, textAlign: 'center', fontSize: '0.65rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.3)' }}>
                       {String(i).padStart(2, '0')} / {String(slides.length - 1).padStart(2, '0')}
@@ -389,7 +389,7 @@ function MobileTreatments() {
                 )}
                 <div style={{ position: 'absolute', inset: 0, background: slide.image ? `${slide.color}44` : slide.color }} />
                 {slide.image && (
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 55%, transparent 100%)' }} />
+                  
                 )}
                 <div style={{ position: 'absolute', top: 28, left: 0, right: 0, textAlign: 'center', fontSize: '0.65rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.5)' }}>
                   {String(i).padStart(2, '0')} / {String(slides.length - 1).padStart(2, '0')}
