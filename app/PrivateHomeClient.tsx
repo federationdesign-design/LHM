@@ -23,7 +23,7 @@ const services = [
   { slug: 'sports-therapy', title: 'Sports Therapy', image: '/sports-therapy-mobile.jpg', href: '/treatments/sports-therapy', cta: 'Book Treatment' },
   { slug: 'indian-head-massage', title: 'Indian Head Massage', image: '/Indian-Head-mobile.jpg', href: '/treatments/indian-head-massage', cta: 'Book Treatment' },
   { slug: 'hot-stone-massage', title: 'Hot Stone Massage', image: '/Hot-Stone-mobile.jpg', href: '/treatments/hot-stone-massage', cta: 'Book Treatment' },
-  { slug: 'cupping', title: 'Cupping Therapy', image: '/cupping-mobile.jpg', href: '/treatments/cupping', cta: 'Book Treatment' },
+  { slug: 'cupping', title: 'Cupping Therapy', image: '/cupping-mobile.jpg', href: '/your-cupping-massage', cta: 'Book Treatment' },
   { slug: 'locations', title: 'Our Locations', image: '/main-team-hero-img.jpg', href: '/locations', cta: 'View Locations' },
   { slug: 'gift-vouchers', title: 'Gift Vouchers', image: '/gift-voucher-hero.jpg', href: '/gift-vouchers', cta: 'Buy a Voucher' },
   { slug: 'contact', title: 'Get in Touch', image: '/get-in-touch-img.jpg', href: '/contact', cta: 'Contact Us' },

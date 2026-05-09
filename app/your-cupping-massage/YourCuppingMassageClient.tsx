@@ -2,89 +2,28 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import styles from './page.module.css';
-import Nav from './Nav';
-import Footer from './Footer';
+import styles from '../page.module.css';
+import Nav from '../Nav';
+import Footer from '../Footer';
+import Testimonials from '../components/Testimonials/Testimonials';
 
 const therapiesList = [
-  { label: 'Deep Tissue Massage', href: '/treatments/deep-tissue-massage', slideIndex: 1 },
-  { label: 'Swedish Massage', href: '/treatments/swedish-massage', slideIndex: 2 },
-  { label: 'Sports Massage', href: '/treatments/sports-massage', slideIndex: 3 },
-  { label: 'Relaxation Massage', href: '/treatments/relaxation-massage', slideIndex: 4 },
-  { label: 'Pregnancy Massage', href: '/your-pregnancy-massage', slideIndex: 5 },
-  { label: 'Hopi Ear & Back Massage', href: '/treatments/hopi-ear', slideIndex: 6 },
-  { label: 'Sports Therapy', href: '/treatments/sports-therapy', slideIndex: 7 },
-  { label: 'Indian Head Massage', href: '/treatments/indian-head-massage', slideIndex: 8 },
-  { label: 'Hot Stone Massage', href: '/treatments/hot-stone-massage', slideIndex: 9 },
-  { label: 'Cupping', href: '/your-cupping-massage', slideIndex: 10 },
-  { label: 'Your Sports Massage', href: '/your-sports-massage', slideIndex: 11 },
-  { label: 'Our Locations', href: '/locations', slideIndex: 12 },
-  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 13 },
-  { label: 'Get in Touch', href: '/contact', slideIndex: 14 },
-  { label: 'Claiming Receipts', href: '/contact', slideIndex: 15 },
+  { label: '60 minutes', href: '/treatments/cupping', slideIndex: 1 },
+  { label: '120 minutes', href: '/treatments/120-min-cupping', slideIndex: 2 },
 ];
 
 const slides = [
   { type: 'intro' as const, slug: 'intro', title: null, tagline: null, image: null, color: '#000000', cta: null, ctaHref: null },
   {
-    type: 'treatment' as const, slug: 'deep-tissue-massage', title: 'Deep Tissue Massage',
-    tagline: 'Deep tissue massage targets the deeper layers of muscle and connective tissue, using slow, firm strokes to release chronic tension and knots. Unlike a relaxation massage, deep tissue work focuses on specific problem areas — helping to restore movement, reduce pain and improve posture over time.',
-    image: '/hero.jpg', color: '#4e3225', cta: 'Book Now', ctaHref: '/treatments/deep-tissue-massage',
+    type: 'treatment' as const, slug: '60-min-cupping', title: '60 minutes',
+    tagline: 'A focused cupping session targeting one or two stubborn problem areas. Suits first-timers exploring the technique, or anyone with persistent tightness in a specific spot that has not responded to regular massage.',
+    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/cupping',
   },
   {
-    type: 'treatment' as const, slug: 'swedish-massage', title: 'Swedish Massage',
-    tagline: 'Swedish massage is a classic full-body treatment using long, flowing strokes, kneading and circular movements to promote deep relaxation. It improves circulation, eases muscle tension and leaves you feeling calm and restored.',
-    image: '/swedish-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/swedish-massage',
+    type: 'treatment' as const, slug: '120-min-cupping', title: '120 minutes',
+    tagline: 'Extended fascial release across multiple areas with time to layer techniques and address chronic restriction. Best for entrenched tightness, recovery from heavy training blocks, or when 60 minutes is not quite enough.',
+    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/120-min-cupping',
   },
-  {
-    type: 'treatment' as const, slug: 'sports-massage', title: 'Sports Massage',
-    tagline: 'Sports massage is a targeted treatment designed for active individuals, combining deep tissue techniques with stretching to prevent injury, aid recovery and improve performance. Whether you are training regularly or recovering from an event, sports massage keeps your body functioning at its best.',
-    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/sports-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'relaxation-massage', title: 'Relaxation Massage',
-    tagline: 'A relaxation massage uses light to medium pressure with long, slow strokes to calm the nervous system and ease both physical and mental tension. It is a deeply restorative treatment — the perfect way to step away from the demands of daily life.',
-    image: '/relaxation-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/relaxation-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'pregnancy-massage', title: 'Pregnancy Massage',
-    tagline: 'Pregnancy massage is a specially adapted treatment designed to support the physical and emotional changes of pregnancy. Our therapists help relieve common discomforts including back pain, swelling and fatigue — providing both physical relief and a much-needed moment of calm.',
-    image: '/Pregnancy-mobile.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/your-pregnancy-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'hopi-ear', title: 'Hopi Ear & Back Massage',
-    tagline: 'A combined treatment pairing the traditional Hopi Ear ritual with a focused back massage. The gentle warmth of the hollow Hopi candle eases pressure around the ears and sinuses, while the back massage releases tension across the shoulders, neck and upper back.',
-    image: '/hopi-mobile.jpg', color: '#d57640', cta: 'Book Now', ctaHref: '/treatments/hopi-ear',
-  },
-  {
-    type: 'treatment' as const, slug: 'sports-therapy', title: 'Sports Therapy',
-    tagline: 'Our sports therapy service provides expert assessment and hands-on treatment for a wide range of musculoskeletal conditions. From acute injuries to chronic pain and postural problems, our qualified sports therapists use evidence-based techniques to restore function and reduce pain.',
-    image: '/sports-therapy-mobile.jpg', color: '#b46a51', cta: 'Book Now', ctaHref: '/treatments/sports-therapy',
-  },
-  {
-    type: 'treatment' as const, slug: 'indian-head-massage', title: 'Indian Head Massage',
-    tagline: 'A traditional therapy focused on the head, scalp, neck and shoulders — the areas where most of us hold daily stress. Using a blend of firm and gentle techniques, the treatment eases muscular tension, calms a busy mind and leaves you feeling deeply restored.',
-    image: '/Indian-Head-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/indian-head-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'hot-stone-massage', title: 'Hot Stone Massage',
-    tagline: 'Smooth, heated basalt stones placed on key points of the body and used as an extension of the therapist\'s hands. The penetrating warmth allows muscles to relax far more deeply than they would under hands alone — releasing tension that lighter treatments cannot reach.',
-    image: '/Hot-Stone-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/hot-stone-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'cupping', title: 'Cupping Therapy',
-    tagline: 'A traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access — releasing deep-seated tension and supporting natural recovery.',
-    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/your-cupping-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'your-sports-massage', title: 'Your Sports Massage',
-    tagline: 'Tailored sports massage in 30, 60, 90 or 120 minute sessions. Choose the duration that suits your needs — from a quick targeted session to a full-body deep reset.',
-    image: '/sports-therapy-mobile.jpg', color: '#1a1a1a', cta: 'Choose Duration', ctaHref: '/your-sports-massage',
-  },
-  { type: 'treatment' as const, slug: 'locations', title: 'Our Locations', tagline: 'Two clinics in Cambridge — Thoday Street and Cromwell Road. All treatments available at both locations.', image: '/deep-tissue-img.jpg', color: '#28303a', cta: 'View Locations', ctaHref: '/locations' },
-  { type: 'treatment' as const, slug: 'gift-vouchers', title: 'Gift Vouchers', tagline: 'Give the gift of relaxation — the perfect treat for someone special. Redeemable against any treatment at either clinic. Valid for 12 months.', image: '/gift-voucher-hero.jpg', color: '#3a3028', cta: 'Buy a Voucher', ctaHref: '/gift-vouchers' },
-  { type: 'treatment' as const, slug: 'contact', title: 'Get in Touch', tagline: "Have a question? We're always happy to help. Get in touch with our team and we'll get back to you as soon as possible.", image: '/get-in-touch-img.jpg', color: '#2a2a2a', cta: 'Contact Us', ctaHref: '/contact' },
-  { type: 'treatment' as const, slug: 'receipts', title: 'Claiming Receipts', tagline: 'Need a receipt for your treatment? We can provide one on request — useful if you are claiming through private health insurance or a corporate wellness scheme.', image: '/claiming-receipts.jpg', color: '#28303a', cta: 'Learn More', ctaHref: '/contact' },
 ];
 
 const CARD_WIDTH_VW = 40;
@@ -212,8 +151,8 @@ function DesktopTreatments() {
   }, []);
 
   return (
-    <div ref={sectionRef} style={{ height: `${slides.length * 110}vh`, position: 'relative' }}>
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+    <div ref={sectionRef} style={{ height: `${slides.length * 75}vh`, position: 'relative' }}>
+      <div style={{ position: 'sticky', top: 280, height: '67vh', overflow: 'hidden' }}>
 
         {/* Bottom progress dots — homepage-style 15px circles, 2px border,
             transparent off-state. Replaces the previous 18px white pills. */}
@@ -256,14 +195,14 @@ function DesktopTreatments() {
                 {slide.type === 'intro' ? (
                   <div style={{ position: 'absolute', inset: 0, background: '#000000', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '72px 54px' }}>
                     <p style={{ fontSize: '0.72rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', marginBottom: 24, opacity: 0.5 }}>
-                      <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments
+                      <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments / Cupping
                     </p>
-                    <h1 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 32 }}>All Treatments</h1>
+                    <h1 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 32 }}>Cupping Treatments</h1>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                       {therapiesList.map((item) => (
                         <button
                           key={item.label}
-                          onClick={() => scrollToSlide(item.slideIndex)}
+                          onClick={() => { window.location.href = item.href; }}
                           style={{ fontSize: '0.96rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4, background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'left', textDecoration: 'none', display: 'flex', alignItems: 'flex-start', gap: 10, opacity: 0.85 }}
                           onMouseEnter={e => { e.currentTarget.style.opacity = '1'; (e.currentTarget.querySelector('.li-arrow') as HTMLElement).style.opacity = '1'; }}
                           onMouseLeave={e => { e.currentTarget.style.opacity = '0.85'; (e.currentTarget.querySelector('.li-arrow') as HTMLElement).style.opacity = '0'; }}
@@ -287,19 +226,11 @@ function DesktopTreatments() {
                       </div>
                     )}
                     <div style={{ position: 'absolute', inset: 0, background: slide.image ? `${slide.color}44` : slide.color }} />
-                    {slide.image && (
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)' }} />
-                    )}
-                    <div style={{ position: 'absolute', top: 90, left: 0, right: 0, textAlign: 'center', fontSize: '0.65rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.3)' }}>
-                      {String(i).padStart(2, '0')} / {String(slides.length - 1).padStart(2, '0')}
-                    </div>
-                    <div style={{ position: 'absolute', bottom: 240, left: 0, right: 0, padding: '0 90px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ position: 'absolute', inset: 0, padding: '90px 90px 32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
                       <a href={slide.ctaHref!} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <h2 style={{ fontSize: 'clamp(1.4rem, 2vw, 2.1rem)', fontWeight: 600, color: '#ffffff', marginBottom: 14, lineHeight: 1.15 }}>{slide.title}</h2>
+                        <h2 style={{ fontSize: 'clamp(1.4rem, 2vw, 2.1rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.15, margin: 0 }}>{slide.title}</h2>
                       </a>
-                      <div style={{ height: 160, display: 'flex', alignItems: 'flex-start', marginBottom: 28 }}>
-                        <p style={{ fontSize: '0.94rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4, opacity: 0.85, ...lineClamp(6) }}>{slide.tagline}</p>
-                      </div>
+                      <p style={{ fontSize: '0.94rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4, opacity: 0.85, margin: 0, ...lineClamp(6) }}>{slide.tagline}</p>
                       <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <a
                           href={slide.ctaHref!}
@@ -334,14 +265,26 @@ function MobileTreatments() {
   const trackRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wheelLockRef = useRef(false);
+  // On mobile, only render the intro slide — duration menu links direct to /treatments/X-min-massage
+  const mobileSlides = slides.filter(s => s.type === 'intro');
 
   const goTo = useCallback((i: number) => {
-    const clamped = Math.max(0, Math.min(slides.length - 1, i));
+    const clamped = Math.max(0, Math.min(mobileSlides.length - 1, i));
     setIndex(clamped);
   }, []);
 
+  const startY = useRef(0);
   const handleTouchStart = (e: React.TouchEvent) => {
     startX.current = e.touches[0].clientX;
+    startY.current = e.touches[0].clientY;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const dx = Math.abs(startX.current - e.touches[0].clientX);
+    const dy = Math.abs(startY.current - e.touches[0].clientY);
+    // If horizontal swipe is dominant, prevent vertical scroll
+    if (dx > dy && dx > 10) {
+      e.preventDefault();
+    }
   };
   const handleTouchEnd = (e: React.TouchEvent) => {
     const dx = startX.current - e.changedTouches[0].clientX;
@@ -360,29 +303,33 @@ function MobileTreatments() {
       setTimeout(() => { wheelLockRef.current = false; }, 500);
       goTo(index + (delta > 0 ? 1 : -1));
     };
-    wrapper.addEventListener('wheel', handleWheel, { passive: false });
-    return () => wrapper.removeEventListener('wheel', handleWheel);
+    // Only attach wheel handler on non-touch devices
+    if (!('ontouchstart' in window)) {
+      wrapper.addEventListener('wheel', handleWheel, { passive: false });
+      return () => wrapper.removeEventListener('wheel', handleWheel);
+    }
   }, [index, goTo]);
 
   return (
     <div
       ref={wrapperRef}
-      style={{ position: 'relative', height: 'calc(100vh - 56px)', overflow: 'hidden', background: '#000000' }}
+      style={{ position: 'relative', height: '500px', overflow: 'hidden', background: '#000000', touchAction: 'pan-x' }}
     >
       <div
         ref={trackRef}
         style={{
           display: 'flex',
           height: '100%',
-          width: `${slides.length * 100}vw`,
+          width: `${mobileSlides.length * 100}vw`,
           transform: `translateX(-${index * 100}vw)`,
           transition: 'transform 0.4s ease',
           willChange: 'transform',
         }}
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {slides.map((slide, i) => (
+        {mobileSlides.map((slide, i) => (
           <div
             key={slide.slug}
             style={{
@@ -396,14 +343,14 @@ function MobileTreatments() {
             {slide.type === 'intro' ? (
               <div style={{ position: 'absolute', inset: 0, background: '#000000', display: 'flex', flexDirection: 'column', padding: '40px 28px 60px', overflowY: 'auto' }}>
                 <p style={{ fontSize: '0.7rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', marginBottom: 16, opacity: 0.5 }}>
-                  <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments
+                  <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments / Cupping
                 </p>
-                <h1 style={{ fontSize: '2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 28 }}>All Treatments</h1>
+                <h1 style={{ fontSize: '2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 28 }}>Cupping Treatments</h1>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   {therapiesList.map((item) => (
                     <button
                       key={item.label}
-                      onClick={() => goTo(item.slideIndex)}
+                      onClick={() => { window.location.href = item.href; }}
                       style={{
                         fontSize: '1rem',
                         fontWeight: 300,
@@ -437,17 +384,11 @@ function MobileTreatments() {
                   </div>
                 )}
                 <div style={{ position: 'absolute', inset: 0, background: slide.image ? `${slide.color}44` : slide.color }} />
-                {slide.image && (
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 55%, transparent 100%)' }} />
-                )}
-                <div style={{ position: 'absolute', top: 28, left: 0, right: 0, textAlign: 'center', fontSize: '0.65rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.5)' }}>
-                  {String(i).padStart(2, '0')} / {String(slides.length - 1).padStart(2, '0')}
-                </div>
-                <div style={{ position: 'absolute', bottom: 110, left: 0, right: 0, padding: '0 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ position: 'absolute', inset: 0, padding: '60px 32px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 16 }}>
                   <a href={slide.ctaHref!} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <h2 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', marginBottom: 14, lineHeight: 1.15 }}>{slide.title}</h2>
+                    <h2 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.15, margin: 0 }}>{slide.title}</h2>
                   </a>
-                  <p style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.45, opacity: 0.9, marginBottom: 22, maxWidth: 420, ...lineClamp(5) }}>{slide.tagline}</p>
+                  <p style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.45, opacity: 0.9, maxWidth: 420, margin: 0, ...lineClamp(5) }}>{slide.tagline}</p>
                   <a
                     href={slide.ctaHref!}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: '0.72rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', textDecoration: 'none', border: '1px solid #ffffff', padding: '11px 22px' }}
@@ -465,7 +406,7 @@ function MobileTreatments() {
       {/* Bottom pagination dots — homepage-style 15px circles, 2px border,
           transparent off-state. Replaces the previous 16px white pills. */}
       <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 20, display: 'flex', gap: 8, alignItems: 'center' }}>
-        {slides.map((_, i) => (
+        {mobileSlides.map((_, i) => (
           <NavDot
             key={i}
             active={i === index}
@@ -478,13 +419,126 @@ function MobileTreatments() {
   );
 }
 
-export default function TreatmentsIndexClient() {
+const logos = [
+  { src: '/bookingpage.png', alt: 'BookingPage', href: 'https://booking.page/en/company/page/lucyhallmassage' },
+  { src: '/tripadisvor.svg', alt: 'Tripadvisor', href: 'https://www.tripadvisor.co.uk/Attraction_Review-g186225-d19454707-Reviews-Lucy_Hall_Massage-Cambridge_Cambridgeshire_England.html' },
+  { src: '/SBM-logo.png', alt: 'SimplyBook.me', href: 'https://lucyhallmassage.simplybook.it/v2/' },
+  { src: '/linked_in.png', alt: 'LinkedIn', href: 'https://www.linkedin.com/in/lucy-hall-massage-47369141/' },
+  { src: '/where-logo.png', alt: 'Wheree', href: 'https://lucy-hall-massage-therapy.wheree.com' },
+];
+
+function LogoSliderWithHeading() {
+  const total = logos.length;
+  const extended = [logos[total - 1], ...logos, logos[0]];
+  const [index, setIndex] = useState(1);
+  const [animate, setAnimate] = useState(true);
+  const startX = useRef(0);
+  const go = (n: number) => { setAnimate(true); setIndex(n); };
+  const handleTransitionEnd = () => {
+    if (index === 0) { setAnimate(false); setIndex(total); }
+    else if (index === total + 1) { setAnimate(false); setIndex(1); }
+  };
+
+  return (
+    <div style={{ paddingTop: 40 }}>
+      <h3 style={{ fontSize: '0.9rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', color: '#ffffff', textAlign: 'center', marginBottom: 24, opacity: 0.7 }}>
+        Find us on:
+      </h3>
+      <div className={styles.logoSlider}>
+        <div
+          className={animate ? styles.logoTrack : styles.logoTrackNoAnim}
+          style={{ transform: `translateX(${25 - index * 50}%)` }}
+          onTransitionEnd={handleTransitionEnd}
+          onTouchStart={e => { startX.current = e.touches[0].clientX; }}
+          onTouchEnd={e => { const dx = startX.current - e.changedTouches[0].clientX; if (Math.abs(dx) > 30) go(index + (dx > 0 ? 1 : -1)); }}
+        >
+          {extended.map((logo, i) => (
+            <div key={i} className={styles.logoSlide}>
+              <a href={logo.href} target="_blank" rel="noopener noreferrer" aria-label={logo.alt}>
+                <img src={logo.src} alt={logo.alt} className={styles.logoImg} draggable={false} />
+              </a>
+            </div>
+          ))}
+        </div>
+        <div className={styles.logoRow}>
+          {logos.map((logo) => (
+            <a key={logo.alt} href={logo.href} target="_blank" rel="noopener noreferrer" aria-label={logo.alt}>
+              <img src={logo.src} alt={logo.alt} className={styles.logoRowImg} draggable={false} />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function YourCuppingMassageClient() {
   const isMobile = useIsMobile();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const scrollOverlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const hero = heroRef.current;
+      const overlay = scrollOverlayRef.current;
+      if (!hero || !overlay) return;
+      const heroH = hero.offsetHeight;
+      const scrolled = Math.max(0, Math.min(heroH, window.scrollY));
+      const opacity = scrolled / heroH;
+      overlay.style.opacity = String(opacity);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <>
-      <Nav solid />
+      <Nav scrollRef={heroRef} />
       <main style={{ background: '#000000' }}>
+        <div
+          ref={heroRef}
+          className={`${styles.hero} ycm-hero-block`}
+          style={{
+            position: 'sticky',
+            top: 'calc(-100vh + 280px)',
+            height: '100vh',
+            minHeight: '100vh',
+            backgroundColor: '#1a1a1a',
+            zIndex: 5,
+          }}
+        >
+          <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
+          <div className={styles.heroGradient} />
+
+          <span className="ycm-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
+            <Image
+              src="/cupping-mobile.jpg"
+              alt="Your Cupping Massage"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
+
+          <span className="ycm-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
+            <Image
+              src="/cupping-desktop.jpg"
+              alt="Your Cupping Massage"
+              fill
+              priority
+              sizes="100vw"
+              style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }}
+            />
+          </span>
+
+          <div className={styles.heroContent} style={{ zIndex: 10, paddingRight: 0, maxWidth: 'none' }}>
+            <h1 className={styles.heroH1}>Your Cupping Massage</h1>
+            <p className={styles.heroSub}>Choose your duration</p>
+          </div>
+        </div>
+
         {isMobile === null ? (
           <div style={{ height: '100vh' }} />
         ) : isMobile ? (
@@ -492,8 +546,64 @@ export default function TreatmentsIndexClient() {
         ) : (
           <DesktopTreatments />
         )}
+        {/* Why you need this — pulled from cupping service data */}
+        <section className={styles.serviceSection}>
+          <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
+          <p style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block' }}>
+            Cupping is a traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access, releasing deep-seated tension, improving circulation and supporting the body's natural recovery. Particularly effective for stubborn tightness and movement restriction.
+          </p>
+          <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+            <div className={styles.serviceGrid}>
+              <div>
+                <h3 style={{ fontSize: '1.08rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
+                  Benefits of this treatment on your body:
+                </h3>
+                <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Releases deep fascial tension and adhesions</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Improves blood flow to tight or restricted areas</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Eases stubborn knots that resist regular massage</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Supports recovery from training or injury</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Improves range of motion in restricted joints</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Encourages the body's natural healing response</li>
+                </ul>
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.08rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
+                  We recommend this treatment for:
+                </h3>
+                <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People with stubborn, deep-seated muscle tightness</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Athletes managing recovery and overuse</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Those with chronic back or shoulder restrictions</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Anyone whose tightness has not responded to standard massage</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People with fascial adhesions from old injuries</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Those curious about traditional bodywork therapies</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Testimonials heading="Happy private clients include" />
+        <LogoSliderWithHeading />
         <Footer />
       </main>
+
+      <style>{`
+        .ycm-hero-img-desktop { display: none; }
+        @media (min-width: 1025px) {
+          .ycm-hero-img-mobile { display: none !important; }
+          .ycm-hero-img-desktop { display: block !important; }
+        }
+        @media (max-width: 767px) {
+          .ycm-hero-block {
+            position: relative !important;
+            top: 0 !important;
+            height: 380px !important;
+            min-height: 380px !important;
+          }
+        }
+      `}</style>
     </>
   );
 }

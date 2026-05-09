@@ -482,4 +482,37 @@ export const services: Record<string, Service> = {
     ],
   },
 
+  '120-min-cupping': {
+    slug: '120-min-cupping',
+    title: '120 Minute Cupping',
+    h1: '120 Minute Cupping Therapy',
+    tagline: 'Book your appointment in just two minutes with our simple online booking system.',
+    heroMobile: '/cupping-mobile.jpg',
+    heroDesktop: '/cupping-desktop.jpg',
+    heroColor: '#cb8f77',
+    metaTitle: '120 Minute Cupping Therapy Cambridge | Lucy Hall Massage Therapy',
+    metaDescription: 'Book a 120 minute cupping therapy session in Cambridge with Lucy Hall Massage Therapy. Extended fascial release for deep, stubborn tension across multiple areas. Book online in 2 minutes.',
+    keywords: ['120 minute cupping cambridge', 'cupping therapy cambridge', 'extended cupping session cambridge', 'fascial release cambridge'],
+    canonicalUrl: 'https://www.lucyhallmassage.com/treatments/120-min-cupping/',
+    widgetService: '25',
+    widgetLocation: '2',
+    intro: "Cupping is a traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access, releasing deep-seated tension, improving circulation and supporting the body's natural recovery. Particularly effective for stubborn tightness and movement restriction.",
+    benefits: [
+      'Releases deep fascial tension and adhesions',
+      'Improves blood flow to tight or restricted areas',
+      'Eases stubborn knots that resist regular massage',
+      'Supports recovery from training or injury',
+      'Improves range of motion in restricted joints',
+      "Encourages the body's natural healing response",
+    ],
+    recommendedFor: [
+      'People with stubborn, deep-seated muscle tightness',
+      'Athletes managing recovery and overuse',
+      'Those with chronic back or shoulder restrictions',
+      'Anyone whose tightness has not responded to standard massage',
+      'People with fascial adhesions from old injuries',
+      'Those curious about traditional bodywork therapies',
+    ],
+  },
+
 };
