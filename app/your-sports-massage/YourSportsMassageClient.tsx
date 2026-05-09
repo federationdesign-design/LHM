@@ -283,15 +283,22 @@ function MobileTreatments() {
     setIndex(clamped);
   }, []);
 
+  const startY = useRef(0);
   const handleTouchStart = (e: React.TouchEvent) => {
     startX.current = e.touches[0].clientX;
+    startY.current = e.touches[0].clientY;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const dx = Math.abs(startX.current - e.touches[0].clientX);
+    const dy = Math.abs(startY.current - e.touches[0].clientY);
+    // If horizontal swipe is dominant, prevent vertical scroll
+    if (dx > dy && dx > 10) {
+      e.preventDefault();
+    }
   };
   const handleTouchEnd = (e: React.TouchEvent) => {
     const dx = startX.current - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 40) {
-      e.preventDefault();
-      goTo(index + (dx > 0 ? 1 : -1));
-    }
+    if (Math.abs(dx) > 40) goTo(index + (dx > 0 ? 1 : -1));
   };
 
   useEffect(() => {
@@ -306,8 +313,11 @@ function MobileTreatments() {
       setTimeout(() => { wheelLockRef.current = false; }, 500);
       goTo(index + (delta > 0 ? 1 : -1));
     };
-    wrapper.addEventListener('wheel', handleWheel, { passive: false });
-    return () => wrapper.removeEventListener('wheel', handleWheel);
+    // Only attach wheel handler on non-touch devices
+    if (!('ontouchstart' in window)) {
+      wrapper.addEventListener('wheel', handleWheel, { passive: false });
+      return () => wrapper.removeEventListener('wheel', handleWheel);
+    }
   }, [index, goTo]);
 
   return (
@@ -326,6 +336,7 @@ function MobileTreatments() {
           willChange: 'transform',
         }}
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         {slides.map((slide, i) => (
