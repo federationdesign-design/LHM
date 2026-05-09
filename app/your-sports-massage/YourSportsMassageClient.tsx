@@ -17,24 +17,24 @@ const therapiesList = [
 const slides = [
   { type: 'intro' as const, slug: 'intro', title: null, tagline: null, image: null, color: '#000000', cta: null, ctaHref: null },
   {
-    type: 'treatment' as const, slug: 'deep-tissue-massage', title: '30 minutes',
+    type: 'treatment' as const, slug: '30-min-massage', title: '30 minutes',
     tagline: "A focused session on one trouble area. Ideal if you have got a single tight spot — neck, shoulders, lower back — that needs attention before a busy week. Quick to fit in over a lunch break and you will leave noticeably looser.",
-    image: '/hero.jpg', color: '#4e3225', cta: 'Book Now', ctaHref: '/treatments/deep-tissue-massage',
+    image: '/hero.jpg', color: '#4e3225', cta: 'Book Now', ctaHref: '/treatments/30-min-massage',
   },
   {
-    type: 'treatment' as const, slug: 'swedish-massage', title: '60 minutes',
+    type: 'treatment' as const, slug: '60-min-massage', title: '60 minutes',
     tagline: 'Our most popular choice. Time enough to address two or three areas, balanced between treatment and relaxation. Suits anyone wanting solid pressure on problem spots without committing to a longer session.',
-    image: '/swedish-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/swedish-massage',
+    image: '/swedish-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/60-min-massage',
   },
   {
-    type: 'treatment' as const, slug: 'sports-massage', title: '90 minutes',
+    type: 'treatment' as const, slug: '90-min-massage', title: '90 minutes',
     tagline: "Deeper work with room to breathe. We can layer techniques, cover the full body, and still spend extra time on persistent issues. Good post-event, after a high-stress period, or when 60 minutes has not been quite enough.",
-    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/sports-massage',
+    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/90-min-massage',
   },
   {
-    type: 'treatment' as const, slug: 'relaxation-massage', title: '120 minutes',
+    type: 'treatment' as const, slug: '120-min-massage', title: '120 minutes',
     tagline: 'The full reset. Two hours gives space for complete head-to-toe coverage plus extended attention to long-standing tension. Best for chronic issues, recovery from heavy training blocks, or when you simply need the deepest work we offer.',
-    image: '/relaxation-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/relaxation-massage',
+    image: '/relaxation-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/120-min-massage',
   },
 ];
 
