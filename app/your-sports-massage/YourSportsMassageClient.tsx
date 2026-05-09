@@ -163,8 +163,8 @@ function DesktopTreatments() {
   }, []);
 
   return (
-    <div ref={sectionRef} style={{ height: `${slides.length * 110}vh`, position: 'relative' }}>
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+    <div ref={sectionRef} style={{ height: `${slides.length * 75}vh`, position: 'relative' }}>
+      <div style={{ position: 'sticky', top: 0, height: '67vh', overflow: 'hidden' }}>
 
         {/* Bottom progress dots — homepage-style 15px circles, 2px border,
             transparent off-state. Replaces the previous 18px white pills. */}
@@ -318,7 +318,7 @@ function MobileTreatments() {
   return (
     <div
       ref={wrapperRef}
-      style={{ position: 'relative', height: 'calc(100vh - 56px)', overflow: 'hidden', background: '#000000' }}
+      style={{ position: 'relative', height: 'calc(67vh - 56px)', overflow: 'hidden', background: '#000000' }}
     >
       <div
         ref={trackRef}
