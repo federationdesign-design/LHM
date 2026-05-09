@@ -288,7 +288,10 @@ function MobileTreatments() {
   };
   const handleTouchEnd = (e: React.TouchEvent) => {
     const dx = startX.current - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 40) goTo(index + (dx > 0 ? 1 : -1));
+    if (Math.abs(dx) > 40) {
+      e.preventDefault();
+      goTo(index + (dx > 0 ? 1 : -1));
+    }
   };
 
   useEffect(() => {
@@ -310,7 +313,7 @@ function MobileTreatments() {
   return (
     <div
       ref={wrapperRef}
-      style={{ position: 'relative', height: '500px', overflow: 'hidden', background: '#000000' }}
+      style={{ position: 'relative', height: '500px', overflow: 'hidden', background: '#000000', touchAction: 'pan-x' }}
     >
       <div
         ref={trackRef}
