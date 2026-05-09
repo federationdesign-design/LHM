@@ -518,7 +518,7 @@ export default function YourSportsMassageClient() {
           <span className="ysm-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
             <Image
               src="/sports-therapy-mobile.jpg"
-              alt="Sports Therapy"
+              alt="Your Sports Massage"
               fill
               priority
               sizes="100vw"
@@ -529,7 +529,7 @@ export default function YourSportsMassageClient() {
           <span className="ysm-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
             <Image
               src="/sports-therapy-desktop.jpg"
-              alt="Sports Therapy"
+              alt="Your Sports Massage"
               fill
               priority
               sizes="100vw"
@@ -538,7 +538,7 @@ export default function YourSportsMassageClient() {
           </span>
 
           <div className={styles.heroContent} style={{ zIndex: 10 }}>
-            <h1 className={styles.heroH1}>Sports Therapy</h1>
+            <h1 className={styles.heroH1}>Your Sports Massage</h1>
             <p className={styles.heroSub}>Choose your duration</p>
           </div>
         </div>

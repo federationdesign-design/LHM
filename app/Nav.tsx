@@ -16,6 +16,7 @@ import styles from './page.module.css';
 const menuItems: [string, string][] = [
   ['Home', '/private'],
   ['Treatments', '/treatments'],
+  ['Your Sports Massage', '/your-sports-massage'],
   ['Locations', '/locations'],
   ['Our Team', '/team'],
   ['Testimonials', '/testimonials'],
