@@ -241,13 +241,11 @@ function DesktopTreatments() {
                     <div style={{ position: 'absolute', top: 90, left: 0, right: 0, textAlign: 'center', fontSize: '0.65rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.3)' }}>
                       {String(i).padStart(2, '0')} / {String(slides.length - 1).padStart(2, '0')}
                     </div>
-                    <div style={{ position: 'absolute', bottom: 240, left: 0, right: 0, padding: '0 90px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ position: 'absolute', inset: 0, padding: '90px 90px 32px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
                       <a href={slide.ctaHref!} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <h2 style={{ fontSize: 'clamp(1.4rem, 2vw, 2.1rem)', fontWeight: 600, color: '#ffffff', marginBottom: 14, lineHeight: 1.15 }}>{slide.title}</h2>
+                        <h2 style={{ fontSize: 'clamp(1.4rem, 2vw, 2.1rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.15, margin: 0 }}>{slide.title}</h2>
                       </a>
-                      <div style={{ height: 160, display: 'flex', alignItems: 'flex-start', marginBottom: 28 }}>
-                        <p style={{ fontSize: '0.94rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4, opacity: 0.85, ...lineClamp(6) }}>{slide.tagline}</p>
-                      </div>
+                      <p style={{ fontSize: '0.94rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4, opacity: 0.85, margin: 0, ...lineClamp(6) }}>{slide.tagline}</p>
                       <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <a
                           href={slide.ctaHref!}
@@ -388,11 +386,11 @@ function MobileTreatments() {
                 <div style={{ position: 'absolute', top: 28, left: 0, right: 0, textAlign: 'center', fontSize: '0.65rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(255,255,255,0.5)' }}>
                   {String(i).padStart(2, '0')} / {String(slides.length - 1).padStart(2, '0')}
                 </div>
-                <div style={{ position: 'absolute', bottom: 110, left: 0, right: 0, padding: '0 32px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ position: 'absolute', inset: 0, padding: '60px 32px 28px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 16 }}>
                   <a href={slide.ctaHref!} style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <h2 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', marginBottom: 14, lineHeight: 1.15 }}>{slide.title}</h2>
+                    <h2 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.15, margin: 0 }}>{slide.title}</h2>
                   </a>
-                  <p style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.45, opacity: 0.9, marginBottom: 22, maxWidth: 420, ...lineClamp(5) }}>{slide.tagline}</p>
+                  <p style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.45, opacity: 0.9, maxWidth: 420, margin: 0, ...lineClamp(5) }}>{slide.tagline}</p>
                   <a
                     href={slide.ctaHref!}
                     style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: '0.72rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', textDecoration: 'none', border: '1px solid #ffffff', padding: '11px 22px' }}
