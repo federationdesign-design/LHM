@@ -550,6 +550,44 @@ export default function YourSportsMassageClient() {
         ) : (
           <DesktopTreatments />
         )}
+        {/* Why you need this — pulled from sports-massage service data */}
+        <section className={styles.serviceSection}>
+          <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
+          <p style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block' }}>
+            Sports massage is a targeted treatment designed for active individuals, combining deep tissue techniques with stretching to prevent injury, aid recovery and improve performance. Whether you are training regularly or recovering from an event, sports massage keeps your body functioning at its best.
+          </p>
+          <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
+            <div className={styles.serviceGrid}>
+              <div>
+                <h3 style={{ fontSize: '1.08rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
+                  Benefits of this treatment on your body:
+                </h3>
+                <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Speeds up muscle recovery after exercise</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Reduces risk of sports injuries</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Improves flexibility and range of motion</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Breaks down lactic acid build-up</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Enhances athletic performance</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Treats specific areas of overuse</li>
+                </ul>
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1.08rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
+                  We recommend this treatment for:
+                </h3>
+                <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Regular gym-goers and athletes</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Runners, cyclists and swimmers</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People recovering from a sports injury</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Those with tight or overworked muscles</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Anyone training for an event</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People with recurring muscle problems</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <Testimonials heading="Happy private clients include" />
         <LogoSliderWithHeading />
         <Footer />
