@@ -62,7 +62,7 @@ export const team: Record<string, TeamMember> = {
     bio: [
       'Orla is an experienced massage therapist based at our Thoday Street clinic in Cambridge. She specialises in cupping therapy, deep tissue and sports massage — bringing a focused, clinical approach to each treatment that gets real results for her clients.',
       'Orla works with a wide range of clients, from those recovering from sports injuries and muscular strain to people looking to address long-standing postural issues or chronic pain. Her cupping treatments are particularly popular for releasing deep fascial tension and improving circulation.',
-      'Orla holds a Level 3 Certificate in Massage Therapy and a Level 4 Certificate in Sports Massage Therapy, accredited by the Complementary and Natural Healthcare Council (CNHC). She is also a trained cupping therapy practitioner and a member of the Federation of Holistic Therapists (FHT).',
+      'Orla holds a degree in Sports Therapy, alongside a Level 3 Certificate in Massage Therapy and a Level 4 Certificate in Sports Massage Therapy, accredited by the Complementary and Natural Healthcare Council (CNHC). She is also a trained cupping therapy practitioner and a member of the Federation of Holistic Therapists (FHT).',
     ],
     treatments: ['Cupping', 'Deep Tissue Massage', 'Sports Massage'],
     heroColor: '#2a2a2a',

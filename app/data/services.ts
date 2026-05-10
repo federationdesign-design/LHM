@@ -15,6 +15,7 @@ export interface Service {
   canonicalUrl: string;
   widgetService: string;
   widgetLocation: string;
+  widgetProvider?: string;
   intro: string;
   benefits: string[];
   recommendedFor: string[];
@@ -198,6 +199,7 @@ export const services: Record<string, Service> = {
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/swedish-massage/',
     widgetService: '14',
     widgetLocation: '4',
+    widgetProvider: '22',
     intro: 'Swedish massage is a classic full-body treatment using long, flowing strokes, kneading and circular movements to promote deep relaxation. It improves circulation, eases muscle tension and leaves you feeling calm and restored. It is the ideal treatment for those new to massage or simply in need of some time to unwind.',
     benefits: [
       'Promotes full body relaxation',
@@ -264,6 +266,7 @@ export const services: Record<string, Service> = {
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/relaxation-massage/',
     widgetService: '12',
     widgetLocation: '4',
+    widgetProvider: '22',
     intro: 'A relaxation massage uses light to medium pressure with long, slow strokes to calm the nervous system and ease both physical and mental tension. It is a deeply restorative treatment — the perfect way to step away from the demands of daily life and give your body and mind the rest they deserve.',
     benefits: [
       'Calms the nervous system',
@@ -512,6 +515,39 @@ export const services: Record<string, Service> = {
       'Anyone whose tightness has not responded to standard massage',
       'People with fascial adhesions from old injuries',
       'Those curious about traditional bodywork therapies',
+    ],
+  },
+
+  'sports-therapy': {
+    slug: 'sports-therapy',
+    title: 'Sports Therapy',
+    h1: 'Sports Therapy',
+    tagline: 'Book your appointment in just two minutes with our simple online booking system.',
+    heroMobile: '/sports-therapy-mobile.jpg',
+    heroDesktop: '/sports-therapy-desktop.jpg',
+    heroColor: '#8e3f49',
+    metaTitle: 'Sports Therapy Cambridge | Lucy Hall Massage Therapy',
+    metaDescription: 'Book Sports Therapy in Cambridge with Lucy Hall Massage Therapy. Expert assessment and treatment for injury, pain and movement problems. Book online in 2 minutes.',
+    keywords: ['sports therapy cambridge', 'sports therapist cambridge', 'injury treatment cambridge', 'back pain sports therapy cambridge'],
+    canonicalUrl: 'https://www.lucyhallmassage.com/treatments/sports-therapy/',
+    widgetService: '16',
+    widgetLocation: '4',
+    intro: 'Sports Therapy combines clinical assessment with hands-on treatment to address injury, pain and movement problems. Going beyond standard massage, it identifies the root cause of issues and applies targeted techniques to support recovery, restore function and prevent recurrence.',
+    benefits: [
+      'Targets the root cause of pain or restriction',
+      'Speeds up recovery from injury',
+      'Restores normal range of motion',
+      'Identifies and corrects movement imbalances',
+      'Reduces risk of recurring injuries',
+      'Supports return to sport or activity',
+    ],
+    recommendedFor: [
+      'Anyone recovering from a sports injury',
+      'People with persistent pain or restricted movement',
+      'Athletes returning to training after time off',
+      'Those with postural issues affecting performance',
+      'People wanting expert assessment of a recurring problem',
+      'Anyone seeking clinical, results-focused treatment',
     ],
   },
 

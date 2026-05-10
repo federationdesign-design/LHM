@@ -18,12 +18,16 @@ function BookingWidget({ service }: { service: Service }) {
   //   - If service is in the availability map and offered at ONE location → pre-fill service + location
   //   - If service is in the availability map and offered at MULTIPLE locations → pre-fill service only (user picks location)
   //   - If service is NOT in the availability map → fall back to the legacy widgetLocation on the Service type
+  // Provider is added separately if widgetProvider is set on the Service.
   const availableLocations = serviceAvailability[service.slug];
-  const predefined = availableLocations
+  const basePredefined = availableLocations
     ? (availableLocations.length === 1
         ? { service: service.widgetService, location: availableLocations[0] }
         : { service: service.widgetService })
     : { service: service.widgetService, location: service.widgetLocation };
+  const predefined = service.widgetProvider
+    ? { ...basePredefined, provider: service.widgetProvider }
+    : basePredefined;
 
   useEffect(() => {
     const existing = document.querySelector('script[src*="simplybook"]');
