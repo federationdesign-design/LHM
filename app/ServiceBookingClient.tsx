@@ -162,7 +162,11 @@ function ProviderArticleSection({ service }: { service: Service }) {
                 <p className={styles.paProviderBio}>{p.bio[0]}</p>
                 <div className={styles.paProviderMeta}>
                   <div className={styles.paProviderMetaLabel}>Treatments</div>
-                  <div className={styles.paProviderMetaValue}>{p.treatments.join(', ')}</div>
+                  <div className={styles.paTreatmentTags}>
+                    {p.treatments.map(t => (
+                      <span key={t} className={styles.paTreatmentTag}>{t}</span>
+                    ))}
+                  </div>
                 </div>
                 <div className={styles.paProviderMeta}>
                   <div className={styles.paProviderMetaLabel}>Location</div>
