@@ -180,6 +180,7 @@ function ProviderArticleSection({ service }: { service: Service }) {
         {/* Article column */}
         {article && (
           <a href={`/news/${article.slug}`} className={styles.paArticleCard}>
+            <h3 className={styles.paCardHeading}>Related article</h3>
             <div className={styles.paArticleImage}>
               <Image
                 src={article.heroImage}
