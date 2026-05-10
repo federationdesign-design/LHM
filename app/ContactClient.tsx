@@ -176,6 +176,38 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
     ? BUTTON_COLOUR_ORANGE
     : BUTTON_COLOUR_GREY;
 
+  // ── SHARED FORM STYLES (v2 pill pattern) ────────────────────────────────
+  // White pill inputs with black text, matching QuestionnaireForm/WellbeingForm.
+  // Textarea uses borderRadius 8 instead of 999 since pill-shaped multiline
+  // doesn't work.
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '14px 18px',
+    fontSize: '1.05rem',
+    fontWeight: 300,
+    background: '#ffffff',
+    color: '#000000',
+    border: 'none',
+    borderRadius: 999,
+    outline: 'none',
+    boxSizing: 'border-box',
+    fontFamily: 'inherit',
+  };
+  const textareaStyle: React.CSSProperties = {
+    ...inputStyle,
+    borderRadius: 8,
+    resize: 'vertical',
+  };
+  const labelStyle: React.CSSProperties = {
+    display: 'block',
+    fontSize: '0.75rem',
+    fontWeight: 400,
+    textTransform: 'uppercase',
+    letterSpacing: '0.15em',
+    color: '#ffffff',
+    marginBottom: 8,
+  };
+
   const handleSubmit = async () => {
     setShowValidation(true);
     setSubmitError(null);
@@ -363,61 +395,66 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#ffffff', marginBottom: 8 }}>Your name *</label>
+                    <label style={labelStyle}>Your name *</label>
                     <input
                       type="text"
                       value={name}
                       onChange={e => setName(e.target.value)}
                       maxLength={100}
-                      style={{ width: '100%', background: 'transparent', border: '1px solid #ffffff', color: '#ffffff', fontSize: '1.1rem', fontWeight: 300, padding: '14px 16px', outline: 'none', boxSizing: 'border-box' }}
+                      style={inputStyle}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#ffffff', marginBottom: 8 }}>Email address *</label>
+                    <label style={labelStyle}>Email address *</label>
                     <input
                       type="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       maxLength={200}
-                      style={{ width: '100%', background: 'transparent', border: '1px solid #ffffff', color: '#ffffff', fontSize: '1.1rem', fontWeight: 300, padding: '14px 16px', outline: 'none', boxSizing: 'border-box' }}
+                      style={inputStyle}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#ffffff', marginBottom: 8 }}>{variant === 'corporate' ? 'Phone number *' : 'Phone number (optional)'}</label>
+                    <label style={labelStyle}>{variant === 'corporate' ? 'Phone number *' : 'Phone number (optional)'}</label>
                     <input
                       type="tel"
                       value={phone}
                       onChange={e => setPhone(e.target.value)}
                       maxLength={30}
-                      style={{ width: '100%', background: 'transparent', border: '1px solid #ffffff', color: '#ffffff', fontSize: '1.1rem', fontWeight: 300, padding: '14px 16px', outline: 'none', boxSizing: 'border-box' }}
+                      style={inputStyle}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.15em', color: '#ffffff', marginBottom: 8 }}>Message *</label>
+                    <label style={labelStyle}>Message *</label>
                     <textarea
                       rows={6}
                       value={message}
                       onChange={e => setMessage(e.target.value)}
                       maxLength={5000}
-                      style={{ width: '100%', background: 'transparent', border: '1px solid #ffffff', color: '#ffffff', fontSize: '1.1rem', fontWeight: 300, padding: '14px 16px', outline: 'none', resize: 'vertical', boxSizing: 'border-box', fontFamily: 'inherit' }}
+                      style={textareaStyle}
                     />
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                  <label htmlFor="gdpr-consent" className="ct-checkbox-wrap">
                     <input
                       type="checkbox"
                       id="gdpr-consent"
                       checked={consent}
                       onChange={e => setConsent(e.target.checked)}
-                      style={{ marginTop: 3, flexShrink: 0, accentColor: '#ffffff', width: 16, height: 16, cursor: 'pointer' }}
+                      className="ct-checkbox-input"
                     />
-                    <label htmlFor="gdpr-consent" style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, cursor: 'pointer' }}>
+                    <span className="ct-checkbox-box" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" className="ct-checkbox-tick">
+                        <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                    <span style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6 }}>
                       I agree to Lucy Hall Massage Therapy contacting me in response to this enquiry. My data will be handled in accordance with the <a href="/legal/privacy-policy" style={{ color: '#ffffff' }}>Privacy Policy</a>. *
-                    </label>
-                  </div>
+                    </span>
+                  </label>
 
                   <div style={{ textAlign: 'center' }}>
                     <button
@@ -427,6 +464,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                       style={{
                         background: buttonColour,
                         border: 'none',
+                        borderRadius: 999,
                         color: '#ffffff',
                         fontSize: '0.88rem',
                         fontWeight: 500,
@@ -474,6 +512,51 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
         </div>
         {variant === 'corporate' ? <CorporateFooter /> : <Footer />}
       </main>
+
+      <style>{`
+        /* Custom checkbox — stroke outline only, white tick when checked */
+        .ct-checkbox-wrap {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          cursor: pointer;
+          width: 100%;
+        }
+        .ct-checkbox-input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+          pointer-events: none;
+        }
+        .ct-checkbox-box {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          min-width: 24px;
+          border: 2px solid #ffffff;
+          border-radius: 6px;
+          background: transparent;
+          margin-top: 1px;
+          flex-shrink: 0;
+          transition: border-color 0.2s ease;
+        }
+        .ct-checkbox-tick {
+          width: 18px;
+          height: 18px;
+          opacity: 0;
+          transition: opacity 0.15s ease;
+        }
+        .ct-checkbox-input:checked + .ct-checkbox-box .ct-checkbox-tick {
+          opacity: 1;
+        }
+        .ct-checkbox-input:focus-visible + .ct-checkbox-box {
+          outline: 2px solid #ffffff;
+          outline-offset: 2px;
+        }
+      `}</style>
     </>
   );
 }
