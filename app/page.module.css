@@ -872,6 +872,20 @@
     margin-left: 0;
     margin-right: 0;
   }
+
+  .providerArticleSection {
+    padding: 80px 80px 40px;
+  }
+
+  .providerArticleGrid {
+    max-width: none;
+    gap: 48px;
+  }
+
+  .paCard,
+  .paArticleCard {
+    padding: 40px;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
