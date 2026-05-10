@@ -9,7 +9,7 @@ import Testimonials from './components/Testimonials/Testimonials';
 import type { Service } from './data/services';
 import { serviceAvailability } from './data/serviceAvailability';
 import { team } from './data/team';
-import { articles } from './data/blog';
+import { articles } from './data/articleData';
 
 // ── SIMPLYBOOK WIDGET ─────────────────────────────────────────
 function BookingWidget({ service }: { service: Service }) {
