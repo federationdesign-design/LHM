@@ -8,6 +8,8 @@ import Footer from './Footer';
 import Testimonials from './components/Testimonials/Testimonials';
 import type { Service } from './data/services';
 import { serviceAvailability } from './data/serviceAvailability';
+import { team } from './data/team';
+import { articles } from './data/blog';
 
 // ── SIMPLYBOOK WIDGET ─────────────────────────────────────────
 function BookingWidget({ service }: { service: Service }) {
@@ -126,6 +128,67 @@ function LogoSlider() {
   );
 }
 
+// ── PROVIDER + ARTICLE SECTION ────────────────────────────────
+function ProviderArticleSection({ service }: { service: Service }) {
+  const providers = (service.providerSlugs ?? [])
+    .map(slug => team[slug])
+    .filter(Boolean);
+  const article = service.featuredArticleSlug
+    ? articles[service.featuredArticleSlug]
+    : undefined;
+
+  if (providers.length === 0 && !article) return null;
+
+  return (
+    <section className={styles.providerArticleSection}>
+      <div className={styles.providerArticleGrid}>
+        {/* Provider column */}
+        <div className={styles.paCard}>
+          <h3 className={styles.paCardHeading}>
+            {providers.length > 1 ? 'Your therapists' : 'Your therapist'}
+          </h3>
+          {providers.map(p => (
+            <a key={p.slug} href={`/team/${p.slug}`} className={styles.paProviderRow}>
+              <Image
+                src={p.profilePhoto}
+                alt={p.name}
+                width={80}
+                height={80}
+                className={styles.paProviderPhoto}
+              />
+              <div className={styles.paProviderText}>
+                <div className={styles.paProviderName}>{p.name}</div>
+                <div className={styles.paProviderTitle}>{p.title}</div>
+                <p className={styles.paProviderBio}>{p.bio[0]}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* Article column */}
+        {article && (
+          <a href={`/news/${article.slug}`} className={styles.paArticleCard}>
+            <div className={styles.paArticleImage}>
+              <Image
+                src={article.heroImage}
+                alt={article.title}
+                fill
+                sizes="(max-width: 1024px) 50vw, 540px"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+            <div className={styles.paArticleBody}>
+              <h3 className={styles.paArticleTitle}>{article.title}</h3>
+              <p className={styles.paArticleExcerpt}>{article.excerpt}</p>
+              <span className={styles.paArticleCta}>Read article →</span>
+            </div>
+          </a>
+        )}
+      </div>
+    </section>
+  );
+}
+
 // ── MAIN SERVICE PAGE ─────────────────────────────────────────
 export default function ServiceBookingClient({ service }: { service: Service }) {
   const [navSolid, setNavSolid] = useState(false);
@@ -172,6 +235,9 @@ export default function ServiceBookingClient({ service }: { service: Service }) 
             <a href="#booking-widget" className={styles.heroBookNow}>BOOK NOW ↓</a>
           </div>
         </div>
+
+        {/* PROVIDER + ARTICLE */}
+        <ProviderArticleSection service={service} />
 
         {/* WIDGET */}
         <div id="booking-widget" className={styles.widgetWrapper}>

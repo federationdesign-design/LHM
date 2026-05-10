@@ -19,6 +19,8 @@ export interface Service {
   intro: string;
   benefits: string[];
   recommendedFor: string[];
+  providerSlugs?: string[];
+  featuredArticleSlug?: string;
 }
 
 export const services: Record<string, Service> = {
@@ -53,6 +55,8 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
+    providerSlugs: ['safia'],
+    featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '60-min-massage': {
     slug: '60-min-massage',
@@ -85,6 +89,8 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
+    providerSlugs: ['safia'],
+    featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '90-min-massage': {
     slug: '90-min-massage',
@@ -117,6 +123,8 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
+    providerSlugs: ['safia'],
+    featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '120-min-massage': {
     slug: '120-min-massage',
@@ -149,6 +157,8 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
+    providerSlugs: ['safia'],
+    featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
 
 
@@ -183,6 +193,8 @@ export const services: Record<string, Service> = {
       'Clients who find lighter massage insufficient',
       'Those managing stress-related physical tension',
     ],
+    providerSlugs: ['safia', 'antonia', 'orla'],
+    featuredArticleSlug: 'the-physical-impact-of-sport-on-your-body',
   },
 
   'swedish-massage': {
@@ -217,6 +229,8 @@ export const services: Record<string, Service> = {
       'Those wanting a regular wellness treatment',
       'People recovering from mild fatigue',
     ],
+    providerSlugs: ['antonia'],
+    featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
 
   'sports-massage': {
@@ -250,6 +264,8 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
+    providerSlugs: ['safia', 'orla'],
+    featuredArticleSlug: 'the-physical-impact-of-sport-on-your-body',
   },
 
   'relaxation-massage': {
@@ -284,6 +300,8 @@ export const services: Record<string, Service> = {
       'Those wanting a gentle, restorative treatment',
       'Anyone looking for regular self-care',
     ],
+    providerSlugs: ['antonia'],
+    featuredArticleSlug: 'what-to-expect-from-your-first-massage',
   },
 
   'pregnancy-massage': {
@@ -317,6 +335,8 @@ export const services: Record<string, Service> = {
       'Those who want regular wellness support',
       'Women seeking safe, specialist prenatal care',
     ],
+    providerSlugs: ['antonia'],
+    featuredArticleSlug: '4-great-reasons-to-get-a-pregnancy-massage',
   },
 
   '90-min-pregnancy-massage': {
@@ -350,6 +370,8 @@ export const services: Record<string, Service> = {
       'Those who want regular wellness support',
       'Women seeking safe, specialist prenatal care',
     ],
+    providerSlugs: ['antonia'],
+    featuredArticleSlug: '4-great-reasons-to-get-a-pregnancy-massage',
   },
 
   'hopi-ear': {
@@ -383,6 +405,8 @@ export const services: Record<string, Service> = {
       'Those seeking relief from tension headaches',
       'Anyone looking to step fully away from daily stress',
     ],
+    providerSlugs: ['antonia'],
+    featuredArticleSlug: 'how-do-hopi-ear-candles-work',
   },
 
 
@@ -417,6 +441,8 @@ export const services: Record<string, Service> = {
       'Those experiencing eye strain or jaw tension',
       'Anyone wanting a focused, fully clothed treatment',
     ],
+    providerSlugs: ['antonia'],
+    featuredArticleSlug: 'proven-benefits-of-indian-head-massage',
   },
 
   'hot-stone-massage': {
@@ -450,6 +476,8 @@ export const services: Record<string, Service> = {
       'Those recovering from periods of high stress',
       'Anyone looking for a luxurious, restorative experience',
     ],
+    providerSlugs: ['antonia'],
+    featuredArticleSlug: 'proven-benefits-of-hot-stone-massage',
   },
 
   'cupping': {
@@ -483,6 +511,8 @@ export const services: Record<string, Service> = {
       'People with fascial adhesions from old injuries',
       'Those curious about traditional bodywork therapies',
     ],
+    providerSlugs: ['orla'],
+    featuredArticleSlug: 'proven-benefits-of-dry-cupping',
   },
 
   '120-min-cupping': {
@@ -516,6 +546,8 @@ export const services: Record<string, Service> = {
       'People with fascial adhesions from old injuries',
       'Those curious about traditional bodywork therapies',
     ],
+    providerSlugs: ['orla'],
+    featuredArticleSlug: 'proven-benefits-of-dry-cupping',
   },
 
   'sports-therapy': {
@@ -549,6 +581,8 @@ export const services: Record<string, Service> = {
       'People wanting expert assessment of a recurring problem',
       'Anyone seeking clinical, results-focused treatment',
     ],
+    providerSlugs: ['orla'],
+    featuredArticleSlug: 'gait-analysis-101',
   },
 
 };
