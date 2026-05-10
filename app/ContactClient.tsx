@@ -198,15 +198,6 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
     borderRadius: 8,
     resize: 'vertical',
   };
-  const labelStyle: React.CSSProperties = {
-    display: 'block',
-    fontSize: '0.75rem',
-    fontWeight: 400,
-    textTransform: 'uppercase',
-    letterSpacing: '0.15em',
-    color: '#ffffff',
-    marginBottom: 8,
-  };
 
   const handleSubmit = async () => {
     setShowValidation(true);
@@ -394,49 +385,45 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                     </label>
                   </div>
 
-                  <div>
-                    <label style={labelStyle}>Your name *</label>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                      maxLength={100}
-                      style={inputStyle}
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    placeholder="Your name *"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    maxLength={100}
+                    style={inputStyle}
+                    className="ct-input"
+                  />
 
-                  <div>
-                    <label style={labelStyle}>Email address *</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      maxLength={200}
-                      style={inputStyle}
-                    />
-                  </div>
+                  <input
+                    type="email"
+                    placeholder="Email address *"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    maxLength={200}
+                    style={inputStyle}
+                    className="ct-input"
+                  />
 
-                  <div>
-                    <label style={labelStyle}>{variant === 'corporate' ? 'Phone number *' : 'Phone number (optional)'}</label>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={e => setPhone(e.target.value)}
-                      maxLength={30}
-                      style={inputStyle}
-                    />
-                  </div>
+                  <input
+                    type="tel"
+                    placeholder={variant === 'corporate' ? 'Phone number *' : 'Phone number (optional)'}
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    maxLength={30}
+                    style={inputStyle}
+                    className="ct-input"
+                  />
 
-                  <div>
-                    <label style={labelStyle}>Message *</label>
-                    <textarea
-                      rows={6}
-                      value={message}
-                      onChange={e => setMessage(e.target.value)}
-                      maxLength={5000}
-                      style={textareaStyle}
-                    />
-                  </div>
+                  <textarea
+                    rows={6}
+                    placeholder="Your message *"
+                    value={message}
+                    onChange={e => setMessage(e.target.value)}
+                    maxLength={5000}
+                    style={textareaStyle}
+                    className="ct-input"
+                  />
 
                   <label htmlFor="gdpr-consent" className="ct-checkbox-wrap">
                     <input
@@ -514,6 +501,21 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
       </main>
 
       <style>{`
+        /* Form input — focus inverts to black bg + white text */
+        .ct-input {
+          transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+          border: 1px solid transparent !important;
+        }
+        .ct-input:focus {
+          outline: none;
+          background: #000000 !important;
+          color: #ffffff !important;
+          border: 1px solid #ffffff !important;
+        }
+        .ct-input:focus::placeholder {
+          color: rgba(255,255,255,0.5);
+        }
+
         /* Custom checkbox — stroke outline only, white tick when checked */
         .ct-checkbox-wrap {
           display: flex;
