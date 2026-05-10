@@ -166,7 +166,7 @@ export default function ServiceBookingClient({ service }: { service: Service }) 
           <Image src={service.heroMobile} alt={service.title} fill priority sizes="100vw" className={styles.heroMobileImg} style={{ objectFit: 'cover', objectPosition: 'center 30%', filter: 'brightness(0.62)' }} />
           <Image src={service.heroDesktop} alt={service.title} fill priority sizes="100vw" className={styles.heroDesktopImg} style={{ objectFit: 'cover', objectPosition: 'center 40%', filter: 'brightness(0.62)', display: 'none' }} />
           <div className={styles.heroContent}>
-            <h1 className={styles.heroH1} style={{ whiteSpace: 'nowrap', fontSize: 'clamp(1.3rem, 4.5vw, 3.6rem)' }}>{service.h1}</h1>
+            <h1 className={`${styles.heroH1} ${styles.heroH1Treatment}`}>{service.h1}</h1>
             <p className={styles.heroSub}>{service.tagline}</p>
             <hr className={styles.heroRule} />
             <a href="#booking-widget" className={styles.heroBookNow}>BOOK NOW ↓</a>

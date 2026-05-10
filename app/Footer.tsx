@@ -26,13 +26,13 @@ const usefulLinks: [string, string][] = [
 ];
 
 const treatments: [string, string][] = [
-  ['Cupping', '/treatments/cupping'],
+  ['Cupping', '/your-cupping-massage'],
   ['Deep Tissue', '/treatments/deep-tissue-massage'],
   ['Hopi Ear', '/treatments/hopi-ear'],
   ['Hot Stone', '/treatments/hot-stone-massage'],
   ['Indian Head', '/treatments/indian-head-massage'],
   ['Sports Therapy', '/treatments/sports-therapy'],
-  ['Pregnancy', '/treatments/pregnancy-massage'],
+  ['Pregnancy', '/your-pregnancy-massage'],
   ['Relaxation', '/treatments/relaxation-massage'],
   ['Sports Massage', '/treatments/sports-massage'],
   ['Swedish', '/treatments/swedish-massage'],
