@@ -160,6 +160,14 @@ function ProviderArticleSection({ service }: { service: Service }) {
                 <div className={styles.paProviderName}>{p.name}</div>
                 <div className={styles.paProviderTitle}>{p.title}</div>
                 <p className={styles.paProviderBio}>{p.bio[0]}</p>
+                <div className={styles.paProviderMeta}>
+                  <div className={styles.paProviderMetaLabel}>Treatments</div>
+                  <div className={styles.paProviderMetaValue}>{p.treatments.join(', ')}</div>
+                </div>
+                <div className={styles.paProviderMeta}>
+                  <div className={styles.paProviderMetaLabel}>Location</div>
+                  <div className={styles.paProviderMetaValue}>{p.location}</div>
+                </div>
               </div>
             </a>
           ))}

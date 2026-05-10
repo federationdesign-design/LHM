@@ -505,7 +505,9 @@
   padding: 16px;
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -586,6 +588,28 @@
   overflow: hidden;
 }
 
+.paProviderMeta {
+  margin-top: 10px;
+}
+
+.paProviderMetaLabel {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  opacity: 0.55;
+  margin-bottom: 3px;
+}
+
+.paProviderMetaValue {
+  font-size: 0.78rem;
+  color: #ffffff;
+  font-weight: 300;
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
 .paArticleImage {
   position: relative;
   width: 100%;
@@ -603,6 +627,7 @@
 .paArticleBody {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .paArticleTitle {
@@ -627,6 +652,7 @@
 }
 
 .paArticleCta {
+  margin-top: auto;
   font-size: 0.7rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -801,6 +827,7 @@
   .paCard,
   .paArticleCard {
     padding: 32px;
+    min-height: 460px;
   }
 
   .paProviderPhoto {

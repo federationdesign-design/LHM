@@ -6,6 +6,7 @@ export interface TeamMember {
   title: string;
   bio: string[];
   treatments: string[];
+  location: string;
   heroColor: string;
   heroMobile: string;
   heroDesktop: string;
@@ -27,6 +28,7 @@ export const team: Record<string, TeamMember> = {
       'Safia holds a Level 3 Certificate in Massage Therapy and a Level 4 Certificate in Sports Massage Therapy, both accredited by the Complementary and Natural Healthcare Council (CNHC) — the UK\'s voluntary regulator for complementary healthcare practitioners. She is also a member of the Federation of Holistic Therapists (FHT).',
     ],
     treatments: ['Deep Tissue Massage', 'Sports Massage'],
+    location: 'Cromwell Road, Cambridge',
     heroColor: '#2a2a2a',
     heroMobile: '/safia-hero-mobile.jpg',
     heroDesktop: '/safia-hero-desktop.jpg',
@@ -46,6 +48,7 @@ export const team: Record<string, TeamMember> = {
       'Antonia holds a Level 3 Certificate in Massage Therapy and a Level 4 Certificate in Sports Massage Therapy, accredited by the Complementary and Natural Healthcare Council (CNHC). She is also a qualified pregnancy massage practitioner and a member of the Federation of Holistic Therapists (FHT).',
     ],
     treatments: ['Deep Tissue Massage', 'Pregnancy Massage', 'Swedish Massage', 'Relaxation Massage', 'Hopi Ear', 'Indian Head Massage', 'Hot Stone Massage'],
+    location: 'Thoday Street, Cambridge',
     heroColor: '#2a2a2a',
     heroMobile: '/antonia-hero-mobile.jpg',
     heroDesktop: '/antonia-hero-desktop.jpg',
@@ -65,6 +68,7 @@ export const team: Record<string, TeamMember> = {
       'Orla holds a degree in Sports Therapy, alongside a Level 3 Certificate in Massage Therapy and a Level 4 Certificate in Sports Massage Therapy, accredited by the Complementary and Natural Healthcare Council (CNHC). She is also a trained cupping therapy practitioner and a member of the Federation of Holistic Therapists (FHT).',
     ],
     treatments: ['Cupping', 'Deep Tissue Massage', 'Sports Massage'],
+    location: 'Thoday Street, Cambridge',
     heroColor: '#2a2a2a',
     heroMobile: '/orla-hero-mobile.jpg',
     heroDesktop: '/orla-hero-desktop.jpg',
