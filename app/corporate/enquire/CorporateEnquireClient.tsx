@@ -31,13 +31,6 @@ const COLOR_GREEN  = '#2cd12c';
 const EMAIL_RE  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MOBILE_RE = /^[\d\s+()-]{7,}$/;
 
-const CONTACT_METHODS = [
-  { id: 'phone',  label: 'Phone call' },
-  { id: 'sms',    label: 'SMS/WhatsApp' },
-  { id: 'mobile', label: 'Mobile call' },
-  { id: 'email',  label: 'Email' },
-];
-
 declare global {
   interface Window {
     grecaptcha?: {
@@ -51,7 +44,7 @@ export default function CorporateEnquireClient() {
   const [name, setName]     = useState('');
   const [email, setEmail]   = useState('');
   const [mobile, setMobile] = useState('');
-  const [methods, setMethods] = useState<string[]>([]);
+  const [consent, setConsent] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
   const [success,    setSuccess]    = useState(false);
@@ -74,16 +67,10 @@ export default function CorporateEnquireClient() {
   const emailValid  = EMAIL_RE.test(email.trim());
   const mobileValid = MOBILE_RE.test(mobile.trim());
   const requiredOK  = name.trim().length > 0 && emailValid && mobileValid;
-  const allOK       = requiredOK && methods.length > 0;
+  const allOK       = requiredOK && consent;
 
   const buttonColor = !requiredOK ? COLOR_GREY : allOK ? COLOR_GREEN : COLOR_ORANGE;
-  const canSubmit   = requiredOK && !submitting;
-
-  const toggleMethod = (id: string) => {
-    setMethods((prev) =>
-      prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]
-    );
-  };
+  const canSubmit   = allOK && !submitting;
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -115,7 +102,7 @@ export default function CorporateEnquireClient() {
           name: name.trim(),
           email: email.trim(),
           mobile: mobile.trim(),
-          contactMethods: methods,
+          contactMethods: [],
           recaptchaToken,
         }),
       });
@@ -148,15 +135,6 @@ export default function CorporateEnquireClient() {
     fontFamily: 'inherit',
   };
 
-  const labelStyle: React.CSSProperties = {
-    display: 'block',
-    fontSize: '1rem',
-    fontWeight: 400,
-    color: '#ffffff',
-    marginBottom: 10,
-    lineHeight: 1.4,
-  };
-
   const dividerStyle: React.CSSProperties = {
     height: 1,
     background: 'rgba(255,255,255,0.2)',
@@ -182,7 +160,7 @@ export default function CorporateEnquireClient() {
                 marginBottom: 32,
               }}
             >
-              &lt; Back to Corporate
+              &lt; Back to Corporate Home
             </Link>
 
             <h1 style={{
@@ -192,7 +170,7 @@ export default function CorporateEnquireClient() {
               margin: '0 0 24px',
               letterSpacing: '-0.01em',
             }}>
-              Get our employer PDF
+              Get our Staff wellbeing employer PDF
             </h1>
             <p style={{
               fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
@@ -220,7 +198,7 @@ export default function CorporateEnquireClient() {
                   marginBottom: 14,
                   marginTop: 0,
                 }}>
-                  Enquire about corporate massage
+                  Fill in form to get our employer PDF
                 </h2>
                 <p style={{
                   fontSize: '1rem',
@@ -270,31 +248,22 @@ export default function CorporateEnquireClient() {
                 <div style={dividerStyle} />
 
                 <div style={{ marginBottom: 22 }}>
-                  <label style={labelStyle}>Ideal method of initial contact</label>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '12px 16px',
-                  }}>
-                    {CONTACT_METHODS.map((m) => (
-                      <label key={m.id} className="intake-checkbox-wrap" style={{ alignItems: 'center' }}>
-                        <input
-                          type="checkbox"
-                          checked={methods.includes(m.id)}
-                          onChange={() => toggleMethod(m.id)}
-                          className="intake-checkbox-input"
-                        />
-                        <span className="intake-checkbox-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
-                            <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        <span style={{ fontSize: '0.95rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4 }}>
-                          {m.label}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
+                  <label className="intake-checkbox-wrap" style={{ alignItems: 'flex-start' }}>
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                      className="intake-checkbox-input"
+                    />
+                    <span className="intake-checkbox-box" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
+                        <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                    <span style={{ fontSize: '0.92rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6 }}>
+                      I agree to Lucy Hall Massage Therapy contacting me in response to this enquiry. My data will be handled in accordance with the <Link href="/legal/privacy-policy" style={{ color: '#ffffff', textDecoration: 'underline' }}>Privacy Policy</Link>. *
+                    </span>
+                  </label>
                 </div>
 
                 {error && (
