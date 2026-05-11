@@ -11,6 +11,7 @@ const menuItems: [string, string][] = [
   ['Contact Us',                 '/corporate/contact'],
   ['Our Team',                   '/corporate/team'],
   ['Blog',                       '/news'],
+  ['Reviews',                    '/reviews'],
   ['Testimonials',               '/testimonials'],
   ['Book myself a massage',      '/private'],
   ['Homepage',                   '/'],
