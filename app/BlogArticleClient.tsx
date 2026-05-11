@@ -18,7 +18,7 @@ function RelatedServiceCard({ slug }: { slug: string }) {
 
   return (
     <a
-      href={`/${s.slug}`}
+      href={`/treatments/${s.slug}`}
       style={{
         display: 'block',
         textDecoration: 'none',
