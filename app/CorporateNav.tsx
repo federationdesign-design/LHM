@@ -4,17 +4,15 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const menuItems: [string, string][] = [
-  ['Corporate',                  '/corporate'],
+  ['Home',                       '/corporate'],
   ['In-Office Chair Massage',    '/corporate/in-chair-massage'],
   ['DSE Assessments',            '/corporate/dsc-assessments'],
   ['Posture Consultations',      '/corporate/posture-consultations'],
-  ['Contact Us',                 '/corporate/contact'],
   ['Our Team',                   '/corporate/team'],
-  ['Blog',                       '/news'],
   ['Reviews',                    '/reviews'],
-  ['Testimonials',               '/testimonials'],
   ['Book myself a massage',      '/private'],
-  ['Homepage',                   '/'],
+  ['Main site',                  '/'],
+  ['Contact Us',                 '/corporate/contact'],
 ];
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
