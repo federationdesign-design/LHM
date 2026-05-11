@@ -1,4 +1,4 @@
-The origins of Hopi ear candles and the practice of using them have been lost to time. In fact, the Hopi — a Native American tribe — assert that it isn't part of their family of healing practices. Some claim the practice originates from traditional Chinese, Egyptian or North American medicine. Some even go so far as to claim that the lost city of Atlantis is the origin of the Hopi ear candling technique. But fantastic origin stories aside, how does [Hopi ear candling](/hopi-ear) actually work?
+The origins of Hopi ear candles and the practice of using them have been lost to time. In fact, the Hopi — a Native American tribe — assert that it isn't part of their family of healing practices. Some claim the practice originates from traditional Chinese, Egyptian or North American medicine. Some even go so far as to claim that the lost city of Atlantis is the origin of the Hopi ear candling technique. But fantastic origin stories aside, how does [Hopi ear candling](/treatments/hopi-ear) actually work?
 
 ## The Practice in a Nutshell
 
@@ -13,7 +13,7 @@ After a thorough and professional consultation to see whether the treatment will
 
 ## Hopi Ear Candling Benefits
 
-As well as being an incredibly relaxing, aromatic and contemplative experience, [Hopi ear candling](/hopi-ear) has many tangible benefits for people suffering any of these conditions:
+As well as being an incredibly relaxing, aromatic and contemplative experience, [Hopi ear candling](/treatments/hopi-ear) has many tangible benefits for people suffering any of these conditions:
 
 - Hay fever
 - Sinusitis

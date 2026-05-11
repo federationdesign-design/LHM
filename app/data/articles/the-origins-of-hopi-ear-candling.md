@@ -1,4 +1,4 @@
-[Hopi ear candling](/hopi-ear) is a traditional therapy used by the Ancient Greeks and popularised by the Hopi Indian Tribe of the American South-West. The modern embodiment of the treatment is based on the form used by the Hopi Indians (whose name means "peaceful people"), who are renowned for their possession of incredible medicinal knowledge and spirituality.
+[Hopi ear candling](/treatments/hopi-ear) is a traditional therapy used by the Ancient Greeks and popularised by the Hopi Indian Tribe of the American South-West. The modern embodiment of the treatment is based on the form used by the Hopi Indians (whose name means "peaceful people"), who are renowned for their possession of incredible medicinal knowledge and spirituality.
 
 The ear candles we use are quite different from your conventional Yankee candle. A Hopi ear candle is actually a cotton tube filled with beeswax, therapeutic oils and honey, that is gently inserted into the ear to draw out impurities and relieve pressure.
 
@@ -33,4 +33,4 @@ The main reasons people come to us for Hopi ear candling are:
 
 Hopi ear candles should never be used if you have any inflammation or infection in the ear. They are also not suitable for people who have had recent ear surgery, those with ear grommets or tubes, perforated eardrums, or allergies to any of the ingredients making up the candle.
 
-At Lucy Hall Massage, we offer Hopi ear candling combined with a back massage as a single, deeply relaxing treatment. If you think this treatment could help you, [book online](/hopi-ear) today.
+At Lucy Hall Massage, we offer Hopi ear candling combined with a back massage as a single, deeply relaxing treatment. If you think this treatment could help you, [book online](/treatments/hopi-ear) today.

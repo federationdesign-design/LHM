@@ -13,7 +13,7 @@ When the therapist then works with the stones — gliding them along long muscle
 
 ## The Proven Benefits
 
-Several studies have examined the therapeutic impact of [hot stone massage](/hot-stone-massage). The most consistent findings include:
+Several studies have examined the therapeutic impact of [hot stone massage](/treatments/hot-stone-massage). The most consistent findings include:
 
 - **Reduced muscle tension and stiffness.** The combination of heat and direct manipulation eases knots that lighter massage cannot reach.
 - **Improved circulation.** Warmth encourages blood flow, supporting the body's natural recovery processes.

@@ -26,7 +26,7 @@ This exercise is great anywhere — particularly at your desk, and when you're h
 
 Starting at your toes, deliberately tense your muscles — being aware of the sensation of tension, before taking a breath as you relax the muscles. After your toes, move up to your feet, repeating the process, before progressing up your legs to your groin, lower back, upper back, arms, neck and face. Take your time, and celebrate once-hidden tension being banished.
 
-Looking for something more substantial? A regular [relaxation massage](/relaxation-massage) or [Indian head massage](/indian-head-massage) takes these principles and applies them at a much deeper level — the perfect complement to desk-based self-care.
+Looking for something more substantial? A regular [relaxation massage](/treatments/relaxation-massage) or [Indian head massage](/treatments/indian-head-massage) takes these principles and applies them at a much deeper level — the perfect complement to desk-based self-care.
 
 ---
 

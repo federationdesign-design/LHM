@@ -1,4 +1,4 @@
-[Physiotherapy](/physiotherapy-treatment) aims to improve your ability to live a full, healthy and comfortable lifestyle. It achieves this by working with and correcting people's movements which have been affected by injury, disability or illness.
+[Physiotherapy](/treatments/sports-therapy) aims to improve your ability to live a full, healthy and comfortable lifestyle. It achieves this by working with and correcting people's movements which have been affected by injury, disability or illness.
 
 Anyone calling themselves a physiotherapist has to be registered with the Health and Care Professions Council, and has to have an accredited qualification in physiotherapy from a university or appropriate apprenticeship.
 
@@ -20,7 +20,7 @@ This effectiveness against pain is why physiotherapy is recommended as a first-l
 
 ## Get in Touch
 
-At Lucy Hall Massage, we offer a wide range of treatments which address everything from problems with your gait to easing ear problems with [Hopi candles](/hopi-ear). If you'd like to discuss what physiotherapy could do for you, please [get in touch with us](/contact) and our highly trained and knowledgeable staff will be delighted to answer any questions you might have.
+At Lucy Hall Massage, we offer a wide range of treatments which address everything from problems with your gait to easing ear problems with [Hopi candles](/treatments/hopi-ear). If you'd like to discuss what physiotherapy could do for you, please [get in touch with us](/contact) and our highly trained and knowledgeable staff will be delighted to answer any questions you might have.
 
 ---
 

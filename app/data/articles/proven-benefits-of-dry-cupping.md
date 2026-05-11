@@ -2,7 +2,7 @@ Dry cupping uses gentle suction to lift the skin and underlying tissue, reaching
 
 ## The Proven Benefits
 
-[Dry cupping therapy](/cupping) offers a wide range of therapeutic benefits, including:
+[Dry cupping therapy](/treatments/cupping) offers a wide range of therapeutic benefits, including:
 
 - **Increases the production of endogenous hormones in the brain** to enhance pain control.
 - **Boosts blood circulation** by improving microcirculation and promoting the repair of capillary endothelial cells.

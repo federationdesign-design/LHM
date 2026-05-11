@@ -11,7 +11,7 @@ By analysing these movements, your therapist can pinpoint functional deficits. T
 
 ## What the Assessment Leads To
 
-The FMS will determine the most suitable treatment plan, which usually includes a [sports massage](/sports-massage), and possibly joint mobilisations if the joints themselves are painful or restricted.
+The FMS will determine the most suitable treatment plan, which usually includes a [sports massage](/treatments/sports-massage), and possibly joint mobilisations if the joints themselves are painful or restricted.
 
 The final stage is to run through corrective exercises and self-treatment techniques, so you can continue progress between visits.
 

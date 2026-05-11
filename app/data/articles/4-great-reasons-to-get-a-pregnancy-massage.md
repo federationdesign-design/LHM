@@ -1,8 +1,8 @@
 Pregnancy can be an exciting and exhausting time in a woman's life. During these months, the female body is constantly changing, both physically and mentally. To ensure you don't let the exertion of pregnancy overwhelm you, consider having a massage especially designed for pregnancy.
 
-As a pregnant woman, you may feel less motivated to focus on your body and health, and the troublesome effects of pregnancy cravings, insomnia and tiredness associated with this could put your body under some serious strain — including aches, pains and bad posture. A [prenatal massage](/pregnancy-massage) can help to ease these common pregnancy woes and is generally aimed at women in their second or third trimesters.
+As a pregnant woman, you may feel less motivated to focus on your body and health, and the troublesome effects of pregnancy cravings, insomnia and tiredness associated with this could put your body under some serious strain — including aches, pains and bad posture. A [prenatal massage](/treatments/pregnancy-massage) can help to ease these common pregnancy woes and is generally aimed at women in their second or third trimesters.
 
-Here's why you should get a [pregnancy massage](/pregnancy-massage):
+Here's why you should get a [pregnancy massage](/treatments/pregnancy-massage):
 
 ## 1. It can decrease pain
 
@@ -24,4 +24,4 @@ A prenatal massage creates a comfortable and safe environment for expecting wome
 
 There are a number of positions and ways a pregnancy massage can benefit an expecting woman's body and mind. Lucy Hall offers professional [massage services in Cambridge](/) for pregnant women to ease their exciting months of soon-to-be parenthood by encouraging relaxation, stress relief and a healthier body.
 
-[Book an appointment](/pregnancy-massage) with one of our massage therapists, or [get in touch](/contact) for more information on the services we offer.
+[Book an appointment](/treatments/pregnancy-massage) with one of our massage therapists, or [get in touch](/contact) for more information on the services we offer.

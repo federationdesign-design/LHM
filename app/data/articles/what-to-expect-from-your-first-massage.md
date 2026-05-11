@@ -1,4 +1,4 @@
-The prospect of arriving for your first massage can be a little daunting if you've never had one before. But not to worry — all of us at Lucy Hall Massage are experienced and highly trained professionals in [deep tissue massage](/deep-tissue-massage), [Swedish massage](/swedish-massage), [relaxation massage](/relaxation-massage), [sports massage](/sports-massage) and back massage. Whatever treatment you've chosen, here's exactly what to expect from start to finish.
+The prospect of arriving for your first massage can be a little daunting if you've never had one before. But not to worry — all of us at Lucy Hall Massage are experienced and highly trained professionals in [deep tissue massage](/treatments/deep-tissue-massage), [Swedish massage](/treatments/swedish-massage), [relaxation massage](/treatments/relaxation-massage), [sports massage](/treatments/sports-massage) and back massage. Whatever treatment you've chosen, here's exactly what to expect from start to finish.
 
 ## When You Arrive
 

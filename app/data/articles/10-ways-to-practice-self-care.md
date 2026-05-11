@@ -4,7 +4,7 @@ There are far more options than we could cover here, but we will try to pick a b
 
 ## 1. Massage
 
-Everyone knows that massages can be incredibly relaxing, but the process has even been scientifically proven to decrease your blood pressure and heart rate. It also increases your serotonin levels by 54% and decreases your cortisol levels by 43%. A regular [Swedish massage](/swedish-massage) or [relaxation massage](/relaxation-massage) is one of the most well-evidenced forms of self-care available.
+Everyone knows that massages can be incredibly relaxing, but the process has even been scientifically proven to decrease your blood pressure and heart rate. It also increases your serotonin levels by 54% and decreases your cortisol levels by 43%. A regular [Swedish massage](/treatments/swedish-massage) or [relaxation massage](/treatments/relaxation-massage) is one of the most well-evidenced forms of self-care available.
 
 ## 2. Exercise
 

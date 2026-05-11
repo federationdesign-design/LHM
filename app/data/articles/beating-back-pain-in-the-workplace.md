@@ -28,4 +28,4 @@ It's not just your back and spine you need to take care of. Hunching over your d
 
 It may sound like a simple and obvious tip, but try holding your head up (not tilted back) and let your shoulders fall into place. This will reduce the tension in your back almost immediately. It also creates a more professional look — as opposed to someone who is slumped over their desk.
 
-If you would like to boost staff morale and performance at your company, please don't hesitate to [contact us](/contact) today to book a corporate massage package. For chronic back pain that needs deeper attention, our [deep tissue massage](/deep-tissue-massage) and [sports massage](/sports-massage) are particularly effective.
+If you would like to boost staff morale and performance at your company, please don't hesitate to [contact us](/contact) today to book a corporate massage package. For chronic back pain that needs deeper attention, our [deep tissue massage](/treatments/deep-tissue-massage) and [sports massage](/treatments/sports-massage) are particularly effective.

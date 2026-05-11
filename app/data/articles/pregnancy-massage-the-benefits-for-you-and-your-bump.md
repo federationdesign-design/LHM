@@ -1,6 +1,6 @@
-Pregnancy is a unique experience for every woman. It is a special time when your body is constantly changing, physically and mentally. However, as your body changes it usually comes with many aches and pains — especially in the second and third trimester. A [pregnancy massage](/pregnancy-massage) can be a natural way of alleviating these issues.
+Pregnancy is a unique experience for every woman. It is a special time when your body is constantly changing, physically and mentally. However, as your body changes it usually comes with many aches and pains — especially in the second and third trimester. A [pregnancy massage](/treatments/pregnancy-massage) can be a natural way of alleviating these issues.
 
-So, what is a pregnancy massage? It is a holistic approach to help your pregnancy and your little one with a whole range of benefits. But in case you need an excuse to be pampered, here are a few of the impressive advantages a [prenatal massage](/pregnancy-massage) can give.
+So, what is a pregnancy massage? It is a holistic approach to help your pregnancy and your little one with a whole range of benefits. But in case you need an excuse to be pampered, here are a few of the impressive advantages a [prenatal massage](/treatments/pregnancy-massage) can give.
 
 ## Aches and Pains
 
@@ -22,7 +22,7 @@ Many pregnant women find it difficult to sleep, especially during the third trim
 
 ## Pregnancy Heartburn and Constipation
 
-During the later stages of pregnancy, your digestive system becomes sluggish, giving your baby more time to absorb the vital nutrients. This can cause heartburn and constipation. Stress can also make heartburn worse, so a [maternity massage](/pregnancy-massage) is a great way to reduce anxiety and any tensions.
+During the later stages of pregnancy, your digestive system becomes sluggish, giving your baby more time to absorb the vital nutrients. This can cause heartburn and constipation. Stress can also make heartburn worse, so a [maternity massage](/treatments/pregnancy-massage) is a great way to reduce anxiety and any tensions.
 
 ## Booking
 

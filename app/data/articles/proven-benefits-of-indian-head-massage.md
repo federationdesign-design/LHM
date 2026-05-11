@@ -2,7 +2,7 @@ Indian head massage is a traditional therapy with origins stretching back over a
 
 ## The Proven Benefits
 
-[Indian head massage](/indian-head-massage) offers a variety of benefits that contribute to both physical and mental wellbeing:
+[Indian head massage](/treatments/indian-head-massage) offers a variety of benefits that contribute to both physical and mental wellbeing:
 
 1. **Stress relief.** It effectively alleviates stress and anxiety, helping to relax both the mind and body.
 2. **Tension relief.** The massage targets tightness in the head, neck, shoulders and upper back, providing immediate relief from built-up tension.

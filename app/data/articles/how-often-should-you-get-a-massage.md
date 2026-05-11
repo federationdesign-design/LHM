@@ -2,7 +2,7 @@ We're always striving to keep as many people as we can happy, healthy and well. 
 
 ## Swedish, Deep-Tissue and Sports Massage
 
-These treatments — [Swedish massage](/swedish-massage), [deep tissue massage](/deep-tissue-massage) and [sports massage](/sports-massage) — can improve blood flow, lower blood pressure, relieve stress and increase mobility. They're particularly designed for a hybrid massage and physiotherapy experience that is perfect for those who may suffer from chronic pain conditions, or are looking to heal after a sports injury. Also, partly due to the greater strength of your cardiovascular system, they can improve your immune system as well.
+These treatments — [Swedish massage](/treatments/swedish-massage), [deep tissue massage](/treatments/deep-tissue-massage) and [sports massage](/treatments/sports-massage) — can improve blood flow, lower blood pressure, relieve stress and increase mobility. They're particularly designed for a hybrid massage and physiotherapy experience that is perfect for those who may suffer from chronic pain conditions, or are looking to heal after a sports injury. Also, partly due to the greater strength of your cardiovascular system, they can improve your immune system as well.
 
 For the treatment of injuries, as well as those who regularly exert themselves through sport or exercise, we'd recommend a treatment weekly or bi-weekly. For other patients looking for the general benefits, a bi-weekly or monthly session is usually enough to get you through the following month while enjoying physiological wellbeing.
 

@@ -1,11 +1,11 @@
-For any expecting mother, things you used to treat yourself to — like wines, beers and ciders — all get thrown out of the window (hopefully not literally). However, when it comes to [pregnancy massage](/pregnancy-massage), you might worry that the pressure on your abdomen might harm your baby. We've talked elsewhere about how massage therapy can reduce stress, strengthen the immune system and boost wellness, but when it comes to your or your partner's baby, it's good to be extra careful.
+For any expecting mother, things you used to treat yourself to — like wines, beers and ciders — all get thrown out of the window (hopefully not literally). However, when it comes to [pregnancy massage](/treatments/pregnancy-massage), you might worry that the pressure on your abdomen might harm your baby. We've talked elsewhere about how massage therapy can reduce stress, strengthen the immune system and boost wellness, but when it comes to your or your partner's baby, it's good to be extra careful.
 
 ## General Advice
 
 Pregnancy massage (also known as prenatal massage therapy) is generally considered safe after the first twelve weeks of your pregnancy (the first trimester). In addition to this advice on timing, there are some other things to get ticked off before you visit us just to make double sure.
 
 1. **Ask your GP.** This can be done as a telephone call. Follow their advice, but generally — unless you have or have had gynaecological issues and need to be extra careful — you should expect a green light from them.
-2. **Ask us.** You can [call us](tel:447765555078) or pop us an email. We've worked with expectant mothers before and can offer advice about whether you could benefit from a massage, as well as advice on what style of treatment might work best for you — for example, a [relaxation massage](/relaxation-massage) or a [Swedish massage](/swedish-massage).
+2. **Ask us.** You can [call us](tel:447765555078) or pop us an email. We've worked with expectant mothers before and can offer advice about whether you could benefit from a massage, as well as advice on what style of treatment might work best for you — for example, a [relaxation massage](/treatments/relaxation-massage) or a [Swedish massage](/treatments/swedish-massage).
 3. **Talk with your therapist about your pregnancy on arrival.** Help us get to know you, know about any concerns you have and any medical conditions you have, as well as issues related to your pregnancy such as morning sickness, low mood or emotional instability.
 
 ## So, is it safe?

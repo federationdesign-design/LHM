@@ -12,7 +12,7 @@ How does it work? Endorphins are one part of a quartet of hormones which can hav
 
 ## Musculoskeletal Wear and Tear
 
-The whole point of resistance training of any sort — a rugby scrum, or weightlifting perhaps — is to increase muscle density, and as a result, increased bone density (which is also influenced by serotonin). But injuries or over-exertion can become more and more likely the longer you leave it until a rejuvenating MOT in the form of expert [sports massage](/sports-massage), which is great for the relief of muscular pain as well as treating sports injuries.
+The whole point of resistance training of any sort — a rugby scrum, or weightlifting perhaps — is to increase muscle density, and as a result, increased bone density (which is also influenced by serotonin). But injuries or over-exertion can become more and more likely the longer you leave it until a rejuvenating MOT in the form of expert [sports massage](/treatments/sports-massage), which is great for the relief of muscular pain as well as treating sports injuries.
 
 Your expert sports massage professional will be able to identify any causes of pain, treat problem areas directly, and guide you towards a tailored therapy program that will minimise the risk of future, more serious injury.
 
