@@ -269,7 +269,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
 
         .cs-hero-form {
           width: 100%;
-          max-width: 360px;
+          max-width: 540px;
         }
         /* Mobile: hide the in-hero form, show the standalone one below */
         .cs-hero-form-mobile {
@@ -300,10 +300,10 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             gap: 48px;
           }
           .cs-hero-text {
-            flex: 1 1 60%;
+            flex: 1 1 50%;
           }
           .cs-hero-form {
-            flex: 0 0 360px;
+            flex: 0 0 540px;
           }
         }
 
