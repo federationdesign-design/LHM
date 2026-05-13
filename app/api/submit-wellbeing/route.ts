@@ -2,17 +2,23 @@
  * POST /api/submit-wellbeing
  *
  * Handles the WellbeingForm submission (used on /start-your-journey AND
- * /tips-download). Two side effects:
+ * /tips-download). Three side effects:
  *
  *   1. Send Lucy a notification email via Resend (so she sees the lead
  *      immediately in her inbox).
- *   2. Add the subscriber to MailerLite group "Wellbeing leads" with a
+ *   2. Send the USER an autoresponder email via Resend — thank-you with
+ *      the tips PDF link. Sets relationship up before the MailerLite
+ *      nurture sequence kicks in 1 day later.
+ *   3. Add the subscriber to MailerLite group "Wellbeing leads" with a
  *      computed `segment` field — MailerLite then runs the nurture
- *      automation (Welcome +12hr, Article +7d branched on segment,
- *      Check-in +21d).
+ *      automation (Welcome +1d, Article +8d branched on segment,
+ *      Meet the team +15d, Check-in +22d).
  *
- * Both side effects are best-effort: if MailerLite fails we still notify
- * Lucy, and vice versa, so a partial failure doesn't lose the lead.
+ * Side effects are best-effort: if any one fails we still attempt the
+ * others, so a partial failure doesn't lose the lead. Only if BOTH the
+ * Lucy notification AND MailerLite enrolment fail do we return an error
+ * to the user (the autoresponder is "nice to have" — if it fails alone
+ * the user still sees the on-page confirmation).
  *
  * Spam protection: honeypot field (hidden input named `website`).
  */
@@ -143,7 +149,8 @@ export async function POST(request: NextRequest) {
       `Goal: ${body.goal || '(not provided)'}`,
       '',
       'Subscriber added to MailerLite "Wellbeing leads" group.',
-      'Nurture sequence: Welcome (+12hr) → Article (+7d) → Check-in (+21d).',
+      'User autoresponder sent (Resend).',
+      'Nurture sequence: Welcome (+1d) → Article (+8d, segment-branched) → Meet the team (+15d) → Check-in (+22d).',
     ].join('\n');
 
     const emailResult = await sendEmail({
@@ -159,7 +166,47 @@ export async function POST(request: NextRequest) {
     console.error('NOTIFICATION_EMAIL_TO env var is not set');
   }
 
-  // ── 2. Add subscriber to MailerLite ──────────────────────────────────────
+  // ── 2. User autoresponder (Resend) ───────────────────────────────────────
+  // Instant thank-you email to the user with the tips PDF link.
+  // Fires before the MailerLite nurture sequence starts (+1 day).
+  // Best-effort: failure here doesn't block the MailerLite enrolment.
+  const userReplyTo = process.env.USER_AUTORESPONDER_REPLY_TO || 'steve@lucyhallmassage.com';
+  const siteBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://lhm-six.vercel.app';
+  let autoresponderResult: { success: boolean; error?: string } = { success: false, error: 'not attempted' };
+
+  const autoresponderText = [
+    `Hi ${body.firstName},`,
+    '',
+    "Thanks for getting in touch — we've received your details.",
+    '',
+    `Your free copy of "5 Tips to a Healthy Body" is here: ${siteBaseUrl}/5-tips-to-a-healthy-body.pdf`,
+    '',
+    "Over the coming weeks I'll send you a couple of practical, useful things — articles tailored to what you mentioned, a brief introduction to the team, and how we work.",
+    '',
+    'No spam, no pressure. Just useful stuff.',
+    '',
+    `If you'd like to book in directly, you can do so anytime here: ${siteBaseUrl}/book-online`,
+    '',
+    "Or just reply to this email if you'd like to chat.",
+    '',
+    'Warmly,',
+    'Lucy',
+    '',
+    '— Lucy Hall Massage Therapy',
+    'Thoday Street & Cromwell Road, Cambridge',
+  ].join('\n');
+
+  const autoresponderEmail = await sendEmail({
+    to: body.email!.trim(),
+    subject: 'Thanks for getting in touch with Lucy Hall Massage Therapy',
+    text: autoresponderText,
+    replyTo: userReplyTo,
+  });
+  autoresponderResult = autoresponderEmail.success
+    ? { success: true }
+    : { success: false, error: autoresponderEmail.error };
+
+  // ── 3. Add subscriber to MailerLite ──────────────────────────────────────
   const groupId = process.env.MAILERLITE_GROUP_ID;
   let mailerliteResult: { success: boolean; error?: string } = { success: false, error: 'not attempted' };
 
@@ -185,13 +232,17 @@ export async function POST(request: NextRequest) {
   if (!notificationResult.success) {
     console.error('Lucy notification failed:', notificationResult.error);
   }
+  if (!autoresponderResult.success) {
+    console.error('User autoresponder failed:', autoresponderResult.error);
+  }
   if (!mailerliteResult.success) {
     console.error('MailerLite enrolment failed:', mailerliteResult.error);
   }
 
-  // Return success if EITHER side worked. Better to lose Lucy's notification
-  // than to make the user think their submission failed when they're in the
-  // nurture sequence — and vice versa. Only error if BOTH failed.
+  // Return success if EITHER Lucy notification OR MailerLite enrolment worked.
+  // The autoresponder is "nice to have" — failure alone doesn't block success.
+  // Better to lose one side-effect than make the user think their submission
+  // failed when they're actually in the nurture sequence.
   if (!notificationResult.success && !mailerliteResult.success) {
     return NextResponse.json(
       { success: false, error: 'Both notification and enrolment failed. Please try again or contact us directly.' },
