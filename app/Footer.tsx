@@ -50,7 +50,7 @@ export default function Footer() {
       <div className={styles.footerHours}>
         Monday &nbsp;&nbsp;&nbsp;~ 12pm to 8pm<br />
         Tuesday &nbsp;&nbsp;~ 10am to 6pm<br />
-        Wednesday ~ 10am to 8pm<br />
+        Wednesday ~ 12pm to 8pm<br />
         Thursday &nbsp;~ 10am to 6pm<br />
         Friday &nbsp;&nbsp;&nbsp;&nbsp;~ 9am to 5pm<br />
         Saturday &nbsp;~ 9am to 5pm<br />
@@ -105,7 +105,7 @@ export default function Footer() {
           <p style={{ fontSize: '0.82rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.9 }}>
             Monday – 12pm to 8pm<br />
             Tuesday – 10am to 6pm<br />
-            Wednesday – 10am to 8pm<br />
+            Wednesday – 12pm to 8pm<br />
             Thursday – 10am to 6pm<br />
             Friday – 9am to 5pm<br />
             Saturday – 9am to 5pm<br />

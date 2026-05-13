@@ -655,7 +655,8 @@ export default function PrivateHomeClient() {
               },
               geo: { '@type': 'GeoCoordinates', latitude: 52.204506, longitude: 0.147914 },
               openingHoursSpecification: [
-                { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday'], opens: '09:00', closes: '20:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Thursday'], opens: '09:00', closes: '20:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Wednesday'], opens: '12:00', closes: '20:00' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday'], opens: '09:00', closes: '18:00' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '09:00', closes: '17:30' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday'], opens: '10:00', closes: '17:00' },
@@ -731,7 +732,7 @@ export default function PrivateHomeClient() {
             maxWidth: 'min(1200px, 90vw)',
             margin: '0 auto 36px',
           }}>
-            Our experienced team are specialised in Sports Massage Therapy and provide: Sports Therapy, Deep Tissue, Swedish massage, and pregnancy massage.
+            Expert massage and therapy treatments for recovery, pain relief, relaxation, and wellbeing
           </p>
 
           <p style={{

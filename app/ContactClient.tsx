@@ -41,11 +41,18 @@ const HOURS: Record<number, [number, number, number, number] | null> = {
   0: [10, 0, 17, 0],  // Sunday
   1: [9, 0, 20, 0],   // Monday
   2: [9, 0, 20, 0],   // Tuesday
-  3: [9, 0, 20, 0],   // Wednesday
+  3: [12, 0, 20, 0],  // Wednesday
   4: [9, 0, 20, 0],   // Thursday
   5: [9, 0, 18, 0],   // Friday
   6: [9, 0, 17, 30],  // Saturday
 };
+
+function formatHour(h: number): string {
+  if (h === 0) return '12am';
+  if (h < 12) return `${h}am`;
+  if (h === 12) return '12pm';
+  return `${h - 12}pm`;
+}
 
 function getOpenStatus() {
   const now = new Date();
@@ -71,7 +78,7 @@ function getOpenStatus() {
   const closeMins = ch * 60 + cm;
 
   if (totalMins < openMins) {
-    return { label: `Closed — opens today at ${oh}am`, color: '#ff4444' };
+    return { label: `Closed — opens today at ${formatHour(oh)}`, color: '#ff4444' };
   }
   if (totalMins >= closeMins) {
     // Find next open day
@@ -80,7 +87,7 @@ function getOpenStatus() {
       const nextHours = HOURS[nextDay];
       if (nextHours) {
         const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const label = i === 1 ? `Closed — opens tomorrow at ${nextHours[0]}am` : `Closed — opens ${dayNames[nextDay]} at ${nextHours[0]}am`;
+        const label = i === 1 ? `Closed — opens tomorrow at ${formatHour(nextHours[0])}` : `Closed — opens ${dayNames[nextDay]} at ${formatHour(nextHours[0])}`;
         return { label, color: '#ff4444' };
       }
     }

@@ -149,7 +149,8 @@ export default function BookingPageClient() {
                 longitude: 0.1313,
               },
               openingHoursSpecification: [
-                { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday'], opens: '09:00', closes: '20:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Thursday'], opens: '09:00', closes: '20:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Wednesday'], opens: '12:00', closes: '20:00' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Friday'], opens: '09:00', closes: '18:00' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '09:00', closes: '17:30' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday'], opens: '10:00', closes: '17:00' },
