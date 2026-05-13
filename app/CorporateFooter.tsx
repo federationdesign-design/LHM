@@ -21,6 +21,7 @@ const mainMenu: [string, string][] = [
   ['All Treatments', '/treatments'],
   ['Locations', '/locations'],
   ['Our Team', '/team'],
+  ['Reviews', '/reviews'],
   ['Gift Vouchers', '/gift-vouchers'],
   ['Blog', '/news'],
   ['FAQ', '/faq'],
@@ -30,7 +31,6 @@ const mainMenu: [string, string][] = [
 
 const usefulLinks: [string, string][] = [
   ['Request Receipts', '/receipts'],
-  ['Reviews', '/reviews'],
   ['Testimonials', '/testimonials'],
   ['Facebook', 'https://www.facebook.com/lucyhallmassage'],
   ['Instagram', 'https://www.instagram.com/lucyhallmassage/'],
