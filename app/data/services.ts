@@ -16,6 +16,9 @@ export interface Service {
   widgetService: string;
   widgetLocation: string;
   widgetProvider?: string;
+  // Newer SimplyBook widget style (block mode, modern_week timeline, top calendar).
+  // Only the 60/90/120 min booking pages use it; everything else uses the legacy style.
+  widgetThemeV2?: boolean;
   intro: string;
   benefits: string[];
   recommendedFor: string[];
@@ -38,6 +41,7 @@ export const services: Record<string, Service> = {
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/60-min-massage/',
     widgetService: '2',
     widgetLocation: '4',
+    widgetThemeV2: true,
     intro: "Our most popular choice. Time enough to address two or three areas, balanced between treatment and relaxation. Suits anyone wanting solid pressure on problem spots without committing to a longer session.",
     benefits: [
       'Speeds up muscle recovery after exercise',
@@ -55,7 +59,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['safia'],
+    providerSlugs: ['orla', 'safia', 'antonia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '90-min-massage': {
@@ -72,6 +76,7 @@ export const services: Record<string, Service> = {
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/90-min-massage/',
     widgetService: '3',
     widgetLocation: '4',
+    widgetThemeV2: true,
     intro: "Deeper work with room to breathe. We can layer techniques, cover the full body, and still spend extra time on persistent issues. Good post-event, after a high-stress period, or when 60 minutes has not been quite enough.",
     benefits: [
       'Speeds up muscle recovery after exercise',
@@ -89,7 +94,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['safia'],
+    providerSlugs: ['orla', 'safia', 'antonia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '120-min-massage': {
@@ -106,6 +111,7 @@ export const services: Record<string, Service> = {
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/120-min-massage/',
     widgetService: '4',
     widgetLocation: '4',
+    widgetThemeV2: true,
     intro: "The full reset. Two hours gives space for complete head-to-toe coverage plus extended attention to long-standing tension. Best for chronic issues, recovery from heavy training blocks, or when you simply need the deepest work we offer.",
     benefits: [
       'Speeds up muscle recovery after exercise',
@@ -123,7 +129,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['safia'],
+    providerSlugs: ['orla', 'safia', 'antonia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
 

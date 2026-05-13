@@ -27,9 +27,16 @@ function BookingWidget({ service }: { service: Service }) {
         ? { service: service.widgetService, location: availableLocations[0] }
         : { service: service.widgetService })
     : { service: service.widgetService, location: service.widgetLocation };
-  const predefined = service.widgetProvider
-    ? { ...basePredefined, provider: service.widgetProvider }
-    : basePredefined;
+  // V2 (60/90/120 min pages) preselects service only — location and provider
+  // are intentionally omitted so customers see all assigned therapists across
+  // both locations in the SimplyBook widget itself.
+  const predefined = service.widgetThemeV2
+    ? { service: service.widgetService }
+    : service.widgetProvider
+      ? { ...basePredefined, provider: service.widgetProvider }
+      : basePredefined;
+
+  const themeV2 = service.widgetThemeV2;
 
   useEffect(() => {
     const existing = document.querySelector('script[src*="simplybook"]');
@@ -47,15 +54,17 @@ function BookingWidget({ service }: { service: Service }) {
             timeline_hide_unavailable: '1', hide_past_days: '0',
             timeline_show_end_time: '0', timeline_modern_display: 'as_slots',
             light_font_color: '#ffffff', sb_secondary_base: '#000000',
-            sb_base_color: '#ffffff', display_item_mode: 'list',
+            sb_base_color: themeV2 ? '#545557' : '#ffffff',
+            display_item_mode: themeV2 ? 'block' : 'list',
             booking_nav_bg_color: '#000000', sb_review_image: '115',
             sb_review_image_preview: '/uploads/lucyhallmassage/image_files/preview/4ecc8dab4516d05ab44aa11a3cfd7405.jpg',
             dark_font_color: '#000000', btn_color_1: '#2cd12c',
-            sb_company_label_color: '#ffffff', hide_img_mode: '0',
+            sb_company_label_color: themeV2 ? '#000000' : '#ffffff',
+            hide_img_mode: '0',
             show_sidebar: '1', sb_busy: '#db1f4b', sb_available: '#2cd12c',
           },
-          timeline: 'modern',
-          datepicker: 'inline_datepicker',
+          timeline: themeV2 ? 'modern_week' : 'modern',
+          datepicker: themeV2 ? 'top_calendar' : 'inline_datepicker',
           is_rtl: false,
           app_config: {
             clear_session: 0, allow_switch_to_ada: 0,
