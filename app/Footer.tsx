@@ -19,7 +19,7 @@ const usefulLinks: [string, string][] = [
   ['Testimonials', '/testimonials'],
   ['Facebook', 'https://www.facebook.com/lucyhallmassage'],
   ['Instagram', 'https://www.instagram.com/lucyhallmassage/'],
-  ['LinkedIn', 'https://www.linkedin.com/in/lucy-hall-massage-47369141/'],
+  ['LinkedIn', 'https://www.linkedin.com/company/lucy-hall-massage/'],
   ['Privacy Policy', '/legal/privacy-policy'],
   ['Terms & Conditions', '/legal/terms-and-conditions'],
   ['Data Request', '/legal/data-request'],

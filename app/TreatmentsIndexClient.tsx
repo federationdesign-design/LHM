@@ -9,7 +9,7 @@ import Footer from './Footer';
 const therapiesList = [
   { label: 'Deep Tissue Massage', href: '/treatments/deep-tissue-massage', slideIndex: 1 },
   { label: 'Swedish Massage', href: '/treatments/swedish-massage', slideIndex: 2 },
-  { label: 'Sports Massage', href: '/treatments/sports-massage', slideIndex: 3 },
+  { label: 'Sports Massage', href: '/your-sports-massage', slideIndex: 3 },
   { label: 'Relaxation Massage', href: '/treatments/relaxation-massage', slideIndex: 4 },
   { label: 'Pregnancy Massage', href: '/your-pregnancy-massage', slideIndex: 5 },
   { label: 'Hopi Ear & Back Massage', href: '/treatments/hopi-ear', slideIndex: 6 },
@@ -17,11 +17,10 @@ const therapiesList = [
   { label: 'Indian Head Massage', href: '/treatments/indian-head-massage', slideIndex: 8 },
   { label: 'Hot Stone Massage', href: '/treatments/hot-stone-massage', slideIndex: 9 },
   { label: 'Cupping', href: '/your-cupping-massage', slideIndex: 10 },
-  { label: 'Your Sports Massage', href: '/your-sports-massage', slideIndex: 11 },
-  { label: 'Our Locations', href: '/locations', slideIndex: 12 },
-  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 13 },
-  { label: 'Get in Touch', href: '/contact', slideIndex: 14 },
-  { label: 'Claiming Receipts', href: '/contact', slideIndex: 15 },
+  { label: 'Our Locations', href: '/locations', slideIndex: 11 },
+  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 12 },
+  { label: 'Get in Touch', href: '/contact', slideIndex: 13 },
+  { label: 'Claiming Receipts', href: '/contact', slideIndex: 14 },
 ];
 
 const slides = [
@@ -39,7 +38,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'sports-massage', title: 'Sports Massage',
     tagline: 'Sports massage is a targeted treatment designed for active individuals, combining deep tissue techniques with stretching to prevent injury, aid recovery and improve performance. Whether you are training regularly or recovering from an event, sports massage keeps your body functioning at its best.',
-    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/sports-massage',
+    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/your-sports-massage',
   },
   {
     type: 'treatment' as const, slug: 'relaxation-massage', title: 'Relaxation Massage',
@@ -75,11 +74,6 @@ const slides = [
     type: 'treatment' as const, slug: 'cupping', title: 'Cupping Therapy',
     tagline: 'A traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access — releasing deep-seated tension and supporting natural recovery.',
     image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/your-cupping-massage',
-  },
-  {
-    type: 'treatment' as const, slug: 'your-sports-massage', title: 'Your Sports Massage',
-    tagline: 'Tailored sports massage in 30, 60, 90 or 120 minute sessions. Choose the duration that suits your needs — from a quick targeted session to a full-body deep reset.',
-    image: '/sports-therapy-mobile.jpg', color: '#1a1a1a', cta: 'Choose Duration', ctaHref: '/your-sports-massage',
   },
   { type: 'treatment' as const, slug: 'locations', title: 'Our Locations', tagline: 'Two clinics in Cambridge — Thoday Street and Cromwell Road. All treatments available at both locations.', image: '/deep-tissue-img.jpg', color: '#28303a', cta: 'View Locations', ctaHref: '/locations' },
   { type: 'treatment' as const, slug: 'gift-vouchers', title: 'Gift Vouchers', tagline: 'Give the gift of relaxation — the perfect treat for someone special. Redeemable against any treatment at either clinic. Valid for 12 months.', image: '/gift-voucher-hero.jpg', color: '#3a3028', cta: 'Buy a Voucher', ctaHref: '/gift-vouchers' },
