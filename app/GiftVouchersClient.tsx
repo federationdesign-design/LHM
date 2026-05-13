@@ -99,7 +99,7 @@ export default function GiftVouchersClient() {
       <main className={styles.page}>
 
         {/* HERO */}
-        <div ref={heroRef} className={styles.hero} style={{ backgroundColor: '#3a3028' }}>
+        <div ref={heroRef} className={styles.hero} style={{ backgroundColor: '#b9e8a0' }}>
           <Image src="/gift-voucher-hero.jpg" alt="Gift Vouchers — Lucy Hall Massage Therapy" fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
           <div className={styles.heroGradient} />
