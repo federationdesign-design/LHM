@@ -43,7 +43,7 @@ const SLIDERS: SliderQuestion[] = [
   { id: 'benefitsLasted',    label: 'Have the benefits of your session lasted beyond the treatment itself?',             options: ['Not really', 'Somewhat', 'Significantly'] },
   { id: 'supportValue',      label: 'How valuable is having access to ongoing support and advice in the workplace?',     options: ['Not valuable', 'Somewhat valuable', 'Significantly valuable'] },
   { id: 'companyBenefit',    label: 'Do you feel this service is a valuable benefit provided by your company?',          options: ['Not valuable', 'Somewhat valuable', 'Significantly valuable'] },
-  { id: 'staffWellbeing',    label: 'Do you see workplace massage as an important part of staff wellbeing?',             options: ['Yes', 'Maybe', 'No'] },
+  { id: 'staffWellbeing',    label: 'Do you see workplace massage as an important part of staff wellbeing?',             options: ['No', 'Maybe', 'Yes'] },
   { id: 'missIt',            label: 'If this service was no longer available, would you miss it?',                       options: ['Yes, a lot', 'Yes, a little', 'No'] },
 ];
 
@@ -217,6 +217,7 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
           value={currentIndex}
           onChange={e => setSliderValues(prev => ({ ...prev, [id]: q.options[parseInt(e.target.value, 10)] }))}
           className="wmf-slider"
+          style={{ ['--thumb-color' as any]: currentIndex === 0 ? '#dc2626' : currentIndex === 1 ? '#ff8c00' : '#2cd12c' }}
         />
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, gap: 8 }}>
           {q.options.map((opt, i) => (
@@ -468,11 +469,11 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
           width: 22px;
           height: 22px;
           border-radius: 50%;
-          background: #2cd12c;
+          background: var(--thumb-color, #ff8c00);
           border: 2px solid #ffffff;
           cursor: pointer;
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          transition: transform 0.15s ease;
+          transition: transform 0.15s ease, background 0.25s ease;
         }
         .wmf-slider::-webkit-slider-thumb:hover,
         .wmf-slider::-webkit-slider-thumb:active { transform: scale(1.1); }
@@ -480,11 +481,11 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
           width: 22px;
           height: 22px;
           border-radius: 50%;
-          background: #2cd12c;
+          background: var(--thumb-color, #ff8c00);
           border: 2px solid #ffffff;
           cursor: pointer;
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          transition: transform 0.15s ease;
+          transition: transform 0.15s ease, background 0.25s ease;
         }
         .wmf-slider::-moz-range-thumb:hover,
         .wmf-slider::-moz-range-thumb:active { transform: scale(1.1); }
