@@ -20,7 +20,7 @@ const mainMenu: [string, string][] = [
   ['Home', '/private'],
   ['All Treatments', '/treatments'],
   ['Locations', '/locations'],
-  ['Our Team', '/team'],
+  ['Our Team', '/corporate/team'],
   ['Reviews', '/reviews'],
   ['Gift Vouchers', '/gift-vouchers'],
   ['Blog', '/news'],
