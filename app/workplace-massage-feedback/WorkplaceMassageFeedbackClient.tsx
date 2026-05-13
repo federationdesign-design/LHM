@@ -42,14 +42,14 @@ export default function WorkplaceMassageFeedbackClient() {
                 Workplace Massage Feedback
               </h1>
 
-              {/* ════════════════════════════════════════════════════════════
-                  TODO STEVE: Replace this placeholder with the real intro
-                  copy. Add as many <h2>/<p> blocks as needed above the
-                  declaration checkbox. The big tick box at the bottom stays
-                  — it gates form submission.
-                  ════════════════════════════════════════════════════════════ */}
+              <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 16, opacity: 0.85 }}>
+                Lucy Hall Massage Corporate and your company are continually working to improve the workplace wellbeing service we deliver. Hearing directly from the team using the service is the most reliable way we can tell what&rsquo;s actually making a difference and where to adjust.
+              </p>
+              <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 16, opacity: 0.85 }}>
+                Your feedback helps us understand how much you value the sessions, the benefits you&rsquo;re experiencing day to day, and where things could be better. Every response is read carefully and reviewed alongside the wider service. The insights inform how we plan upcoming sessions and shape the ongoing conversation between Lucy Hall Massage and the team supporting wellbeing at your company.
+              </p>
               <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 28, opacity: 0.85 }}>
-                [Placeholder] Your introduction copy goes here. Context about the workplace massage programme, why feedback matters, what happens with submissions, and anything else relevant. Replace this paragraph and add more blocks above the declaration checkbox as needed.
+                Please be candid in your responses. Both ends of the spectrum are equally useful, and we want to understand what&rsquo;s working as much as where we can do better.
               </p>
 
               {/* DECLARATION CHECKBOX — required to submit. */}
