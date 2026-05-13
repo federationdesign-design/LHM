@@ -10,7 +10,6 @@ import Testimonials from './components/Testimonials/Testimonials';
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 
 const services = [
-  { slug: '30-min-massage', title: '30 Minute Massage', image: '/30-img.jpg', href: '/treatments/30-min-massage', cta: 'Book Treatment' },
   { slug: '60-min-massage', title: '60 Minute Massage', image: '/60-img.jpg', href: '/treatments/60-min-massage', cta: 'Book Treatment' },
   { slug: '90-min-massage', title: '90 Minute Massage', image: '/90-img.jpg', href: '/treatments/90-min-massage', cta: 'Book Treatment' },
   { slug: '120-min-massage', title: '120 Minute Massage', image: '/120-img.jpg', href: '/treatments/120-min-massage', cta: 'Book Treatment' },
@@ -732,7 +731,7 @@ export default function PrivateHomeClient() {
             maxWidth: 'min(1200px, 90vw)',
             margin: '0 auto 36px',
           }}>
-            Expert massage and therapy treatments for recovery, pain relief, relaxation, and wellbeing
+            Expert massage and therapy treatments for recovery, pain relief, relaxation, and wellbeing.
           </p>
 
           <p style={{

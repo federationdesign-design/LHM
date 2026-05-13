@@ -8,19 +8,13 @@ import Footer from '../Footer';
 import Testimonials from '../components/Testimonials/Testimonials';
 
 const therapiesList = [
-  { label: '30 minutes', href: '/treatments/30-min-massage', slideIndex: 1 },
-  { label: '60 minutes', href: '/treatments/60-min-massage', slideIndex: 2 },
-  { label: '90 minutes', href: '/treatments/90-min-massage', slideIndex: 3 },
-  { label: '120 minutes', href: '/treatments/120-min-massage', slideIndex: 4 },
+  { label: '60 minutes', href: '/treatments/60-min-massage', slideIndex: 1 },
+  { label: '90 minutes', href: '/treatments/90-min-massage', slideIndex: 2 },
+  { label: '120 minutes', href: '/treatments/120-min-massage', slideIndex: 3 },
 ];
 
 const slides = [
   { type: 'intro' as const, slug: 'intro', title: null, tagline: null, image: null, color: '#000000', cta: null, ctaHref: null },
-  {
-    type: 'treatment' as const, slug: '30-min-massage', title: '30 minutes',
-    tagline: "A focused session on one trouble area. Ideal if you have got a single tight spot — neck, shoulders, lower back — that needs attention before a busy week. Quick to fit in over a lunch break and you will leave noticeably looser.",
-    image: '/hero.jpg', color: '#4e3225', cta: 'Book Now', ctaHref: '/treatments/30-min-massage',
-  },
   {
     type: 'treatment' as const, slug: '60-min-massage', title: '60 minutes',
     tagline: 'Our most popular choice. Time enough to address two or three areas, balanced between treatment and relaxation. Suits anyone wanting solid pressure on problem spots without committing to a longer session.',

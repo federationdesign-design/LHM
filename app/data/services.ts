@@ -24,40 +24,6 @@ export interface Service {
 }
 
 export const services: Record<string, Service> = {
-  '30-min-massage': {
-    slug: '30-min-massage',
-    title: '30 Minute Massage',
-    h1: '30 Minute Massage',
-    tagline: 'Book your appointment in just two minutes with our simple online booking system.',
-    heroMobile: '/30-img.jpg',
-    heroDesktop: '/30-img.jpg',
-    heroColor: '#5e3c2b',
-    metaTitle: '30 Minute Massage Cambridge | Lucy Hall Massage Therapy',
-    metaDescription: 'Book a 30 minute massage in Cambridge with Lucy Hall Massage Therapy. Tailored treatment for your needs. Book online in 2 minutes.',
-    keywords: ['30 minute massage cambridge', 'massage cambridge', 'sports massage cambridge'],
-    canonicalUrl: 'https://www.lucyhallmassage.com/treatments/30-min-massage/',
-    widgetService: '1',
-    widgetLocation: '4',
-    intro: "A focused session on one trouble area. Ideal if you have got a single tight spot — neck, shoulders, lower back — that needs attention before a busy week. Quick to fit in over a lunch break and you will leave noticeably looser.",
-    benefits: [
-      'Speeds up muscle recovery after exercise',
-      'Reduces risk of sports injuries',
-      'Improves flexibility and range of motion',
-      'Breaks down lactic acid build-up',
-      'Enhances athletic performance',
-      'Treats specific areas of overuse',
-    ],
-    recommendedFor: [
-      'Regular gym-goers and athletes',
-      'Runners, cyclists and swimmers',
-      'People recovering from a sports injury',
-      'Those with tight or overworked muscles',
-      'Anyone training for an event',
-      'People with recurring muscle problems',
-    ],
-    providerSlugs: ['safia'],
-    featuredArticleSlug: 'how-often-should-you-get-a-massage',
-  },
   '60-min-massage': {
     slug: '60-min-massage',
     title: '60 Minute Massage',
