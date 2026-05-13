@@ -20,7 +20,7 @@ const slides = [
     image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/cupping',
   },
   {
-    type: 'treatment' as const, slug: '120-min-cupping', title: '120 minutes',
+    type: 'treatment' as const, slug: '90-min-cupping', title: '90 minutes',
     tagline: 'Extended fascial release across multiple areas with time to layer techniques and address chronic restriction. Best for entrenched tightness, recovery from heavy training blocks, or when 60 minutes is not quite enough.',
     image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/120-min-cupping',
   },
