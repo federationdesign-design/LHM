@@ -25,7 +25,7 @@ import CorporateFooter from '../CorporateFooter';
 import Testimonials from '../components/Testimonials/Testimonials';
 import { corporateTestimonials } from '../components/Testimonials/corporate-testimonials-data';
 
-const LINKEDIN_RECOMMENDATIONS_URL = 'https://www.linkedin.com/in/lucy-hall-47369141/details/recommendations/?detailScreenTabIndex=0';
+const LINKEDIN_RECOMMENDATIONS_URL = 'https://www.linkedin.com/in/lucy-hall-massage-47369141/details/recommendations/?detailScreenTabIndex=0';
 
 export default function ReviewsClient() {
   return (
