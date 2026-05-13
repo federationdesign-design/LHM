@@ -19,15 +19,40 @@ function ReceiptForm() {
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!consent) return;
     setSubmitting(true);
-    setTimeout(() => {
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/submit-receipt-request', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          name:          name.trim(),
+          email:         email.trim(),
+          orderNumber:   orderNumber.trim(),
+          treatmentDate: treatmentDate.trim(),
+          notes:         notes.trim() || null,
+          website:       honeypot,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setSubmitError(data.error || 'Something went wrong. Please try again.');
+        setSubmitting(false);
+        return;
+      }
       setSubmitting(false);
       setSubmitted(true);
-    }, 800);
+    } catch {
+      setSubmitError('Network error. Please check your connection and try again.');
+      setSubmitting(false);
+    }
   };
 
   // Shared input style — matches start-your-journey form for consistency
@@ -83,7 +108,16 @@ function ReceiptForm() {
       border: '1px solid rgba(255,255,255,0.25)',
       padding: '40px 32px',
       borderRadius: 4,
+      position: 'relative',
     }}>
+
+      {/* HONEYPOT — visually hidden. Bots fill it; users don't. */}
+      <div style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
+        <label htmlFor="rec-website">
+          Website (leave blank)
+          <input type="text" id="rec-website" name="website" value={honeypot} onChange={e => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
 
       <div style={{ marginBottom: 22 }}>
         <label style={labelStyle} htmlFor="rec-name">Full name</label>
@@ -175,6 +209,20 @@ function ReceiptForm() {
       >
         {submitting ? 'Submitting…' : 'Request receipt'}
       </button>
+
+      {submitError && (
+        <div style={{
+          marginTop: 16,
+          padding: '12px 16px',
+          background: 'rgba(220, 38, 38, 0.15)',
+          border: '1px solid rgba(220, 38, 38, 0.5)',
+          borderRadius: 4,
+        }}>
+          <p style={{ fontSize: '0.9rem', fontWeight: 400, color: '#ff8c8c', textAlign: 'center', lineHeight: 1.5, margin: 0 }}>
+            {submitError}
+          </p>
+        </div>
+      )}
     </form>
   );
 }
