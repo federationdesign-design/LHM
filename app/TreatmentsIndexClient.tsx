@@ -6,6 +6,16 @@ import styles from './page.module.css';
 import Nav from './Nav';
 import Footer from './Footer';
 
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
+
+// Static Mapbox map showing both Cambridge clinics. /auto/ fits both pins
+// in frame automatically. Square aspect chosen so objectFit: cover crops
+// nicely at any slide width (carousel cards vary mobile vs desktop).
+const LOCATIONS_MAP_URL =
+  `https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/` +
+  `pin-s+ffffff(0.147060,52.199047),pin-s+ffffff(0.147914,52.204506)` +
+  `/auto/800x800@2x?access_token=${MAPBOX_TOKEN}`;
+
 const therapiesList = [
   { label: 'Deep Tissue Massage', href: '/treatments/deep-tissue-massage', slideIndex: 1 },
   { label: 'Swedish Massage', href: '/treatments/swedish-massage', slideIndex: 2 },
@@ -75,7 +85,7 @@ const slides = [
     tagline: 'A traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access — releasing deep-seated tension and supporting natural recovery.',
     image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/your-cupping-massage',
   },
-  { type: 'treatment' as const, slug: 'locations', title: 'Our Locations', tagline: 'Two clinics in Cambridge — Thoday Street and Cromwell Road. All treatments available at both locations.', image: '/deep-tissue-img.jpg', color: '#28303a', cta: 'View Locations', ctaHref: '/locations' },
+  { type: 'treatment' as const, slug: 'locations', title: 'Our Locations', tagline: 'Two clinics in Cambridge — Thoday Street and Cromwell Road. All treatments available at both locations.', image: LOCATIONS_MAP_URL, color: '#28303a', cta: 'View Locations', ctaHref: '/locations' },
   { type: 'treatment' as const, slug: 'gift-vouchers', title: 'Gift Vouchers', tagline: 'Give the gift of relaxation — the perfect treat for someone special. Redeemable against any treatment at either clinic. Valid for 12 months.', image: '/gift-voucher-hero.jpg', color: '#3a3028', cta: 'Buy a Voucher', ctaHref: '/gift-vouchers' },
   { type: 'treatment' as const, slug: 'contact', title: 'Get in Touch', tagline: "Have a question? We're always happy to help. Get in touch with our team and we'll get back to you as soon as possible.", image: '/get-in-touch-img.jpg', color: '#2a2a2a', cta: 'Contact Us', ctaHref: '/contact' },
   { type: 'treatment' as const, slug: 'receipts', title: 'Claiming Receipts', tagline: 'Need a receipt for your treatment? We can provide one on request — useful if you are claiming through private health insurance or a corporate wellness scheme.', image: '/claiming-receipts.jpg', color: '#28303a', cta: 'Learn More', ctaHref: '/contact' },

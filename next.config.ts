@@ -1,6 +1,12 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'api.mapbox.com' },
+    ],
+  },
+
   // NOTE: experimental.viewTransition removed — we're using the raw browser
   // View Transitions API directly rather than React's experimental
   // <ViewTransition> wrapper. The browser API is a stable web standard;
