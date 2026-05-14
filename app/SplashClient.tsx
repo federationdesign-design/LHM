@@ -7,6 +7,7 @@ import Footer from './Footer';
 import SplashNav from './SplashNav';
 import Testimonials, { headingClassName } from './components/Testimonials/Testimonials';
 import styles from './page.module.css';
+import FindUsOn from '@/app/components/FindUsOn';
 
 /* ─────────────────────────────────────────────────────────────
    SplashClient — the disambiguation page rendered at /.
@@ -68,14 +69,6 @@ const companyClients = [
   { name: 'Redgate',                 src: '/redgate-logo.png' },
   { name: 'Speechmatics',            src: '/speechmatics.png' },
   { name: 'AstraZeneca',             src: '/astrazeneca-img.png' },
-];
-
-// ── FIND-US-ON LOGOS ──────────────────────────────────────────
-const findUsLogos = [
-  { src: '/tripadisvor.svg', alt: 'Tripadvisor' },
-  { src: '/SBM-logo.png',    alt: 'SimplyBook.me' },
-  { src: '/linked_in.png',   alt: 'LinkedIn' },
-  { src: '/where-logo.png',  alt: 'Wheree' },
 ];
 
 // ── ARROWS ────────────────────────────────────────────────────
@@ -534,22 +527,7 @@ export default function SplashClient() {
         <Testimonials heading="Happy private clients include" />
 
         {/* ── FIND US ON ──────────────────────────────────────── */}
-        <div className="splash-findus">
-          <h3 className="splash-findus-heading">Find us on:</h3>
-          <div className="splash-findus-marquee">
-            <div className="splash-findus-marquee-track">
-              {[...findUsLogos, ...findUsLogos].map((logo, i) => (
-                <img
-                  key={`${logo.alt}-${i}`}
-                  src={logo.src}
-                  alt={logo.alt}
-                  className="splash-findus-logo"
-                  draggable={false}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        <FindUsOn />
 
         <Footer />
       </main>
@@ -1132,61 +1110,6 @@ export default function SplashClient() {
           .splash-divider { margin: 20px 80px; }
         }
 
-        /* ── FIND US ON ──────────────────────────────────────── */
-        /* Always visible (mobile and desktop). Mobile: marquee.
-           Desktop: static row. */
-        .splash-findus {
-          padding: 40px 24px;
-          overflow: hidden;
-        }
-        .splash-findus-heading {
-          font-size: 0.9rem;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.2em;
-          color: #ffffff;
-          text-align: center;
-          margin: 0 0 24px;
-          opacity: 0.7;
-        }
-        .splash-findus-marquee {
-          width: 100%;
-          overflow: hidden;
-        }
-        .splash-findus-marquee-track {
-          display: flex;
-          align-items: center;
-          gap: 40px;
-          width: max-content;
-          animation: splash-marquee 25s linear infinite;
-        }
-        .splash-findus-logo {
-          flex: 0 0 auto;
-          height: 36px;
-          width: auto;
-          object-fit: contain;
-          display: block;
-          filter: brightness(0) invert(1);
-          opacity: 0.85;
-        }
-        @media (min-width: 1024px) {
-          .splash-findus {
-            padding: 40px 60px;
-          }
-          .splash-findus-marquee-track {
-            justify-content: center;
-            gap: 60px;
-            width: 100%;
-            animation: none;
-            transform: none !important;
-          }
-          .splash-findus-marquee-track > .splash-findus-logo:nth-child(n+5) {
-            display: none;
-          }
-          .splash-findus-logo {
-            height: 50px;
-          }
-        }
       `}</style>
     </>
   );
