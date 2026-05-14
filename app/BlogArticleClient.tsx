@@ -79,7 +79,7 @@ function SidebarRelatedServiceCard({ slug }: { slug: string }) {
   if (!s) return null;
 
   return (
-    
+    <a
       href={`/treatments/${s.slug}`}
       className={`${styles.blogSidebarCard} related-service-card`}
       style={{ position: 'relative' }}
