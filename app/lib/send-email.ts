@@ -28,6 +28,9 @@ export type SendEmailOptions = {
   /** Optional reply-to address. Useful for contact-form submissions where
    *  the submitter's email should populate the reply field. */
   replyTo?: string;
+  /** Optional CC recipients. Single address or array. Shows up as 'Cc:' in
+   *  the recipient's email client (vs primary 'To:' recipients). */
+  cc?: string | string[];
 };
 
 export type SendEmailResult =
@@ -57,6 +60,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<SendEmailRes
     const result = await resend.emails.send({
       from,
       to: options.to,
+      cc: options.cc,
       subject: options.subject,
       text: options.text,
       html: options.html,

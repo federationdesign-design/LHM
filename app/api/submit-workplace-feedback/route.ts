@@ -140,6 +140,7 @@ export async function POST(req: NextRequest) {
     // ── SEND ────────────────────────────────────────────────
     const result = await sendEmail({
       to:      'lucy@lucyhallmassage.com',
+      cc:      'steve@lucyhallmassage.com',
       subject: `[Workplace Feedback] ${name} - ${company} - ${formatDate()}`,
       text:    textBody,
       html,
