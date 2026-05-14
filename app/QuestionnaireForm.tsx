@@ -1000,6 +1000,65 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
           outline: 2px solid #ffffff;
           outline-offset: 2px;
         }
+
+        /* === SEVERITY SLIDER — mirrors WellbeingForm's .intake-slider === */
+        .intake-slider {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 100%;
+          height: 8px;
+          border-radius: 999px;
+          outline: none;
+          cursor: pointer;
+          margin: 0;
+          padding: 0;
+          background:
+            linear-gradient(to right,
+              rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.6) 1.5%,
+              transparent 1.5%, transparent 33.33%,
+              rgba(255,255,255,0.6) 33.33%, rgba(255,255,255,0.6) 34.83%,
+              transparent 34.83%, transparent 66.66%,
+              rgba(255,255,255,0.6) 66.66%, rgba(255,255,255,0.6) 68.16%,
+              transparent 68.16%, transparent 98.5%,
+              rgba(255,255,255,0.6) 98.5%, rgba(255,255,255,0.6) 100%
+            ),
+            rgba(255,255,255,0.2);
+        }
+        .intake-slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: var(--thumb-color, #2cd12c);
+          border: 2px solid #ffffff;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          transition: transform 0.15s ease, background 0.25s ease;
+        }
+        .intake-slider::-webkit-slider-thumb:hover,
+        .intake-slider::-webkit-slider-thumb:active {
+          transform: scale(1.1);
+        }
+        .intake-slider::-moz-range-thumb {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: var(--thumb-color, #2cd12c);
+          border: 2px solid #ffffff;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          transition: transform 0.15s ease, background 0.25s ease;
+        }
+        .intake-slider::-moz-range-thumb:hover,
+        .intake-slider::-moz-range-thumb:active {
+          transform: scale(1.1);
+        }
+        .intake-slider::-moz-range-track {
+          height: 8px;
+          border-radius: 999px;
+          background: transparent;
+        }
       `}</style>
     </>
   );
