@@ -362,7 +362,7 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
              matches the actual rendered DOM without interpolation. */
           @media (min-width: 1024px) {
             .inline-related-service-card {
-              display: none;
+              display: none !important;
             }
           }
           .inline-related-service-card:hover .inline-related-service-card-image {
