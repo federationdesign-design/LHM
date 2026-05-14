@@ -18,8 +18,6 @@ export const runtime = 'nodejs';
 
 type RequestBody = {
   name?:           string;
-  email?:          string;
-  mobile?:         string;
   company?:        string;
   ratings?:        Record<string, string>;
   areasImproved?:  string | null;
@@ -64,9 +62,6 @@ export async function POST(req: NextRequest) {
     }
 
     // ── VALIDATION ──────────────────────────────────────────
-    if (!body.name?.trim())                                return NextResponse.json({ success: false, error: 'Name is required' },              { status: 400 });
-    if (!body.email?.trim() || !body.email.includes('@'))  return NextResponse.json({ success: false, error: 'Valid email required' },          { status: 400 });
-    if (!body.mobile?.trim())                              return NextResponse.json({ success: false, error: 'Mobile number is required' },     { status: 400 });
     if (!body.company?.trim())                             return NextResponse.json({ success: false, error: 'Company name is required' },      { status: 400 });
     if (body.recommend !== 'yes' && body.recommend !== 'no') {
       return NextResponse.json({ success: false, error: 'Please choose Yes or No to the recommend question' }, { status: 400 });
@@ -75,10 +70,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'All rating questions must be answered' }, { status: 400 });
     }
 
-    const name    = body.name.trim();
-    const email   = body.email.trim();
-    const mobile  = body.mobile.trim();
-    const company = body.company.trim();
+    const name    = body.name?.trim() || 'Anonymous';
+    const company = body.company!.trim();
     const ratings = body.ratings as Record<string, string>;
 
     // ── EMAIL BODY (PLAIN TEXT) ─────────────────────────────
@@ -104,8 +97,6 @@ export async function POST(req: NextRequest) {
       `Submitted: ${formatDate()}`,
       '',
       `Name:     ${name}`,
-      `Email:    ${email}`,
-      `Mobile:   ${mobile}`,
       `Company:  ${company}`,
       '',
       `Would recommend to colleagues: ${body.recommend!.toUpperCase()}`,
@@ -119,8 +110,6 @@ export async function POST(req: NextRequest) {
     // ── EMAIL BODY (HTML) ───────────────────────────────────
     const detailsRows = [
       ['Name',                          name],
-      ['Email',                         email],
-      ['Mobile',                        mobile],
       ['Company',                       company],
       ['Would recommend to colleagues', body.recommend!.toUpperCase()],
     ].map(([k, v]) =>
@@ -154,7 +143,6 @@ export async function POST(req: NextRequest) {
       subject: `[Workplace Feedback] ${name} - ${company} - ${formatDate()}`,
       text:    textBody,
       html,
-      replyTo: email,
     });
 
     if (!result.success) {

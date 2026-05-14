@@ -36,15 +36,15 @@ type SliderQuestion = {
 
 const SLIDERS: SliderQuestion[] = [
   { id: 'experience',        label: 'How would you rate your overall experience?',                                       options: ['Average', 'Good', 'Excellent'] },
-  { id: 'feelAfter',         label: 'How do you feel after your massage session?',                                       options: ['No change', 'Slightly better', 'Much better'] },
+  { id: 'feelAfter',         label: 'How do you feel after your massage session?',                                       options: ['No change', 'Better', 'Much better'] },
   { id: 'painRelief',        label: 'Did the session help relieve any pain or discomfort?',                              options: ['No change', 'Somewhat', 'Significantly'] },
   { id: 'posture',           label: 'Did the session improve your posture or awareness of it?',                          options: ['No', 'Somewhat', 'Yes'] },
   { id: 'workdayDifference', label: 'Has this service made a positive difference to your working day?',                  options: ['No difference', 'A little difference', 'A big difference'] },
   { id: 'benefitsLasted',    label: 'Have the benefits of your session lasted beyond the treatment itself?',             options: ['Not really', 'Somewhat', 'Significantly'] },
-  { id: 'supportValue',      label: 'How valuable is having access to ongoing support and advice in the workplace?',     options: ['Not valuable', 'Somewhat valuable', 'Significantly valuable'] },
-  { id: 'companyBenefit',    label: 'Do you feel this service is a valuable benefit provided by your company?',          options: ['Not valuable', 'Somewhat valuable', 'Significantly valuable'] },
+  { id: 'supportValue',      label: 'How valuable is having access to ongoing support and advice in the workplace?',     options: ['Not valuable', 'Somewhat', 'Significantly valuable'] },
+  { id: 'companyBenefit',    label: 'Do you feel this service is a valuable benefit provided by your company?',          options: ['Not valuable', 'Somewhat', 'Significantly valuable'] },
   { id: 'staffWellbeing',    label: 'Do you see workplace massage as an important part of staff wellbeing?',             options: ['No', 'Maybe', 'Yes'] },
-  { id: 'missIt',            label: 'If this service was no longer available, would you miss it?',                       options: ['Yes, a lot', 'Yes, a little', 'No'] },
+  { id: 'missIt',            label: 'If this service was no longer available, would you miss it?',                       options: ['No', 'Yes, a little', 'Yes, a lot'] },
 ];
 
 // ── BUTTON COLOURS ────────────────────────────────────────────
@@ -104,10 +104,8 @@ const sectionLabelStyle: React.CSSProperties = {
 // ── COMPONENT ─────────────────────────────────────────────────
 
 export default function WorkplaceMassageFeedbackForm({ declarationConsent, showValidation, setShowValidation }: Props) {
-  const [name, setName]         = useState('');
-  const [email, setEmail]       = useState('');
-  const [mobile, setMobile]     = useState('');
-  const [company, setCompany]   = useState('');
+  const [name, setName]       = useState('');
+  const [company, setCompany] = useState('');
 
   // Sliders default to the middle option. Matches WellbeingForm UX.
   const [sliderValues, setSliderValues] = useState<Record<string, string>>(
@@ -128,10 +126,6 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
 
   // ── VALIDATION ──────────────────────────────────────────────
   const mandatoryFilled =
-    name.trim().length > 0 &&
-    email.trim().length > 0 &&
-    email.includes('@') &&
-    mobile.trim().length > 0 &&
     company.trim().length > 0 &&
     declarationConsent &&
     recommend !== '';
@@ -158,8 +152,6 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
 
     const payload = {
       name:    name.trim(),
-      email:   email.trim(),
-      mobile:  mobile.trim(),
       company: company.trim(),
       ratings: sliderValues,
       areasImproved: areasImproved.trim() || null,
@@ -270,10 +262,8 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
 
         {/* CONTACT */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <input type="text"  placeholder="Name"         value={name}    onChange={e => setName(e.target.value)}    required style={inputStyle} className="intake-input" />
-          <input type="email" placeholder="Email"        value={email}   onChange={e => setEmail(e.target.value)}   required style={inputStyle} className="intake-input" />
-          <input type="tel"   placeholder="Mobile"       value={mobile}  onChange={e => setMobile(e.target.value)}  required style={inputStyle} className="intake-input" />
-          <input type="text"  placeholder="Company name" value={company} onChange={e => setCompany(e.target.value)} required style={inputStyle} className="intake-input" />
+          <input type="text" placeholder="enter name, leave blank to be anonymous" value={name}    onChange={e => setName(e.target.value)}                            style={inputStyle} className="intake-input" />
+          <input type="text" placeholder="Company name"                              value={company} onChange={e => setCompany(e.target.value)} required style={inputStyle} className="intake-input" />
         </div>
 
         {/* ── ABOUT YOUR EXPERIENCE ───────────────────────────── */}
@@ -385,7 +375,7 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
 
         {showValidation && !mandatoryFilled && !submitting && (
           <p style={{ fontSize: '0.85rem', fontWeight: 400, color: '#ff8c8c', marginTop: 12, textAlign: 'center', lineHeight: 1.5 }}>
-            Please complete all mandatory fields and tick the declaration in the left column.
+            Please enter your company name, choose Yes or No to the recommend question, and tick the declaration in the left column.
           </p>
         )}
 
