@@ -27,10 +27,10 @@ function RelatedServiceCard({ slug }: { slug: string }) {
         position: 'relative',
         transition: 'transform 0.3s ease',
       }}
-      className="related-service-card"
+      className="inline-related-service-card"
     >
       <div
-        className="related-service-card-image"
+        className="inline-related-service-card-image"
         style={{
           position: 'relative',
           width: '100%',
@@ -87,11 +87,11 @@ function SidebarCard({ card }: { card: SidebarCardSpec }) {
   return (
     <a
       href={card.href}
-      className={`${styles.blogSidebarCard} related-service-card`}
+      className={styles.blogSidebarCard}
       style={{ position: 'relative' }}
     >
       <div
-        className={`${styles.blogSidebarCardImage} related-service-card-image`}
+        className={styles.blogSidebarCardImage}
         style={{ background: card.imageColor }}
       >
         <Image
@@ -354,21 +354,19 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
         <Footer />
 
         <style>{`
-          /* Inline related-treatment cards are visible on mobile only.
-             On desktop (>=1024px) the sidebar carries this content, so
-             we hide them inside the article body to avoid duplication.
-             We target descendants of .blogArticleBody so the sidebar's
-             SidebarCard (which also has .related-service-card)
-             is unaffected. */
+          /* Inline cards inside the article body. Visible on mobile/tablet
+             only — hidden on desktop (>=1024px) since the sidebar carries
+             this content. Class is plain (not a CSS module) so the rule
+             matches the actual rendered DOM without interpolation. */
           @media (min-width: 1024px) {
-            .${styles.blogArticleBody} .related-service-card {
+            .inline-related-service-card {
               display: none;
             }
           }
-          .related-service-card:hover .related-service-card-image {
+          .inline-related-service-card:hover .inline-related-service-card-image {
             filter: brightness(0.7);
           }
-          .related-service-card:hover {
+          .inline-related-service-card:hover {
             transform: translateY(-4px);
           }
         `}</style>
