@@ -6,6 +6,7 @@ import styles from '../page.module.css';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Testimonials from '../components/Testimonials/Testimonials';
+import FindUsOn from '@/app/components/FindUsOn';
 
 const therapiesList = [
   { label: '60 minutes', href: '/treatments/60-min-massage', slideIndex: 1 },
@@ -425,59 +426,6 @@ function MobileTreatments() {
   );
 }
 
-const logos = [
-  { src: '/bookingpage.png', alt: 'BookingPage', href: 'https://booking.page/en/company/page/lucyhallmassage' },
-  { src: '/tripadisvor.svg', alt: 'Tripadvisor', href: 'https://www.tripadvisor.co.uk/Attraction_Review-g186225-d19454707-Reviews-Lucy_Hall_Massage-Cambridge_Cambridgeshire_England.html' },
-  { src: '/SBM-logo.png', alt: 'SimplyBook.me', href: 'https://lucyhallmassage.simplybook.it/v2/' },
-  { src: '/linked_in.png', alt: 'LinkedIn', href: 'https://www.linkedin.com/company/lucy-hall-massage/' },
-  { src: '/where-logo.png', alt: 'Wheree', href: 'https://lucy-hall-massage-therapy.wheree.com' },
-];
-
-function LogoSliderWithHeading() {
-  const total = logos.length;
-  const extended = [logos[total - 1], ...logos, logos[0]];
-  const [index, setIndex] = useState(1);
-  const [animate, setAnimate] = useState(true);
-  const startX = useRef(0);
-  const go = (n: number) => { setAnimate(true); setIndex(n); };
-  const handleTransitionEnd = () => {
-    if (index === 0) { setAnimate(false); setIndex(total); }
-    else if (index === total + 1) { setAnimate(false); setIndex(1); }
-  };
-
-  return (
-    <div style={{ paddingTop: 40 }}>
-      <h3 style={{ fontSize: '0.9rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', color: '#ffffff', textAlign: 'center', marginBottom: 24, opacity: 0.7 }}>
-        Find us on:
-      </h3>
-      <div className={styles.logoSlider}>
-        <div
-          className={animate ? styles.logoTrack : styles.logoTrackNoAnim}
-          style={{ transform: `translateX(${25 - index * 50}%)` }}
-          onTransitionEnd={handleTransitionEnd}
-          onTouchStart={e => { startX.current = e.touches[0].clientX; }}
-          onTouchEnd={e => { const dx = startX.current - e.changedTouches[0].clientX; if (Math.abs(dx) > 30) go(index + (dx > 0 ? 1 : -1)); }}
-        >
-          {extended.map((logo, i) => (
-            <div key={i} className={styles.logoSlide}>
-              <a href={logo.href} target="_blank" rel="noopener noreferrer" aria-label={logo.alt}>
-                <img src={logo.src} alt={logo.alt} className={styles.logoImg} draggable={false} />
-              </a>
-            </div>
-          ))}
-        </div>
-        <div className={styles.logoRow}>
-          {logos.map((logo) => (
-            <a key={logo.alt} href={logo.href} target="_blank" rel="noopener noreferrer" aria-label={logo.alt}>
-              <img src={logo.src} alt={logo.alt} className={styles.logoRowImg} draggable={false} />
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function YourSportsMassageClient() {
   const isMobile = useIsMobile();
   const heroRef = useRef<HTMLDivElement>(null);
@@ -591,7 +539,7 @@ export default function YourSportsMassageClient() {
         </section>
 
         <Testimonials heading="Happy private clients include" />
-        <LogoSliderWithHeading />
+        <FindUsOn />
         <Footer />
       </main>
 
