@@ -69,6 +69,54 @@ function RelatedServiceCard({ slug }: { slug: string }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Sidebar-scale related-service card. Same visual language as the
+   inline card (image, gradient, label, title, divider, CTA arrow) but
+   sized for the narrow column. No inline margin — gap is controlled
+   by the .blogSidebarCards grid.
+   ───────────────────────────────────────────────────────────── */
+function SidebarRelatedServiceCard({ slug }: { slug: string }) {
+  const s = services[slug];
+  if (!s) return null;
+
+  return (
+    
+      href={`/treatments/${s.slug}`}
+      className={`${styles.blogSidebarCard} related-service-card`}
+      style={{ position: 'relative' }}
+    >
+      <div
+        className={`${styles.blogSidebarCardImage} related-service-card-image`}
+        style={{ background: s.heroColor || '#1a1a1a' }}
+      >
+        <Image
+          src={s.heroMobile}
+          alt={s.title}
+          fill
+          sizes="(max-width: 1023px) 100vw, 25vw"
+          style={{ objectFit: 'cover' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 55%, transparent 100%)' }} />
+        <div style={{ position: 'absolute', bottom: 16, left: 16, right: 16 }}>
+          <p style={{ fontSize: '0.62rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', opacity: 0.7, marginBottom: 4 }}>
+            Related Treatment:
+          </p>
+          <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#ffffff', marginBottom: 10, lineHeight: 1.2 }}>
+            {s.title}
+          </h3>
+          <div style={{ height: 1, background: '#ffffff', marginBottom: 10 }} />
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.68rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff' }}>
+            Book Treatment
+            <svg viewBox="0 0 24 24" fill="none" style={{ width: 12, height: 12 }}>
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </a>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
    Markdown body parser with auto-fallback.
 
    Mode 1 (explicit): If the markdown body contains {{related-service:slug}}
@@ -209,7 +257,9 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
             <a href="/news/" style={{ color: '#ffffff', textDecoration: 'none' }}>Blog</a>
           </p>
 
-          <div className="blog-single-col">
+          <div className={styles.blogArticleLayout}>
+
+            <div className={styles.blogArticleMain}>
 
             <div className={styles.blogArticleImage}>
               <Image
@@ -232,10 +282,29 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
             </header>
 
             {/* Article body — uses ArticleBody component which handles both
-                explicit tokens AND auto-fallback from article.relatedTreatments */}
+                explicit tokens AND auto-fallback from article.relatedTreatments.
+                Inline cards rendered here are hidden on desktop (>=1024px) via
+                CSS so the sidebar carries the related-treatment surface there. */}
             <div className={styles.blogArticleBody}>
               <ArticleBody body={body || 'Article content coming soon.'} relatedTreatments={article.relatedTreatments || []} />
             </div>
+
+            </div>
+
+            {/* Sidebar — sticky on desktop, stacks below article on mobile.
+                Only renders if there are related treatments to show. */}
+            {article.relatedTreatments && article.relatedTreatments.length > 0 && (
+              <aside className={styles.blogArticleSidebar}>
+                <div className={styles.blogSidebarSticky}>
+                  <p className={styles.blogSidebarHeading}>Related Treatments</p>
+                  <div className={styles.blogSidebarCards}>
+                    {article.relatedTreatments.map(slug => (
+                      <SidebarRelatedServiceCard key={slug} slug={slug} />
+                    ))}
+                  </div>
+                </div>
+              </aside>
+            )}
 
           </div>
         </article>
@@ -243,9 +312,16 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
         <Footer />
 
         <style>{`
-          .blog-single-col {
-            max-width: 760px;
-            margin: 0 auto;
+          /* Inline related-treatment cards are visible on mobile only.
+             On desktop (>=1024px) the sidebar carries this content, so
+             we hide them inside the article body to avoid duplication.
+             We target descendants of .blogArticleBody so the sidebar's
+             SidebarRelatedServiceCard (which also has .related-service-card)
+             is unaffected. */
+          @media (min-width: 1024px) {
+            .${styles.blogArticleBody} .related-service-card {
+              display: none;
+            }
           }
           .related-service-card:hover .related-service-card-image {
             filter: brightness(0.7);
