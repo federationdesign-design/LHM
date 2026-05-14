@@ -349,7 +349,8 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
   const hasSymptoms = symptoms.length > 0;
   const hasHistory = history.length > 0;
   const allConditionsAnswered = hasMusculoskeletal && hasSymptoms && hasHistory;
-  const canSubmit = allConsentsChecked && hasSignature && allConditionsAnswered && declarationConsent && !submitting;
+  const hasNewMandatory = lastName.trim().length > 0 && mobile.trim().length > 0 && postcode.trim().length > 0 && emergencyName.trim().length > 0 && emergencyNumber.trim().length > 0;
+  const canSubmit = allConsentsChecked && hasSignature && allConditionsAnswered && declarationConsent && hasNewMandatory && !submitting;
 
   // Comprehensive check — once `canSubmit` is true (orange), the button
   // turns GREEN if the user has also filled in the key optional fields:
@@ -538,14 +539,14 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         <p style={sectionLabelStyle}>Personal details</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
           <input type="text" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} required style={inputStyle} className="qf-input" />
-          <input type="text" placeholder="Last name (optional)" value={lastName} onChange={e => setLastName(e.target.value)} style={inputStyle} className="qf-input" />
+          <input type="text" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} required style={inputStyle} className="qf-input" />
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} className="qf-input" />
-          <input type="tel" placeholder="Mobile (optional)" value={mobile} onChange={e => setMobile(e.target.value)} style={inputStyle} className="qf-input" />
+          <input type="tel" placeholder="Mobile" value={mobile} onChange={e => setMobile(e.target.value)} required style={inputStyle} className="qf-input" />
           <div>
             <label style={{ ...labelStyle, fontSize: '0.85rem', opacity: 0.7, marginBottom: 6 }} htmlFor="qf-dob">Date of birth (optional)</label>
             <input id="qf-dob" type="date" value={dob} onChange={e => setDob(e.target.value)} style={inputStyleSquare} className="qf-input" />
           </div>
-          <input type="text" placeholder="Postcode (optional)" value={postcode} onChange={e => setPostcode(e.target.value)} style={inputStyle} className="qf-input" />
+          <input type="text" placeholder="Postcode" value={postcode} onChange={e => setPostcode(e.target.value)} required style={inputStyle} className="qf-input" />
         </div>
 
         <div style={dividerStyle} />
@@ -553,8 +554,8 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         {/* ── EMERGENCY CONTACT ──────────────────────────────── */}
         <p style={sectionLabelStyle}>Emergency contact</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
-          <input type="text" placeholder="Emergency contact name (optional)" value={emergencyName} onChange={e => setEmergencyName(e.target.value)} style={inputStyle} className="qf-input" />
-          <input type="tel" placeholder="Emergency contact number (optional)" value={emergencyNumber} onChange={e => setEmergencyNumber(e.target.value)} style={inputStyle} className="qf-input" />
+          <input type="text" placeholder="Emergency contact name" value={emergencyName} onChange={e => setEmergencyName(e.target.value)} required style={inputStyle} className="qf-input" />
+          <input type="tel" placeholder="Emergency contact number" value={emergencyNumber} onChange={e => setEmergencyNumber(e.target.value)} required style={inputStyle} className="qf-input" />
         </div>
 
         <div style={dividerStyle} />
@@ -775,7 +776,7 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
 
         {showValidation && !canSubmit && !submitting && (
           <p style={{ fontSize: '0.85rem', fontWeight: 400, color: '#ff8c8c', marginTop: 12, textAlign: 'center', lineHeight: 1.5 }}>
-            Please complete all required fields. Required: first name, email, the three condition sections, the three consent boxes, your signature, and the declaration tickbox above.
+            Please complete all required fields. Required: first name, last name, email, mobile, postcode, emergency contact name and number, the three condition sections, the three consent boxes, your signature, and the declaration tickbox above.
           </p>
         )}
 
