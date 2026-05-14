@@ -80,6 +80,25 @@ const HEAR_ABOUT_OPTIONS = ['Google', 'Website', 'Facebook', 'Instagram', 'Linke
 
 const CANCER_OPTIONS = ['No', 'Yes'];
 
+// Symptom pill options — match WellbeingForm on /start-your-journey
+const PILL_OPTIONS = [
+  'Shoulders',
+  'Upper back',
+  'Neck',
+  'Lower back',
+  'Core',
+  'Quads',
+  'Thighs',
+  'Ankle',
+  'Feet',
+  'Wrist',
+  'Other',
+];
+
+const SEVERITY_LABELS = ['Tolerable', 'Intense', 'Distressing', 'Unbearable'];
+// Thumb colours — green (mild) → red (severe)
+const SEVERITY_COLOURS = ['#2cd12c', '#f5d300', '#ff8c00', '#dc2626'];
+
 // ── SIGNATURE PAD COMPONENT ───────────────────────────────────────────────────
 
 type SignaturePadProps = {
@@ -305,6 +324,22 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
   const [symptoms, setSymptoms] = useState<string[]>([]);
   const [history, setHistory] = useState<string[]>([]);
 
+  // Wellbeing context — mirrors fields on WellbeingForm (/start-your-journey)
+  const [condition, setCondition] = useState<string[]>([]);
+  const [otherText, setOtherText] = useState('');
+  const [magicWand, setMagicWand] = useState('');
+  const [severity, setSeverity] = useState<string>('Tolerable');
+
+  const toggleCondition = (opt: string) => {
+    setCondition(prev =>
+      prev.includes(opt) ? prev.filter(c => c !== opt) : [...prev, opt]
+    );
+  };
+
+  // Map severity label → slider index → thumb colour
+  const severityIndex = SEVERITY_LABELS.indexOf(severity);
+  const severityThumbColour = SEVERITY_COLOURS[severityIndex];
+
   // Cancer follow-up
   const [cancer, setCancer] = useState<string | null>(null);
   const [cancerDetails, setCancerDetails] = useState('');
@@ -403,6 +438,10 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
       musculoskeletal,
       symptoms,
       history,
+      condition,
+      otherText,
+      magicWand,
+      severity,
       cancer,
       cancerDetails,
       hearAbout,
@@ -565,6 +604,82 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
           <input type="text" placeholder="GP name (optional)" value={gpName} onChange={e => setGpName(e.target.value)} style={inputStyle} className="qf-input" />
           <input type="text" placeholder="GP practice (optional)" value={gpPractice} onChange={e => setGpPractice(e.target.value)} style={inputStyle} className="qf-input" />
+        </div>
+
+        <div style={dividerStyle} />
+
+        {/* ── WELLBEING CONTEXT ──────────────────────────────── */}
+        <p style={sectionLabelStyle}>Your wellbeing</p>
+        <div style={{ marginBottom: 22 }}>
+          <label style={labelStyle}>What is your main symptom or injury?</label>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {PILL_OPTIONS.map(opt => {
+              const isSelected = condition.includes(opt);
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => toggleCondition(opt)}
+                  className="qf-pill"
+                  aria-pressed={isSelected}
+                  data-selected={isSelected}
+                >
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+          {condition.includes('Other') && (
+            <input
+              type="text"
+              placeholder="Please describe..."
+              value={otherText}
+              onChange={e => setOtherText(e.target.value)}
+              className="qf-input"
+              style={{ ...inputStyle, marginTop: 12 }}
+            />
+          )}
+        </div>
+
+        <div style={{ marginBottom: 22 }}>
+          <label style={labelStyle}>If you could wave a magic wand &mdash; what would you wish for?</label>
+          <input type="text" placeholder="Enter a short statement" value={magicWand} onChange={e => setMagicWand(e.target.value)} style={inputStyle} className="qf-input" />
+        </div>
+
+        <div style={{ marginBottom: 22 }}>
+          <label style={labelStyle} htmlFor="qf-severity">Pick a symptom (physical or mental) that bothers you most. Now consider how bad that symptom has been over recent weeks and score it.</label>
+          <div style={{ padding: '8px 4px 0' }}>
+            <input
+              id="qf-severity"
+              type="range"
+              min={0}
+              max={3}
+              step={1}
+              value={severityIndex}
+              onChange={e => setSeverity(SEVERITY_LABELS[parseInt(e.target.value, 10)])}
+              className="intake-slider"
+              style={{ width: '100%', ['--thumb-color' as string]: severityThumbColour }}
+              aria-label="Symptom severity"
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12 }}>
+              {SEVERITY_LABELS.map(opt => (
+                <span
+                  key={opt}
+                  style={{
+                    fontSize: '0.82rem',
+                    fontWeight: severity === opt ? 600 : 300,
+                    color: '#ffffff',
+                    opacity: severity === opt ? 1 : 0.6,
+                    textAlign: 'center',
+                    flex: '1 1 auto',
+                    transition: 'opacity 0.2s ease, font-weight 0.2s ease',
+                  }}
+                >
+                  {opt}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div style={dividerStyle} />

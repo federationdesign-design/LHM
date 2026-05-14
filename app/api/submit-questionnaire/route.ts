@@ -12,23 +12,17 @@
  * leave it blank. Bots fill all visible fields. If `website` is non-empty we
  * silently return success without doing anything.
  */
-
 import { NextRequest, NextResponse } from 'next/server';
 import { generateQuestionnairePdf, type QuestionnaireData } from '@/app/lib/generate-questionnaire-pdf';
 import { sendEmail } from '@/app/lib/send-email';
-
 // Force this route to run on Node.js runtime (not Edge) — pdf-lib needs Node APIs
 export const runtime = 'nodejs';
-
 // ── REQUEST SHAPE ─────────────────────────────────────────────────────────────
-
 type RequestBody = Partial<Omit<QuestionnaireData, 'submittedAt'>> & {
   /** Honeypot — must be empty string. Bots will fill it. */
   website?: string;
 };
-
 // ── VALIDATION ────────────────────────────────────────────────────────────────
-
 function validateRequiredFields(body: RequestBody): string | null {
   if (!body.firstName?.trim()) return 'First name is required';
   if (!body.email?.trim()) return 'Email is required';
@@ -53,9 +47,7 @@ function validateRequiredFields(body: RequestBody): string | null {
   }
   return null;
 }
-
 // ── FILENAME / SUBJECT FORMATTING ─────────────────────────────────────────────
-
 /**
  * Sanitise a name component for use in a filename.
  * Removes characters that are problematic on Windows/OneDrive: \ / : * ? " < > |
@@ -64,7 +56,6 @@ function validateRequiredFields(body: RequestBody): string | null {
 function sanitiseForFilename(s: string): string {
   return s.replace(/[\\/:*?"<>|]/g, '').replace(/\s+/g, ' ').trim();
 }
-
 /**
  * Format submission date as YYYY-MM-DD.
  */
@@ -74,7 +65,6 @@ function formatDateYMD(date: Date): string {
   const d = String(date.getDate()).padStart(2, '0');
   return `${y}-${m}-${d}`;
 }
-
 /**
  * Format submission time as HHMM (24h, no separator). Used as filename suffix
  * so Power Automate / OneDrive don't collide on duplicate same-day submissions.
@@ -84,9 +74,7 @@ function formatTimeHM(date: Date): string {
   const m = String(date.getMinutes()).padStart(2, '0');
   return `${h}${m}`;
 }
-
 // ── ROUTE HANDLER ─────────────────────────────────────────────────────────────
-
 export async function POST(request: NextRequest) {
   let body: RequestBody;
   try {
@@ -94,18 +82,15 @@ export async function POST(request: NextRequest) {
   } catch {
     return NextResponse.json({ success: false, error: 'Invalid JSON body' }, { status: 400 });
   }
-
   // Honeypot check — silently succeed if filled. Bots think they got through.
   if (body.website && body.website.trim().length > 0) {
     return NextResponse.json({ success: true });
   }
-
   // Validate required fields
   const validationError = validateRequiredFields(body);
   if (validationError) {
     return NextResponse.json({ success: false, error: validationError }, { status: 400 });
   }
-
   // Build complete data object with submission timestamp
   const submittedAt = new Date();
   const data: QuestionnaireData = {
@@ -125,6 +110,10 @@ export async function POST(request: NextRequest) {
     musculoskeletal: body.musculoskeletal!,
     symptoms: body.symptoms!,
     history: body.history!,
+    condition: body.condition || [],
+    otherText: body.otherText?.trim() || '',
+    magicWand: body.magicWand?.trim() || '',
+    severity: body.severity?.trim() || '',
     cancer: body.cancer || null,
     cancerDetails: body.cancerDetails?.trim() || '',
     hearAbout: body.hearAbout || null,
@@ -137,7 +126,6 @@ export async function POST(request: NextRequest) {
     signature: body.signature!,
     submittedAt,
   };
-
   // Generate PDF
   let pdfBuffer: Buffer;
   try {
@@ -150,7 +138,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-
   // Build filename and subject for Power Automate parsing
   const dateYMD = formatDateYMD(submittedAt);
   const timeHM = formatTimeHM(submittedAt);
@@ -159,11 +146,9 @@ export async function POST(request: NextRequest) {
   // Filename: "2026-05-03 - John Smith - questionnaire 1430.pdf"
   // Time suffix avoids collisions on duplicate same-day submissions.
   const filename = `${dateYMD} - ${safeName} - questionnaire ${timeHM}.pdf`;
-
   // Subject: "[Questionnaire] John Smith - 2026-05-03"
   // Power Automate filters on "[Questionnaire]" and parses out name + date.
   const subject = `[Questionnaire] ${safeName} - ${dateYMD}`;
-
   // Email body — short plain-text summary
   const text = [
     'New questionnaire received.',
@@ -175,7 +160,6 @@ export async function POST(request: NextRequest) {
     '',
     'Full questionnaire attached as PDF.',
   ].join('\n');
-
   // Send email
   const recipient = process.env.NOTIFICATION_EMAIL_TO;
   if (!recipient) {
@@ -185,7 +169,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-
   const result = await sendEmail({
     to: recipient,
     subject,
@@ -193,7 +176,6 @@ export async function POST(request: NextRequest) {
     replyTo: data.email,
     attachments: [{ filename, content: pdfBuffer }],
   });
-
   if (!result.success) {
     console.error('Email send failed:', result.error);
     return NextResponse.json(
@@ -201,6 +183,5 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-
   return NextResponse.json({ success: true });
 }

@@ -49,6 +49,14 @@ export type QuestionnaireData = {
   symptoms: string[];
   history: string[];
 
+  // Wellbeing context — mirrors WellbeingForm on /start-your-journey.
+  // Added in v2 so the therapist sees the same intake context regardless
+  // of which form the client filled in.
+  condition?: string[];          // symptom pill selections
+  otherText?: string;            // free text shown when 'Other' is selected
+  magicWand?: string;            // 'magic wand' wish
+  severity?: string;             // one of: Tolerable | Intense | Distressing | Unbearable
+
   // Cancer
   cancer?: string | null;
   cancerDetails?: string;
@@ -394,7 +402,7 @@ class DrawCtx {
     if (!clientName) return;
 
     // Position: centred horizontally, ~78% down from top of A4.
-    // Lands below the central "Lucy Hall Massage / Massage New Patient /
+    // Lands below the central "Lucy Hall Massage / New Patient /
     // Medical Form" title block, well above the horizontal rule near the
     // bottom. Adjust Y if cover design changes.
     const fontSize = 22;
@@ -447,7 +455,7 @@ export async function generateQuestionnairePdf(data: QuestionnaireData): Promise
 
   // Page header on body pages
   ctx.drawParagraph(
-    `${data.firstName}${data.lastName ? ' ' + data.lastName : ''} — Massage New Patient Medical Form`,
+    `${data.firstName}${data.lastName ? ' ' + data.lastName : ''} — New Patient Medical Form`,
     { size: SIZE_LABEL, italic: true }
   );
 
@@ -471,6 +479,18 @@ export async function generateQuestionnairePdf(data: QuestionnaireData): Promise
   ctx.drawSectionHeading('GP details');
   ctx.drawField('GP name', data.gpName || '');
   ctx.drawField('GP practice', data.gpPractice || '');
+  ctx.drawSectionGap();
+
+  // WELLBEING CONTEXT
+  // Mirror of the fields on WellbeingForm (/start-your-journey) so the
+  // therapist gets the same intake context regardless of source form.
+  ctx.drawSectionHeading('Your wellbeing');
+  const conditionDisplay = (data.condition && data.condition.length > 0)
+    ? data.condition.join(', ') + ((data.condition.includes('Other') && data.otherText) ? ` (${data.otherText})` : '')
+    : '';
+  ctx.drawField('Main symptom or injury', conditionDisplay);
+  ctx.drawField('Magic wand wish', data.magicWand || '');
+  ctx.drawField('Symptom severity score', data.severity || '');
   ctx.drawSectionGap();
 
   // MEDICATIONS
