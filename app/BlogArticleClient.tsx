@@ -337,10 +337,12 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
                 <div className={styles.blogSidebarSticky}>
                   <p className={styles.blogSidebarHeading}>Related Treatments</p>
                   <div className={styles.blogSidebarCards}>
-                    {article.relatedTreatments
-                      .map(treatmentSlugToCard)
-                      .filter((c): c is SidebarCardSpec => c !== null)
-                      .concat(UNIVERSAL_SIDEBAR_CARDS)
+                    {UNIVERSAL_SIDEBAR_CARDS
+                      .concat(
+                        article.relatedTreatments
+                          .map(treatmentSlugToCard)
+                          .filter((c): c is SidebarCardSpec => c !== null)
+                      )
                       .map((card, i) => (
                         <SidebarCard key={`${card.href}-${i}`} card={card} />
                       ))}
