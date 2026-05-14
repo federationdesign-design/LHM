@@ -153,6 +153,29 @@ function ProviderArticleSection({ service }: { service: Service }) {
             </div>
           </a>
         )}
+
+        {/* Start Your Journey card — shown only on selected treatment pages,
+            sits below the related article in the same column.
+            Slugs: 60/90/120-min massage and deep-tissue-massage. */}
+        {['60-min-massage', '90-min-massage', '120-min-massage', 'deep-tissue-massage'].includes(service.slug) && (
+          <a href="/start-your-journey" className={styles.paArticleCard}>
+            <h3 className={styles.paCardHeading}>Start your journey</h3>
+            <div className={styles.paArticleImage}>
+              <Image
+                src="/Get-tips-img.jpg"
+                alt="Get tips and learn about the Impact of Sport on Your Body"
+                fill
+                sizes="(max-width: 1024px) 50vw, 540px"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+            <div className={styles.paArticleBody}>
+              <h3 className={styles.paArticleTitle}>Get tips and learn about the Impact of Sport on Your Body</h3>
+              <p className={styles.paArticleExcerpt}>A free guide to help you understand how sport affects your body — and what regular bodywork can do to keep you performing at your best.</p>
+              <span className={styles.paArticleCta}>Start Your Journey →</span>
+            </div>
+          </a>
+        )}
       </div>
     </section>
   );
