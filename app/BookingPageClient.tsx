@@ -6,6 +6,7 @@ import styles from './page.module.css';
 import Nav from './Nav';
 import Footer from './Footer';
 import Testimonials from './components/Testimonials/Testimonials';
+import FindUsOn from '@/app/components/FindUsOn';
 
 // ── SIMPLYBOOK WIDGET ─────────────────────────────────────────
 function BookingWidget() {
@@ -35,67 +36,6 @@ function BookingWidget() {
 }
 
 // ── LOGO SLIDER ───────────────────────────────────────────────
-const logos = [
-  { src:'/bookingpage.png', alt:'BookingPage' },
-  { src:'/tripadisvor.svg', alt:'Tripadvisor' },
-  { src:'/SBM-logo.png', alt:'SimplyBook.me' },
-  { src:'/linked_in.png', alt:'LinkedIn' },
-  { src:'/where-logo.png', alt:'Wheree' },
-];
-
-function LogoSlider() {
-  const total = logos.length;
-  const extended = [logos[total-1], ...logos, logos[0]];
-  const [index, setIndex] = useState(1);
-  const [animate, setAnimate] = useState(true);
-  const startX = useRef(0); const startY = useRef(0);
-  const mouseStartX = useRef(0); const isDragging = useRef(false);
-  const go = (n: number) => { setAnimate(true); setIndex(n); };
-  const handleTransitionEnd = () => {
-    if (index===0) { setAnimate(false); setIndex(total); }
-    else if (index===total+1) { setAnimate(false); setIndex(1); }
-  };
-  const onTouchStart = (e: React.TouchEvent) => { startX.current=e.touches[0].clientX; startY.current=e.touches[0].clientY; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    const dx=startX.current-e.changedTouches[0].clientX, dy=Math.abs(startY.current-e.changedTouches[0].clientY);
-    if (Math.abs(dx)>30 && Math.abs(dx)>dy) go(index+(dx>0?1:-1));
-  };
-  const onMouseDown = (e: React.MouseEvent) => { mouseStartX.current=e.clientX; isDragging.current=true; };
-  const onMouseUp = (e: React.MouseEvent) => {
-    if (!isDragging.current) return; isDragging.current=false;
-    const diff=mouseStartX.current-e.clientX;
-    if (Math.abs(diff)>30) go(index+(diff>0?1:-1));
-  };
-  const offset = 25 - index*50;
-
-  return (
-    <div className={styles.logoSlider}>
-      {/* Mobile/tablet slider */}
-      <div
-        className={animate ? styles.logoTrack : styles.logoTrackNoAnim}
-        style={{ transform:`translateX(${offset}%)` }}
-        onTransitionEnd={handleTransitionEnd}
-        onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}
-        onMouseDown={onMouseDown} onMouseUp={onMouseUp}
-        onMouseLeave={()=>{ isDragging.current=false; }}
-      >
-        {extended.map((logo,i)=>(
-          <div key={i} className={styles.logoSlide}>
-            <img src={logo.src} alt={logo.alt} className={styles.logoImg} draggable={false} />
-          </div>
-        ))}
-      </div>
-
-      {/* Desktop full row */}
-      <div className={styles.logoRow}>
-        {logos.map((logo)=>(
-          <img key={logo.alt} src={logo.src} alt={logo.alt} className={styles.logoRowImg} draggable={false} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ── MAIN PAGE ─────────────────────────────────────────────────
 export default function BookingPageClient() {
   const [navSolid, setNavSolid] = useState(false);
@@ -282,7 +222,7 @@ export default function BookingPageClient() {
         <Testimonials heading="Happy private clients include" />
 
         {/* LOGOS */}
-        <LogoSlider />
+        <FindUsOn />
         <Footer />
       </main>
     </>
