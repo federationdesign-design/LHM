@@ -3,18 +3,22 @@
 import { useState } from 'react';
 import Nav from '../Nav';
 import Footer from '../Footer';
+import { services } from '../data/services';
 
 /* ─────────────────────────────────────────────────────────────
-   Receipt request form. Dummy submit for v1 — wire to email/ESP
-   later. Submission would ideally route to the LH team inbox so
-   someone can pull the receipt from SimplyBook and send to the
-   client.
+   Receipt request form. Submits to /api/submit-receipt-request,
+   which forwards to info@lucyhallmassage.com for the team to
+   process from SimplyBook on Fridays.
    ───────────────────────────────────────────────────────────── */
 function ReceiptForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [orderNumber, setOrderNumber] = useState('');
   const [treatmentDate, setTreatmentDate] = useState('');
+  const [treatment, setTreatment] = useState('');
+  const [addressLine1, setAddressLine1] = useState('');
+  const [town, setTown] = useState('');
+  const [postcode, setPostcode] = useState('');
   const [notes, setNotes] = useState('');
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -37,6 +41,10 @@ function ReceiptForm() {
           email:         email.trim(),
           orderNumber:   orderNumber.trim(),
           treatmentDate: treatmentDate.trim(),
+          treatment,
+          addressLine1:  addressLine1.trim(),
+          town:          town.trim(),
+          postcode:      postcode.trim(),
           notes:         notes.trim() || null,
           website:       honeypot,
         }),
@@ -93,10 +101,10 @@ function ReceiptForm() {
       <div style={{ background: '#0a0908', border: '1px solid rgba(255,255,255,0.25)', padding: '48px 32px', borderRadius: 4, textAlign: 'center' }}>
         <h3 style={{ fontSize: '1.6rem', fontWeight: 600, color: '#ffffff', marginBottom: 16 }}>Thank you</h3>
         <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, opacity: 0.85, marginBottom: 12 }}>
-          We&rsquo;ve received your receipt request and will email it to you within 1-2 working days.
+          We&rsquo;ve received your receipt request and will process it on Friday.
         </p>
         <p style={{ fontSize: '0.9rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.5, opacity: 0.65 }}>
-          If you don&rsquo;t see it in your inbox, please check your spam or junk folder.
+          If you don&rsquo;t see it in your inbox by the following Monday, please check your spam or junk folder.
         </p>
       </div>
     );
@@ -156,6 +164,63 @@ function ReceiptForm() {
           onChange={e => setTreatmentDate(e.target.value)}
           required
           style={{ ...inputStyle, colorScheme: 'light' }}
+        />
+      </div>
+
+      <div style={{ marginBottom: 22 }}>
+        <label style={labelStyle} htmlFor="rec-treatment">Treatment</label>
+        <select
+          id="rec-treatment"
+          value={treatment}
+          onChange={e => setTreatment(e.target.value)}
+          required
+          style={{ ...inputStyle, colorScheme: 'light' }}
+        >
+          <option value="" disabled>Select treatment</option>
+          {Object.values(services).map((s) => (
+            <option key={s.slug} value={s.slug}>{s.title}</option>
+          ))}
+        </select>
+      </div>
+
+      <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
+
+      <div style={{ marginBottom: 22 }}>
+        <label style={labelStyle} htmlFor="rec-address">Address line 1</label>
+        <input
+          id="rec-address"
+          type="text"
+          placeholder="House number and street"
+          value={addressLine1}
+          onChange={e => setAddressLine1(e.target.value)}
+          required
+          style={inputStyle}
+        />
+      </div>
+
+      <div style={{ marginBottom: 22 }}>
+        <label style={labelStyle} htmlFor="rec-town">City / Town</label>
+        <input
+          id="rec-town"
+          type="text"
+          placeholder="e.g. Cambridge"
+          value={town}
+          onChange={e => setTown(e.target.value)}
+          required
+          style={inputStyle}
+        />
+      </div>
+
+      <div style={{ marginBottom: 22 }}>
+        <label style={labelStyle} htmlFor="rec-postcode">Postcode</label>
+        <input
+          id="rec-postcode"
+          type="text"
+          placeholder="e.g. CB1 3AU"
+          value={postcode}
+          onChange={e => setPostcode(e.target.value)}
+          required
+          style={inputStyle}
         />
       </div>
 
