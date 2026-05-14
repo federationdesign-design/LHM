@@ -24,7 +24,7 @@ const logos = [
   { src: '/bookingpage.png', alt: 'BookingPage', href: 'https://booking.page/en/company/page/lucyhallmassage' },
   { src: '/tripadisvor.svg', alt: 'Tripadvisor', href: 'https://www.tripadvisor.co.uk/Attraction_Review-g186225-d19454707-Reviews-Lucy_Hall_Massage-Cambridge_Cambridgeshire_England.html' },
   { src: '/SBM-logo.png', alt: 'SimplyBook.me', href: 'https://lucyhallmassage.simplybook.it/v2/' },
-  { src: '/linked_in.png', alt: 'LinkedIn', href: 'https://www.linkedin.com/company/lucy-hall-massage/' },
+  { src: '/linked_in.png', alt: 'LinkedIn', href: 'https://www.linkedin.com/in/lucy-hall-47369141/' },
   { src: '/where-logo.png', alt: 'Wheree', href: 'https://lucy-hall-massage-therapy.wheree.com' },
 ];
 

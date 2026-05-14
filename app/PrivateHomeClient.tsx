@@ -610,7 +610,7 @@ export default function PrivateHomeClient() {
               ],
               priceRange: '££',
               image: 'https://www.lucyhallmassage.com/deep-tissue-img.jpg',
-              sameAs: ['https://www.tripadvisor.com', 'https://www.linkedin.com/company/lucy-hall-massage/'],
+              sameAs: ['https://www.tripadvisor.com', 'https://www.linkedin.com/in/lucy-hall-47369141/'],
             },
           ],
         }) }}

@@ -51,7 +51,7 @@ export default function QuestionnaireClient() {
               </p>
 
               <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 28 }}>
-                Massage New Patient Medical Form
+                New Patient Medical Form
               </h1>
 
               <h2 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginBottom: 14 }}>

@@ -99,7 +99,7 @@ export default function BookingPageClient() {
               image: 'https://www.lucyhallmassage.com/deep-tissue-img.jpg',
               sameAs: [
                 'https://www.tripadvisor.com',
-                'https://www.linkedin.com/company/lucy-hall-massage/',
+                'https://www.linkedin.com/in/lucy-hall-47369141/',
               ],
             },
             {

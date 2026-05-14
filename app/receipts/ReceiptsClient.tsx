@@ -242,7 +242,7 @@ export default function ReceiptsClient() {
             Request Your Receipt
           </h1>
           <p style={{ fontSize: '1.05rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 18 }}>
-            Need a receipt for your treatment for insurance, expenses, or your own records? Fill out the form below and we&rsquo;ll email it to you within 1-2 working days.
+            Fill out the form below and we&rsquo;ll process your request on Fridays only.
           </p>
           <p style={{ fontSize: '0.95rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, opacity: 0.75 }}>
             You&rsquo;ll find your order number in the confirmation email we sent when you booked. If you can&rsquo;t find it, no problem &mdash; provide as much detail as you can in the notes section and we&rsquo;ll track it down.
