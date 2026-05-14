@@ -1030,7 +1030,7 @@
 .blogSidebarCardImage {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
 }
 .blogCardImage {

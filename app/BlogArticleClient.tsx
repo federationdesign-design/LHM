@@ -74,23 +74,29 @@ function RelatedServiceCard({ slug }: { slug: string }) {
    sized for the narrow column. No inline margin — gap is controlled
    by the .blogSidebarCards grid.
    ───────────────────────────────────────────────────────────── */
-function SidebarRelatedServiceCard({ slug }: { slug: string }) {
-  const s = services[slug];
-  if (!s) return null;
+type SidebarCardSpec = {
+  href: string;
+  title: string;
+  label: string;
+  cta: string;
+  image: string;
+  imageColor: string;
+};
 
+function SidebarCard({ card }: { card: SidebarCardSpec }) {
   return (
     <a
-      href={`/treatments/${s.slug}`}
+      href={card.href}
       className={`${styles.blogSidebarCard} related-service-card`}
       style={{ position: 'relative' }}
     >
       <div
         className={`${styles.blogSidebarCardImage} related-service-card-image`}
-        style={{ background: s.heroColor || '#1a1a1a' }}
+        style={{ background: card.imageColor }}
       >
         <Image
-          src={s.heroMobile}
-          alt={s.title}
+          src={card.image}
+          alt={card.title}
           fill
           sizes="(max-width: 1023px) 100vw, 25vw"
           style={{ objectFit: 'cover' }}
@@ -98,14 +104,14 @@ function SidebarRelatedServiceCard({ slug }: { slug: string }) {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 55%, transparent 100%)' }} />
         <div style={{ position: 'absolute', bottom: 16, left: 16, right: 16 }}>
           <p style={{ fontSize: '0.62rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', opacity: 0.7, marginBottom: 4 }}>
-            Related Treatment:
+            {card.label}
           </p>
           <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#ffffff', marginBottom: 10, lineHeight: 1.2 }}>
-            {s.title}
+            {card.title}
           </h3>
           <div style={{ height: 1, background: '#ffffff', marginBottom: 10 }} />
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.68rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff' }}>
-            Book Treatment
+            {card.cta}
             <svg viewBox="0 0 24 24" fill="none" style={{ width: 12, height: 12 }}>
               <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -116,6 +122,40 @@ function SidebarRelatedServiceCard({ slug }: { slug: string }) {
   );
 }
 
+// Universal sidebar cards shown on every article, after related treatments.
+const UNIVERSAL_SIDEBAR_CARDS: SidebarCardSpec[] = [
+  {
+    href: '/gift-vouchers',
+    title: 'Gift Vouchers',
+    label: 'Treat someone:',
+    cta: 'Buy a Voucher',
+    image: '/gift-voucher-hero.jpg',
+    imageColor: '#3a3028',
+  },
+  {
+    href: '/start-your-journey',
+    title: 'Get tips and learn about the Impact of Sport on Your Body',
+    label: 'Free guide:',
+    cta: 'Start Your Journey',
+    image: '/Get-tips-img.jpg',
+    imageColor: '#1a1a1a',
+  },
+];
+
+// Helper: convert a treatment slug into a SidebarCardSpec. Returns null if
+// the slug doesn't exist in services.ts so we skip it gracefully.
+function treatmentSlugToCard(slug: string): SidebarCardSpec | null {
+  const s = services[slug];
+  if (!s) return null;
+  return {
+    href: `/treatments/${s.slug}`,
+    title: s.title,
+    label: 'Related Treatment:',
+    cta: 'Book Treatment',
+    image: s.heroMobile,
+    imageColor: s.heroColor || '#1a1a1a',
+  };
+}
 /* ─────────────────────────────────────────────────────────────
    Markdown body parser with auto-fallback.
 
@@ -293,18 +333,20 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
 
             {/* Sidebar — sticky on desktop, stacks below article on mobile.
                 Only renders if there are related treatments to show. */}
-            {article.relatedTreatments && article.relatedTreatments.length > 0 && (
-              <aside className={styles.blogArticleSidebar}>
+            <aside className={styles.blogArticleSidebar}>
                 <div className={styles.blogSidebarSticky}>
                   <p className={styles.blogSidebarHeading}>Related Treatments</p>
                   <div className={styles.blogSidebarCards}>
-                    {article.relatedTreatments.map(slug => (
-                      <SidebarRelatedServiceCard key={slug} slug={slug} />
-                    ))}
+                    {article.relatedTreatments
+                      .map(treatmentSlugToCard)
+                      .filter((c): c is SidebarCardSpec => c !== null)
+                      .concat(UNIVERSAL_SIDEBAR_CARDS)
+                      .map((card, i) => (
+                        <SidebarCard key={`${card.href}-${i}`} card={card} />
+                      ))}
                   </div>
                 </div>
               </aside>
-            )}
 
           </div>
         </article>
@@ -316,7 +358,7 @@ export default function BlogArticleClient({ article, body }: { article: BlogArti
              On desktop (>=1024px) the sidebar carries this content, so
              we hide them inside the article body to avoid duplication.
              We target descendants of .blogArticleBody so the sidebar's
-             SidebarRelatedServiceCard (which also has .related-service-card)
+             SidebarCard (which also has .related-service-card)
              is unaffected. */
           @media (min-width: 1024px) {
             .${styles.blogArticleBody} .related-service-card {
