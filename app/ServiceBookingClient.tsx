@@ -133,7 +133,10 @@ function ProviderArticleSection({ service }: { service: Service }) {
           ))}
         </div>
 
-        {/* Article column */}
+        {/* Article column — wrapper allows the article card and the
+            optional Start Your Journey card below it to share a single
+            grid cell, stacked vertically. */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24, minWidth: 0 }}>
         {article && (
           <a href={`/news/${article.slug}`} className={styles.paArticleCard}>
             <h3 className={styles.paCardHeading}>Related article</h3>
@@ -176,6 +179,7 @@ function ProviderArticleSection({ service }: { service: Service }) {
             </div>
           </a>
         )}
+        </div>
       </div>
     </section>
   );
