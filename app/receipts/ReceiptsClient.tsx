@@ -5,6 +5,24 @@ import Nav from '../Nav';
 import Footer from '../Footer';
 import { services } from '../data/services';
 
+// Curated pill list for the Treatment field. Drops duration duplicates
+// (60/90/120-min massages collapse to one generic pill) and the
+// 90-min-{pregnancy,cupping} variants since the customer just needs to
+// indicate which treatment category they had.
+const EXCLUDED_TREATMENT_SLUGS = new Set([
+  '90-min-pregnancy-massage',
+  '90-min-cupping',
+  '60-min-massage',
+  '90-min-massage',
+  '120-min-massage',
+]);
+const treatmentPillOptions: { slug: string; title: string }[] = [
+  ...Object.values(services)
+    .filter((s) => !EXCLUDED_TREATMENT_SLUGS.has(s.slug))
+    .map((s) => ({ slug: s.slug, title: s.title })),
+  { slug: 'massage-generic', title: 'Massage (60/90/120-min)' },
+];
+
 /* ─────────────────────────────────────────────────────────────
    Receipt request form. Submits to /api/submit-receipt-request,
    which forwards to info@lucyhallmassage.com for the team to
@@ -168,19 +186,24 @@ function ReceiptForm() {
       </div>
 
       <div style={{ marginBottom: 22 }}>
-        <label style={labelStyle} htmlFor="rec-treatment">Treatment</label>
-        <select
-          id="rec-treatment"
-          value={treatment}
-          onChange={e => setTreatment(e.target.value)}
-          required
-          style={{ ...inputStyle, colorScheme: 'light' }}
-        >
-          <option value="" disabled>Select treatment</option>
-          {Object.values(services).map((s) => (
-            <option key={s.slug} value={s.slug}>{s.title}</option>
-          ))}
-        </select>
+        <label style={labelStyle}>Treatment</label>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {treatmentPillOptions.map((opt) => {
+            const isSelected = treatment === opt.slug;
+            return (
+              <button
+                key={opt.slug}
+                type="button"
+                onClick={() => setTreatment(opt.slug)}
+                className="rec-pill"
+                aria-pressed={isSelected}
+                data-selected={isSelected}
+              >
+                {opt.title}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
@@ -288,6 +311,35 @@ function ReceiptForm() {
           </p>
         </div>
       )}
+
+      <style>{`
+        /* Treatment pills — matches the questionnaire/wellbeing pill style */
+        .rec-pill {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 18px;
+          font-size: 0.9rem;
+          font-weight: 400;
+          font-family: inherit;
+          color: #ffffff;
+          background: transparent;
+          border: 1px solid rgba(255,255,255,0.4);
+          border-radius: 999px;
+          cursor: pointer;
+          transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+          line-height: 1.2;
+          text-align: center;
+        }
+        .rec-pill:hover {
+          border-color: rgba(255,255,255,0.8);
+        }
+        .rec-pill[data-selected="true"] {
+          background: #ffffff;
+          color: #000000;
+          border-color: #ffffff;
+        }
+      `}</style>
     </form>
   );
 }
