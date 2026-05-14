@@ -205,14 +205,6 @@ export default function ServiceBookingClient({ service }: { service: Service }) 
           </div>
         </div>
 
-        {/* PROVIDER + ARTICLE */}
-        <ProviderArticleSection service={service} />
-
-        {/* WIDGET */}
-        <div id="booking-widget" className={styles.widgetWrapper}>
-          <BookingWidget service={service} />
-        </div>
-
         {/* SERVICE CONTENT */}
         <section className={styles.serviceSection}>
           <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
@@ -244,6 +236,14 @@ export default function ServiceBookingClient({ service }: { service: Service }) 
             </div>
           </div>
         </section>
+
+        {/* PROVIDER + ARTICLE */}
+        <ProviderArticleSection service={service} />
+
+        {/* WIDGET */}
+        <div id="booking-widget" className={styles.widgetWrapper}>
+          <BookingWidget service={service} />
+        </div>
 
         {/* DIVIDER */}
         <div className={styles.divider} />
