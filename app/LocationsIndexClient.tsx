@@ -25,8 +25,8 @@ const locations = [
       { day: 'Saturday', time: '9am – 5pm' },
       { day: 'Sunday', time: '9am – 5pm' },
     ],
-    lat: 52.199047,
-    lng: 0.147060,
+    lat: 52.200856,
+    lng: 0.148039,
     team: [
       { name: 'Antonia', photo: '/antonia.png', slug: 'antonia' },
       { name: 'Orla', photo: '/orla.png', slug: 'orla' },
@@ -41,8 +41,8 @@ const locations = [
       { day: 'Wednesday', time: '10am – 6pm' },
       { day: 'Friday', time: '9am – 5pm' },
     ],
-    lat: 52.204506,
-    lng: 0.147914,
+    lat: 52.203404271919894,
+    lng: 0.14736598160194792,
     team: [
       { name: 'Safia', photo: '/safia.png', slug: 'safia' },
     ],
@@ -294,7 +294,7 @@ function LocationRow({ loc }: { loc: typeof locations[number] }) {
 
       {/* Map */}
       <div className="loc-map">
-        <MapboxMap lat={loc.indexLat ?? loc.lat} lng={loc.indexLng ?? loc.lng} name={loc.name} id={loc.slug} />
+        <MapboxMap lat={loc.lat} lng={loc.lng} name={loc.name} id={loc.slug} />
       </div>
 
     </div>
