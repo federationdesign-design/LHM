@@ -25,8 +25,8 @@ export const locations: Record<string, Location> = {
     tagline: 'Our main clinic — open 7 days a week',
     address: ['2 Antwerp Cottages', 'Thoday Street', 'Cambridge', 'CB1 3AU'],
     googleMapsUrl: 'https://maps.google.com/?q=2+Antwerp+Cottages+Thoday+Street+Cambridge+CB1+3AU',
-    lat: 52.19850,
-    lng: 0.13580,
+    lat: 52.200856,
+    lng: 0.148039,
     widgetLocationId: '2',
     hours: [
       { day: 'Monday', time: '9am – 8pm' },
@@ -49,8 +49,8 @@ export const locations: Record<string, Location> = {
     tagline: 'Available Wednesdays and Fridays',
     address: ['96 Cromwell Road', 'Cambridge', 'Cambridgeshire', 'CB1 3EG'],
     googleMapsUrl: 'https://maps.google.com/?q=96+Cromwell+Road+Cambridge+CB1+3EG',
-    lat: 52.19480,
-    lng: 0.13920,
+    lat: 52.203404271919894,
+    lng: 0.14736598160194792,
     widgetLocationId: '4',
     hours: [
       { day: 'Wednesday', time: '9am – 8pm' },

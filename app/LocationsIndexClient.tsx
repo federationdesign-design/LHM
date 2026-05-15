@@ -327,11 +327,13 @@ export default function LocationsIndexClient() {
 
         {/* HERO — Google My Maps showing both locations */}
         <div ref={heroRef} style={{ position: 'relative', width: '100%', height: '70vh', marginTop: 56, overflow: 'hidden' }}>
-          <iframe
-            src="https://www.google.com/maps/d/embed?mid=1r91sAk3sJecNJGcgLjBgBoQgz-Md-gk&hl=en&ehbc=2E312F"
-            style={{ position: 'absolute', top: -85, left: 0, width: '100%', height: 'calc(100% + 85px)', border: 0, display: 'block', filter: 'grayscale(90%) contrast(90%) invert(100%)' }}
-            allowFullScreen
-            loading="lazy"
+          <Image
+            src="/lucyhall-massage-cambridge-locations.jpeg"
+            alt="Our two Cambridge locations on a stylised map"
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
           />
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} style={{ zIndex: 2 }} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 270, background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50px, transparent 100%)', zIndex: 3, pointerEvents: 'none' }} />
