@@ -491,7 +491,7 @@ export default function YourMassageClient() {
             <h1 className={styles.heroH1}>Your Massage</h1>
             <p className={styles.heroSub} style={{ marginBottom: 0 }}>
               <a href="#choose-duration" style={{ color: 'inherit', textDecoration: 'none' }}>
-                Not sure on what type of massage you need? These massages can cover any element you like, just select your desired duration and book in. ↓
+                Not sure on what type of massage you need?<br/>These massages can cover any element you like, just select your desired duration and book in. ↓
               </a>
             </p>
           </div>
