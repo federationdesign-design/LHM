@@ -41,8 +41,8 @@ const locations = [
       { day: 'Wednesday', time: '10am – 6pm' },
       { day: 'Friday', time: '9am – 5pm' },
     ],
-    lat: 52.203349750967604,
-    lng: 0.1479249171643815,
+    lat: 52.203035737126555,
+    lng: 0.14792165893905196,
     team: [
       { name: 'Safia', photo: '/safia.png', slug: 'safia' },
     ],
