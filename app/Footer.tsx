@@ -3,7 +3,7 @@ import styles from './page.module.css';
 const mainMenu: [string, string][] = [
   ['Home', '/private'],
   ['All Treatments', '/treatments'],
-  ['Your Sports Massage', '/your-sports-massage'],
+  ['Your Massage', '/your-massage'],
   ['Locations', '/locations'],
   ['Our Team', '/team'],
   ['Gift Vouchers', '/gift-vouchers'],

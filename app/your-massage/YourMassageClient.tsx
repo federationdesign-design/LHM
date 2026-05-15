@@ -426,7 +426,7 @@ function MobileTreatments() {
   );
 }
 
-export default function YourSportsMassageClient() {
+export default function YourMassageClient() {
   const isMobile = useIsMobile();
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
@@ -468,7 +468,7 @@ export default function YourSportsMassageClient() {
           <span className="ysm-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
             <Image
               src="/sports-therapy-mobile.jpg"
-              alt="Your Sports Massage"
+              alt="Your Massage"
               fill
               priority
               sizes="100vw"
@@ -479,7 +479,7 @@ export default function YourSportsMassageClient() {
           <span className="ysm-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
             <Image
               src="/sports-therapy-desktop.jpg"
-              alt="Your Sports Massage"
+              alt="Your Massage"
               fill
               priority
               sizes="100vw"
@@ -488,7 +488,7 @@ export default function YourSportsMassageClient() {
           </span>
 
           <div className={styles.heroContent} style={{ zIndex: 10, paddingRight: 0, maxWidth: 'none' }}>
-            <h1 className={styles.heroH1}>Your Sports Massage</h1>
+            <h1 className={styles.heroH1}>Your Massage</h1>
             <p className={styles.heroSub}>Choose your duration</p>
           </div>
         </div>
@@ -500,11 +500,14 @@ export default function YourSportsMassageClient() {
         ) : (
           <DesktopTreatments />
         )}
-        {/* Why you need this — pulled from sports-massage service data */}
+        {/* Why you need this — Your Massage positioning */}
         <section className={styles.serviceSection}>
           <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
-          <p style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block' }}>
-            Sports massage is a targeted treatment designed for active individuals, combining deep tissue techniques with stretching to prevent injury, aid recovery and improve performance. Whether you are training regularly or recovering from an event, sports massage keeps your body functioning at its best.
+          <p style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 24px', display: 'block' }}>
+            A general massage tailored to you. Perfect if you don&rsquo;t know what to book - a great starting point that lets your therapist focus on the areas that need most attention, whether that&rsquo;s shoulders, back, neck, feet, or anywhere else.
+          </p>
+          <p style={{ fontSize: '1.05rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.55, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block', opacity: 0.85 }}>
+            This is a composite treatment drawing on techniques from our main massage styles. Especially suited to first-time clients, anyone uncertain whether sports massage is right for them, or those with multiple problem areas they&rsquo;d like addressed in one session.
           </p>
           <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
             <div className={styles.serviceGrid}>
@@ -513,12 +516,12 @@ export default function YourSportsMassageClient() {
                   Benefits of this treatment on your body:
                 </h3>
                 <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Speeds up muscle recovery after exercise</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Reduces risk of sports injuries</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Improves flexibility and range of motion</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Breaks down lactic acid build-up</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Enhances athletic performance</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Treats specific areas of overuse</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Releases muscle tension across your problem areas</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Improves circulation and helps flush toxins</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Reduces day-to-day aches and stiffness</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Eases stress and helps you switch off</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Improves flexibility and range of movement</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Supports better posture and movement</li>
                 </ul>
               </div>
               <div>
@@ -526,12 +529,12 @@ export default function YourSportsMassageClient() {
                   We recommend this treatment for:
                 </h3>
                 <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Regular gym-goers and athletes</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Runners, cyclists and swimmers</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People recovering from a sports injury</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Those with tight or overworked muscles</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Anyone training for an event</li>
-                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People with recurring muscle problems</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>First-time massage clients</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Anyone unsure which treatment to book</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People with multiple problem areas to address</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Those with tension in shoulders, back, neck or feet</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>Anyone wanting a tailored, all-purpose session</li>
+                  <li style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.3, marginBottom: 8 }}>People looking for a regular maintenance massage</li>
                 </ul>
               </div>
             </div>
