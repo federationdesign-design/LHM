@@ -174,30 +174,14 @@ function MapboxMap({ lat, lng, name, id }: { lat: number; lng: number; name: str
         style: 'mapbox://styles/mapbox/dark-v11',
         center: [lng, lat],
         zoom: 15.5,
-        pitch: 50,
-        bearing: -15,
+        pitch: 0,
+        bearing: 0,
         antialias: true,
       });
 
       mapRef.current = map;
 
       map.on('load', () => {
-        const layers = map.getStyle().layers;
-        let labelLayerId: string | undefined;
-        for (const layer of layers) {
-          if (layer.type === 'symbol' && (layer.layout as any)['text-field']) { labelLayerId = layer.id; break; }
-        }
-        map.addLayer({
-          id: `3d-${id}`, source: 'composite', 'source-layer': 'building',
-          filter: ['==', 'extrude', 'true'], type: 'fill-extrusion', minzoom: 14,
-          paint: {
-            'fill-extrusion-color': '#2a2a2a',
-            'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 14, 0, 14.5, ['get', 'height']],
-            'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 14, 0, 14.5, ['get', 'min_height']],
-            'fill-extrusion-opacity': 0.85,
-          },
-        }, labelLayerId);
-
         const el = document.createElement('div');
         el.style.cssText = `width:22px;height:22px;background:#000;border:2px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 6px rgba(0,0,0,0.4);`;
         new mapboxgl.Marker({ element: el, anchor: 'bottom' })
