@@ -31,8 +31,8 @@ const services = [
 ];
 
 const locations = [
-  { slug: 'thoday-street', name: 'Thoday Street', address: '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU', lat: 52.199047, lng: 0.147060 },
-  { slug: 'cromwell-road', name: 'Cromwell Road', address: '96 Cromwell Road, Cambridge, CB1 3EG', lat: 52.204506, lng: 0.147914 },
+  { slug: 'thoday-street', name: 'Thoday Street', address: '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU', lat: 52.200856, lng: 0.148039 },
+  { slug: 'cromwell-road', name: 'Cromwell Road', address: '96 Cromwell Road, Cambridge, CB1 3EG', lat: 52.203349750967604, lng: 0.1479249171643815 },
 ];
 
 const promoCards = [
