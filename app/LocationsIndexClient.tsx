@@ -294,7 +294,7 @@ function LocationRow({ loc }: { loc: typeof locations[number] }) {
 
       {/* Map */}
       <div className="loc-map">
-        <MapboxMap lat={loc.lat} lng={loc.lng} name={loc.name} id={loc.slug} />
+        <MapboxMap lat={loc.indexLat ?? loc.lat} lng={loc.indexLng ?? loc.lng} name={loc.name} id={loc.slug} />
       </div>
 
     </div>

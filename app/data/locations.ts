@@ -9,6 +9,11 @@ export interface Location {
   googleMapsUrl: string;
   lat: number;
   lng: number;
+  // Optional override coords for the inset map on the /locations index page.
+  // When set, the LocationsIndexClient renders the pin at indexLat/indexLng
+  // instead of lat/lng. Leave undefined to use lat/lng on both maps.
+  indexLat?: number;
+  indexLng?: number;
   widgetLocationId: string;
   hours: { day: string; time: string }[];
   heroColor: string;
@@ -27,6 +32,8 @@ export const locations: Record<string, Location> = {
     googleMapsUrl: 'https://maps.google.com/?q=2+Antwerp+Cottages+Thoday+Street+Cambridge+CB1+3AU',
     lat: 52.200856,
     lng: 0.148039,
+    indexLat: 52.200856,
+    indexLng: 0.148039,
     widgetLocationId: '2',
     hours: [
       { day: 'Monday', time: '9am – 8pm' },
@@ -51,6 +58,8 @@ export const locations: Record<string, Location> = {
     googleMapsUrl: 'https://maps.google.com/?q=96+Cromwell+Road+Cambridge+CB1+3EG',
     lat: 52.203404271919894,
     lng: 0.14736598160194792,
+    indexLat: 52.203404271919894,
+    indexLng: 0.14736598160194792,
     widgetLocationId: '4',
     hours: [
       { day: 'Wednesday', time: '9am – 8pm' },
