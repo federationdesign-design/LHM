@@ -25,8 +25,8 @@ export const locations: Record<string, Location> = {
     tagline: 'Our main clinic — open 7 days a week',
     address: ['2 Antwerp Cottages', 'Thoday Street', 'Cambridge', 'CB1 3AU'],
     googleMapsUrl: 'https://maps.google.com/?q=2+Antwerp+Cottages+Thoday+Street+Cambridge+CB1+3AU',
-    lat: 52.200856,
-    lng: 0.148039,
+    lat: 52.20162161033318,
+    lng: 0.14835118167842776,
     widgetLocationId: '2',
     hours: [
       { day: 'Monday', time: '9am – 8pm' },
