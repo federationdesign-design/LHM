@@ -56,7 +56,7 @@ function BookingWidget({ service }: { service: Service }) {
             timeline_show_end_time: '0', timeline_modern_display: 'as_slots',
             light_font_color: '#ffffff', sb_secondary_base: '#000000',
             sb_base_color: themeV2 ? '#545557' : '#ffffff',
-            display_item_mode: themeV2 ? 'block' : 'list',
+            display_item_mode: 'list',
             booking_nav_bg_color: '#000000', sb_review_image: '115',
             sb_review_image_preview: '/uploads/lucyhallmassage/image_files/preview/4ecc8dab4516d05ab44aa11a3cfd7405.jpg',
             dark_font_color: '#000000', btn_color_1: '#2cd12c',
