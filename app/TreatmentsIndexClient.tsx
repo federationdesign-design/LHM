@@ -30,10 +30,10 @@ const therapiesList = [
   { label: 'Indian Head Massage', href: '/treatments/indian-head-massage', slideIndex: 11 },
   { label: 'Hot Stone Massage', href: '/treatments/hot-stone-massage', slideIndex: 12 },
   { label: 'Cupping', href: '/your-cupping-massage', slideIndex: 13 },
-  { label: 'Our Locations', href: '/locations', slideIndex: 14 },
-  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 15 },
-  { label: 'Get in Touch', href: '/contact', slideIndex: 16 },
-  { label: 'Claiming Receipts', href: '/contact', slideIndex: 17 },
+  { label: 'Our Locations', href: '/locations', slideIndex: 14, showInNav: false },
+  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 15, showInNav: false },
+  { label: 'Get in Touch', href: '/contact', slideIndex: 16, showInNav: false },
+  { label: 'Claiming Receipts', href: '/contact', slideIndex: 17, showInNav: false },
 ];
 
 const slides = [
@@ -282,7 +282,7 @@ function DesktopTreatments() {
                     </p>
                     <h1 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 32 }}>All Treatments</h1>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                      {therapiesList.map((item) => (
+                      {therapiesList.filter(item => item.showInNav !== false).map((item) => (
                         <button
                           key={item.label}
                           onClick={() => scrollToSlide(item.slideIndex)}
@@ -422,7 +422,7 @@ function MobileTreatments() {
                 </p>
                 <h1 style={{ fontSize: '2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 28 }}>All Treatments</h1>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  {therapiesList.map((item) => (
+                  {therapiesList.filter(item => item.showInNav !== false).map((item) => (
                     <button
                       key={item.label}
                       onClick={() => goTo(item.slideIndex)}
