@@ -489,17 +489,23 @@ export default function YourMassageClient() {
 
           <div className={styles.heroContent} style={{ zIndex: 10, paddingRight: 0, maxWidth: 'none' }}>
             <h1 className={styles.heroH1}>Your Massage</h1>
-            <p className={styles.heroSub}>Choose your duration</p>
+            <p className={styles.heroSub} style={{ marginBottom: 0 }}>
+              <a href="#choose-duration" style={{ color: 'inherit', textDecoration: 'none' }}>
+                Not sure on what type of massage you need? These massages can cover any element you like, just select your desired duration and book in. ↓
+              </a>
+            </p>
           </div>
         </div>
 
-        {isMobile === null ? (
-          <div style={{ height: '100vh' }} />
-        ) : isMobile ? (
-          <MobileTreatments />
-        ) : (
-          <DesktopTreatments />
-        )}
+        <div id="choose-duration" style={{ scrollMarginTop: 56 }}>
+          {isMobile === null ? (
+            <div style={{ height: '100vh' }} />
+          ) : isMobile ? (
+            <MobileTreatments />
+          ) : (
+            <DesktopTreatments />
+          )}
+        </div>
         {/* Why you need this — Your Massage positioning */}
         <section className={styles.serviceSection}>
           <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
