@@ -28,8 +28,8 @@ const locations = [
     lat: 52.200856,
     lng: 0.148039,
     team: [
-      { name: 'Antonia', photo: '/antonia.png', slug: 'antonia' },
-      { name: 'Orla', photo: '/orla.png', slug: 'orla' },
+      { name: 'Antonia', photo: '/antonia-profile-img.jpg', slug: 'antonia' },
+      { name: 'Orla', photo: '/orla-profile-img.jpg', slug: 'orla' },
     ],
   },
   {
@@ -44,7 +44,7 @@ const locations = [
     lat: 52.203035737126555,
     lng: 0.14792165893905196,
     team: [
-      { name: 'Safia', photo: '/safia.png', slug: 'safia' },
+      { name: 'Safia', photo: '/saphia-profile-img.jpg', slug: 'safia' },
     ],
   },
 ];
