@@ -171,7 +171,7 @@ export async function POST(request: NextRequest) {
   // Fires before the MailerLite nurture sequence starts (+1 day).
   // Best-effort: failure here doesn't block the MailerLite enrolment.
   const userReplyTo = process.env.USER_AUTORESPONDER_REPLY_TO || 'steve@lucyhallmassage.com';
-  const siteBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://lhm-six.vercel.app';
+  const siteBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.lucyhallmassage.com';
   let autoresponderResult: { success: boolean; error?: string } = { success: false, error: 'not attempted' };
 
   const autoresponderText = [
