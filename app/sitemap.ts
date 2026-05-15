@@ -3,7 +3,7 @@ import { services } from './data/services';
 import { team } from './data/team';
 import { articles } from './data/articleData';
 import { locations } from './data/locations';
-import { legal } from './data/legal';
+import { legalPages } from './data/legal';
 
 /**
  * Sitemap for lucyhallmassage.com.
@@ -87,7 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const legalEntries: MetadataRoute.Sitemap = Object.values(legal).map((l) => ({
+  const legalEntries: MetadataRoute.Sitemap = Object.values(legalPages).map((l) => ({
     url: `${BASE_URL}/legal/${l.slug}`,
     lastModified: now,
     changeFrequency: 'yearly',
