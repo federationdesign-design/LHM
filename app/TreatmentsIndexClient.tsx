@@ -17,24 +17,42 @@ const LOCATIONS_MAP_URL =
   `/auto/800x800@2x?access_token=${MAPBOX_TOKEN}`;
 
 const therapiesList = [
-  { label: 'Deep Tissue Massage', href: '/treatments/deep-tissue-massage', slideIndex: 1 },
-  { label: 'Swedish Massage', href: '/treatments/swedish-massage', slideIndex: 2 },
-  { label: 'Sports Massage', href: '/your-sports-massage', slideIndex: 3 },
-  { label: 'Relaxation Massage', href: '/treatments/relaxation-massage', slideIndex: 4 },
-  { label: 'Pregnancy Massage', href: '/your-pregnancy-massage', slideIndex: 5 },
-  { label: 'Hopi Ear & Back Massage', href: '/treatments/hopi-ear', slideIndex: 6 },
-  { label: 'Sports Therapy', href: '/treatments/sports-therapy', slideIndex: 7 },
-  { label: 'Indian Head Massage', href: '/treatments/indian-head-massage', slideIndex: 8 },
-  { label: 'Hot Stone Massage', href: '/treatments/hot-stone-massage', slideIndex: 9 },
-  { label: 'Cupping', href: '/your-cupping-massage', slideIndex: 10 },
-  { label: 'Our Locations', href: '/locations', slideIndex: 11 },
-  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 12 },
-  { label: 'Get in Touch', href: '/contact', slideIndex: 13 },
-  { label: 'Claiming Receipts', href: '/contact', slideIndex: 14 },
+  { label: '60 Minute Massage', href: '/treatments/60-min-massage', slideIndex: 1 },
+  { label: '90 Minute Massage', href: '/treatments/90-min-massage', slideIndex: 2 },
+  { label: '120 Minute Massage', href: '/treatments/120-min-massage', slideIndex: 3 },
+  { label: 'Deep Tissue Massage', href: '/treatments/deep-tissue-massage', slideIndex: 4 },
+  { label: 'Swedish Massage', href: '/treatments/swedish-massage', slideIndex: 5 },
+  { label: 'Sports Massage', href: '/treatments/sports-massage', slideIndex: 6 },
+  { label: 'Relaxation Massage', href: '/treatments/relaxation-massage', slideIndex: 7 },
+  { label: 'Pregnancy Massage', href: '/your-pregnancy-massage', slideIndex: 8 },
+  { label: 'Hopi Ear & Back Massage', href: '/treatments/hopi-ear', slideIndex: 9 },
+  { label: 'Sports Therapy', href: '/treatments/sports-therapy', slideIndex: 10 },
+  { label: 'Indian Head Massage', href: '/treatments/indian-head-massage', slideIndex: 11 },
+  { label: 'Hot Stone Massage', href: '/treatments/hot-stone-massage', slideIndex: 12 },
+  { label: 'Cupping', href: '/your-cupping-massage', slideIndex: 13 },
+  { label: 'Our Locations', href: '/locations', slideIndex: 14 },
+  { label: 'Gift Vouchers', href: '/gift-vouchers', slideIndex: 15 },
+  { label: 'Get in Touch', href: '/contact', slideIndex: 16 },
+  { label: 'Claiming Receipts', href: '/contact', slideIndex: 17 },
 ];
 
 const slides = [
   { type: 'intro' as const, slug: 'intro', title: null, tagline: null, image: null, color: '#000000', cta: null, ctaHref: null },
+  {
+    type: 'treatment' as const, slug: '60-min-massage', title: '60 Minute Massage',
+    tagline: 'An hour of focused bodywork - enough time to target tension across the whole body and leave you feeling restored.',
+    image: '/60-img.jpg', color: '#835e41', cta: 'Book Now', ctaHref: '/treatments/60-min-massage',
+  },
+  {
+    type: 'treatment' as const, slug: '90-min-massage', title: '90 Minute Massage',
+    tagline: 'A longer session for deeper work. Ninety minutes lets us address multiple problem areas without rushing, ideal for chronic tightness or post-training recovery.',
+    image: '/90-img.jpg', color: '#8a7d68', cta: 'Book Now', ctaHref: '/treatments/90-min-massage',
+  },
+  {
+    type: 'treatment' as const, slug: '120-min-massage', title: '120 Minute Massage',
+    tagline: 'Two hours for the most comprehensive treatment we offer. Time to address everything that needs attention - your shoulders, back, hips, legs and more - in one unhurried session.',
+    image: '/120-img.jpg', color: '#938d90', cta: 'Book Now', ctaHref: '/treatments/120-min-massage',
+  },
   {
     type: 'treatment' as const, slug: 'deep-tissue-massage', title: 'Deep Tissue Massage',
     tagline: 'Deep tissue massage targets the deeper layers of muscle and connective tissue, using slow, firm strokes to release chronic tension and knots. Unlike a relaxation massage, deep tissue work focuses on specific problem areas — helping to restore movement, reduce pain and improve posture over time.',
@@ -48,7 +66,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'sports-massage', title: 'Sports Massage',
     tagline: 'Sports massage is a targeted treatment designed for active individuals, combining deep tissue techniques with stretching to prevent injury, aid recovery and improve performance. Whether you are training regularly or recovering from an event, sports massage keeps your body functioning at its best.',
-    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/your-sports-massage',
+    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/sports-massage',
   },
   {
     type: 'treatment' as const, slug: 'relaxation-massage', title: 'Relaxation Massage',
