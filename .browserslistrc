@@ -1,0 +1,8 @@
+# Target modern browsers only. Drops unnecessary polyfills
+# (Array.at, .flat, Object.fromEntries, etc.) that modern browsers already support.
+# Drops bundle size by ~14 KiB per page.
+>0.5%
+last 2 versions
+Firefox ESR
+not dead
+not IE 11
