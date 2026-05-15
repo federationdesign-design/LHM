@@ -910,6 +910,14 @@ export default function CorporateHomeClient() {
           position: absolute;
           inset: 0;
         }
+        /* B&W by default, fades to colour on hover */
+        .corp-service-image img {
+          filter: grayscale(100%);
+          transition: filter 0.4s ease;
+        }
+        .corp-service-card:hover .corp-service-image img {
+          filter: grayscale(0%);
+        }
         .corp-service-overlay {
           position: absolute;
           inset: 0;

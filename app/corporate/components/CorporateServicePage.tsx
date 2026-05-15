@@ -426,6 +426,14 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           position: absolute;
           inset: 0;
         }
+        /* B&W by default, fades to colour on hover */
+        .cs-service-image img {
+          filter: grayscale(100%);
+          transition: filter 0.4s ease;
+        }
+        .cs-service-card:hover .cs-service-image img {
+          filter: grayscale(0%);
+        }
         .cs-service-overlay {
           position: absolute;
           inset: 0;
