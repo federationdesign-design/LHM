@@ -35,9 +35,9 @@ function MapboxMap({ lat, lng, name }: { lat: number; lng: number; name: string 
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/dark-v11',
         center: [lng, lat],
-        zoom: 16,
-        pitch: 55,
-        bearing: -20,
+        zoom: 15.5,
+        pitch: 50,
+        bearing: -15,
         antialias: true,
       });
 
