@@ -36,6 +36,8 @@ const treatments: [string, string][] = [
   ['Relaxation', '/treatments/relaxation-massage'],
   ['Sports Massage', '/treatments/sports-massage'],
   ['Swedish', '/treatments/swedish-massage'],
+  ['60/90/120 minute', '/your-massage'],
+  ['60/90/120 minute', '/your-massage'],
 ];
 
 export default function Footer() {
