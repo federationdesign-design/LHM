@@ -104,10 +104,10 @@ export default function BookingPageClient() {
             },
             {
               '@type': 'Service',
-              '@id': 'https://lucyhallmassage.com/#deep-tissue',
+              '@id': 'https://www.lucyhallmassage.com/#deep-tissue',
               name: 'Deep Tissue Massage',
               description: 'Deep tissue massage targets the deeper layers of muscle and connective tissue, using slow, firm strokes to release chronic tension and knots.',
-              provider: { '@id': 'https://lucyhallmassage.com/#business' },
+              provider: { '@id': 'https://www.lucyhallmassage.com/#business' },
               areaServed: { '@type': 'City', name: 'Cambridge' },
               serviceType: 'Massage Therapy',
               url: 'https://www.lucyhallmassage.com',
