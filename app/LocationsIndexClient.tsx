@@ -309,8 +309,8 @@ export default function LocationsIndexClient() {
 
       <main className={styles.page}>
 
-        {/* HERO — Google My Maps showing both locations */}
-        <div ref={heroRef} style={{ position: 'relative', width: '100%', height: '70vh', marginTop: 56, overflow: 'hidden' }}>
+        {/* HERO — static stylised map of both clinics */}
+        <div ref={heroRef} className={styles.hero}>
           <Image
             src="/lucyhall-massage-cambridge-locations.jpeg"
             alt="Our two Cambridge locations on a stylised map"
@@ -319,13 +319,10 @@ export default function LocationsIndexClient() {
             sizes="100vw"
             style={{ objectFit: 'cover', objectPosition: 'center' }}
           />
-          <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} style={{ zIndex: 2 }} />
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 270, background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50px, transparent 100%)', zIndex: 3, pointerEvents: 'none' }} />
+          <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
+          <div className={styles.heroGradient} />
 
-          {/* H1 overlay — uses styles.heroContent class so positioning matches
-              Hopi Ear and other service pages exactly. zIndex: 4 ensures it
-              sits above the bottom gradient. */}
-          <div className={styles.heroContent} style={{ zIndex: 4 }}>
+          <div className={styles.heroContent}>
             <h1 className={styles.heroH1}>Our Locations</h1>
             <p className={styles.heroSub}>Two locations in Cambridge — by appointment only</p>
           </div>
