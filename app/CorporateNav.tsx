@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 const menuItems: [string, string][] = [
   ['Home',                       '/corporate'],
+  ['Services',                   '/corporate/services'],
   ['In-Office Chair Massage',    '/corporate/services/in-chair-massage'],
   ['DSE Assessments',            '/corporate/services/dsc-assessments'],
   ['Posture Consultations',      '/corporate/services/posture-consultations'],

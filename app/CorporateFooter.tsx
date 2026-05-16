@@ -18,6 +18,7 @@ import styles from './page.module.css';
 
 const mainMenu: [string, string][] = [
   ['Home', '/private'],
+  ['Services', '/corporate/services'],
   ['All Treatments', '/treatments'],
   ['Locations', '/locations'],
   ['Our Team', '/corporate/team'],
