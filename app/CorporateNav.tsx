@@ -156,7 +156,7 @@ export default function CorporateNav() {
           .corp-nav {
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 500;
             background: #000000;
             display: flex;
             align-items: center;
