@@ -1,6 +1,6 @@
 'use client';
 
-import CorporateServicePage from '../components/CorporateServicePage';
+import CorporateServicePage from '../../components/CorporateServicePage';
 
 export default function PostureConsultationsClient() {
   return (
