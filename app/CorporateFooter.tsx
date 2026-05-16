@@ -41,9 +41,9 @@ const usefulLinks: [string, string][] = [
 ];
 
 const corpServices: [string, string][] = [
-  ['In-Office Chair Massage', '/corporate/in-chair-massage'],
-  ['DSE Assessments',         '/corporate/dsc-assessments'],
-  ['Posture Consultations',   '/corporate/posture-consultations'],
+  ['In-Office Chair Massage', '/corporate/services/in-chair-massage'],
+  ['DSE Assessments',         '/corporate/services/dsc-assessments'],
+  ['Posture Consultations',   '/corporate/services/posture-consultations'],
 ];
 
 export default function CorporateFooter() {

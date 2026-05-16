@@ -12,9 +12,9 @@ import InlineEnquiryForm from './InlineEnquiryForm';
    CorporateServicePage — shared layout for the three corporate
    service detail pages:
 
-     /corporate/in-chair-massage
-     /corporate/dsc-assessments
-     /corporate/posture-consultations
+     /corporate/services/in-chair-massage
+     /corporate/services/dsc-assessments
+     /corporate/services/posture-consultations
 
    The page composition is identical across all three; only the
    hero image, headline, sub-copy, and the two text blocks
@@ -39,19 +39,19 @@ const services = [
   {
     n: 1,
     title: 'In-Office Chair Massage',
-    href: '/corporate/in-chair-massage',
+    href: '/corporate/services/in-chair-massage',
     img:  '/corporate-chair-massage.jpg',
   },
   {
     n: 2,
     title: 'Display Screen Equipment Assessments',
-    href: '/corporate/dsc-assessments',
+    href: '/corporate/services/dsc-assessments',
     img:  '/corporate-dsc.jpg',
   },
   {
     n: 3,
     title: 'Assessments & Posture Consultations',
-    href: '/corporate/posture-consultations',
+    href: '/corporate/services/posture-consultations',
     img:  '/corporate-posture.jpg',
   },
 ];

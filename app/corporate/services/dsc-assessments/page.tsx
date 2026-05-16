@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Workplace DSE assessments in Cambridge. Reduce risk of injury, meet HSE regulations, and create a safer, more comfortable working environment for your team.',
   alternates: {
-    canonical: 'https://www.lucyhallmassage.com/corporate/dsc-assessments',
+    canonical: 'https://www.lucyhallmassage.com/corporate/services/dsc-assessments',
   },
 };
 

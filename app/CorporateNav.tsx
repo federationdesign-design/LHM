@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 const menuItems: [string, string][] = [
   ['Home',                       '/corporate'],
-  ['In-Office Chair Massage',    '/corporate/in-chair-massage'],
-  ['DSE Assessments',            '/corporate/dsc-assessments'],
-  ['Posture Consultations',      '/corporate/posture-consultations'],
+  ['In-Office Chair Massage',    '/corporate/services/in-chair-massage'],
+  ['DSE Assessments',            '/corporate/services/dsc-assessments'],
+  ['Posture Consultations',      '/corporate/services/posture-consultations'],
   ['Our Team',                   '/corporate/team'],
   ['Reviews',                    '/reviews'],
   ['Book myself a massage',      '/private'],

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'One-to-one posture consultations and assessments for your team in Cambridge. Improve posture, reduce pain, and prevent injury with personalised expert guidance.',
   alternates: {
-    canonical: 'https://www.lucyhallmassage.com/corporate/posture-consultations',
+    canonical: 'https://www.lucyhallmassage.com/corporate/services/posture-consultations',
   },
 };
 
