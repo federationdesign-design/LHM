@@ -190,7 +190,7 @@ export default function TestimonialsClient() {
       <Nav solid />
       <main style={{ background: '#000000', minHeight: '100vh' }}>
 
-        <section style={{ padding: '120px 48px 40px', maxWidth: 1300, margin: '0 auto' }}>
+        <section style={{ padding: '120px 48px 40px', maxWidth: 1300, margin: '0 auto', position: 'relative', zIndex: 2, background: '#000000' }}>
           <p style={{ fontSize: '0.72rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', opacity: 0.5, marginBottom: 18 }}>
             <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / Testimonials
           </p>
@@ -222,6 +222,10 @@ export default function TestimonialsClient() {
             padding: 60px 48px 100px;
             max-width: 1300px;
             margin: 0 auto;
+          }
+          .reviews-grid > div:first-child {
+            position: relative;
+            z-index: 0;
           }
           @media (min-width: 1024px) {
             .reviews-grid {
