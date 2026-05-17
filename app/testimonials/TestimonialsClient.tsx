@@ -203,7 +203,7 @@ export default function TestimonialsClient() {
         </section>
 
         {/* White divider */}
-        <div style={{ height: 1, background: '#ffffff', margin: '0 48px' }} />
+        <div style={{ height: 1, background: '#ffffff', margin: '0 48px', position: 'relative', zIndex: 2 }} />
 
         {/* SimplyBook Reviews widget — updated config */}
         <section className="reviews-grid">
@@ -240,7 +240,7 @@ export default function TestimonialsClient() {
         `}</style>
 
         {/* White divider */}
-        <div style={{ height: 1, background: '#ffffff', margin: '0 48px' }} />
+        <div style={{ height: 1, background: '#ffffff', margin: '0 48px', position: 'relative', zIndex: 2 }} />
 
         {/* Google Reviews placeholder slot. See comment notes on TestimonialsClient
             previous version — paste an Elfsight or similar embed inside the div */}
