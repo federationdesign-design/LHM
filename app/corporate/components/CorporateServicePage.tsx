@@ -262,8 +262,6 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           display: flex;
           flex-direction: column;
           gap: 32px;
-          max-width: 1600px;
-          margin: 0 auto;
           width: 100%;
         }
         .cs-hero-text {
