@@ -206,21 +206,37 @@ export default function TestimonialsClient() {
         <div style={{ height: 1, background: '#ffffff', margin: '0 48px' }} />
 
         {/* SimplyBook Reviews widget — updated config */}
-        <section style={{ padding: '60px 48px 60px', maxWidth: 1300, margin: '0 auto' }}>
-          <SimplyBookReviews />
+        <section className="reviews-grid">
+          <div>
+            <SimplyBookReviews />
+          </div>
+          <div>
+            <GoogleReviews />
+          </div>
         </section>
+        <style>{`
+          .reviews-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding: 60px 48px 100px;
+            max-width: 1300px;
+            margin: 0 auto;
+          }
+          @media (min-width: 1024px) {
+            .reviews-grid {
+              grid-template-columns: 1fr 1fr;
+              gap: 60px;
+            }
+          }
+        `}</style>
 
         {/* White divider */}
         <div style={{ height: 1, background: '#ffffff', margin: '0 48px' }} />
 
         {/* Google Reviews placeholder slot. See comment notes on TestimonialsClient
             previous version — paste an Elfsight or similar embed inside the div */}
-        <section style={{ padding: '60px 48px 100px', maxWidth: 1300, margin: '0 auto' }}>
-          {/* Live from Google Places API. Place ID: ChIJey7ynZpw2EcRU8Rob2GtOFk
-              Backed by /api/google-reviews route, which uses GOOGLE_PLACES_API_KEY
-              env var (server-side only, never exposed to browser). */}
-          <GoogleReviews />
-        </section>
+
 
         <Footer />
       </main>
