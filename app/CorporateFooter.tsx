@@ -17,17 +17,13 @@ import styles from './page.module.css';
    ───────────────────────────────────────────────────────────── */
 
 const mainMenu: [string, string][] = [
-  ['Home', '/private'],
+  ['Home', '/corporate'],
   ['Services', '/corporate/services'],
-  ['All Treatments', '/treatments'],
-  ['Locations', '/locations'],
   ['Our Team', '/corporate/team'],
   ['Reviews', '/reviews'],
-  ['Gift Vouchers', '/gift-vouchers'],
-  ['Blog', '/news'],
   ['FAQ', '/faq'],
   ['Contact', '/corporate/contact'],
-  ['Corporate', '/corporate'],
+  ['Main Site', '/private'],
 ];
 
 const usefulLinks: [string, string][] = [
