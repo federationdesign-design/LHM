@@ -214,6 +214,9 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         /* ── NAV OVERRIDE: transparent + fixed over hero on service pages ── */
         .corp-nav {
           position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
           background: transparent !important;
         }
         .cs-main {
