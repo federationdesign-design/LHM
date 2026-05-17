@@ -218,12 +218,6 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           left: 0 !important;
           right: 0 !important;
           background: transparent !important;
-          padding: 14px 24px !important;
-        }
-        @media (min-width: 768px) {
-          .corp-nav {
-            padding: 14px 80px !important;
-          }
         }
         .cs-main {
           background: #000000;
@@ -234,17 +228,13 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         .cs-hero-breadcrumbs {
           position: absolute;
           top: 80px;
-          left: 24px;
-          right: 24px;
+          left: 32px;
+          right: 32px;
           z-index: 3;
-          max-width: 1600px;
-          margin: 0 auto;
         }
         @media (min-width: 768px) {
           .cs-hero-breadcrumbs {
             top: 88px;
-            left: 80px;
-            right: 80px;
           }
         }
         .cs-hero {
@@ -268,7 +258,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         .cs-hero-content {
           position: relative;
           z-index: 2;
-          padding: 40px 24px 40px;
+          padding: 40px 32px 40px;
           display: flex;
           flex-direction: column;
           gap: 32px;
