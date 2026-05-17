@@ -218,6 +218,12 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           left: 0 !important;
           right: 0 !important;
           background: transparent !important;
+          padding: 14px 24px !important;
+        }
+        @media (min-width: 768px) {
+          .corp-nav {
+            padding: 14px 80px !important;
+          }
         }
         .cs-main {
           background: #000000;
