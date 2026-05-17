@@ -6,6 +6,7 @@ import CorporateNav from '../../CorporateNav';
 import CorporateFooter from '../../CorporateFooter';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import { corporateTestimonials } from '../../components/Testimonials/corporate-testimonials-data';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const dsc      = { n: '1', title: 'Display Screen Equipment Assessments', cta: 'DSC Assessments',     href: '/corporate/services/dsc-assessments',        img: '/corporate-dsc.jpg' };
 const chair    = { n: '2', title: 'In-Office Chair Massage',              cta: 'Chair Massage',       href: '/corporate/services/in-chair-massage',       img: '/corporate-chair-massage.jpg' };
@@ -90,6 +91,10 @@ export default function CorporateServicesIndexClient() {
             </div>
 
             <div className="cs-main-copy">
+              <Breadcrumbs items={[
+                { label: 'Home', href: '/corporate' },
+                { label: 'Services' },
+              ]} />
               <h1 className="cs-h1">Corporate Services</h1>
               <p className="cs-lead">Stress, burnout and physical illness are rarely ever the fault of the staff or the organisation itself. Sometimes we stumble and fall, or, perhaps worse, stumble and fall and then come into work, when we should be recovering! Managing stress levels and physical wellbeing with regular massage treatments for your staff will have them feeling revived, content and motivated!</p>
               <p className="cs-sub">Our specialist corporate massages in Cambridge are a popular choice for businesses looking to enhance their employee wellness programs, relieve stress, and create a more positive and productive work environment.</p>

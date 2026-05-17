@@ -6,6 +6,7 @@ import CorporateNav from '../../CorporateNav';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import { corporateTestimonials } from '../../components/Testimonials/corporate-testimonials-data';
 import CorporateFooter from '../../CorporateFooter';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import InlineEnquiryForm from './InlineEnquiryForm';
 
 /* ─────────────────────────────────────────────────────────────
@@ -110,6 +111,11 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
 
           <div className="cs-hero-content">
             <div className="cs-hero-text">
+              <Breadcrumbs items={[
+                { label: 'Home', href: '/corporate' },
+                { label: 'Services', href: '/corporate/services' },
+                { label: props.headline },
+              ]} />
               <h1 className="cs-hero-headline">{props.headline}</h1>
               {props.heroCopy.split('\n').filter(Boolean).map((para, i) => (
                 <p key={i} className="cs-hero-copy">{para}</p>
