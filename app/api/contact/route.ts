@@ -224,6 +224,7 @@ export async function POST(request: NextRequest) {
 
   const notificationResult = await sendEmail({
     to: toList,
+    bcc: process.env.LUCY_BCC,
     subject: notificationSubject,
     text: notificationText,
     html: notificationHtml,
@@ -274,6 +275,7 @@ export async function POST(request: NextRequest) {
 
   const autoresponderResult = await sendEmail({
     to: email,
+    bcc: process.env.LUCY_BCC,
     subject: autoresponderSubject,
     text: autoresponderText,
     html: autoresponderHtml,

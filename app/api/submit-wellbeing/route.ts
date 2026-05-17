@@ -155,6 +155,7 @@ export async function POST(request: NextRequest) {
 
     const emailResult = await sendEmail({
       to: notificationRecipient,
+      bcc: process.env.LUCY_BCC,
       subject,
       text,
       replyTo: body.email,
@@ -198,6 +199,7 @@ export async function POST(request: NextRequest) {
 
   const autoresponderEmail = await sendEmail({
     to: body.email!.trim(),
+    bcc: process.env.LUCY_BCC,
     subject: 'Thanks for getting in touch with Lucy Hall Massage Therapy',
     text: autoresponderText,
     replyTo: userReplyTo,

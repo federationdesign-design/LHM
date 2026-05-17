@@ -31,6 +31,9 @@ export type SendEmailOptions = {
   /** Optional CC recipients. Single address or array. Shows up as 'Cc:' in
    *  the recipient's email client (vs primary 'To:' recipients). */
   cc?: string | string[];
+  /** Optional BCC recipients. Single address or array. Hidden from the
+   *  recipient's email client. Useful for internal copies on customer emails. */
+  bcc?: string | string[];
 };
 
 export type SendEmailResult =
@@ -61,6 +64,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<SendEmailRes
       from,
       to: options.to,
       cc: options.cc,
+      bcc: options.bcc,
       subject: options.subject,
       text: options.text,
       html: options.html,

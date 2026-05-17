@@ -171,6 +171,7 @@ export async function POST(request: NextRequest) {
   }
   const result = await sendEmail({
     to: recipient,
+    bcc: process.env.LUCY_BCC,
     subject,
     text,
     replyTo: data.email,

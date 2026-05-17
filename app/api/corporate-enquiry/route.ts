@@ -395,6 +395,7 @@ export async function POST(request: Request) {
     try {
       await sendEmail({
         to:      NOTIFICATION_RECIPIENT,
+        bcc:     process.env.LUCY_BCC,
         replyTo: email,
         subject: `Detailed Lead Capture - ${name}`,
         html,
@@ -493,6 +494,7 @@ export async function POST(request: Request) {
     try {
       await sendEmail({
         to:      NOTIFICATION_RECIPIENT,
+        bcc:     process.env.LUCY_BCC,
         replyTo: email,
         subject: `Lead Enriched - ${name} (additional details)`,
         html,
@@ -525,6 +527,7 @@ export async function POST(request: Request) {
   try {
     await sendEmail({
       to:      NOTIFICATION_RECIPIENT,
+      bcc:     process.env.LUCY_BCC,
       replyTo: email,
       subject: `New Corporate Enquiry - ${name}`,
       html:    notification.html,
@@ -541,6 +544,7 @@ export async function POST(request: Request) {
   try {
     await sendEmail({
       to:      email,
+      bcc:     process.env.LUCY_BCC,
       replyTo: 'info@lucyhallmassage.com',
       subject: 'Your Lucy Hall Massage Employer PDF',
       html:    autoresponder.html,

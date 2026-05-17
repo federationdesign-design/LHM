@@ -120,6 +120,7 @@ export async function POST(req: NextRequest) {
     `;
     const teamResult = await sendEmail({
       to:      'info@lucyhallmassage.com',
+      bcc:     process.env.LUCY_BCC,
       subject: `[Receipt Request] ${name} - ${treatmentFmt}`,
       text:    teamText,
       html:    teamHtml,
@@ -168,6 +169,7 @@ export async function POST(req: NextRequest) {
     // receipt manually even if this confirmation didn't reach them.
     await sendEmail({
       to:      email,
+      bcc:     process.env.LUCY_BCC,
       subject: 'Receipt request received - Lucy Hall Massage Therapy',
       text:    userText,
       html:    userHtml,
