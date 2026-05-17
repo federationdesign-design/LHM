@@ -90,6 +90,7 @@ export default function CorporateServicesIndexClient() {
             </div>
 
             <div className="cs-main-copy">
+              <h1 className="cs-h1">Corporate Services</h1>
               <p className="cs-lead">Stress, burnout and physical illness are rarely ever the fault of the staff or the organisation itself. Sometimes we stumble and fall, or, perhaps worse, stumble and fall and then come into work, when we should be recovering! Managing stress levels and physical wellbeing with regular massage treatments for your staff will have them feeling revived, content and motivated!</p>
               <p className="cs-sub">Our specialist corporate massages in Cambridge are a popular choice for businesses looking to enhance their employee wellness programs, relieve stress, and create a more positive and productive work environment.</p>
 
@@ -121,8 +122,6 @@ export default function CorporateServicesIndexClient() {
           grid-template-columns: 1fr;
           gap: 24px;
           padding: 32px 16px;
-          max-width: 1600px;
-          margin: 0 auto;
         }
         @media (min-width: 1024px) {
           .cs-twocol {
@@ -205,7 +204,7 @@ export default function CorporateServicesIndexClient() {
         .cs-quick-actions {
           display: flex; flex-direction: column;
           gap: 16px; padding: 8px 0;
-          justify-content: center;
+          justify-content: flex-start;
         }
         .cs-quick-action {
           display: flex; align-items: center; gap: 16px;
@@ -217,12 +216,13 @@ export default function CorporateServicesIndexClient() {
 
         /* ── Main copy ─────────── */
         .cs-main-copy { font-size: 1.1rem; line-height: 1.55; }
-        .cs-lead { font-size: 1.325rem; font-weight: 600; margin: 0 0 24px; }
+        .cs-h1 { font-size: 2.2rem; font-weight: 600; margin: 0 0 24px; line-height: 1.1; }
+        .cs-lead { font-size: 1.45rem; font-weight: 600; margin: 0 0 24px; }
         .cs-sub { margin: 0 0 32px; opacity: 0.85; }
         .cs-benefits-title { font-size: 1.3rem; font-weight: 500; margin: 0 0 16px; }
         .cs-benefits-list { list-style: disc; padding-left: 24px; margin: 0 0 32px; }
         .cs-benefits-list li { margin-bottom: 8px; opacity: 0.9; }
-        .cs-enquire-link { color: #ffffff; font-size: 1.325rem; text-decoration: underline; font-weight: 600; }
+        .cs-enquire-link { color: #ffffff; font-size: 1.45rem; text-decoration: underline; font-weight: 600; }
         .cs-enquire-link:hover { opacity: 0.8; }
 
         /* ── Credibility ─────────── */
