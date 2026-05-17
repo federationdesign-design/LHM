@@ -126,7 +126,7 @@ export default function CorporateServicesIndexClient() {
         }
         @media (min-width: 1024px) {
           .cs-twocol {
-            grid-template-columns: 360px 1fr;
+            grid-template-columns: 1fr 2fr;
             gap: 48px;
             padding: 48px 80px;
           }
