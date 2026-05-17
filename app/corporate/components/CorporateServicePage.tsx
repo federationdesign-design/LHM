@@ -109,13 +109,15 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             <div className="cs-hero-overlay" aria-hidden="true" />
           </div>
 
+          <div className="cs-hero-breadcrumbs">
+            <Breadcrumbs items={[
+              { label: 'Home', href: '/corporate' },
+              { label: 'Services', href: '/corporate/services' },
+              { label: props.headline },
+            ]} />
+          </div>
           <div className="cs-hero-content">
             <div className="cs-hero-text">
-              <Breadcrumbs items={[
-                { label: 'Home', href: '/corporate' },
-                { label: 'Services', href: '/corporate/services' },
-                { label: props.headline },
-              ]} />
               <h1 className="cs-hero-headline">{props.headline}</h1>
               {props.heroCopy.split('\n').filter(Boolean).map((para, i) => (
                 <p key={i} className="cs-hero-copy">{para}</p>
@@ -209,12 +211,33 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
       </main>
 
       <style>{`
+        /* ── NAV OVERRIDE: transparent + fixed over hero on service pages ── */
+        .corp-nav {
+          position: fixed !important;
+          background: transparent !important;
+        }
         .cs-main {
           background: #000000;
           color: #ffffff;
         }
 
         /* ── HERO ──────────────────────────────────────────── */
+        .cs-hero-breadcrumbs {
+          position: absolute;
+          top: 80px;
+          left: 24px;
+          right: 24px;
+          z-index: 3;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+          .cs-hero-breadcrumbs {
+            top: 88px;
+            left: 80px;
+            right: 80px;
+          }
+        }
         .cs-hero {
           position: relative;
           width: 100%;
