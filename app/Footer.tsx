@@ -23,6 +23,7 @@ const usefulLinks: [string, string][] = [
   ['Privacy Policy', '/legal/privacy-policy'],
   ['Terms & Conditions', '/legal/terms-and-conditions'],
   ['Data Request', '/legal/data-request'],
+  ['Standard Operating Terms', '/legal/sop'],
 ];
 
 const treatments: [string, string][] = [
