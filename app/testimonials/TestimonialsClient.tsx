@@ -227,6 +227,10 @@ export default function TestimonialsClient() {
             .reviews-grid {
               grid-template-columns: 1fr 1fr;
               gap: 60px;
+              align-items: start;
+            }
+            .reviews-grid > div:first-child {
+              margin-top: -200px;
             }
           }
         `}</style>
