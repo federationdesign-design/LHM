@@ -173,8 +173,6 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
           ))}
         </div>
 
-        {/* DIVIDER */}
-        <div className={styles.divider} />
 
         {variant === 'corporate' ? <CorporateFooter /> : <Footer />}
 

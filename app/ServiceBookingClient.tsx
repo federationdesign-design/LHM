@@ -272,8 +272,6 @@ export default function ServiceBookingClient({ service }: { service: Service }) 
           <BookingWidget service={service} />
         </div>
 
-        {/* DIVIDER */}
-        <div className={styles.divider} />
 
         {/* TESTIMONIALS */}
         <Testimonials heading="Happy private clients include" />
