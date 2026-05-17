@@ -207,8 +207,9 @@ export default function TestimonialsClient() {
 
         {/* SimplyBook Reviews widget — updated config */}
         <section className="reviews-grid">
-          <div>
+          <div className="sbm-wrapper">
             <SimplyBookReviews />
+            <div className="sbm-mask" aria-hidden="true" />
           </div>
           <div>
             <GoogleReviews />
@@ -226,6 +227,19 @@ export default function TestimonialsClient() {
           .reviews-grid > div:first-child {
             position: relative;
             z-index: 0;
+          }
+          .sbm-wrapper {
+            position: relative;
+          }
+          .sbm-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 260px;
+            background: #000000;
+            pointer-events: none;
+            z-index: 1;
           }
           @media (min-width: 1024px) {
             .reviews-grid {
