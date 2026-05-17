@@ -213,4 +213,18 @@ export const legalPages: Record<string, LegalPage> = {
       },
     ],
   },
+  'sop': {
+    slug: 'sop',
+    title: 'Standard Operating Terms',
+    lastUpdated: 'May 2026',
+    metaTitle: 'Standard Operating Terms | Lucy Hall Massage Therapy',
+    metaDescription: 'Standard operating procedures and joining instructions for clients attending massage treatments with Lucy Hall Massage Therapy, Cambridge.',
+    canonicalUrl: 'https://www.lucyhallmassage.com/legal/sop/',
+    sections: [
+      {
+        heading: 'For the client (joining instructions & treatment agreement)',
+        content: `1. Upon initial consultation, your therapist will carry out a risk assessment, lifestyle questions and past medical history as well as your current ailments. This is to ascertain your level of treatment. The data collected will only be used to this endeavour. All information shared will be treated in confidence.\n\n2. The therapist will always uphold high standards of personal hygiene, so we simply ask the same of the client. This allows us to best facilitate both a pleasant working environment for our staff and relaxing environment for your treatment.\n\n3. Following point 2, please be appropriately dressed so we can best treat you. Excessive layers of clothing will limit treatment ability.\n\nAt no point in the treatment will any client be completely unclothed. Underwear is the industry standard to be worn during treatment. There may be cause for a bra to be undone if it covers areas on the back that need treating, but your therapist will discuss this with you. Please raise any concerns in consultation if this is a problem. There is no conceivable scenario where clothing is fully removed from your bottom half.\n\n4. Lucy Hall Massage\'s standard operating procedure is for the client to be given the privacy of the treatment space while our staff step outside and let you undress. Once you are ready, simply alert our staff and we will return to begin your treatment.\n\n5. If at any point in the treatment you feel unwell please notify our staff immediately.\n\n6. Provided your appointment is at Kelsey Kerridge sports hall then you do not need to queue at reception, simply walk to the front and notify reception you are here for treatment with us.`,
+      },
+    ],
+  },
 };
