@@ -91,7 +91,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'indian-head-massage', title: 'Indian Head Massage',
     tagline: 'A traditional therapy focused on the head, scalp, neck and shoulders — the areas where most of us hold daily stress. Using a blend of firm and gentle techniques, the treatment eases muscular tension, calms a busy mind and leaves you feeling deeply restored.',
-    image: '/Indian-Head-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/indian-head-massage',
+    image: '/head-massage-portrait.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/indian-head-massage',
   },
   {
     type: 'treatment' as const, slug: 'hot-stone-massage', title: 'Hot Stone Massage',

@@ -21,7 +21,7 @@ const services = [
   { slug: 'pregnancy-massage', title: 'Pregnancy Massage', image: '/Pregnancy-mobile.jpg', href: '/your-pregnancy-massage', cta: 'Book Treatment' },
   { slug: 'hopi-ear', title: 'Hopi Ear & Back Massage', image: '/hopi-mobile.jpg', href: '/treatments/hopi-ear', cta: 'Book Treatment' },
   { slug: 'sports-therapy', title: 'Sports Therapy', image: '/sports-therapy-img-new.jpg', href: '/treatments/sports-therapy', cta: 'Book Treatment' },
-  { slug: 'indian-head-massage', title: 'Indian Head Massage', image: '/Indian-Head-mobile.jpg', href: '/treatments/indian-head-massage', cta: 'Book Treatment' },
+  { slug: 'indian-head-massage', title: 'Indian Head Massage', image: '/head-massage-portrait.jpg', href: '/treatments/indian-head-massage', cta: 'Book Treatment' },
   { slug: 'hot-stone-massage', title: 'Hot Stone Massage', image: '/Hot-Stone-mobile.jpg', href: '/treatments/hot-stone-massage', cta: 'Book Treatment' },
   { slug: 'cupping', title: 'Cupping Therapy', image: '/cupping-mobile.jpg', href: '/your-cupping-massage', cta: 'Book Treatment' },
   { slug: 'locations', title: 'Our Locations', image: '/main-team-hero-img.jpg', href: '/locations', cta: 'View Locations' },
