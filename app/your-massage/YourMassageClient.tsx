@@ -467,7 +467,7 @@ export default function YourMassageClient() {
 
           <span className="ysm-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
             <Image
-              src="/sports-therapy-mobile.jpg"
+              src="/sports-therapy-portrait.jpg"
               alt="Your Massage"
               fill
               priority
@@ -478,7 +478,7 @@ export default function YourMassageClient() {
 
           <span className="ysm-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
             <Image
-              src="/sports-therapy-desktop.jpg"
+              src="/sports-therapy-landscape.jpg"
               alt="Your Massage"
               fill
               priority

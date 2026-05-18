@@ -167,7 +167,7 @@ function MobileScrollHero({ onChoose }: { onChoose: (side: Side) => void }) {
             style={{ background: PRIVATE_FALLBACK }}
           >
             <Image
-              src="/sports-therapy-desktop.jpg"
+              src="/sports-therapy-landscape.jpg"
               alt=""
               fill
               priority
@@ -292,7 +292,7 @@ export default function SplashClient() {
                 aria-label="Choose private"
               >
                 <Image
-                  src="/sports-therapy-desktop.jpg"
+                  src="/sports-therapy-landscape.jpg"
                   alt=""
                   fill
                   priority
@@ -443,7 +443,7 @@ export default function SplashClient() {
               </div>
               <div className="splash-m-row-image">
                 <Image
-                  src="/sports-therapy-desktop.jpg"
+                  src="/sports-therapy-landscape.jpg"
                   alt=""
                   fill
                   sizes="50vw"

@@ -86,7 +86,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'sports-therapy', title: 'Sports Therapy',
     tagline: 'Our sports therapy service provides expert assessment and hands-on treatment for a wide range of musculoskeletal conditions. From acute injuries to chronic pain and postural problems, our qualified sports therapists use evidence-based techniques to restore function and reduce pain.',
-    image: '/sports-therapy-img-new.jpg', color: '#b46a51', cta: 'Book Now', ctaHref: '/treatments/sports-therapy',
+    image: '/sports-therapy-portrait.jpg', color: '#b46a51', cta: 'Book Now', ctaHref: '/treatments/sports-therapy',
   },
   {
     type: 'treatment' as const, slug: 'indian-head-massage', title: 'Indian Head Massage',
