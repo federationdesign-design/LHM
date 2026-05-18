@@ -76,7 +76,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'pregnancy-massage', title: 'Pregnancy Massage',
     tagline: 'Pregnancy massage is a specially adapted treatment designed to support the physical and emotional changes of pregnancy. Our therapists help relieve common discomforts including back pain, swelling and fatigue — providing both physical relief and a much-needed moment of calm.',
-    image: '/Pregnancy-mobile.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/your-pregnancy-massage',
+    image: '/pregnancy-portrait.jpg', color: '#548661', cta: 'Book Now', ctaHref: '/your-pregnancy-massage',
   },
   {
     type: 'treatment' as const, slug: 'hopi-ear', title: 'Hopi Ear & Back Massage',
