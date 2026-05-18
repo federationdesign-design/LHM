@@ -66,12 +66,12 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'sports-massage', title: 'Sports Massage',
     tagline: 'Sports massage is a targeted treatment designed for active individuals, combining deep tissue techniques with stretching to prevent injury, aid recovery and improve performance. Whether you are training regularly or recovering from an event, sports massage keeps your body functioning at its best.',
-    image: '/sports-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/sports-massage',
+    image: '/sports-portrait.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/sports-massage',
   },
   {
     type: 'treatment' as const, slug: 'relaxation-massage', title: 'Relaxation Massage',
     tagline: 'A relaxation massage uses light to medium pressure with long, slow strokes to calm the nervous system and ease both physical and mental tension. It is a deeply restorative treatment — the perfect way to step away from the demands of daily life.',
-    image: '/relaxation-mobile.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/relaxation-massage',
+    image: '/relaxation-portrait.jpg', color: '#eab7a4', cta: 'Book Now', ctaHref: '/treatments/relaxation-massage',
   },
   {
     type: 'treatment' as const, slug: 'pregnancy-massage', title: 'Pregnancy Massage',
