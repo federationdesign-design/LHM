@@ -41,17 +41,17 @@ const slides = [
   {
     type: 'treatment' as const, slug: '60-min-massage', title: '60 Minute Massage',
     tagline: 'An hour of focused bodywork - enough time to target tension across the whole body and leave you feeling restored.',
-    image: '/60-img.jpg', color: '#835e41', cta: 'Book Now', ctaHref: '/treatments/60-min-massage',
+    image: '/60-min-portrait.jpg', color: '#835e41', cta: 'Book Now', ctaHref: '/treatments/60-min-massage',
   },
   {
     type: 'treatment' as const, slug: '90-min-massage', title: '90 Minute Massage',
     tagline: 'A longer session for deeper work. Ninety minutes lets us address multiple problem areas without rushing, ideal for chronic tightness or post-training recovery.',
-    image: '/90-img.jpg', color: '#8a7d68', cta: 'Book Now', ctaHref: '/treatments/90-min-massage',
+    image: '/90-min-portrait.jpg', color: '#8a7d68', cta: 'Book Now', ctaHref: '/treatments/90-min-massage',
   },
   {
     type: 'treatment' as const, slug: '120-min-massage', title: '120 Minute Massage',
     tagline: 'Two hours for the most comprehensive treatment we offer. Time to address everything that needs attention - your shoulders, back, hips, legs and more - in one unhurried session.',
-    image: '/120-img.jpg', color: '#938d90', cta: 'Book Now', ctaHref: '/treatments/120-min-massage',
+    image: '/120-min-portrait.jpg', color: '#938d90', cta: 'Book Now', ctaHref: '/treatments/120-min-massage',
   },
   {
     type: 'treatment' as const, slug: 'deep-tissue-massage', title: 'Deep Tissue Massage',

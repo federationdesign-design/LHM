@@ -11,9 +11,9 @@ import FindUsOn from '@/app/components/FindUsOn';
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 
 const services = [
-  { slug: '60-min-massage', title: '60 Minute Massage', image: '/60-img.jpg', href: '/treatments/60-min-massage', cta: 'Book Treatment' },
-  { slug: '90-min-massage', title: '90 Minute Massage', image: '/90-img.jpg', href: '/treatments/90-min-massage', cta: 'Book Treatment' },
-  { slug: '120-min-massage', title: '120 Minute Massage', image: '/120-img.jpg', href: '/treatments/120-min-massage', cta: 'Book Treatment' },
+  { slug: '60-min-massage', title: '60 Minute Massage', image: '/60-min-portrait.jpg', href: '/treatments/60-min-massage', cta: 'Book Treatment' },
+  { slug: '90-min-massage', title: '90 Minute Massage', image: '/90-min-portrait.jpg', href: '/treatments/90-min-massage', cta: 'Book Treatment' },
+  { slug: '120-min-massage', title: '120 Minute Massage', image: '/120-min-portrait.jpg', href: '/treatments/120-min-massage', cta: 'Book Treatment' },
   { slug: 'deep-tissue-massage', title: 'Deep Tissue Massage', image: '/deep-tissue-img.jpg', href: '/treatments/deep-tissue-massage', cta: 'Book Treatment' },
   { slug: 'swedish-massage', title: 'Swedish Massage', image: '/swedish-mobile.jpg', href: '/treatments/swedish-massage', cta: 'Book Treatment' },
   { slug: 'sports-massage', title: 'Sports Massage', image: '/sports-mobile.jpg', href: '/treatments/sports-massage', cta: 'Book Treatment' },
