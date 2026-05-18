@@ -20,6 +20,7 @@ export interface Location {
   metaTitle: string;
   metaDescription: string;
   canonicalUrl: string;
+  gallery?: string[];
 }
 
 export const locations: Record<string, Location> = {
@@ -48,6 +49,16 @@ export const locations: Record<string, Location> = {
     metaTitle: 'Thoday Street Clinic | Lucy Hall Massage Therapy Cambridge',
     metaDescription: 'Visit our Thoday Street clinic in Cambridge for deep tissue, Swedish, sports massage and more. Open 7 days a week. Book online in 2 minutes.',
     canonicalUrl: 'https://www.lucyhallmassage.com/locations/thoday-street/',
+    gallery: [
+      '/thoday-location-img1.jpg',
+      '/thoday-location-img2.jpg',
+      '/thoday-location-img3.jpg',
+      '/thoday-location-img4.jpg',
+      '/thoday-location-img5.jpg',
+      '/thoday-location-img6.jpg',
+      '/thoday-location-img7.jpg',
+      '/thoday-location-img8.jpg',
+    ],
   },
   'cromwell-road': {
     slug: 'cromwell-road',
@@ -69,5 +80,15 @@ export const locations: Record<string, Location> = {
     metaTitle: 'Cromwell Road Clinic | Lucy Hall Massage Therapy Cambridge',
     metaDescription: 'Visit our Cromwell Road clinic in Cambridge. Available Wednesdays and Fridays. Book online in 2 minutes.',
     canonicalUrl: 'https://www.lucyhallmassage.com/locations/cromwell-road/',
+    gallery: [
+      '/cromwell-location-img1.jpg',
+      '/cromwell-location-img2.jpg',
+      '/cromwell-location-img3.jpg',
+      '/cromwell-location-img4.jpg',
+      '/cromwell-location-img5.jpg',
+      '/cromwell-location-img6.jpg',
+      '/cromwell-location-img7.jpg',
+      '/cromwell-location-img8.jpg',
+    ],
   },
 };

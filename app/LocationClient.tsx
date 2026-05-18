@@ -1,4 +1,7 @@
+import Image from 'next/image';
 'use client';
+
+import Image from 'next/image';
 
 import { useEffect, useRef, useState } from 'react';
 import styles from './page.module.css';
@@ -169,6 +172,51 @@ export default function LocationClient({ location }: { location: Location }) {
         </div>
 
         {/* BOOKING WIDGET */}
+        {/* ── GALLERY ────────────────────────────────────────── */}
+        {location.gallery && location.gallery.length > 0 && (
+          <section className="location-gallery">
+            <div className="location-gallery-grid">
+              {location.gallery.map((src, i) => (
+                <div key={i} className="location-gallery-item">
+                  <Image
+                    src={src}
+                    alt={`${location.name} clinic ${i + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
+              ))}
+            </div>
+            <style>{`
+              .location-gallery {
+                padding: 48px 24px;
+                background: #000000;
+              }
+              .location-gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                max-width: 1600px;
+                margin: 0 auto;
+              }
+              .location-gallery-item {
+                position: relative;
+                aspect-ratio: 1 / 1;
+                overflow: hidden;
+              }
+              @media (min-width: 768px) {
+                .location-gallery {
+                  padding: 64px 32px;
+                }
+                .location-gallery-grid {
+                  grid-template-columns: repeat(4, 1fr);
+                  gap: 12px;
+                }
+              }
+            `}</style>
+          </section>
+        )}
         <div id="booking-widget" className={styles.widgetWrapper}>
           <BookingWidget locationId={location.widgetLocationId} />
         </div>

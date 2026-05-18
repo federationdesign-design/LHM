@@ -312,7 +312,7 @@ export default function LocationsIndexClient() {
         {/* HERO — static stylised map of both clinics */}
         <div ref={heroRef} className={styles.hero}>
           <Image
-            src="/lucyhall-massage-cambridge-locations.jpeg"
+            src="/locations-img.jpg"
             alt="Our two Cambridge locations on a stylised map"
             fill
             priority
