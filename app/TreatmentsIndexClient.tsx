@@ -61,7 +61,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'swedish-massage', title: 'Swedish Massage',
     tagline: 'Swedish massage is a classic full-body treatment using long, flowing strokes, kneading and circular movements to promote deep relaxation. It improves circulation, eases muscle tension and leaves you feeling calm and restored.',
-    image: '/swedish-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/swedish-massage',
+    image: '/swedish-portrait.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/swedish-massage',
   },
   {
     type: 'treatment' as const, slug: 'sports-massage', title: 'Sports Massage',

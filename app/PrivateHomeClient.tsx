@@ -15,7 +15,7 @@ const services = [
   { slug: '90-min-massage', title: '90 Minute Massage', image: '/90-min-portrait.jpg', href: '/treatments/90-min-massage', cta: 'Book Treatment' },
   { slug: '120-min-massage', title: '120 Minute Massage', image: '/120-min-portrait.jpg', href: '/treatments/120-min-massage', cta: 'Book Treatment' },
   { slug: 'deep-tissue-massage', title: 'Deep Tissue Massage', image: '/deep-tissue-portrait.jpg', href: '/treatments/deep-tissue-massage', cta: 'Book Treatment' },
-  { slug: 'swedish-massage', title: 'Swedish Massage', image: '/swedish-mobile.jpg', href: '/treatments/swedish-massage', cta: 'Book Treatment' },
+  { slug: 'swedish-massage', title: 'Swedish Massage', image: '/swedish-portrait.jpg', href: '/treatments/swedish-massage', cta: 'Book Treatment' },
   { slug: 'sports-massage', title: 'Sports Massage', image: '/sports-portrait.jpg', href: '/treatments/sports-massage', cta: 'Book Treatment' },
   { slug: 'relaxation-massage', title: 'Relaxation Massage', image: '/relaxation-portrait.jpg', href: '/treatments/relaxation-massage', cta: 'Book Treatment' },
   { slug: 'pregnancy-massage', title: 'Pregnancy Massage', image: '/Pregnancy-mobile.jpg', href: '/your-pregnancy-massage', cta: 'Book Treatment' },
@@ -24,10 +24,8 @@ const services = [
   { slug: 'indian-head-massage', title: 'Indian Head Massage', image: '/head-massage-portrait.jpg', href: '/treatments/indian-head-massage', cta: 'Book Treatment' },
   { slug: 'hot-stone-massage', title: 'Hot Stone Massage', image: '/hot-stone-portrait.jpg', href: '/treatments/hot-stone-massage', cta: 'Book Treatment' },
   { slug: 'cupping', title: 'Cupping Therapy', image: '/cupping-portrait.jpg', href: '/your-cupping-massage', cta: 'Book Treatment' },
-  { slug: 'locations', title: 'Our Locations', image: '/main-team-hero-img.jpg', href: '/locations', cta: 'View Locations' },
   { slug: 'gift-vouchers', title: 'Gift Vouchers', image: '/gift-voucher-hero.jpg', href: '/gift-vouchers', cta: 'Buy a Voucher' },
   { slug: 'contact', title: 'Get in Touch', image: '/get-in-touch-img.jpg', href: '/contact', cta: 'Contact Us' },
-  { slug: 'receipts', title: 'Claiming Receipts', image: '/claiming-receipts.jpg', href: '/receipts', cta: 'Learn More' },
 ];
 
 const locations = [
