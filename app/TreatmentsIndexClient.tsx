@@ -56,7 +56,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'deep-tissue-massage', title: 'Deep Tissue Massage',
     tagline: 'Deep tissue massage targets the deeper layers of muscle and connective tissue, using slow, firm strokes to release chronic tension and knots. Unlike a relaxation massage, deep tissue work focuses on specific problem areas — helping to restore movement, reduce pain and improve posture over time.',
-    image: '/hero.jpg', color: '#4e3225', cta: 'Book Now', ctaHref: '/treatments/deep-tissue-massage',
+    image: '/deep-tissue-portrait.jpg', color: '#4e3225', cta: 'Book Now', ctaHref: '/treatments/deep-tissue-massage',
   },
   {
     type: 'treatment' as const, slug: 'swedish-massage', title: 'Swedish Massage',
@@ -101,7 +101,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'cupping', title: 'Cupping Therapy',
     tagline: 'A traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access — releasing deep-seated tension and supporting natural recovery.',
-    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/your-cupping-massage',
+    image: '/cupping-portrait.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/your-cupping-massage',
   },
   { type: 'treatment' as const, slug: 'locations', title: 'Our Locations', tagline: 'Two clinics in Cambridge — Thoday Street and Cromwell Road. All treatments available at both locations.', image: LOCATIONS_MAP_URL, color: '#28303a', cta: 'View Locations', ctaHref: '/locations' },
   { type: 'treatment' as const, slug: 'gift-vouchers', title: 'Gift Vouchers', tagline: 'Give the gift of relaxation — the perfect treat for someone special. Redeemable against any treatment at either clinic. Valid for 12 months.', image: '/gift-voucher-hero.jpg', color: '#3a3028', cta: 'Buy a Voucher', ctaHref: '/gift-vouchers' },

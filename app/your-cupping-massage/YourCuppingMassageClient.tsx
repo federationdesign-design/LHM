@@ -18,12 +18,12 @@ const slides = [
   {
     type: 'treatment' as const, slug: '60-min-cupping', title: '60 minutes',
     tagline: 'A focused cupping session targeting one or two stubborn problem areas. Suits first-timers exploring the technique, or anyone with persistent tightness in a specific spot that has not responded to regular massage.',
-    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/cupping',
+    image: '/cupping-60-portrait.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/cupping',
   },
   {
     type: 'treatment' as const, slug: '120-min-cupping', title: '120 minutes',
     tagline: 'Extended fascial release across multiple areas with time to layer techniques and address chronic restriction. Best for entrenched tightness, recovery from heavy training blocks, or when 60 minutes is not quite enough.',
-    image: '/cupping-mobile.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/120-min-cupping',
+    image: '/cupping-120-portrait.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/120-min-cupping',
   },
 ];
 
@@ -461,7 +461,7 @@ export default function YourCuppingMassageClient() {
 
           <span className="ycm-hero-img-mobile" style={{ position: 'absolute', inset: 0 }}>
             <Image
-              src="/cupping-mobile.jpg"
+              src="/cupping-portrait.jpg"
               alt="Your Cupping Massage"
               fill
               priority
@@ -472,7 +472,7 @@ export default function YourCuppingMassageClient() {
 
           <span className="ycm-hero-img-desktop" style={{ position: 'absolute', inset: 0, display: 'none' }}>
             <Image
-              src="/cupping-desktop.jpg"
+              src="/cupping-hero-landscape.jpg"
               alt="Your Cupping Massage"
               fill
               priority
