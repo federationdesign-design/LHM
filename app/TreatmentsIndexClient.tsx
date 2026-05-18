@@ -81,7 +81,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'hopi-ear', title: 'Hopi Ear & Back Massage',
     tagline: 'A combined treatment pairing the traditional Hopi Ear ritual with a focused back massage. The gentle warmth of the hollow Hopi candle eases pressure around the ears and sinuses, while the back massage releases tension across the shoulders, neck and upper back.',
-    image: '/hopi-mobile.jpg', color: '#d57640', cta: 'Book Now', ctaHref: '/treatments/hopi-ear',
+    image: '/hopi-portrait.jpg', color: '#d57640', cta: 'Book Now', ctaHref: '/treatments/hopi-ear',
   },
   {
     type: 'treatment' as const, slug: 'sports-therapy', title: 'Sports Therapy',
@@ -96,7 +96,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'hot-stone-massage', title: 'Hot Stone Massage',
     tagline: 'Smooth, heated basalt stones placed on key points of the body and used as an extension of the therapist\'s hands. The penetrating warmth allows muscles to relax far more deeply than they would under hands alone — releasing tension that lighter treatments cannot reach.',
-    image: '/Hot-Stone-mobile.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/hot-stone-massage',
+    image: '/hot-stone-portrait.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/hot-stone-massage',
   },
   {
     type: 'treatment' as const, slug: 'cupping', title: 'Cupping Therapy',
