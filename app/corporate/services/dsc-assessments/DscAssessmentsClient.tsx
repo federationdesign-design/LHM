@@ -7,6 +7,16 @@ export default function DscAssessmentsClient() {
     <CorporateServicePage
       currentSlug="dsc-assessments"
       heroImage="/corporate-dsc.jpg"
+      gallery={[
+        '/desk-assessment-img1.jpg',
+        '/desk-assessment-img2.jpg',
+        '/desk-assessment-img3.jpg',
+        '/desk-assessment-img4.jpg',
+        '/desk-assessment-img5.jpg',
+        '/desk-assessment-img6.jpg',
+        '/desk-assessment-img7.jpg',
+        '/desk-assessment-img8.jpg',
+      ]}
       headline="Display Screen Equipment Assessments"
       heroCopy={
         'Comprehensive DSE assessments to keep your team safe, comfortable, and compliant.\nWe identify risks, recommend adjustments, and help your business meet its duty of care obligations.'
