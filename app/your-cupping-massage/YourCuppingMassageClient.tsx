@@ -10,7 +10,7 @@ import FindUsOn from '@/app/components/FindUsOn';
 
 const therapiesList = [
   { label: '60 minutes', href: '/treatments/cupping', slideIndex: 1 },
-  { label: '120 minutes', href: '/treatments/120-min-cupping', slideIndex: 2 },
+  { label: '90 minutes', href: '/treatments/90-min-cupping', slideIndex: 2 },
 ];
 
 const slides = [
@@ -21,9 +21,9 @@ const slides = [
     image: '/cupping-60-portrait.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/cupping',
   },
   {
-    type: 'treatment' as const, slug: '120-min-cupping', title: '120 minutes',
+    type: 'treatment' as const, slug: '90-min-cupping', title: '90 minutes',
     tagline: 'Extended fascial release across multiple areas with time to layer techniques and address chronic restriction. Best for entrenched tightness, recovery from heavy training blocks, or when 60 minutes is not quite enough.',
-    image: '/cupping-120-portrait.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/120-min-cupping',
+    image: '/cupping-90-portrait.jpg', color: '#cb8f77', cta: 'Book Now', ctaHref: '/treatments/90-min-cupping',
   },
 ];
 

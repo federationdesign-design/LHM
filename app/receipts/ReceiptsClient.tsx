@@ -11,7 +11,7 @@ import { services } from '../data/services';
 // indicate which treatment category they had.
 const EXCLUDED_TREATMENT_SLUGS = new Set([
   '90-min-pregnancy-massage',
-  '120-min-cupping',
+  '90-min-cupping',
   '60-min-massage',
   '90-min-massage',
   '120-min-massage',
