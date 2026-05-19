@@ -189,28 +189,48 @@ export default function LocationClient({ location }: { location: Location }) {
             </div>
             <style>{`
               .location-gallery {
-                padding: 48px 24px;
+                padding: 48px 0;
                 background: #000000;
               }
               .location-gallery-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
+                display: flex;
                 gap: 8px;
-                max-width: 1600px;
-                margin: 0 auto;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 24px;
+                scrollbar-width: thin;
+                scrollbar-color: #ffffff33 transparent;
+              }
+              .location-gallery-grid::-webkit-scrollbar {
+                height: 6px;
+              }
+              .location-gallery-grid::-webkit-scrollbar-track {
+                background: transparent;
+              }
+              .location-gallery-grid::-webkit-scrollbar-thumb {
+                background: #ffffff33;
+                border-radius: 3px;
               }
               .location-gallery-item {
                 position: relative;
-                aspect-ratio: 1 / 1;
+                aspect-ratio: 4 / 3;
+                width: 70vw;
+                flex: 0 0 70vw;
+                scroll-snap-align: start;
                 overflow: hidden;
               }
               @media (min-width: 768px) {
                 .location-gallery {
-                  padding: 64px 32px;
+                  padding: 64px 0;
                 }
                 .location-gallery-grid {
-                  grid-template-columns: repeat(4, 1fr);
+                  padding: 0 32px;
                   gap: 12px;
+                }
+                .location-gallery-item {
+                  width: 360px;
+                  flex: 0 0 360px;
                 }
               }
             `}</style>
