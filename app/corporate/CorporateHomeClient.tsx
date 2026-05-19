@@ -63,14 +63,14 @@ const services = [
     title: 'In-Office Chair Massage',
     cta: 'Chair Massage >>',
     href: '/corporate/services/in-chair-massage',
-    img: '/corporate-chair-massage.jpg',
+    img: '/chair-massage-services-portrait.jpg',
   },
   {
     n: '3',
     title: 'Assessments & Posture Consultations',
     cta: 'Assessments >>',
     href: '/corporate/services/posture-consultations',
-    img: '/corporate-posture.jpg',
+    img: '/posture-consultations-portrait.jpg',
   },
 ];
 
