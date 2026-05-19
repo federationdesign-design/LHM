@@ -136,10 +136,12 @@ export default function TeamClient({ member }: { member: TeamMember }) {
           </div>
         </section>
 
-        {/* BOOKING WIDGET */}
-        <div id="booking-widget" className={styles.widgetWrapper} style={{ borderTop: '1px solid #ffffff' }}>
-          <BookingWidget providerId={member.widgetProviderId} />
-        </div>
+        {/* BOOKING WIDGET - hidden for team members without a widget ID (e.g. corporate-only) */}
+        {member.widgetProviderId && (
+          <div id="booking-widget" className={styles.widgetWrapper} style={{ borderTop: '1px solid #ffffff' }}>
+            <BookingWidget providerId={member.widgetProviderId} />
+          </div>
+        )}
 
         {/* DIVIDER */}
         <div className={styles.divider} />
