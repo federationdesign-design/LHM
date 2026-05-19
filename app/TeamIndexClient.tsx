@@ -53,6 +53,17 @@ const members = [
     bio: 'Lucy founded Lucy Hall Massage Therapy with a simple vision: to make high-quality, professional massage therapy accessible to everyone in Cambridge. With over a decade of experience in the industry, she leads both the clinical and corporate sides of the business — overseeing the clinic team at Thoday Street and Cromwell Road while managing the company\'s growing B2B corporate massage programme. Lucy is passionate about the transformative impact that regular massage has on both physical and mental wellbeing, and she has built a team that shares that commitment to excellence.',
     corporate: true,
   },
+  {
+    slug: 'claire',
+    name: 'Claire',
+    title: 'Massage Therapist',
+    location: 'Corporate',
+    locationSlug: '',
+    photo: '/claire-img.jpg',
+    treatments: ['Corporate Massage', 'Seated Acupressure', 'Chair Massage'],
+    bio: 'Claire is a skilled massage therapist specialising in corporate and on-site massage. Based across Cambridge and the surrounding region, she delivers seated acupressure and chair massage treatments directly to workplaces — helping employees reduce stress, improve focus and feel their best. Claire brings warmth, professionalism and a calm presence to every corporate event or wellness day she attends, and is a trusted member of the Lucy Hall corporate massage team.',
+    corporate: true,
+  },
 ];
 
 interface TeamIndexClientProps {
@@ -60,7 +71,7 @@ interface TeamIndexClientProps {
 }
 
 export default function TeamIndexClient({ variant = 'private' }: TeamIndexClientProps = {}) {
-  const corpSlugs = ['lucy-hall'];
+  const corpSlugs = ['lucy-hall', 'claire'];
   const isCorpVariant = variant === 'corporate';
   const displayTeam = isCorpVariant
     ? corpSlugs.map((s) => members.find((m) => m.slug === s)).filter((m): m is (typeof members)[number] => m !== undefined)
