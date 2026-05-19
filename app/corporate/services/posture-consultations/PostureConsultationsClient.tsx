@@ -7,6 +7,16 @@ export default function PostureConsultationsClient() {
     <CorporateServicePage
       currentSlug="posture-consultations"
       heroImage="/posture-consultations-landscape.jpg"
+      gallery={[
+        '/posture-img1.jpg',
+        '/posture-img2.jpg',
+        '/posture-img3.jpg',
+        '/posture-img4.jpg',
+        '/posture-img5.jpg',
+        '/posture-img6.jpg',
+        '/posture-img7.jpg',
+        '/posture-img8.jpg',
+      ]}
       headline="Assessments & Posture Consultations"
       heroCopy={
         'One-to-one expert sessions to identify, correct, and prevent posture problems.\nIdeal for desk-based teams, hybrid workers, and anyone struggling with chronic tension or pain.'
