@@ -81,6 +81,8 @@ export interface CorporateServicePageProps {
   benefitsTitle: string;
   /** Sub-section heads + bodies under benefits. */
   benefits: { title: string; body: string }[];
+  /** Optional gallery images shown below the hero. */
+  gallery?: string[];
 }
 
 // ── COMPONENT ─────────────────────────────────────────────────
@@ -141,6 +143,24 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           <InlineEnquiryForm />
         </section>
 
+        {/* ── GALLERY ────────────────────────────────────────── */}
+        {props.gallery && props.gallery.length > 0 && (
+          <section className="corp-gallery">
+            <div className="corp-gallery-grid">
+              {props.gallery.map((src, i) => (
+                <div key={i} className="corp-gallery-item">
+                  <Image
+                    src={src}
+                    alt={`${props.headline} ${i + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         {/* ── WHAT IS / BENEFITS ─────────────────────────────── */}
         <section className="cs-detail">
           <div className="cs-detail-inner">
@@ -335,6 +355,32 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           }
         }
 
+        /* ── GALLERY ────────────────────────────────────────── */
+        .corp-gallery {
+          padding: 48px 32px;
+          background: #000000;
+        }
+        .corp-gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+        .corp-gallery-item {
+          position: relative;
+          aspect-ratio: 1 / 1;
+          overflow: hidden;
+        }
+        @media (min-width: 768px) {
+          .corp-gallery {
+            padding: 64px 32px;
+          }
+          .corp-gallery-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+          }
+        }
         /* ── WHAT IS / BENEFITS ────────────────────────────── */
         .cs-detail {
           padding: 60px 24px;

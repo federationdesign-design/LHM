@@ -7,6 +7,16 @@ export default function InChairMassageClient() {
     <CorporateServicePage
       currentSlug="in-chair-massage"
       heroImage="/chair-massage-services-landscape.jpg"
+      gallery={[
+        '/chair-massage-img1.jpg',
+        '/chair-massage-img2.jpg',
+        '/chair-massage-img3.jpg',
+        '/chair-massage-img4.jpg',
+        '/chair-massage-img5.jpg',
+        '/chair-massage-img6.jpg',
+        '/chair-massage-img7.jpg',
+        '/chair-massage-img8.jpg',
+      ]}
       headline="In-Office Chair Massage Services"
       heroCopy={
         'On-site chair massage delivered by fully qualified therapists.\nA quick, easy, and proven way to boost team wellbeing without disrupting the working day.'
