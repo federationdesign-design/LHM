@@ -75,7 +75,7 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
   const isCorpVariant = variant === 'corporate';
   const displayTeam = isCorpVariant
     ? corpSlugs.map((s) => members.find((m) => m.slug === s)).filter((m): m is (typeof members)[number] => m !== undefined)
-    : members;
+    : members.filter((m) => !corpSlugs.includes(m.slug));
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
 
