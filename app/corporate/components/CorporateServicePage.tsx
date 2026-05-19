@@ -357,7 +357,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
 
         /* ── GALLERY ────────────────────────────────────────── */
         .corp-gallery {
-          padding: 48px 32px;
+          padding: 8px;
           background: #000000;
         }
         .corp-gallery-grid {
@@ -374,7 +374,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         }
         @media (min-width: 768px) {
           .corp-gallery {
-            padding: 64px 32px;
+            padding: 12px;
           }
           .corp-gallery-grid {
             grid-template-columns: repeat(4, 1fr);
