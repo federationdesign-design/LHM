@@ -98,7 +98,7 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
 
         {/* HERO */}
         <div ref={heroRef} className={styles.hero} style={{ backgroundColor: '#1a1a1a' }}>
-          <Image src="/main-team-hero-img.jpg" alt="Lucy Hall Massage Therapy Team" fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} priority />
+          <Image src={isCorpVariant ? "/corp-client-team-img.jpg" : "/private-client-team-img.jpg"} alt="Lucy Hall Massage Therapy Team" fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} priority />
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
           <div className={styles.heroGradient} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 220, background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)', zIndex: 5, pointerEvents: 'none' }} />
