@@ -173,9 +173,9 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
     email.includes('@') &&
     message.trim().length > 0 &&
     consent &&
-    (variant !== 'corporate' || phone.trim().length > 0);
+    phone.trim().length > 0;
 
-  const allFilled = requiredFilled && phone.trim().length > 0;
+  const allFilled = requiredFilled;
 
   const buttonColour = allFilled
     ? BUTTON_COLOUR_GREEN
@@ -414,7 +414,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
 
                   <input
                     type="tel"
-                    placeholder="Phone number"
+                    placeholder="Phone number *"
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                     required
@@ -477,7 +477,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
 
                   {showValidation && !requiredFilled && !submitting && (
                     <p style={{ fontSize: '0.85rem', fontWeight: 400, color: '#ff8c8c', textAlign: 'center', lineHeight: 1.5, margin: 0 }}>
-                      Please fill in your name, a valid email, a message, and tick the consent box.
+                      Please fill in your name, a valid email, a phone number, a message, and tick the consent box.
                     </p>
                   )}
 
