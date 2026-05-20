@@ -724,8 +724,6 @@ export default function CorporateHomeClient() {
           align-items: center;
           justify-content: center;
           gap: 32px;
-          max-width: 1200px;
-          margin: 0 auto;
         }
         .corp-client-item {
           flex: 0 0 auto;
