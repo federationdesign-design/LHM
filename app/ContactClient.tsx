@@ -276,7 +276,9 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
             </p>
             <h1 style={{ fontSize: '2.5rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 16 }}>Get in Touch</h1>
             <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.7, maxWidth: 600 }}>
-              We&rsquo;re always happy to hear from you. For bookings, please use our online booking system &mdash; for everything else, drop us a message below.
+              {variant === 'corporate'
+                ? 'Interested in corporate massage or workplace wellbeing services? Send us a message below and we\'ll be happy to discuss how we can support your team.'
+                : 'We\'re always happy to hear from you. For bookings, please use our online booking system \u2014 for everything else, drop us a message below.'}
             </p>
           </div>
         </div>
