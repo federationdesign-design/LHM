@@ -716,14 +716,15 @@ export default function CorporateHomeClient() {
 
         /* ── COMPANY CLIENTS ─────────────────────────────────── */
         .corp-clients {
-          padding: 40px 24px;
+          padding: 40px 32px;
         }
         .corp-clients-row {
           display: flex;
           flex-wrap: wrap;
           align-items: center;
-          justify-content: center;
-          gap: 32px;
+          justify-content: space-between;
+          gap: 24px;
+          width: 100%;
         }
         .corp-client-item {
           flex: 0 0 auto;
@@ -744,18 +745,7 @@ export default function CorporateHomeClient() {
         }
         @media (min-width: 1024px) {
           .corp-clients {
-            padding: 60px 80px;
-          }
-          .corp-clients-marquee-track {
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            animation: none;
-            transform: none !important;
-          }
-          .corp-clients-marquee-track > .corp-client-item:nth-child(n+5) {
-            display: none;
+            padding: 60px 32px;
           }
           .corp-client-item { height: 80px; }
           .corp-client-logo {
