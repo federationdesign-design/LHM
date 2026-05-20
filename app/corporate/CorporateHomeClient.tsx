@@ -147,44 +147,50 @@ const videos = [
 //
 // To swap to real images later: replace each `src` with the real
 // path (e.g. /gallery/01.jpg) and adjust span/aspect to suit.
-const gallery: { src: string; alt: string; bg: string }[] = [
-  { src: '/21c4036c-feae-48b8-a539-64338850279d.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/26042d42-dec0-439d-a36c-6756ba1aeb94.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/b3ec0456-0550-469c-8121-99e3fef95064.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/chair.jpg', alt: '', bg: '#3a352e' },
-  { src: '/chair2.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/chair3.jpg', alt: '', bg: '#352e3a' },
-  { src: '/chair4.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/exercises1.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-23.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-25.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-36.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/exercises2.jpg', alt: '', bg: '#3a352e' },
-  { src: '/excercises3.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/lucy-hall-massage-42.jpg', alt: '', bg: '#352e3a' },
-  { src: '/b7d62880-47c2-46b1-bd1f-d99662f9895c.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/d730a508-6c23-4661-9335-64c79b68d5fe.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-44.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-47.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-57.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/lucy-hall-massage-74.jpg', alt: '', bg: '#3a352e' },
-  { src: '/lucy-hall-massage-95.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/lucy-hall-massage-96.jpg', alt: '', bg: '#352e3a' },
-  { src: '/lucy-hall-massage-112.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/lucy-hall-massage-114.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-116.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-124.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-160.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/lucy-hall-massage-177.jpg', alt: '', bg: '#3a352e' },
-  { src: '/lucy-hall-massage-202.jpg', alt: '', bg: '#2e3a35' },
-  { src: '/lucy-hall-massage-218.jpg', alt: '', bg: '#352e3a' },
-  { src: '/lucy-hall-massage-223.jpg', alt: '', bg: '#3a2e35' },
-  { src: '/lucy-hall-massage-227.jpg', alt: '', bg: '#2e2e3a' },
-  { src: '/lucy-hall-massage-228.jpg', alt: '', bg: '#2a2a2a' },
-  { src: '/lucy-hall-massage-232.jpg', alt: '', bg: '#3a2e2e' },
-  { src: '/lucy-hall-massage-233.jpg', alt: '', bg: '#2e3a3a' },
-  { src: '/lucy-hall-massage-235.jpg', alt: '', bg: '#3a352e' },
-  { src: '/lucy-hall-massage-236.jpg', alt: '', bg: '#2e3a35' },
+const gallery: { src: string; alt: string }[] = [
+  // 1-4: New corporate massage images (highlights)
+  { src: '/Lucy-Hall-Massage-Corporate-massage1.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage2.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage3.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage4.jpg', alt: 'Corporate massage session' },
+  // 5-12: In-chair massage gallery
+  { src: '/chair-massage-img1.jpg', alt: 'In-office chair massage' },
+  { src: '/chair-massage-img2.jpg', alt: 'In-office chair massage' },
+  { src: '/chair-massage-img3.jpg', alt: 'In-office chair massage' },
+  { src: '/chair-massage-img4.jpg', alt: 'In-office chair massage' },
+  { src: '/chair-massage-img5.jpg', alt: 'In-office chair massage' },
+  { src: '/chair-massage-img6.jpg', alt: 'In-office chair massage' },
+  { src: '/chair-massage-img7.jpg', alt: 'In-office chair massage' },
+  { src: '/chair-massage-img8.jpg', alt: 'In-office chair massage' },
+  // 13-20: Posture consultations gallery
+  { src: '/posture-img1.jpg', alt: 'Posture consultation' },
+  { src: '/posture-img2.jpg', alt: 'Posture consultation' },
+  { src: '/posture-img3.jpg', alt: 'Posture consultation' },
+  { src: '/posture-img4.jpg', alt: 'Posture consultation' },
+  { src: '/posture-img5.jpg', alt: 'Posture consultation' },
+  { src: '/posture-img6.jpg', alt: 'Posture consultation' },
+  { src: '/posture-img7.jpg', alt: 'Posture consultation' },
+  { src: '/posture-img8.jpg', alt: 'Posture consultation' },
+  // 21-28: DSE assessments gallery
+  { src: '/desk-assessment-img1.jpg', alt: 'DSE assessment' },
+  { src: '/desk-assessment-img2.jpg', alt: 'DSE assessment' },
+  { src: '/desk-assessment-img3.jpg', alt: 'DSE assessment' },
+  { src: '/desk-assessment-img4.jpg', alt: 'DSE assessment' },
+  { src: '/desk-assessment-img5.jpg', alt: 'DSE assessment' },
+  { src: '/desk-assessment-img6.jpg', alt: 'DSE assessment' },
+  { src: '/desk-assessment-img7.jpg', alt: 'DSE assessment' },
+  { src: '/desk-assessment-img8.jpg', alt: 'DSE assessment' },
+  // 29-38: Additional new corporate massage images
+  { src: '/Lucy-Hall-Massage-Corporate-massage5.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage6.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage7.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage8.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage9.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage10.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage11.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage12.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage13.jpg', alt: 'Corporate massage session' },
+  { src: '/Lucy-Hall-Massage-Corporate-massage14.jpg', alt: 'Corporate massage session' },
 ];
 
 // ── TESTIMONIALS ──────────────────────────────────────────────
@@ -260,6 +266,8 @@ const ChevronRight = ({ size = 24 }: { size?: number }) => (
 // ── MAIN ──────────────────────────────────────────────────────
 
 export default function CorporateHomeClient() {
+  const [showAllGallery, setShowAllGallery] = useState(false);
+
   // Mobile carousel state for the testimonials block
   const [activeIdx, setActiveIdx] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -529,22 +537,33 @@ export default function CorporateHomeClient() {
         <section className="corp-gallery">
           <h2 className="corp-gallery-heading">Gallery</h2>
           <div className="corp-gallery-grid">
-            {gallery.map((g, i) => (
+            {gallery.slice(0, showAllGallery ? gallery.length : 20).map((g, i) => (
               <div
                 key={i}
                 className="corp-gallery-item"
-                style={{ background: g.bg }}
               >
-                <img
+                <Image
                   src={g.src}
                   alt={g.alt}
+                  fill
+                  sizes="(min-width: 768px) 25vw, 50vw"
                   className="corp-gallery-img"
-                  loading="lazy"
-                  draggable={false}
+                  loading={i < 8 ? 'eager' : 'lazy'}
                 />
               </div>
             ))}
           </div>
+          {!showAllGallery && gallery.length > 20 && (
+            <div className="corp-gallery-more-wrap">
+              <button
+                type="button"
+                onClick={() => setShowAllGallery(true)}
+                className="corp-gallery-more-btn"
+              >
+                Show more
+              </button>
+            </div>
+          )}
         </section>
 
         <CorporateFooter />
@@ -1251,7 +1270,7 @@ export default function CorporateHomeClient() {
            image has its own background colour set inline so
            the tile shows a coloured placeholder while loading. */
         .corp-gallery {
-          padding: 60px 24px;
+          padding: 60px 8px 40px;
           max-width: 1600px;
           margin: 0 auto;
         }
@@ -1260,46 +1279,61 @@ export default function CorporateHomeClient() {
           font-weight: 400;
           color: #ffffff;
           text-align: center;
-          margin: 0 0 40px;
+          margin: 0 0 32px;
           letter-spacing: 0.02em;
         }
         .corp-gallery-grid {
-          column-count: 2;
-          column-gap: 8px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
         }
         .corp-gallery-item {
-          break-inside: avoid;
-          margin-bottom: 8px;
+          position: relative;
+          aspect-ratio: 1 / 1;
           overflow: hidden;
-          /* background set inline per-item via the bg field */
+          background: #1a1a1a;
         }
         .corp-gallery-img {
-          width: 100%;
-          height: auto;
-          display: block;
-          transition: opacity 0.3s ease, transform 0.5s ease;
+          object-fit: cover;
+          transition: transform 0.5s ease;
         }
         .corp-gallery-item:hover .corp-gallery-img {
           transform: scale(1.03);
         }
+        .corp-gallery-more-wrap {
+          display: flex;
+          justify-content: center;
+          margin-top: 32px;
+        }
+        .corp-gallery-more-btn {
+          font-size: 0.82rem;
+          font-weight: 400;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+          color: #ffffff;
+          background: transparent;
+          border: 1px solid #ffffff;
+          padding: 14px 36px;
+          cursor: pointer;
+          font-family: inherit;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+        .corp-gallery-more-btn:hover {
+          background: #ffffff;
+          color: #000000;
+        }
         @media (min-width: 768px) {
-          .corp-gallery-grid {
-            column-count: 3;
-            column-gap: 12px;
+          .corp-gallery {
+            padding: 80px 12px 60px;
           }
-          .corp-gallery-item {
-            margin-bottom: 12px;
+          .corp-gallery-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
           }
         }
         @media (min-width: 1024px) {
           .corp-gallery {
-            padding: 80px 80px;
-          }
-          .corp-gallery-grid {
-            column-gap: 16px;
-          }
-          .corp-gallery-item {
-            margin-bottom: 16px;
+            padding: 80px 24px 60px;
           }
         }
 
