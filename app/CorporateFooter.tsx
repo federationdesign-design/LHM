@@ -49,7 +49,11 @@ export default function CorporateFooter() {
       </div>
       <p className={styles.footerHoursTitle}>Opening Times</p>
       <div className={styles.footerHours}>
-        Monday – Friday: 9am to 5pm
+        Monday &nbsp;&nbsp;&nbsp;~ 9am to 5pm<br />
+        Tuesday &nbsp;&nbsp;~ 9am to 5pm<br />
+        Wednesday ~ 9am to 5pm<br />
+        Thursday &nbsp;~ 9am to 5pm<br />
+        Friday &nbsp;&nbsp;&nbsp;&nbsp;~ 9am to 5pm
       </div>
 
       {/* Desktop: 5-column grid.
@@ -94,7 +98,11 @@ export default function CorporateFooter() {
         <div className={styles.footerCol}>
           <h4>Opening Times</h4>
           <p style={{ fontSize: '0.82rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.9 }}>
-            Monday – Friday: 9am to 5pm
+            Monday – 9am to 5pm<br />
+            Tuesday – 9am to 5pm<br />
+            Wednesday – 9am to 5pm<br />
+            Thursday – 9am to 5pm<br />
+            Friday – 9am to 5pm
           </p>
         </div>
 
