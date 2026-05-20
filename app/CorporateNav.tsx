@@ -7,7 +7,7 @@ const menuItems: [string, string][] = [
   ['Home',                       '/corporate'],
   ['Services',                   '/corporate/services'],
   ['In-Office Chair Massage',    '/corporate/services/in-chair-massage'],
-  ['DSE Assessments',            '/corporate/services/dsc-assessments'],
+  ['DSE Assessments',            '/corporate/services/dse-assessments'],
   ['Posture Consultations',      '/corporate/services/posture-consultations'],
   ['Our Team',                   '/corporate/team'],
   ['Reviews',                    '/reviews'],

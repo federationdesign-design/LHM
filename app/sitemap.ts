@@ -43,7 +43,7 @@ const staticRoutes: { path: string; priority: number; changeFrequency: MetadataR
   { path: '/receipts',                   priority: 0.4, changeFrequency: 'yearly' },
   { path: '/workplace-massage-feedback', priority: 0.3, changeFrequency: 'yearly' },
   { path: '/corporate',                  priority: 0.7, changeFrequency: 'monthly' },
-  { path: '/corporate/services/dsc-assessments',  priority: 0.6, changeFrequency: 'monthly' },
+  { path: '/corporate/services/dse-assessments',  priority: 0.6, changeFrequency: 'monthly' },
   { path: '/corporate/services/in-chair-massage', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/corporate/services/posture-consultations', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/corporate/team',             priority: 0.5, changeFrequency: 'monthly' },

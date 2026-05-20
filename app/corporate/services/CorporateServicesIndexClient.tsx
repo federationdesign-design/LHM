@@ -8,7 +8,7 @@ import Testimonials from '../../components/Testimonials/Testimonials';
 import { corporateTestimonials } from '../../components/Testimonials/corporate-testimonials-data';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
-const dsc      = { n: '1', title: 'Display Screen Equipment Assessments', cta: 'DSC Assessments',     href: '/corporate/services/dsc-assessments',        img: '/corporate-dsc.jpg' };
+const dsc      = { n: '1', title: 'Display Screen Equipment Assessments', cta: 'DSE Assessments',     href: '/corporate/services/dse-assessments',        img: '/corporate-dse.jpg' };
 const chair    = { n: '2', title: 'In-Office Chair Massage',              cta: 'Chair Massage',       href: '/corporate/services/in-chair-massage',       img: '/chair-massage-services-portrait.jpg' };
 const posture  = { n: '3', title: 'Assessments & Posture Consultations',  cta: 'Posture Consultation',href: '/corporate/services/posture-consultations',  img: '/posture-consultations-portrait.jpg' };
 

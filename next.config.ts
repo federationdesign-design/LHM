@@ -200,7 +200,10 @@ const nextConfig: NextConfig = {
       { source: '/in-office-chair-massage', destination: '/corporate/services/in-chair-massage', permanent: true },
       { source: '/in-office-chair-massage/', destination: '/corporate/services/in-chair-massage', permanent: true },
       { source: '/dse-assessments', destination: '/corporate/services/dsc-assessments', permanent: true },
-      { source: '/dse-assessments/', destination: '/corporate/services/dsc-assessments', permanent: true },
+      { source: '/dse-assessments/', destination: '/corporate/services/dse-assessments', permanent: true },
+      // DSC → DSE slug rename
+      { source: '/corporate/services/dsc-assessments', destination: '/corporate/services/dse-assessments', permanent: true },
+      { source: '/corporate/services/dsc-assessments/', destination: '/corporate/services/dse-assessments', permanent: true },
       { source: '/online-sessions', destination: '/corporate/services', permanent: true },
       { source: '/online-sessions/', destination: '/corporate/services', permanent: true },
       { source: '/services', destination: '/corporate/services', permanent: true },

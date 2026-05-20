@@ -14,7 +14,7 @@ import InlineEnquiryForm from './InlineEnquiryForm';
    service detail pages:
 
      /corporate/services/in-chair-massage
-     /corporate/services/dsc-assessments
+     /corporate/services/dse-assessments
      /corporate/services/posture-consultations
 
    The page composition is identical across all three; only the
@@ -46,7 +46,7 @@ const services = [
   {
     n: 2,
     title: 'Display Screen Equipment Assessments',
-    href: '/corporate/services/dsc-assessments',
+    href: '/corporate/services/dse-assessments',
     img:  '/corporate-dsc.jpg',
   },
   {
@@ -65,7 +65,7 @@ const services = [
 export interface CorporateServicePageProps {
   /** Slug for filtering this page out of the "other services"
    *  strip at the bottom. e.g. 'in-chair-massage'. */
-  currentSlug: 'in-chair-massage' | 'dsc-assessments' | 'posture-consultations';
+  currentSlug: 'in-chair-massage' | 'dse-assessments' | 'posture-consultations';
   /** Hero background image path. */
   heroImage: string;
   /** Hero h1. */

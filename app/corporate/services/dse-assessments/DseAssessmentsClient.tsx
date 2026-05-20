@@ -5,7 +5,7 @@ import CorporateServicePage from '../../components/CorporateServicePage';
 export default function DscAssessmentsClient() {
   return (
     <CorporateServicePage
-      currentSlug="dsc-assessments"
+      currentSlug="dse-assessments"
       heroImage="/corporate-dsc.jpg"
       gallery={[
         '/desk-assessment-img1.jpg',

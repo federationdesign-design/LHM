@@ -35,7 +35,7 @@ const usefulLinks: [string, string][] = [
 
 const corpServices: [string, string][] = [
   ['In-Office Chair Massage', '/corporate/services/in-chair-massage'],
-  ['DSE Assessments',         '/corporate/services/dsc-assessments'],
+  ['DSE Assessments',         '/corporate/services/dse-assessments'],
   ['Posture Consultations',   '/corporate/services/posture-consultations'],
 ];
 
