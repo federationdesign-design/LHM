@@ -116,6 +116,7 @@ export default function SecondaryEnquiryModal({
   const [contactPref,    setContactPref]    = useState('');
 
   const [submitting, setSubmitting] = useState(false);
+  const [showValidation, setShowValidation] = useState(false);
   const [success,    setSuccess]    = useState(false);
   const [error,      setError]      = useState<string | null>(null);
 
@@ -164,6 +165,7 @@ export default function SecondaryEnquiryModal({
   const canSubmit   = requiredFilled && !submitting;
 
   const handleSubmit = async () => {
+    setShowValidation(true);
     if (!canSubmit) return;
     setError(null);
     setSubmitting(true);
@@ -376,16 +378,22 @@ export default function SecondaryEnquiryModal({
                 <input
                   type="text" placeholder="Name"
                   value={name} onChange={(e) => setName(e.target.value)}
+                  data-invalid={showValidation && name.trim().length === 0 ? "true" : "false"}
+                  className="sef-input"
                   style={inputStyle}
                 />
                 <input
                   type="email" placeholder="Email"
                   value={email} onChange={(e) => setEmail(e.target.value)}
+                  data-invalid={showValidation && email.trim().length === 0 ? "true" : "false"}
+                  className="sef-input"
                   style={inputStyle}
                 />
                 <input
                   type="tel" placeholder="Mobile"
                   value={mobile} onChange={(e) => setMobile(e.target.value)} required
+                  data-invalid={showValidation && mobile.trim().length === 0 ? "true" : "false"}
+                  className="sef-input"
                   style={inputStyle}
                 />
               </div>
@@ -649,6 +657,9 @@ export default function SecondaryEnquiryModal({
             grid-template-columns: 1fr 1fr;
             gap: 12px 24px;
           }
+        }
+        .sef-input[data-invalid="true"] {
+          box-shadow: 0 0 0 2px #ff8c00;
         }
       `}</style>
     </>

@@ -47,6 +47,7 @@ export default function CorporateEnquireClient() {
   const [consent, setConsent] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
+  const [showValidation, setShowValidation] = useState(false);
   const [success,    setSuccess]    = useState(false);
   const [modalOpen,  setModalOpen]  = useState(false);
   const [error,      setError]      = useState<string | null>(null);
@@ -73,6 +74,7 @@ export default function CorporateEnquireClient() {
   const canSubmit   = allOK && !submitting;
 
   const handleSubmit = async () => {
+    setShowValidation(true);
     if (!canSubmit) return;
     setError(null);
     setSubmitting(true);
@@ -221,6 +223,7 @@ export default function CorporateEnquireClient() {
                     placeholder="Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    data-invalid={showValidation && name.trim().length === 0 ? "true" : "false"}
                     className="intake-input"
                     style={inputStyle}
                     autoComplete="name"
@@ -230,6 +233,7 @@ export default function CorporateEnquireClient() {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    data-invalid={showValidation && !emailValid ? "true" : "false"}
                     className="intake-input"
                     style={inputStyle}
                     autoComplete="email"
@@ -240,6 +244,7 @@ export default function CorporateEnquireClient() {
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     required
+                    data-invalid={showValidation && !mobileValid ? "true" : "false"}
                     className="intake-input"
                     style={inputStyle}
                     autoComplete="tel"
@@ -347,6 +352,9 @@ export default function CorporateEnquireClient() {
         .intake-input {
           transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
           border: 1px solid transparent !important;
+        }
+        .intake-input[data-invalid="true"] {
+          box-shadow: 0 0 0 2px #ff8c00;
         }
         .intake-input:focus {
           outline: none;
