@@ -23,7 +23,7 @@ const mainMenu: [string, string][] = [
   ['Reviews', '/reviews'],
   ['FAQ', '/faq'],
   ['Contact', '/corporate/contact'],
-  ['Main Site', '/private'],
+  ['Book a Massage', '/private'],
 ];
 
 const usefulLinks: [string, string][] = [
@@ -53,13 +53,7 @@ export default function CorporateFooter() {
       </div>
       <p className={styles.footerHoursTitle}>Opening Times</p>
       <div className={styles.footerHours}>
-        Monday &nbsp;&nbsp;&nbsp;~ 12pm to 8pm<br />
-        Tuesday &nbsp;&nbsp;~ 10am to 6pm<br />
-        Wednesday ~ 10am to 8pm<br />
-        Thursday &nbsp;~ 10am to 6pm<br />
-        Friday &nbsp;&nbsp;&nbsp;&nbsp;~ 9am to 5pm<br />
-        Saturday &nbsp;~ 9am to 5pm<br />
-        Sunday &nbsp;&nbsp;&nbsp;~ 9am to 5pm
+        Monday – Friday: 9am to 5pm
       </div>
 
       {/* Desktop: 5-column grid.
@@ -104,13 +98,7 @@ export default function CorporateFooter() {
         <div className={styles.footerCol}>
           <h4>Opening Times</h4>
           <p style={{ fontSize: '0.82rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.9 }}>
-            Monday – 12pm to 8pm<br />
-            Tuesday – 10am to 6pm<br />
-            Wednesday – 10am to 8pm<br />
-            Thursday – 10am to 6pm<br />
-            Friday – 9am to 5pm<br />
-            Saturday – 9am to 5pm<br />
-            Sunday – 9am to 5pm
+            Monday – Friday: 9am to 5pm
           </p>
         </div>
 
