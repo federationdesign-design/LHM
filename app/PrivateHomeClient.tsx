@@ -22,7 +22,7 @@ const services = [
   { slug: 'indian-head-massage', title: 'Indian Head Massage', image: '/head-massage-portrait.jpg', href: '/treatments/indian-head-massage', cta: 'Book Treatment' },
   { slug: 'hopi-ear', title: 'Hopi Ear & Back Massage', image: '/hopi-portrait.jpg', href: '/treatments/hopi-ear', cta: 'Book Treatment' },
   { slug: 'relaxation-massage', title: 'Relaxation Massage', image: '/relaxation-portrait.jpg', href: '/treatments/relaxation-massage', cta: 'Book Treatment' },
-  { slug: 'hot-stone-massage', title: 'Hot Stone Massage', image: '/hot-stone-portrait.jpg', href: '/treatments/hot-stone-massage', cta: 'Book Treatment' },
+  { slug: 'hot-stone-massage', title: 'Hot Stone Massage', image: '/hot-stone-massage-portrait.jpg', href: '/treatments/hot-stone-massage', cta: 'Book Treatment' },
   { slug: 'pregnancy-massage', title: 'Pregnancy Massage', image: '/pregnancy-portrait.jpg', href: '/your-pregnancy-massage', cta: 'Book Treatment' },
   { slug: 'gift-vouchers', title: 'Gift Vouchers', image: '/gift-voucher-hero.jpg', href: '/gift-vouchers', cta: 'Buy a Voucher' },
   { slug: 'contact', title: 'Get in Touch', image: '/get-in-touch-img.jpg', href: '/contact', cta: 'Contact Us' },

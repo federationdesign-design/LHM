@@ -96,7 +96,7 @@ const slides = [
   {
     type: 'treatment' as const, slug: 'hot-stone-massage', title: 'Hot Stone Massage',
     tagline: 'Smooth, heated basalt stones placed on key points of the body and used as an extension of the therapist\'s hands. The penetrating warmth allows muscles to relax far more deeply than they would under hands alone — releasing tension that lighter treatments cannot reach.',
-    image: '/hot-stone-portrait.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/hot-stone-massage',
+    image: '/hot-stone-massage-portrait.jpg', color: '#d09f7e', cta: 'Book Now', ctaHref: '/treatments/hot-stone-massage',
   },
   {
     type: 'treatment' as const, slug: 'cupping', title: 'Cupping Therapy',
