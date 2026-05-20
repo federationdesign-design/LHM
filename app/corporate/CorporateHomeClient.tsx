@@ -749,8 +749,8 @@ export default function CorporateHomeClient() {
           }
           .corp-client-item { height: 80px; }
           .corp-client-logo {
-            max-height: 60px;
-            max-width: 240px;
+            max-height: 50px;
+            max-width: 160px;
           }
         }
 
