@@ -385,7 +385,7 @@ export default function SecondaryEnquiryModal({
                 />
                 <input
                   type="tel" placeholder="Mobile"
-                  value={mobile} onChange={(e) => setMobile(e.target.value)}
+                  value={mobile} onChange={(e) => setMobile(e.target.value)} required
                   style={inputStyle}
                 />
               </div>

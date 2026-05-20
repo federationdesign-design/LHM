@@ -414,9 +414,10 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
 
                   <input
                     type="tel"
-                    placeholder={variant === 'corporate' ? 'Phone number *' : 'Phone number (optional)'}
+                    placeholder="Phone number"
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
+                    required
                     maxLength={30}
                     style={inputStyle}
                     className="ct-input"

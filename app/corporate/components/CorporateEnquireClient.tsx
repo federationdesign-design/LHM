@@ -258,6 +258,7 @@ export default function CorporateEnquireClient() {
                     placeholder="Mobile"
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
+                    required
                     className="intake-input"
                     style={inputStyle}
                     autoComplete="tel"

@@ -297,7 +297,7 @@ export default function WellbeingForm({
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
           <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} required style={inputStyle} className="intake-input" />
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} className="intake-input" />
-          <input type="tel" placeholder="Mobile" value={mobile} onChange={e => setMobile(e.target.value)} style={inputStyle} className="intake-input" />
+          <input type="tel" placeholder="Mobile" value={mobile} onChange={e => setMobile(e.target.value)} required style={inputStyle} className="intake-input" />
         </div>
 
         <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
