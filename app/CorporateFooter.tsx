@@ -27,14 +27,10 @@ const mainMenu: [string, string][] = [
 ];
 
 const usefulLinks: [string, string][] = [
-  ['Request Receipts', '/receipts'],
-  ['Testimonials', '/testimonials'],
-  ['Facebook', 'https://www.facebook.com/lucyhallmassage'],
-  ['Instagram', 'https://www.instagram.com/lucyhallmassage/'],
-  ['LinkedIn', 'https://www.linkedin.com/in/lucy-hall-47369141/'],
+  ['Testimonials', '/reviews'],
+  ['LinkedIn', 'https://www.linkedin.com/company/lucy-hall-massage'],
   ['Privacy Policy', '/legal/privacy-policy'],
   ['Terms & Conditions', '/legal/terms-and-conditions'],
-  ['Data Request', '/legal/data-request'],
 ];
 
 const corpServices: [string, string][] = [
