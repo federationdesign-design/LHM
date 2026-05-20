@@ -321,19 +321,17 @@ export default function CorporateHomeClient() {
 
         {/* ── COMPANY CLIENTS STRIP ────────────────────────── */}
         <section className="corp-clients">
-          <div className="corp-clients-marquee">
-            <div className="corp-clients-marquee-track">
-              {[...companyClients, ...companyClients].map((c, i) => (
-                <div key={`${c.name}-${i}`} className="corp-client-item">
-                  <img
-                    src={c.src}
-                    alt={c.name}
-                    className="corp-client-logo"
-                    draggable={false}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="corp-clients-row">
+            {companyClients.map((c, i) => (
+              <div key={`${c.name}-${i}`} className="corp-client-item">
+                <img
+                  src={c.src}
+                  alt={c.name}
+                  className="corp-client-logo"
+                  draggable={false}
+                />
+              </div>
+            ))}
           </div>
         </section>
 
@@ -719,22 +717,15 @@ export default function CorporateHomeClient() {
         /* ── COMPANY CLIENTS ─────────────────────────────────── */
         .corp-clients {
           padding: 40px 24px;
-          overflow: hidden;
         }
-        .corp-clients-marquee {
-          width: 100%;
-          overflow: hidden;
-        }
-        .corp-clients-marquee-track {
+        .corp-clients-row {
           display: flex;
+          flex-wrap: wrap;
           align-items: center;
-          gap: 40px;
-          width: max-content;
-          animation: corp-marquee 25s linear infinite;
-        }
-        @keyframes corp-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+          justify-content: center;
+          gap: 32px;
+          max-width: 1200px;
+          margin: 0 auto;
         }
         .corp-client-item {
           flex: 0 0 auto;
