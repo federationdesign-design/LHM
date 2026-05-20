@@ -15,7 +15,7 @@ const services = [
   { slug: '90-min-massage', title: '90 Minute Massage', image: '/90-min-portrait.jpg', href: '/treatments/90-min-massage', cta: 'Book Treatment' },
   { slug: '120-min-massage', title: '120 Minute Massage', image: '/120-min-portrait.jpg', href: '/treatments/120-min-massage', cta: 'Book Treatment' },
   { slug: 'cupping', title: 'Cupping Therapy', image: '/cupping-portrait.jpg', href: '/your-cupping-massage', cta: 'Book Treatment' },
-  { slug: 'sports-therapy', title: 'Sports Therapy', image: '/sports-therapy-portrait.jpg', href: '/treatments/sports-therapy', cta: 'Book Treatment' },
+  { slug: 'sports-therapy', title: 'Sports Therapy', image: '/sports-therapy-portrait-new.jpg', href: '/treatments/sports-therapy', cta: 'Book Treatment' },
   { slug: 'sports-massage', title: 'Sports Massage', image: '/sports-portrait.jpg', href: '/treatments/sports-massage', cta: 'Book Treatment' },
   { slug: 'deep-tissue-massage', title: 'Deep Tissue Massage', image: '/deep-tissue-portrait.jpg', href: '/treatments/deep-tissue-massage', cta: 'Book Treatment' },
   { slug: 'swedish-massage', title: 'Swedish Massage', image: '/swedish-portrait.jpg', href: '/treatments/swedish-massage', cta: 'Book Treatment' },
