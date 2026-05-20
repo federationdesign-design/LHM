@@ -400,6 +400,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                     maxLength={100}
                     style={inputStyle}
                     className="ct-input"
+                    data-invalid={showValidation && name.trim().length === 0 ? "true" : "false"}
                   />
 
                   <input
@@ -410,6 +411,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                     maxLength={200}
                     style={inputStyle}
                     className="ct-input"
+                    data-invalid={showValidation && (email.trim().length === 0 || !email.includes("@")) ? "true" : "false"}
                   />
 
                   <input
@@ -421,6 +423,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                     maxLength={30}
                     style={inputStyle}
                     className="ct-input"
+                    data-invalid={showValidation && phone.trim().length === 0 ? "true" : "false"}
                   />
 
                   <textarea
@@ -431,6 +434,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                     maxLength={5000}
                     style={textareaStyle}
                     className="ct-input"
+                    data-invalid={showValidation && message.trim().length === 0 ? "true" : "false"}
                   />
 
                   <label htmlFor="gdpr-consent" className="ct-checkbox-wrap">
@@ -519,6 +523,9 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
           background: #000000 !important;
           color: #ffffff !important;
           border: 1px solid #ffffff !important;
+        }
+        .ct-input[data-invalid="true"] {
+          box-shadow: 0 0 0 2px #ff8c00;
         }
         .ct-input:focus::placeholder {
           color: rgba(255,255,255,0.5);
