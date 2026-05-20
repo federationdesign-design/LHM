@@ -137,7 +137,7 @@ const nextConfig: NextConfig = {
       { source: '/physiotherapy-benefits-cambridge/', destination: '/treatments', permanent: true },
 
       // ── FAQ — all old FAQ URLs → /faq ──
-      { source: '/faq/:slug*', destination: '/faq', permanent: true },
+      { source: '/faq/:slug+', destination: '/faq', permanent: true },
 
       // ── VIDEOS → relevant pages ──
       { source: '/videos/client-testimonials', destination: '/testimonials', permanent: true },
