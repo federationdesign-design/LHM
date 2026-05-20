@@ -290,7 +290,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
               <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'flex-start' }}>
                 <div>
                   <p style={{ fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', marginBottom: 6, opacity: 0.6 }}>Email</p>
-                  <a href="mailto:info@lucyhallmassage.com" style={{ fontSize: '1.1rem', fontWeight: 300, color: '#ffffff', textDecoration: 'none', borderBottom: '1px solid #ffffff', paddingBottom: 2 }}>info@lucyhallmassage.com</a>
+                  <a href={`mailto:${variant === 'corporate' ? 'corporate' : 'info'}@lucyhallmassage.com`} style={{ fontSize: '1.1rem', fontWeight: 300, color: '#ffffff', textDecoration: 'none', borderBottom: '1px solid #ffffff', paddingBottom: 2 }}>{variant === 'corporate' ? 'corporate' : 'info'}@lucyhallmassage.com</a>
                 </div>
                 <div style={{ marginLeft: 40 }}>
                   <p style={{ fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', marginBottom: 6, opacity: 0.6 }}>Phone</p>

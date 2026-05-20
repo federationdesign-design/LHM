@@ -165,7 +165,7 @@ function buildAutoresponderEmail(opts: { name: string }) {
       <p style="color: #888; font-size: 12px; margin: 0;">
         Lucy Hall Massage Therapy &middot; 2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU<br />
         <a href="tel:07765555078" style="color: #888;">07765 555078</a> &middot;
-        <a href="mailto:info@lucyhallmassage.com" style="color: #888;">info@lucyhallmassage.com</a>
+        <a href="mailto:corporate@lucyhallmassage.com" style="color: #888;">corporate@lucyhallmassage.com</a>
       </p>
     </div>
   `;
@@ -185,7 +185,7 @@ function buildAutoresponderEmail(opts: { name: string }) {
     '---',
     'Lucy Hall Massage Therapy',
     '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU',
-    '07765 555078 - info@lucyhallmassage.com',
+    '07765 555078 - corporate@lucyhallmassage.com',
   ].join('\n');
 
   return { html, text };
@@ -404,7 +404,7 @@ export async function POST(request: Request) {
     } catch (err) {
       console.error('[corporate-enquiry] Detailed lead notification email failed:', err);
       return NextResponse.json(
-        { error: 'Could not save your details, please try again or email info@lucyhallmassage.com directly.' },
+        { error: 'Could not save your details, please try again or email corporate@lucyhallmassage.com directly.' },
         { status: 500 }
       );
     }
@@ -503,7 +503,7 @@ export async function POST(request: Request) {
     } catch (err) {
       console.error('[corporate-enquiry] Secondary notification email failed:', err);
       return NextResponse.json(
-        { error: 'Could not save your details, please try again or email info@lucyhallmassage.com directly.' },
+        { error: 'Could not save your details, please try again or email corporate@lucyhallmassage.com directly.' },
         { status: 500 }
       );
     }
@@ -536,7 +536,7 @@ export async function POST(request: Request) {
   } catch (err) {
     console.error('[corporate-enquiry] Notification email failed:', err);
     return NextResponse.json(
-      { error: 'Could not send your enquiry, please try again or email info@lucyhallmassage.com directly.' },
+      { error: 'Could not send your enquiry, please try again or email corporate@lucyhallmassage.com directly.' },
       { status: 500 }
     );
   }
@@ -545,7 +545,7 @@ export async function POST(request: Request) {
     await sendEmail({
       to:      email,
       bcc:     process.env.LUCY_BCC,
-      replyTo: 'info@lucyhallmassage.com',
+      replyTo: 'corporate@lucyhallmassage.com',
       subject: 'Your Lucy Hall Massage Employer PDF',
       html:    autoresponder.html,
       text:    autoresponder.text,
