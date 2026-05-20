@@ -227,4 +227,67 @@ export const legalPages: Record<string, LegalPage> = {
       },
     ],
   },
+
+  'corporate-terms-and-conditions': {
+    slug: 'corporate-terms-and-conditions',
+    title: 'Corporate Terms & Conditions',
+    lastUpdated: 'May 2026',
+    metaTitle: 'Corporate Terms & Conditions | Lucy Hall Massage Therapy',
+    metaDescription: 'Terms and conditions governing corporate massage and wellbeing services provided by Lucy Hall Massage Therapy to businesses in Cambridge and beyond.',
+    canonicalUrl: 'https://www.lucyhallmassage.com/legal/corporate-terms-and-conditions/',
+    sections: [
+      {
+        heading: 'Introduction',
+        content: `Lucy Hall Massage strives to deliver long-lasting solutions to optimize people's health and wellness with a personal and sustainable service that is comprehensive with professional excellence. We are committed to providing a quality health and wellness service that helps people live their lives to the full by removing pain and managing discomfort. We give them the knowledge to help their treatments last longer and be proactive about what they are doing to cause the issue.`,
+      },
+      {
+        heading: '1. Lucy Hall Massage Policies',
+        content: `• Has robust policies and procedures in place, including behaviour, health and safety, and inclusion.\n\n• A thorough risk assessment will be shared with the client ahead of the agreed date of the treatments.`,
+      },
+      {
+        heading: '2. Lucy Hall Massage Responsibilities',
+        content: `• Will maintain, at all times, a valid liability insurance policy with an indemnity limit of no less than £1m. Coverage must remain in place during the term of this Agreement.\n\n• Provide evidence of their certificate of insurance, and those of their additional massage therapists upon request.\n\n• Is fully responsible for the setup and removal of equipment, including all clearing up and removal of waste.\n\n• Is fully responsible for all injuries, losses, or damage which may occur to any person or property due to any act or omission of Lucy Hall Massage or the massage therapists.\n\n• Will ensure a consent form is completed by each attendee as set out in the risk assessment, including details of pregnancy, or suspected pregnancy, health status, and allergies.`,
+      },
+      {
+        heading: '3. Liability',
+        content: `Lucy Hall Massage shall be liable for any breach of the terms of this agreement, including any breach by third parties it engages to perform the services, including any negligent or reckless act, omission, or default in the provision of the services.`,
+      },
+      {
+        heading: '4. Data Protection',
+        content: `• Lucy Hall Massage will keep the consent forms for 7 years and then these will be appropriately destroyed.\n\n• The client upon request may request confirmation of the destruction of the data.`,
+      },
+      {
+        heading: '5. Minors Policy',
+        content: `The client does not allow minors in the office building at any time.`,
+      },
+      {
+        heading: '6. Cancellation Policy and Term',
+        content: `• The client has 48 hours to cancel the event and/or reduce the event timing.\n\n• 50% of the fee will be due in the event the Client cancels within 24 hours of the event.\n\n• These terms and conditions shall commence on the last date of signature below and shall expire on the completion of the services as set out in Schedule 1, unless terminated in accordance with clause 6.`,
+      },
+      {
+        heading: '7. Governing Law',
+        content: `These terms and conditions shall be governed by and construed in accordance with the laws of England and Wales.`,
+      },
+      {
+        heading: '8. Payment Terms',
+        content: `The client has 30 days after the treatment date for full payment.`,
+      },
+      {
+        heading: '9. Methods of Payment',
+        content: `Fees must be paid after treatment. Lucy Hall Massage will accept BACS payment.`,
+      },
+      {
+        heading: '10. Client Responsibilities',
+        content: `Lucy Hall Massage requests the client to keep them informed of any changes in details, such as address, point of contact, parking, security, company policies, or core values.`,
+      },
+      {
+        heading: '11. General',
+        content: `If fees remain unpaid by the client, Lucy Hall Massage will write to you requesting monies owed. If no payment and/or correspondence is received within 30 days, Lucy Hall Massage will implement their debt collection process which will result in the debt being passed to our debt collection agency which will incur additional fees. If settlement is not received, it may result in us taking out proceedings in the County Court. It is our policy to pursue outstanding debts and could result in a CCJ (County Court Judgement).`,
+      },
+      {
+        heading: '12. Changes to the Terms & Conditions',
+        content: `Lucy Hall Massage may change these terms and conditions where a need arises through legislation or regulatory requirements, providing the client with prior notification.`,
+      },
+    ],
+  },
 };

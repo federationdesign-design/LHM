@@ -30,7 +30,7 @@ const usefulLinks: [string, string][] = [
   ['Testimonials', '/reviews'],
   ['LinkedIn', 'https://www.linkedin.com/company/lucy-hall-massage'],
   ['Privacy Policy', '/legal/privacy-policy'],
-  ['Terms & Conditions', '/legal/terms-and-conditions'],
+  ['Terms & Conditions', '/legal/corporate-terms-and-conditions'],
 ];
 
 const corpServices: [string, string][] = [
