@@ -577,10 +577,10 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         {/* ── PERSONAL DETAILS ────────────────────────────────── */}
         <p style={sectionLabelStyle}>Personal details</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
-          <input type="text" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} required style={inputStyle} className="qf-input" />
-          <input type="text" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} required style={inputStyle} className="qf-input" />
-          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} className="qf-input" />
-          <input type="tel" placeholder="Mobile" value={mobile} onChange={e => setMobile(e.target.value)} required style={inputStyle} className="qf-input" />
+          <input type="text" placeholder="First name" value={firstName} onChange={e => setFirstName(e.target.value)} required data-invalid={showValidation && firstName.trim().length === 0 ? "true" : "false"} style={inputStyle} className="qf-input" />
+          <input type="text" placeholder="Last name" value={lastName} onChange={e => setLastName(e.target.value)} required data-invalid={showValidation && lastName.trim().length === 0 ? "true" : "false"} style={inputStyle} className="qf-input" />
+          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required data-invalid={showValidation && (email.trim().length === 0 || !email.includes("@")) ? "true" : "false"} style={inputStyle} className="qf-input" />
+          <input type="tel" placeholder="Mobile" value={mobile} onChange={e => setMobile(e.target.value)} required data-invalid={showValidation && mobile.trim().length === 0 ? "true" : "false"} style={inputStyle} className="qf-input" />
           <div>
             <label style={{ ...labelStyle, fontSize: '0.85rem', opacity: 0.7, marginBottom: 6 }} htmlFor="qf-dob">Date of birth (optional)</label>
             <input id="qf-dob" type="date" value={dob} onChange={e => setDob(e.target.value)} style={inputStyleSquare} className="qf-input" />
@@ -594,7 +594,7 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         <p style={sectionLabelStyle}>Emergency contact</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
           <input type="text" placeholder="Emergency contact name" value={emergencyName} onChange={e => setEmergencyName(e.target.value)} required style={inputStyle} className="qf-input" />
-          <input type="tel" placeholder="Emergency contact number" value={emergencyNumber} onChange={e => setEmergencyNumber(e.target.value)} required style={inputStyle} className="qf-input" />
+          <input type="tel" placeholder="Emergency contact number" value={emergencyNumber} onChange={e => setEmergencyNumber(e.target.value)} required data-invalid={showValidation && emergencyNumber.trim().length === 0 ? "true" : "false"} style={inputStyle} className="qf-input" />
         </div>
 
         <div style={dividerStyle} />
@@ -917,6 +917,9 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         .qf-input {
           transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
           border: 1px solid transparent !important;
+        }
+        .qf-input[data-invalid="true"] {
+          box-shadow: 0 0 0 2px #ff8c00;
         }
         .qf-input:focus {
           outline: none;

@@ -295,9 +295,9 @@ export default function WellbeingForm({
         <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
-          <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} required style={inputStyle} className="intake-input" />
-          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={inputStyle} className="intake-input" />
-          <input type="tel" placeholder="Mobile" value={mobile} onChange={e => setMobile(e.target.value)} required style={inputStyle} className="intake-input" />
+          <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} required data-invalid={showValidation && name.trim().length === 0 ? "true" : "false"} style={inputStyle} className="intake-input" />
+          <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required data-invalid={showValidation && (email.trim().length === 0 || !email.includes("@")) ? "true" : "false"} style={inputStyle} className="intake-input" />
+          <input type="tel" placeholder="Mobile" value={mobile} onChange={e => setMobile(e.target.value)} required data-invalid={showValidation && mobile.trim().length === 0 ? "true" : "false"} style={inputStyle} className="intake-input" />
         </div>
 
         <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
@@ -450,6 +450,9 @@ export default function WellbeingForm({
         .intake-input {
           transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
           border: 1px solid transparent !important;
+        }
+        .intake-input[data-invalid="true"] {
+          box-shadow: 0 0 0 2px #ff8c00;
         }
         .intake-input:focus {
           outline: none;

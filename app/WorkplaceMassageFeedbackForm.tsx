@@ -263,7 +263,7 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
         {/* CONTACT */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <input type="text" placeholder="enter name, leave blank to be anonymous" value={name}    onChange={e => setName(e.target.value)}                            style={inputStyle} className="intake-input" />
-          <input type="text" placeholder="Company name"                              value={company} onChange={e => setCompany(e.target.value)} required style={inputStyle} className="intake-input" />
+          <input type="text" placeholder="Company name"                              value={company} onChange={e => setCompany(e.target.value)} required data-invalid={showValidation && company.trim().length === 0 ? "true" : "false"} style={inputStyle} className="intake-input" />
         </div>
 
         {/* ── ABOUT YOUR EXPERIENCE ───────────────────────────── */}
@@ -401,6 +401,9 @@ export default function WorkplaceMassageFeedbackForm({ declarationConsent, showV
         .intake-input {
           transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
           border: 1px solid transparent !important;
+        }
+        .intake-input[data-invalid="true"] {
+          box-shadow: 0 0 0 2px #ff8c00;
         }
         .intake-input:focus {
           outline: none;
