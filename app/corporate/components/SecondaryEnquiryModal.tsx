@@ -111,7 +111,7 @@ export default function SecondaryEnquiryModal({
 
   // Required new fields
   const [officeLocation, setOfficeLocation] = useState('');
-  const [employeeCount,  setEmployeeCount]  = useState('');
+  const [employeeCount,  setEmployeeCount]  = useState(EMPLOYEE_RANGES[0].id);
   const [serviceTypes,   setServiceTypes]   = useState<string[]>([]);
   const [timing,         setTiming]         = useState('');
 
@@ -163,7 +163,7 @@ export default function SecondaryEnquiryModal({
   // Required fields check — Office Location, Employee Count, Service Type, Timing
   const requiredFilled =
     officeLocation.trim().length > 0 &&
-    employeeCount !== '' &&
+
     serviceTypes.length > 0 &&
     timing !== '';
 
@@ -434,16 +434,40 @@ export default function SecondaryEnquiryModal({
                 </div>
                 <div>
                   <label style={labelStyle}>Approximate Number of Employees Onsite <span style={{ color: '#ff8c8c' }}>*</span></label>
-                  <select
-                    value={employeeCount}
-                    onChange={(e) => setEmployeeCount(e.target.value)}
-                    style={selectStyle}
-                  >
-                    <option value="">Select range</option>
-                    {EMPLOYEE_RANGES.map((opt) => (
-                      <option key={opt.id} value={opt.id}>{opt.label}</option>
-                    ))}
-                  </select>
+                  <div style={{ padding: '14px 4px 0' }}>
+                    <input
+                      type="range"
+                      min={0}
+                      max={EMPLOYEE_RANGES.length - 1}
+                      step={1}
+                      value={(() => {
+                        const i = EMPLOYEE_RANGES.findIndex(r => r.id === employeeCount);
+                        return i === -1 ? 0 : i;
+                      })()}
+                      onChange={(e) => setEmployeeCount(EMPLOYEE_RANGES[parseInt(e.target.value, 10)].id)}
+                      className="sef-slider sef-slider--5"
+                      style={{ width: '100%' }}
+                      aria-label="Approximate number of employees"
+                    />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 14 }}>
+                      {EMPLOYEE_RANGES.map((opt) => (
+                        <span
+                          key={opt.id}
+                          style={{
+                            fontSize: '0.78rem',
+                            fontWeight: employeeCount === opt.id ? 600 : 300,
+                            color: '#ffffff',
+                            opacity: employeeCount === opt.id ? 1 : 0.55,
+                            textAlign: 'center',
+                            flex: '1 1 auto',
+                            transition: 'opacity 0.2s ease, font-weight 0.2s ease',
+                          }}
+                        >
+                          {opt.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -682,6 +706,70 @@ export default function SecondaryEnquiryModal({
         }
         .sef-input[data-invalid="true"] {
           box-shadow: 0 0 0 2px #ff8c00;
+        }
+        /* Notched slider — 5 notch positions for Employee Count.
+           Background uses linear-gradient stripes at each notch. */
+        .sef-slider {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 100%;
+          height: 8px;
+          border-radius: 999px;
+          outline: none;
+          cursor: pointer;
+          margin: 0;
+          padding: 0;
+          background: rgba(255,255,255,0.2);
+        }
+        .sef-slider--5 {
+          background:
+            linear-gradient(to right,
+              rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.6) 1.5%,
+              transparent 1.5%, transparent 25%,
+              rgba(255,255,255,0.6) 25%, rgba(255,255,255,0.6) 26.5%,
+              transparent 26.5%, transparent 50%,
+              rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.6) 51.5%,
+              transparent 51.5%, transparent 75%,
+              rgba(255,255,255,0.6) 75%, rgba(255,255,255,0.6) 76.5%,
+              transparent 76.5%, transparent 98.5%,
+              rgba(255,255,255,0.6) 98.5%, rgba(255,255,255,0.6) 100%
+            ),
+            rgba(255,255,255,0.2);
+        }
+        .sef-slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: 2px solid #ffffff;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          transition: transform 0.15s ease;
+        }
+        .sef-slider::-webkit-slider-thumb:hover,
+        .sef-slider::-webkit-slider-thumb:active {
+          transform: scale(1.1);
+        }
+        .sef-slider::-moz-range-thumb {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: 2px solid #ffffff;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          transition: transform 0.15s ease;
+        }
+        .sef-slider::-moz-range-thumb:hover,
+        .sef-slider::-moz-range-thumb:active {
+          transform: scale(1.1);
+        }
+        .sef-slider::-moz-range-track {
+          height: 8px;
+          border-radius: 999px;
+          background: transparent;
         }
         .intake-checkbox-wrap {
           display: flex;
