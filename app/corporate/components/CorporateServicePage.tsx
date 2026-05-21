@@ -363,6 +363,8 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             justify-content: space-between;
             padding: 60px 0 60px 32px;
             gap: 48px;
+            align-self: stretch;
+            min-height: 1000px;
           }
           .cs-hero-text {
             flex: 1 1 50%;
