@@ -416,7 +416,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           border-radius: 4px;
         }
         .cs-what-title {
-          font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
           font-weight: 600;
           margin: 0 0 16px;
           line-height: 1.3;
@@ -432,7 +432,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           padding: 0 8px;
         }
         .cs-benefits-title {
-          font-size: clamp(1.3rem, 1.8vw, 1.6rem);
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
           font-weight: 600;
           margin: 0 0 24px;
           line-height: 1.3;
@@ -497,8 +497,8 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           margin: 0 auto;
         }
         .cs-services-heading {
-          font-size: clamp(1.3rem, 1.8vw, 1.6rem);
-          font-weight: 400;
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
+          font-weight: 600;
           text-align: center;
           margin: 0 0 40px;
         }

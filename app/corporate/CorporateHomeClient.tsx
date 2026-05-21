@@ -983,8 +983,8 @@ export default function CorporateHomeClient() {
           padding: 60px 24px;
         }
         .corp-services-heading {
-          font-size: clamp(1.4rem, 2vw, 1.8rem);
-          font-weight: 400;
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
+          font-weight: 600;
           color: #ffffff;
           text-align: center;
           margin: 0 0 32px;
@@ -1093,8 +1093,8 @@ export default function CorporateHomeClient() {
           margin: 0 auto;
         }
         .corp-credibility-heading {
-          font-size: 1.5rem;
-          font-weight: 400;
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
+          font-weight: 600;
           color: #ffffff;
           margin: 0 0 32px;
           text-align: center;
@@ -1215,8 +1215,8 @@ export default function CorporateHomeClient() {
           margin: 0 auto;
         }
         .corp-included-heading {
-          font-size: clamp(1.4rem, 2vw, 1.8rem);
-          font-weight: 400;
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
+          font-weight: 600;
           color: #ffffff;
           text-align: center;
           margin: 0 0 40px;
@@ -1277,8 +1277,8 @@ export default function CorporateHomeClient() {
           margin: 0 auto;
         }
         .corp-videos-heading {
-          font-size: clamp(1.4rem, 2vw, 1.8rem);
-          font-weight: 400;
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
+          font-weight: 600;
           color: #ffffff;
           text-align: center;
           margin: 0 0 40px;
@@ -1361,8 +1361,8 @@ export default function CorporateHomeClient() {
           margin: 0 auto;
         }
         .corp-gallery-heading {
-          font-size: clamp(1.4rem, 2vw, 1.8rem);
-          font-weight: 400;
+          font-size: clamp(1.8rem, 3vw, 2.4rem);
+          font-weight: 600;
           color: #ffffff;
           text-align: center;
           margin: 0 0 32px;
