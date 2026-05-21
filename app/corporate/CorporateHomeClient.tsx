@@ -520,7 +520,7 @@ export default function CorporateHomeClient() {
         <div className="corp-divider" />
 
         {/* ── VIDEOS ───────────────────────────────────────── */}
-        <section className="corp-videos">
+        <section id="videos" className="corp-videos">
           <h2 className="corp-videos-heading">Videos</h2>
           <div className="corp-videos-grid">
             {videos.map((v, i) => (

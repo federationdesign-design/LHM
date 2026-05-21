@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import CorporateNav from '../../CorporateNav';
 import CorporateFooter from '../../CorporateFooter';
+import SecondaryEnquiryModal from '../components/SecondaryEnquiryModal';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import { corporateTestimonials } from '../../components/Testimonials/corporate-testimonials-data';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -13,9 +15,9 @@ const chair    = { n: '2', title: 'In-Office Chair Massage',              cta: '
 const posture  = { n: '3', title: 'Assessments & Posture Consultations',  cta: 'Posture Consultation',href: '/corporate/services/posture-consultations',  img: '/posture-consultations-portrait.jpg' };
 
 const quickActions = [
-  { label: 'Enquire about your team', href: '/corporate/enquire' },
+  { label: 'Enquire about your team', href: '#', modal: true },
   { label: 'Download our employer PDF', href: '/employer-info.pdf', download: true },
-  { label: 'Watch Videos', href: '#videos' },
+  { label: 'Watch Videos', href: '/corporate#videos' },
 ];
 
 const benefits = [
@@ -46,6 +48,7 @@ function ServiceCard({ s }: { s: { n: string; title: string; cta: string; href: 
 }
 
 export default function CorporateServicesIndexClient() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
       <CorporateNav />
@@ -79,14 +82,28 @@ export default function CorporateServicesIndexClient() {
                 <ServiceCard s={chair} />
               </div>
               <aside className="cs-quick-actions">
-                {quickActions.map((a) => (
-                  <Link key={a.label} href={a.href} {...(a.download ? { download: true } : {})} className="cs-quick-action">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
-                      <path d="M10 8L20 16L10 24" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    <span>{a.label}</span>
-                  </Link>
-                ))}
+                {quickActions.map((a) => {
+                  const inner = (
+                    <>
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
+                        <path d="M10 8L20 16L10 24" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span>{a.label}</span>
+                    </>
+                  );
+                  if (a.modal) {
+                    return (
+                      <button key={a.label} type="button" onClick={() => setModalOpen(true)} className="cs-quick-action">
+                        {inner}
+                      </button>
+                    );
+                  }
+                  return (
+                    <Link key={a.label} href={a.href} {...(a.download ? { download: true } : {})} className="cs-quick-action">
+                      {inner}
+                    </Link>
+                  );
+                })}
               </aside>
             </div>
 
@@ -104,7 +121,7 @@ export default function CorporateServicesIndexClient() {
                 {benefits.map((b) => (<li key={b}>{b}</li>))}
               </ul>
 
-              <Link href="/corporate/enquire" className="cs-enquire-link">Enquire about your team here</Link>
+              <button type="button" onClick={() => setModalOpen(true)} className="cs-enquire-link">Enquire about your team here</button>
             </div>
           </div>
         </section>
@@ -117,6 +134,13 @@ export default function CorporateServicesIndexClient() {
       </main>
 
       <CorporateFooter />
+      <SecondaryEnquiryModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialName=""
+        initialEmail=""
+        initialMobile=""
+      />
 
       <style>{`
         .cs-page { background: #0a0908; color: #ffffff; min-height: 100vh; padding-bottom: 80px; }
@@ -214,8 +238,10 @@ export default function CorporateServicesIndexClient() {
         .cs-quick-action {
           display: flex; align-items: center; gap: 16px;
           color: #ffffff; text-decoration: none;
-          padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+          padding: 16px 0; border: 0; border-bottom: 1px solid rgba(255,255,255,0.1);
           font-size: 1.05rem; transition: opacity 0.2s ease;
+          background: transparent; cursor: pointer;
+          font-family: inherit; text-align: left; width: 100%;
         }
         .cs-quick-action:hover { opacity: 0.7; }
 
@@ -227,7 +253,11 @@ export default function CorporateServicesIndexClient() {
         .cs-benefits-title { font-size: 1.3rem; font-weight: 500; margin: 0 0 16px; }
         .cs-benefits-list { list-style: disc; padding-left: 24px; margin: 0 0 32px; }
         .cs-benefits-list li { margin-bottom: 8px; opacity: 0.9; }
-        .cs-enquire-link { color: #ffffff; font-size: 1.45rem; text-decoration: underline; font-weight: 600; }
+        .cs-enquire-link {
+          color: #ffffff; font-size: 1.45rem; text-decoration: underline; font-weight: 600;
+          background: transparent; border: 0; padding: 0; cursor: pointer;
+          font-family: inherit; display: inline; line-height: inherit;
+        }
         .cs-enquire-link:hover { opacity: 0.8; }
 
         /* ── Credibility ─────────── */
