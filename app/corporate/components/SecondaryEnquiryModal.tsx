@@ -41,6 +41,10 @@ interface SecondaryEnquiryModalProps {
   initialMobile: string;
   initialCompany?: string;
   initialJobTitle?: string;
+  /** When true (or auto-detected when initial name/email/mobile are all blank),
+      the modal opens as a STANDALONE form: PDF link box hides, intro line hides,
+      and visible name/email/mobile inputs appear above the company row. */
+  standalone?: boolean;
 }
 
 const EMPLOYEE_RANGES = [
@@ -101,7 +105,9 @@ export default function SecondaryEnquiryModal({
   initialMobile,
   initialCompany = '',
   initialJobTitle = '',
+  standalone,
 }: SecondaryEnquiryModalProps) {
+  const isStandalone = standalone ?? (!initialName && !initialEmail && !initialMobile);
   // Pre-filled
   const [name,   setName]   = useState(initialName);
   const [email,  setEmail]  = useState(initialEmail);
@@ -348,6 +354,8 @@ export default function SecondaryEnquiryModal({
             </div>
           ) : (
             <>
+              {!isStandalone && (
+                <>
               {/* PDF download link box (opens in new tab) */}
               <a
                 href="/employer-info.pdf"
@@ -386,6 +394,8 @@ export default function SecondaryEnquiryModal({
               }}>
                 If you have the time you can tell us more about your enquiry here
               </p>
+                </>
+              )}
               <p style={{
                 fontSize: '0.85rem',
                 fontWeight: 300,
@@ -401,6 +411,34 @@ export default function SecondaryEnquiryModal({
 
               {/* Name/email/mobile carried over from the first form — hidden so the
                   user doesn't re-enter, but state stays in sync via the pre-fill props. */}
+              {isStandalone && (
+                <div className="sef-row sef-row--3col" style={{ marginBottom: 18 }}>
+                  <input
+                    type="text" placeholder="Name *"
+                    value={name} onChange={(e) => setName(e.target.value)}
+                    data-invalid={showValidation && name.trim().length === 0 ? "true" : "false"}
+                    className="sef-input"
+                    style={inputStyle}
+                    autoComplete="name"
+                  />
+                  <input
+                    type="email" placeholder="Email *"
+                    value={email} onChange={(e) => setEmail(e.target.value)}
+                    data-invalid={showValidation && email.trim().length === 0 ? "true" : "false"}
+                    className="sef-input"
+                    style={inputStyle}
+                    autoComplete="email"
+                  />
+                  <input
+                    type="tel" placeholder="Mobile *"
+                    value={mobile} onChange={(e) => setMobile(e.target.value)}
+                    data-invalid={showValidation && mobile.trim().length === 0 ? "true" : "false"}
+                    className="sef-input"
+                    style={inputStyle}
+                    autoComplete="tel"
+                  />
+                </div>
+              )}
               <div className="sef-row sef-row--2col" style={{ marginBottom: 18 }}>
                 <input
                   type="text" placeholder="Company name"

@@ -233,6 +233,7 @@ export default function CorporateNav() {
         initialName=""
         initialEmail=""
         initialMobile=""
+        standalone
       />
     </>
   );

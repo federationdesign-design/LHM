@@ -140,6 +140,7 @@ export default function CorporateServicesIndexClient() {
         initialName=""
         initialEmail=""
         initialMobile=""
+        standalone
       />
 
       <style>{`

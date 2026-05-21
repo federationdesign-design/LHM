@@ -180,6 +180,7 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
           initialName=""
           initialEmail=""
           initialMobile=""
+          standalone
         />
       )}
     </>
