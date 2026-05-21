@@ -137,7 +137,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             </div>
           </div>
           {/* PDF tips link, top-right of hero — desktop only (mobile shows it in-form) */}
-          
+          <a
             href="/employer-info.pdf"
             target="_blank"
             rel="noopener noreferrer"
