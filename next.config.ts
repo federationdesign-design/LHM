@@ -99,8 +99,6 @@ const nextConfig: NextConfig = {
       { source: '/pre-booking/', destination: '/book-online', permanent: true },
       { source: '/new-patient', destination: '/book-online', permanent: true },
       { source: '/new-patient/', destination: '/book-online', permanent: true },
-      { source: '/questionnaire', destination: '/contact', permanent: true },
-      { source: '/questionnaire/', destination: '/contact', permanent: true },
       { source: '/form', destination: '/contact', permanent: true },
       { source: '/form/', destination: '/contact', permanent: true },
       { source: '/massage-new-patient-medical-form-redux', destination: '/contact', permanent: true },
