@@ -399,30 +399,8 @@ export default function SecondaryEnquiryModal({
 
               <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 28 }} />
 
-              {/* Pre-filled name/email/mobile (3-col) */}
-              <div className="sef-row sef-row--3col">
-                <input
-                  type="text" placeholder="Name"
-                  value={name} onChange={(e) => setName(e.target.value)}
-                  data-invalid={showValidation && name.trim().length === 0 ? "true" : "false"}
-                  className="sef-input"
-                  style={inputStyle}
-                />
-                <input
-                  type="email" placeholder="Email"
-                  value={email} onChange={(e) => setEmail(e.target.value)}
-                  data-invalid={showValidation && email.trim().length === 0 ? "true" : "false"}
-                  className="sef-input"
-                  style={inputStyle}
-                />
-                <input
-                  type="tel" placeholder="Mobile"
-                  value={mobile} onChange={(e) => setMobile(e.target.value)} required
-                  data-invalid={showValidation && mobile.trim().length === 0 ? "true" : "false"}
-                  className="sef-input"
-                  style={inputStyle}
-                />
-              </div>
+              {/* Name/email/mobile carried over from the first form — hidden so the
+                  user doesn't re-enter, but state stays in sync via the pre-fill props. */}
               <div className="sef-row sef-row--2col" style={{ marginBottom: 18 }}>
                 <input
                   type="text" placeholder="Company name"
