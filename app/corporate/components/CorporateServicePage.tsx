@@ -355,7 +355,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
 
         @media (min-width: 1024px) {
           .cs-hero {
-            min-height: 640px;
+            min-height: 820px;
           }
           .cs-hero-content {
             flex-direction: row;
@@ -369,7 +369,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           }
           .cs-hero-form {
             position: absolute;
-            top: 100px;
+            top: 40px;
             right: 0;
             width: 540px;
             max-width: 540px;
