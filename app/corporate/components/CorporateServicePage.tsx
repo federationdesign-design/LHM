@@ -360,7 +360,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             flex-direction: row;
             align-items: flex-end;
             justify-content: space-between;
-            padding: 60px 32px 60px;
+            padding: 60px 0 60px 32px;
             gap: 48px;
           }
           .cs-hero-text {
@@ -368,6 +368,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           }
           .cs-hero-form {
             flex: 0 0 540px;
+            margin-right: 0;
           }
         }
 
