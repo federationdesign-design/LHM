@@ -46,6 +46,17 @@ export default function CorporateFooter() {
       <div className={styles.footerAddress}>
         96 Cromwell Road,<br />Cambridge,<br />CB1 3EG<br />
         <a href="tel:07765555078" style={{ textDecoration: 'underline' }}>07765 555078</a>
+        <div style={{ marginTop: 16 }}>
+          
+            href="https://www.linkedin.com/company/lucy-hall-massage"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            style={{ display: 'inline-block' }}
+          >
+            <img src="/linked_in.png" alt="LinkedIn" style={{ width: 130, height: 'auto', display: 'block' }} />
+          </a>
+        </div>
       </div>
       <p className={styles.footerHoursTitle}>Opening Times</p>
       <div className={styles.footerHours}>
@@ -66,6 +77,15 @@ export default function CorporateFooter() {
             96 Cromwell Road,<br />Cambridge, CB1 3EG<br />
             <a href="tel:07765555078" style={{ textDecoration: 'underline', color: '#ffffff' }}>07765 555078</a>
           </p>
+          
+            href="https://www.linkedin.com/company/lucy-hall-massage"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            style={{ display: 'inline-block', marginTop: 20 }}
+          >
+            <img src="/linked_in.png" alt="LinkedIn" style={{ width: 150, height: 'auto', display: 'block' }} />
+          </a>
         </div>
 
         <div className={styles.footerCol}>
