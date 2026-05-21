@@ -4,6 +4,12 @@ import type { Metadata } from 'next';
 import { team } from '../../data/team';
 import TeamClient from '../../TeamClient';
 
+// Slugs that should render the corporate variant of the team detail
+// page (no booking widget, no treatments section, CorporateNav/Footer,
+// hero CTA opens SecondaryEnquiryModal). Kept in sync with the corp
+// team index filter in TeamIndexClient.
+const CORP_SLUGS = ['lucy-hall', 'claire'];
+
 export async function generateStaticParams() {
   return Object.keys(team).map((slug) => ({ slug }));
 }
@@ -29,5 +35,6 @@ export default async function TeamPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const member = team[slug];
   if (!member) notFound();
-  return <TeamClient member={member} />;
+  const variant = CORP_SLUGS.includes(slug) ? 'corporate' : 'private';
+  return <TeamClient member={member} variant={variant} />;
 }
