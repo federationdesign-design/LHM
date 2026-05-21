@@ -56,7 +56,7 @@ const services = [
     title: 'Display screen equipment Assessments',
     cta: 'DCS Assessments >>',
     href: '/corporate/services/dse-assessments',
-    img: '/corporate-dsc.jpg',
+    img: '/corporate-dse.jpg',
   },
   {
     n: '2',
