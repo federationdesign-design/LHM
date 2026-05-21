@@ -28,6 +28,8 @@ export type Testimonial = {
   avatar: string;
   /** Star rating out of 5. Defaults to 5 if omitted. */
   rating?: number;
+  /** Optional company logo image path (corp testimonials only) */
+  logo?: string;
 };
 
 export const testimonials: Testimonial[] = [

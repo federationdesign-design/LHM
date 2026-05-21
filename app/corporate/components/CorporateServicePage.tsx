@@ -47,7 +47,7 @@ const services = [
     n: 2,
     title: 'Display Screen Equipment Assessments',
     href: '/corporate/services/dse-assessments',
-    img:  '/corporate-dsc.jpg',
+    img:  '/corporate-dse.jpg',
   },
   {
     n: 3,
