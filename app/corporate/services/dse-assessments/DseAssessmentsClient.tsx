@@ -6,7 +6,7 @@ export default function DscAssessmentsClient() {
   return (
     <CorporateServicePage
       currentSlug="dse-assessments"
-      heroImage="/corporate-dsc.jpg"
+      heroImage="/corporate-dse-assessments-hero-desktop.jpg"
       gallery={[
         '/desk-assessment-img1.jpg',
         '/desk-assessment-img2.jpg',
