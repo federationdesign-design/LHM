@@ -349,7 +349,7 @@ export default function SecondaryEnquiryModal({
           ) : (
             <>
               {/* PDF download link box (opens in new tab) */}
-              
+              <a
                 href="/employer-info.pdf"
                 target="_blank"
                 rel="noopener noreferrer"

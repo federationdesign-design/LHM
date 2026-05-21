@@ -47,7 +47,7 @@ export default function CorporateFooter() {
         96 Cromwell Road,<br />Cambridge,<br />CB1 3EG<br />
         <a href="tel:07765555078" style={{ textDecoration: 'underline' }}>07765 555078</a>
         <div style={{ marginTop: 16 }}>
-          
+          <a
             href="https://www.linkedin.com/company/lucy-hall-massage"
             target="_blank"
             rel="noopener noreferrer"
@@ -77,7 +77,7 @@ export default function CorporateFooter() {
             96 Cromwell Road,<br />Cambridge, CB1 3EG<br />
             <a href="tel:07765555078" style={{ textDecoration: 'underline', color: '#ffffff' }}>07765 555078</a>
           </p>
-          
+          <a
             href="https://www.linkedin.com/company/lucy-hall-massage"
             target="_blank"
             rel="noopener noreferrer"
