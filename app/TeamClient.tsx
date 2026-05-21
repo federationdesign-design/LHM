@@ -8,6 +8,10 @@ import Footer from './Footer';
 import Testimonials from './components/Testimonials/Testimonials';
 import type { TeamMember } from './data/team';
 import FindUsOn from '@/app/components/FindUsOn';
+import CorporateNav from './CorporateNav';
+import CorporateFooter from './CorporateFooter';
+import SecondaryEnquiryModal from './corporate/components/SecondaryEnquiryModal';
+import { corporateTestimonials } from './components/Testimonials/corporate-testimonials-data';
 
 // ── BOOKING WIDGET ────────────────────────────────────────────────────────────
 function BookingWidget({ providerId }: { providerId: string }) {
@@ -65,7 +69,9 @@ function BookingWidget({ providerId }: { providerId: string }) {
 
 // ── LOGO SLIDER ───────────────────────────────────────────────────────────────
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
-export default function TeamClient({ member }: { member: TeamMember }) {
+export default function TeamClient({ member, variant = 'private' }: { member: TeamMember; variant?: 'private' | 'corporate' }) {
+  const isCorp = variant === 'corporate';
+  const [modalOpen, setModalOpen] = useState(false);
   const [navSolid, setNavSolid] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
@@ -84,7 +90,7 @@ export default function TeamClient({ member }: { member: TeamMember }) {
 
   return (
     <>
-      <Nav scrollRef={heroRef} />
+      {isCorp ? <CorporateNav /> : <Nav scrollRef={heroRef} />}
       <main className={styles.page}>
 
         {/* HERO */}
@@ -100,7 +106,11 @@ export default function TeamClient({ member }: { member: TeamMember }) {
           <div className={styles.heroContent}>
             <h1 className={styles.heroH1}>{member.name}</h1>
             <p className={styles.heroSub}>{member.title}</p>
-            <a href="#booking-widget" className={styles.heroBookNow}>BOOK NOW ↓</a>
+            {isCorp ? (
+              <a href="#" onClick={(e) => { e.preventDefault(); setModalOpen(true); }} className={styles.heroBookNow}>Enquire about your team</a>
+            ) : (
+              <a href="#booking-widget" className={styles.heroBookNow}>BOOK NOW ↓</a>
+            )}
           </div>
         </div>
 
@@ -124,7 +134,8 @@ export default function TeamClient({ member }: { member: TeamMember }) {
               <p key={i} style={{ fontSize: '1.125rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.75, marginBottom: 20 }}>{para}</p>
             ))}
 
-            {/* Treatments */}
+            {/* Treatments (hidden on corporate variant) */}
+            {!isCorp && (
             <div style={{ marginTop: 32 }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#ffffff', marginBottom: 16, textAlign: 'center' }}>Treatments offered</h2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
@@ -133,11 +144,12 @@ export default function TeamClient({ member }: { member: TeamMember }) {
                 ))}
               </div>
             </div>
+            )}
           </div>
         </section>
 
-        {/* BOOKING WIDGET - hidden for team members without a widget ID (e.g. corporate-only) */}
-        {member.widgetProviderId && (
+        {/* BOOKING WIDGET - hidden for team members without a widget ID, and on corporate variant */}
+        {!isCorp && member.widgetProviderId && (
           <div id="booking-widget" className={styles.widgetWrapper} style={{ borderTop: '1px solid #ffffff' }}>
             <BookingWidget providerId={member.widgetProviderId} />
           </div>
@@ -147,12 +159,29 @@ export default function TeamClient({ member }: { member: TeamMember }) {
         <div className={styles.divider} />
 
         {/* TESTIMONIALS */}
-        <Testimonials heading="Happy private clients include" />
+        {isCorp ? (
+          <Testimonials
+            items={corporateTestimonials}
+            useLogos
+            heading="Trusted by leading Cambridge companies and businesses including Cambridge University"
+          />
+        ) : (
+          <Testimonials heading="Happy private clients include" />
+        )}
 
         {/* LOGO SLIDER */}
         <FindUsOn />
-        <Footer />
+        {isCorp ? <CorporateFooter /> : <Footer />}
       </main>
+      {isCorp && (
+        <SecondaryEnquiryModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          initialName=""
+          initialEmail=""
+          initialMobile=""
+        />
+      )}
     </>
   );
 }
