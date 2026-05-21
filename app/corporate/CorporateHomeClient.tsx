@@ -261,6 +261,41 @@ const corpTestimonials = [
     company: 'Brand Recruitment',
     logo: '/brand-recruitment.png',
   },
+  {
+    body:
+      '“I highly recommend Lucy Hall massages for anyone looking to bring relaxation and stress relief directly to the workplace. Their professional massage therapist Kat visits our office once a month, offering convenient on-site services that help improve employee well-being and productivity. A fantastic investment in both employee health and company culture.”',
+    name: 'Megan Foster',
+    company: 'People and Culture',
+    logo: '/company-placeholder.png',
+  },
+  {
+    body:
+      '“Lucy is a fantastic Sports Therapist, highly skilled and highly knowledgeable. If you have the opportunity to work together I recommend you take that chance.”',
+    name: 'Will R.',
+    company: 'Technology Center HSE & FAC Manager',
+    logo: '/company-placeholder.png',
+  },
+  {
+    body:
+      '“We used Lucy Hall Massage and her colleagues for the Suffolk & North East Essex Integrated Care System Expo 22 event. Lucy was very happy to help and answer any questions prior to the event, making booking as easy as possible. The team were also very adaptable on the day due to rainfall, but this did not hinder the quality of service. Everyone seemed very pleased with their massages.”',
+    name: 'Robert Perrement',
+    company: 'Suffolk County Council',
+    logo: '/company-placeholder.png',
+  },
+  {
+    body:
+      '“We have had Lucy and her staff visiting our company for years and no matter how frequently they came along, there was always demand and hype. During Covid, Lucy demonstrated her flexibility and adaptability by providing extremely valuable support virtually for us all when we had to work from home. She offers a variety of massage styles and adapts to best suit the needs of her client. Couldn\'t recommend Lucy and her team highly enough.”',
+    name: 'Rebecca Woof',
+    company: 'Redgate Software',
+    logo: '/redgate-logo.png',
+  },
+  {
+    body:
+      '“Lucy spends a day per month with us at Speechmatics. The timetable fills up in a matter of seconds — a testament to how much we love her visits. Aside from being excellent at her job, she always arrives and leaves with a smile on her face and full of enthusiasm.”',
+    name: 'Charlotte Brown',
+    company: 'Speechmatics',
+    logo: '/speechmatics.png',
+  },
 ];
 
 // ── ARROWS ────────────────────────────────────────────────────
@@ -274,6 +309,7 @@ const ChevronRight = ({ size = 24 }: { size?: number }) => (
 
 export default function CorporateHomeClient() {
   const [showAllGallery, setShowAllGallery] = useState(false);
+  const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
   // Mobile carousel state for the testimonials block
   const [activeIdx, setActiveIdx] = useState(0);
@@ -516,9 +552,9 @@ export default function CorporateHomeClient() {
             </div>
           </div>
 
-          {/* Desktop 2-column grid — all 8 visible. Hidden on mobile. */}
+          {/* Desktop 3-column grid — first 9 shown, 5 more behind "Show more". Hidden on mobile. */}
           <div className="corp-credibility-grid">
-            {corpTestimonials.map((t, i) => (
+            {(showAllTestimonials ? corpTestimonials : corpTestimonials.slice(0, 9)).map((t, i) => (
               <div key={i} className="corp-credibility-item">
                 <p className="corp-credibility-body">{t.body}</p>
                 <div className="corp-credibility-attribution">
@@ -536,6 +572,17 @@ export default function CorporateHomeClient() {
               </div>
             ))}
           </div>
+          {!showAllTestimonials && corpTestimonials.length > 9 && (
+            <div className="corp-credibility-more-wrap">
+              <button
+                type="button"
+                onClick={() => setShowAllTestimonials(true)}
+                className="corp-credibility-more-btn"
+              >
+                Show more
+              </button>
+            </div>
+          )}
         </section>
 
         {/* ── GALLERY ──────────────────────────────────────── */}
@@ -1285,6 +1332,33 @@ export default function CorporateHomeClient() {
         }
         .corp-gallery-item:hover .corp-gallery-img {
           transform: scale(1.03);
+        }
+        .corp-credibility-more-wrap {
+          display: none;
+          justify-content: center;
+          margin-top: 40px;
+        }
+        @media (min-width: 768px) {
+          .corp-credibility-more-wrap {
+            display: flex;
+          }
+        }
+        .corp-credibility-more-btn {
+          font-size: 0.82rem;
+          font-weight: 400;
+          text-transform: uppercase;
+          letter-spacing: 0.18em;
+          color: #ffffff;
+          background: transparent;
+          border: 1px solid #ffffff;
+          padding: 14px 36px;
+          cursor: pointer;
+          font-family: inherit;
+          transition: background 0.2s ease, color 0.2s ease;
+        }
+        .corp-credibility-more-btn:hover {
+          background: #ffffff;
+          color: #000000;
         }
         .corp-gallery-more-wrap {
           display: flex;
