@@ -160,12 +160,10 @@ export default function Testimonials({
 /* ── Card subcomponent ────────────────────────────────────── */
 function Card({ t, className, useLogo = false }: { t: Testimonial; className: string; useLogo?: boolean }) {
   const rating = t.rating ?? 5;
+  const showLogo = useLogo && t.logo;
   return (
     <div className={className}>
-      {useLogo && t.logo ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={t.logo} alt={t.title} className={styles.logo} />
-      ) : (
+      {!showLogo && (
         <div className={styles.avatar}>{t.avatar}</div>
       )}
       <h4 className={styles.name}>{t.name}</h4>
@@ -179,6 +177,10 @@ function Card({ t, className, useLogo = false }: { t: Testimonial; className: st
             </span>
           ))}
         </div>
+      )}
+      {showLogo && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={t.logo} alt={t.title} className={styles.logo} />
       )}
       <p className={styles.date}>{t.date}</p>
     </div>
