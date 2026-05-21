@@ -350,7 +350,6 @@ const ChevronRight = ({ size = 24 }: { size?: number }) => (
 export default function CorporateHomeClient() {
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
-  const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
   // Mobile carousel state for the testimonials block
