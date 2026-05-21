@@ -6,7 +6,7 @@
    Corporate reviews page at /reviews. Renders:
      1. Hero: breadcrumb + H1 + intro
      2. Cards section using shared Testimonials component with
-        corporateTestimonials data set (8 entries)
+        corporateTestimonials data set (14 entries)
      3. LinkedIn CTA section with link out to Lucy's profile
         recommendations page
 
@@ -51,7 +51,7 @@ export default function ReviewsClient() {
 
         {/* Testimonial cards (shared component) */}
         <section style={{ padding: '60px 0 60px' }}>
-          <Testimonials items={corporateTestimonials} />
+          <Testimonials items={corporateTestimonials} useLogos />
         </section>
 
         {/* White divider */}
