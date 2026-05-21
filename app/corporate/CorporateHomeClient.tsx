@@ -1097,6 +1097,7 @@ export default function CorporateHomeClient() {
           font-weight: 400;
           color: #ffffff;
           margin: 0 0 32px;
+          text-align: center;
         }
 
         /* Mobile carousel */

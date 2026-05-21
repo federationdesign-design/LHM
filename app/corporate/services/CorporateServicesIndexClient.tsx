@@ -240,7 +240,7 @@ export default function CorporateServicesIndexClient() {
         @media (min-width: 1024px) {
           .cs-credibility { padding: 80px 80px; }
         }
-        .cs-credibility-heading { font-size: 1.4rem; font-weight: 500; margin: 0 0 32px; }
+        .cs-credibility-heading { font-size: 1.4rem; font-weight: 500; margin: 0 0 32px; text-align: center; }
       `}</style>
     </>
   );
