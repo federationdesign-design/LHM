@@ -198,6 +198,7 @@ const gallery: { src: string; alt: string }[] = [
 // /company-placeholder.png is used for companies we don't have a
 // brand logo for.
 const corpTestimonials = [
+  // Position 1
   {
     body:
       '“We use Lucy Hall Massage for our staff wellbeing days at Churchill College, Cambridge University. Lucy is awesome to work with and we get nothing but positive feedback from our staff about the chair massage sessions (which are always fully booked). Five star service and highly recommend!”',
@@ -205,6 +206,7 @@ const corpTestimonials = [
     company: 'Cambridge University',
     logo: '/university-cambridge.png',
   },
+  // Position 2
   {
     body:
       '“The sessions are not only relaxing but also really helpful for posture correction, especially for those of us who spend long hours at our desks. We noticed reduced tension and overall better well-being. It\'s a great way to relieve stress and improve workplace comfort. Thanks for providing this service — it\'s definitely making a positive impact!”',
@@ -212,6 +214,7 @@ const corpTestimonials = [
     company: 'Amazon',
     logo: '/amazon.png',
   },
+  // Position 3
   {
     body:
       '“Lucy and her team are always professional, prompt and provides a friendly service. The entire Spotify office love her and the team! Many members of staff have also used Lucy Hall Massage privately since. Highly recommended!”',
@@ -219,62 +222,7 @@ const corpTestimonials = [
     company: 'Spotify',
     logo: '/spotify.png',
   },
-  {
-    body:
-      '“We have always been big fans of Lucy and her team when they would visit the offices for in-person massages. Unfortunately, due to the current situation we knew those would not be an option for the foreseeable future, but we jumped at the chance to offer the next best thing — zoom consultations with a therapist. Amazing experience! Attendees were able to have 1:1 time with one of Lucy\'s expert team to talk through any niggles, aches and pains they were experiencing, and get personally tailored advice, exercises and stretches to alleviate these. We have been using Lucy Hall massage for years at Redgate, initially for in-person massages and recently the zoom consultations. No matter the format of the interactions the feedback is always the same — expert therapists, actionable advice, personable and professional.”',
-    name: 'Louise Domeisen',
-    company: 'Redgate',
-    logo: '/redgate-logo.png',
-  },
-  {
-    body:
-      '“Lucy and her team have a great reputation in the industry and we wanted the best for our staff. Her team make you feel like you are important, they listen to what you say and advise accordingly, they give their full attention to you during your time and nothing is too much trouble. Lucy\'s team listen to what you need as a business, advising and giving their expertise but happy to do what is good for you and your team. All of our staff come back into the office singing their praises. Lucy feels like a member of our team, part of the family. Everybody looks forward to the days when Lucy and her team come into the office, she is so relaxed and organised makes everyone feel at ease nobody feels uncomfortable and if they do after one visit they realise how important and special she makes you feel you are totally at ease.”',
-    name: 'Maria Slater',
-    company: 'Spotify',
-    logo: '/spotify.png',
-  },
-  {
-    body:
-      '“This review is on behalf of Costello Medical. We regularly use Lucy Hall Massage as part of our ongoing wellbeing initiative and consistently receive excellent feedback from our employees. Lucy takes the time to provide employees with personalised advice and guidance on their posture, which has been highly valued by staff. We look forward to continue working with Lucy in the future.”',
-    name: 'Emma King',
-    company: 'Costello Medical',
-    logo: '/costello-medical.png',
-  },
-  {
-    body:
-      '“We have been regular clients of Lucy for the past two years. Both she and Katerina check our posture at our desks and offer valuable advice that has significantly helped us improve our pain management and overall health. Their visits are always positive, and it is a pleasure to have them in the office.”',
-    name: 'Natasha Gobec',
-    company: 'Softwire',
-    logo: '/softwire-logo.png',
-  },
-  {
-    body:
-      '“We use Lucy Hall as part of supporting Wellbeing for colleagues at the Clinical School, these sessions are always in high demand! Thank you Lucy and your team.”',
-    name: 'Isobel Jordan',
-    company: 'Clinical School of Medicine',
-    logo: '/university-cambridge.png',
-  },
-  {
-    body:
-      '“We\'ve been lucky enough to benefit from Lucy\'s assessments and treatments over the years. It\'s a nice perk to look forward to, yet for others the consultative advice Lucy gives (about work stations, posture, remedial stretches and exercises etc.) has really made a genuine difference to their wellbeing and happiness. I cannot recommend her enough!”',
-    name: 'Steve Mann',
-    company: 'Brand Recruitment',
-    logo: '/brand-recruitment.png',
-  },
-  {
-    body:
-      '“I highly recommend Lucy Hall massages for anyone looking to bring relaxation and stress relief directly to the workplace. Their professional massage therapist Kat visits our office once a month, offering convenient on-site services that help improve employee well-being and productivity. A fantastic investment in both employee health and company culture.”',
-    name: 'Megan Foster',
-    company: 'Speechmatics',
-    logo: '/speechmatics.png',
-  },
-  {
-    body:
-      '“Lucy is a fantastic Sports Therapist, highly skilled and highly knowledgeable. If you have the opportunity to work together I recommend you take that chance.”',
-    name: 'Will R.',
-    company: 'Technology Center HSE & FAC Manager',
-    logo: '/company-placeholder.png',
-  },
+  // Position 4 — Robert Perrement
   {
     body:
       '“We used Lucy Hall Massage and her colleagues for the Suffolk & North East Essex Integrated Care System Expo 22 event. Lucy was very happy to help and answer any questions prior to the event, making booking as easy as possible. The team were also very adaptable on the day due to rainfall, but this did not hinder the quality of service. Everyone seemed very pleased with their massages.”',
@@ -282,6 +230,71 @@ const corpTestimonials = [
     company: 'Suffolk County Council',
     logo: '/suffolk-county-logo.jpg',
   },
+  // Position 5 — Megan Foster (now at Speechmatics)
+  {
+    body:
+      '“I highly recommend Lucy Hall massages for anyone looking to bring relaxation and stress relief directly to the workplace. Their professional massage therapist Kat visits our office once a month, offering convenient on-site services that help improve employee well-being and productivity. A fantastic investment in both employee health and company culture.”',
+    name: 'Megan Foster',
+    company: 'Speechmatics',
+    logo: '/speechmatics.png',
+  },
+  // Position 6 — Emma King
+  {
+    body:
+      '“This review is on behalf of Costello Medical. We regularly use Lucy Hall Massage as part of our ongoing wellbeing initiative and consistently receive excellent feedback from our employees. Lucy takes the time to provide employees with personalised advice and guidance on their posture, which has been highly valued by staff. We look forward to continue working with Lucy in the future.”',
+    name: 'Emma King',
+    company: 'Costello Medical',
+    logo: '/costello-medical.png',
+  },
+  // Position 7 — Louise Domeisen
+  {
+    body:
+      '“We have always been big fans of Lucy and her team when they would visit the offices for in-person massages. Unfortunately, due to the current situation we knew those would not be an option for the foreseeable future, but we jumped at the chance to offer the next best thing — zoom consultations with a therapist. Amazing experience! Attendees were able to have 1:1 time with one of Lucy\'s expert team to talk through any niggles, aches and pains they were experiencing, and get personally tailored advice, exercises and stretches to alleviate these. We have been using Lucy Hall massage for years at Redgate, initially for in-person massages and recently the zoom consultations. No matter the format of the interactions the feedback is always the same — expert therapists, actionable advice, personable and professional.”',
+    name: 'Louise Domeisen',
+    company: 'Redgate',
+    logo: '/redgate-logo.png',
+  },
+  // Position 8 — Maria Slater
+  {
+    body:
+      '“Lucy and her team have a great reputation in the industry and we wanted the best for our staff. Her team make you feel like you are important, they listen to what you say and advise accordingly, they give their full attention to you during your time and nothing is too much trouble. Lucy\'s team listen to what you need as a business, advising and giving their expertise but happy to do what is good for you and your team. All of our staff come back into the office singing their praises. Lucy feels like a member of our team, part of the family. Everybody looks forward to the days when Lucy and her team come into the office, she is so relaxed and organised makes everyone feel at ease nobody feels uncomfortable and if they do after one visit they realise how important and special she makes you feel you are totally at ease.”',
+    name: 'Maria Slater',
+    company: 'Spotify',
+    logo: '/spotify.png',
+  },
+  // Position 9 — Natasha Gobec
+  {
+    body:
+      '“We have been regular clients of Lucy for the past two years. Both she and Katerina check our posture at our desks and offer valuable advice that has significantly helped us improve our pain management and overall health. Their visits are always positive, and it is a pleasure to have them in the office.”',
+    name: 'Natasha Gobec',
+    company: 'Softwire',
+    logo: '/softwire-logo.png',
+  },
+  // Position 10 — Isobel Jordan
+  {
+    body:
+      '“We use Lucy Hall as part of supporting Wellbeing for colleagues at the Clinical School, these sessions are always in high demand! Thank you Lucy and your team.”',
+    name: 'Isobel Jordan',
+    company: 'Clinical School of Medicine',
+    logo: '/university-cambridge.png',
+  },
+  // Position 11 — Steve Mann
+  {
+    body:
+      '“We\'ve been lucky enough to benefit from Lucy\'s assessments and treatments over the years. It\'s a nice perk to look forward to, yet for others the consultative advice Lucy gives (about work stations, posture, remedial stretches and exercises etc.) has really made a genuine difference to their wellbeing and happiness. I cannot recommend her enough!”',
+    name: 'Steve Mann',
+    company: 'Brand Recruitment',
+    logo: '/brand-recruitment.png',
+  },
+  // Position 12 — Will R.
+  {
+    body:
+      '“Lucy is a fantastic Sports Therapist, highly skilled and highly knowledgeable. If you have the opportunity to work together I recommend you take that chance.”',
+    name: 'Will R.',
+    company: 'Technology Center HSE & FAC Manager',
+    logo: '/company-placeholder.png',
+  },
+  // Position 13 — Rebecca Woof
   {
     body:
       '“We have had Lucy and her staff visiting our company for years and no matter how frequently they came along, there was always demand and hype. During Covid, Lucy demonstrated her flexibility and adaptability by providing extremely valuable support virtually for us all when we had to work from home. She offers a variety of massage styles and adapts to best suit the needs of her client. Couldn\'t recommend Lucy and her team highly enough.”',
@@ -289,6 +302,7 @@ const corpTestimonials = [
     company: 'Redgate Software',
     logo: '/redgate-logo.png',
   },
+  // Position 14 — Charlotte Brown
   {
     body:
       '“Lucy spends a day per month with us at Speechmatics. The timetable fills up in a matter of seconds — a testament to how much we love her visits. Aside from being excellent at her job, she always arrives and leaves with a smile on her face and full of enthusiasm.”',
