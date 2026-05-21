@@ -41,19 +41,39 @@ type TestimonialsProps = {
   items?: Testimonial[];
   /** Optional className applied to the outer <section> for layout tweaks. */
   className?: string;
+  /** When true, render Card with company logo instead of avatar initial. */
+  useLogos?: boolean;
+  /** When set, only show this many cards initially on desktop; rest behind a Show more button. */
+  initialVisible?: number;
+  /** When set, start the visible window at this index (used for service pages to vary which testimonials lead). */
+  startIndex?: number;
 };
 
 export default function Testimonials({
   heading,
   items = defaultTestimonials,
   className,
+  useLogos = false,
+  initialVisible,
+  startIndex = 0,
 }: TestimonialsProps) {
-  const total = items.length;
+  const [showAll, setShowAll] = useState(false);
+
+  // Apply startIndex rotation so different pages lead with different testimonials.
+  const rotated = startIndex > 0 && items.length > 0
+    ? [...items.slice(startIndex), ...items.slice(0, startIndex)]
+    : items;
+
+  // Apply initialVisible cap on desktop grid only.
+  const desktopItems = initialVisible !== undefined && !showAll
+    ? rotated.slice(0, initialVisible)
+    : rotated;
+  const total = rotated.length;
 
   // Extended array: [last, ...all, first] enables seamless loop on the
   // mobile carousel by snapping back without animation when we hit
   // index 0 or index total+1.
-  const extended = total > 0 ? [items[total - 1], ...items, items[0]] : [];
+  const extended = total > 0 ? [rotated[total - 1], ...rotated, rotated[0]] : [];
 
   const [index, setIndex] = useState(1);
   const [animate, setAnimate] = useState(true);
@@ -99,13 +119,13 @@ export default function Testimonials({
         }}
       >
         {extended.map((t, i) => (
-          <Card key={`${t.id}-${i}`} t={t} className={styles.slide} />
+          <Card key={`${t.id}-${i}`} t={t} className={styles.slide} useLogo={useLogos} />
         ))}
       </div>
 
       {/* Mobile dots — hidden ≥1025px via CSS */}
       <div className={styles.dots}>
-        {items.map((_, i) => (
+        {rotated.map((_, i) => (
           <button
             key={i}
             type="button"
@@ -118,30 +138,48 @@ export default function Testimonials({
 
       {/* Desktop 3-col grid — hidden <1025px via CSS */}
       <div className={styles.grid}>
-        {items.map((t) => (
-          <Card key={t.id} t={t} className={styles.gridSlide} />
+        {desktopItems.map((t) => (
+          <Card key={t.id} t={t} className={styles.gridSlide} useLogo={useLogos} />
         ))}
       </div>
+      {initialVisible !== undefined && !showAll && rotated.length > initialVisible && (
+        <div className={styles.moreWrap}>
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className={styles.moreBtn}
+          >
+            Show more
+          </button>
+        </div>
+      )}
     </section>
   );
 }
 
 /* ── Card subcomponent ────────────────────────────────────── */
-function Card({ t, className }: { t: Testimonial; className: string }) {
+function Card({ t, className, useLogo = false }: { t: Testimonial; className: string; useLogo?: boolean }) {
   const rating = t.rating ?? 5;
   return (
     <div className={className}>
-      <div className={styles.avatar}>{t.avatar}</div>
+      {useLogo && t.logo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={t.logo} alt={t.title} className={styles.logo} />
+      ) : (
+        <div className={styles.avatar}>{t.avatar}</div>
+      )}
       <h4 className={styles.name}>{t.name}</h4>
       <p className={styles.title}>{t.title}</p>
       <p className={styles.body}>{t.body}</p>
-      <div className={styles.stars}>
-        {Array.from({ length: rating }).map((_, j) => (
-          <span key={j} className={styles.star}>
-            ★
-          </span>
-        ))}
-      </div>
+      {!useLogo && (
+        <div className={styles.stars}>
+          {Array.from({ length: rating }).map((_, j) => (
+            <span key={j} className={styles.star}>
+              ★
+            </span>
+          ))}
+        </div>
+      )}
       <p className={styles.date}>{t.date}</p>
     </div>
   );

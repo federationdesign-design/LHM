@@ -224,3 +224,41 @@
     font-size: 0.972rem;
   }
 }
+
+/* ── Logo variant (corp testimonials with company logos) ──── */
+.logo {
+  display: block;
+  max-width: 120px;
+  max-height: 60px;
+  width: auto;
+  height: auto;
+  margin: 0 auto 14px;
+  object-fit: contain;
+}
+.moreWrap {
+  display: none;
+  justify-content: center;
+  margin-top: 40px;
+}
+.moreBtn {
+  font-size: 0.82rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid #ffffff;
+  padding: 14px 36px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.moreBtn:hover {
+  background: #ffffff;
+  color: #000000;
+}
+@media (min-width: 1025px) {
+  .moreWrap {
+    display: flex;
+  }
+}
