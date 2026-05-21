@@ -687,6 +687,47 @@ export default function SecondaryEnquiryModal({
         .sef-input[data-invalid="true"] {
           box-shadow: 0 0 0 2px #ff8c00;
         }
+        .intake-checkbox-wrap {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          cursor: pointer;
+          width: 100%;
+        }
+        .intake-checkbox-input {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+          pointer-events: none;
+        }
+        .intake-checkbox-box {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          min-width: 24px;
+          border: 2px solid #ffffff;
+          border-radius: 6px;
+          background: transparent;
+          margin-top: 1px;
+          flex-shrink: 0;
+          transition: border-color 0.2s ease;
+        }
+        .intake-checkbox-tick {
+          width: 18px;
+          height: 18px;
+          opacity: 0;
+          transition: opacity 0.15s ease;
+        }
+        .intake-checkbox-input:checked + .intake-checkbox-box .intake-checkbox-tick {
+          opacity: 1;
+        }
+        .intake-checkbox-input:focus-visible + .intake-checkbox-box {
+          outline: 2px solid #ffffff;
+          outline-offset: 2px;
+        }
       `}</style>
     </>
   );
