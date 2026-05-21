@@ -67,6 +67,8 @@ export default function InlineEnquiryForm({
   const [name, setName]     = useState('');
   const [email, setEmail]   = useState('');
   const [mobile, setMobile] = useState('');
+  const [company, setCompany] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
   const [methods, setMethods] = useState<string[]>([]);
 
   const [submitting, setSubmitting] = useState(false);
@@ -133,6 +135,8 @@ export default function InlineEnquiryForm({
           name: name.trim(),
           email: email.trim(),
           mobile: mobile.trim(),
+          company: company.trim(),
+          jobTitle: jobTitle.trim(),
           contactMethods: methods,
           recaptchaToken,
         }),
@@ -288,6 +292,26 @@ export default function InlineEnquiryForm({
             className="intake-input"
             style={inputStyle}
             autoComplete="tel"
+          />
+          <input
+            type="text"
+            placeholder="Company name"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            className="intake-input"
+            style={inputStyle}
+            autoComplete="organization"
+            maxLength={120}
+          />
+          <input
+            type="text"
+            placeholder="Job title"
+            value={jobTitle}
+            onChange={(e) => setJobTitle(e.target.value)}
+            className="intake-input"
+            style={inputStyle}
+            autoComplete="organization-title"
+            maxLength={120}
           />
         </div>
 

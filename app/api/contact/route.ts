@@ -35,6 +35,8 @@ type RequestBody = {
   name?: string;
   email?: string;
   phone?: string;
+  company?: string;
+  jobTitle?: string;
   message?: string;
   consent?: boolean;
   /** reCAPTCHA v3 token from the client */
@@ -176,6 +178,8 @@ export async function POST(request: NextRequest) {
   const name = body.name!.trim();
   const email = body.email!.trim();
   const phone = body.phone?.trim() || '';
+  const company = body.company?.trim() || '';
+  const jobTitle = body.jobTitle?.trim() || '';
   const message = body.message!.trim();
 
   // ── NOTIFICATION EMAIL TO TEAM ──────────────────────────────────────────────
@@ -198,6 +202,8 @@ export async function POST(request: NextRequest) {
     `Name: ${name}`,
     `Email: ${email}`,
     `Phone: ${phone || '(not provided)'}`,
+    company ? `Company: ${company}` : '',
+    jobTitle ? `Job title: ${jobTitle}` : '',
     `Submitted: ${submittedAt}`,
     '',
     'Message:',
@@ -214,6 +220,8 @@ export async function POST(request: NextRequest) {
     <tr><td style="padding: 6px 12px 6px 0; font-weight: 600; vertical-align: top; width: 100px;">Name</td><td style="padding: 6px 0;">${escapeHtml(name)}</td></tr>
     <tr><td style="padding: 6px 12px 6px 0; font-weight: 600; vertical-align: top;">Email</td><td style="padding: 6px 0;"><a href="mailto:${escapeHtml(email)}" style="color: #1a1a1a;">${escapeHtml(email)}</a></td></tr>
     <tr><td style="padding: 6px 12px 6px 0; font-weight: 600; vertical-align: top;">Phone</td><td style="padding: 6px 0;">${phone ? escapeHtml(phone) : '<em style="color: #888;">not provided</em>'}</td></tr>
+    ${company ? `<tr><td style="padding: 6px 12px 6px 0; font-weight: 600; vertical-align: top;">Company</td><td style="padding: 6px 0;">${escapeHtml(company)}</td></tr>` : ''}
+    ${jobTitle ? `<tr><td style="padding: 6px 12px 6px 0; font-weight: 600; vertical-align: top;">Job title</td><td style="padding: 6px 0;">${escapeHtml(jobTitle)}</td></tr>` : ''}
     <tr><td style="padding: 6px 12px 6px 0; font-weight: 600; vertical-align: top;">Submitted</td><td style="padding: 6px 0;">${escapeHtml(submittedAt)}</td></tr>
   </table>
   <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />

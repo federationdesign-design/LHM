@@ -75,12 +75,14 @@ async function verifyRecaptcha(token: string): Promise<{
 // ── Email body builders ───────────────────────────────────────
 function buildNotificationEmail(opts: {
   name: string;
+  company?: string;
+  jobTitle?: string;
   email: string;
   mobile: string;
   contactMethods: string[];
   recaptchaScore?: number;
 }) {
-  const { name, email, mobile, contactMethods, recaptchaScore } = opts;
+  const { name, email, mobile, company, jobTitle, contactMethods, recaptchaScore } = opts;
   const methodsLabels = contactMethods
     .map((m) => METHOD_LABELS[m] || m)
     .join(', ');
@@ -102,6 +104,14 @@ function buildNotificationEmail(opts: {
           <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Mobile:</td>
           <td style="padding: 8px 0;"><a href="tel:${escapeHtml(mobile)}">${escapeHtml(mobile)}</a></td>
         </tr>
+        ${company ? `<tr>
+          <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Company:</td>
+          <td style="padding: 8px 0;">${escapeHtml(company)}</td>
+        </tr>` : ''}
+        ${jobTitle ? `<tr>
+          <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Job title:</td>
+          <td style="padding: 8px 0;">${escapeHtml(jobTitle)}</td>
+        </tr>` : ''}
         <tr>
           <td style="padding: 8px 0; font-weight: 600; vertical-align: top;">Preferred contact:</td>
           <td style="padding: 8px 0;">${methodsDisplay}</td>
@@ -222,6 +232,7 @@ export async function POST(request: Request) {
     // Legacy secondary fields (kept for backward compat)
     phone?: string;
     company?: string;
+    jobTitle?: string;
     domain?: string;
     postcode?: string;
     position?: string;
@@ -247,6 +258,8 @@ export async function POST(request: Request) {
   const name   = (body.name   || '').trim();
   const email  = (body.email  || '').trim();
   const mobile = (body.mobile || '').trim();
+  const company = (body.company || '').trim();
+  const jobTitle = (body.jobTitle || '').trim();
   const contactMethods = Array.isArray(body.contactMethods)
     ? body.contactMethods.filter((m) => typeof m === 'string')
     : [];
@@ -520,7 +533,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const notification  = buildNotificationEmail({ name, email, mobile, contactMethods, recaptchaScore: recaptcha.score });
+  const notification  = buildNotificationEmail({ name, email, mobile, company, jobTitle, contactMethods, recaptchaScore: recaptcha.score });
   // Derive PDF URL from request host so emails work across staging + production
   const proto = request.headers.get('x-forwarded-proto') || 'https';
   const host = request.headers.get('host') || 'lucyhallmassage.com';

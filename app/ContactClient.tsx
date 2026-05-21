@@ -120,6 +120,8 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [company, setCompany] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
   const [message, setMessage] = useState('');
   const [consent, setConsent] = useState(false);
 
@@ -427,6 +429,31 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
                     className="ct-input"
                     data-invalid={showValidation && phone.trim().length === 0 ? "true" : "false"}
                   />
+
+                  {variant === 'corporate' && (
+                    <>
+                      <input
+                        type="text"
+                        placeholder="Company name"
+                        value={company}
+                        onChange={e => setCompany(e.target.value)}
+                        maxLength={120}
+                        style={inputStyle}
+                        className="ct-input"
+                        autoComplete="organization"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Job title"
+                        value={jobTitle}
+                        onChange={e => setJobTitle(e.target.value)}
+                        maxLength={120}
+                        style={inputStyle}
+                        className="ct-input"
+                        autoComplete="organization-title"
+                      />
+                    </>
+                  )}
 
                   <textarea
                     rows={6}
