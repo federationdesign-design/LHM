@@ -147,13 +147,6 @@ export default function InlineEnquiryForm({
         throw new Error(data.error || `Server error (${res.status})`);
       }
 
-      // Trigger browser to download the employer PDF immediately
-      const dl = document.createElement('a');
-      dl.href = '/employer-info.pdf';
-      dl.download = '';
-      document.body.appendChild(dl);
-      dl.click();
-      document.body.removeChild(dl);
       setSuccess(true);
       setModalOpen(true);
     } catch (err) {

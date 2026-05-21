@@ -348,31 +348,49 @@ export default function SecondaryEnquiryModal({
             </div>
           ) : (
             <>
-              <h2 style={{
-                fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)',
-                fontWeight: 400,
-                lineHeight: 1.4,
-                textAlign: 'center',
-                margin: '0 auto 24px',
-                maxWidth: 800,
-              }}>
-                Tell us a bit more so Lucy can tailor a response to you.
-              </h2>
-
-              <h3 style={{
-                fontSize: '1.6rem',
-                fontWeight: 600,
-                textAlign: 'center',
-                margin: '0 0 8px',
-                lineHeight: 1.2,
-              }}>
-                A few extra details
-              </h3>
+              {/* PDF download link box (opens in new tab) */}
+              
+                href="/employer-info.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 16,
+                  maxWidth: 600,
+                  margin: '0 auto 32px',
+                  padding: '16px 24px',
+                  border: '1px solid rgba(255,255,255,0.6)',
+                  borderRadius: 4,
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  transition: 'background 0.2s ease',
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.08)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; }}
+              >
+                <img src="/pdf-icon.png" alt="" style={{ width: 48, height: 'auto', flexShrink: 0 }} />
+                <span style={{ fontSize: '1.05rem', fontWeight: 500, lineHeight: 1.3 }}>
+                  View the Staff wellbeing employer PDF now
+                </span>
+              </a>
               <p style={{
                 fontSize: '1rem',
                 fontWeight: 300,
                 textAlign: 'center',
-                opacity: 0.8,
+                opacity: 0.85,
+                margin: '0 auto 24px',
+                maxWidth: 700,
+                lineHeight: 1.5,
+              }}>
+                If you have the time you can tell us more about your enquiry here
+              </p>
+              <p style={{
+                fontSize: '0.85rem',
+                fontWeight: 300,
+                textAlign: 'center',
+                opacity: 0.6,
                 margin: '0 0 24px',
                 lineHeight: 1.5,
               }}>
