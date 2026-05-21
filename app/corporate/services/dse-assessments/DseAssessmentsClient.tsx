@@ -42,6 +42,7 @@ export default function DscAssessmentsClient() {
           body: 'Home setups are often where the problems start. We extend assessments to remote and hybrid workers via video consultation, with the same depth as on-site reviews.',
         },
       ]}
+      testimonialStartIndex={6}
     />
   );
 }

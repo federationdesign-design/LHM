@@ -42,6 +42,7 @@ export default function PostureConsultationsClient() {
           body: 'Identifying issues early — before they become chronic — saves time, sick days, and discomfort later. Posture consultations are one of the highest-ROI wellbeing investments a business can make.',
         },
       ]}
+      testimonialStartIndex={9}
     />
   );
 }

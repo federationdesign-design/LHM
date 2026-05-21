@@ -42,6 +42,7 @@ export default function InChairMassageClient() {
           body: 'Each session includes posture observations and small adjustments. Over time, employees become more aware of their working posture and ergonomics — preventing the small daily habits that turn into chronic pain.',
         },
       ]}
+      testimonialStartIndex={3}
     />
   );
 }

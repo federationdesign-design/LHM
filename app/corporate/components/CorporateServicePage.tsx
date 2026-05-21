@@ -83,10 +83,13 @@ export interface CorporateServicePageProps {
   benefits: { title: string; body: string }[];
   /** Optional gallery images shown below the hero. */
   gallery?: string[];
+  /** Index into corporateTestimonials to start displaying from. Defaults to 0. */
+  testimonialStartIndex?: number;
 }
 
 // ── COMPONENT ─────────────────────────────────────────────────
 export default function CorporateServicePage(props: CorporateServicePageProps) {
+  const testimonialStartIndex = props.testimonialStartIndex ?? 0;
   const otherServices = services.filter(
     (s) => !props.currentSlug || !s.href.endsWith(props.currentSlug)
   );
@@ -196,8 +199,11 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         {/* ── TESTIMONIALS ──────────────────────────────────── */}
         <section style={{ padding: '40px 0 20px' }}>
           <Testimonials
-            heading="Happy corporate clients include"
-            items={corporateTestimonials.slice(0, 3)}
+            heading="Trusted by Leading Cambridge Companies and businesses Including Cambridge University"
+            items={corporateTestimonials}
+            useLogos
+            initialVisible={3}
+            startIndex={testimonialStartIndex}
           />
         </section>
 
