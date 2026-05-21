@@ -191,6 +191,32 @@ const gallery: { src: string; alt: string }[] = [
   { src: '/Lucy-Hall-Massage-Corporate-massage12.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage13.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage14.jpg', alt: 'Corporate massage session' },
+  // 39-63: Legacy gallery images (revealed by second Show more)
+  { src: '/lucy-hall-massage-23.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-25.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-36.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-42.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-44.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-47.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-57.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-74.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-95.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-96.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-112.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-114.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-116.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-124.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-160.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-177.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-202.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-218.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-223.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-227.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-228.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-232.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-233.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-235.jpg', alt: 'Massage therapy session' },
+  { src: '/lucy-hall-massage-236.jpg', alt: 'Massage therapy session' },
 ];
 
 // ── TESTIMONIALS ──────────────────────────────────────────────
@@ -323,6 +349,7 @@ const ChevronRight = ({ size = 24 }: { size?: number }) => (
 
 export default function CorporateHomeClient() {
   const [showAllGallery, setShowAllGallery] = useState(false);
+  const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
   // Mobile carousel state for the testimonials block
@@ -603,7 +630,7 @@ export default function CorporateHomeClient() {
         <section className="corp-gallery">
           <h2 className="corp-gallery-heading">Gallery</h2>
           <div className="corp-gallery-grid">
-            {gallery.slice(0, showAllGallery ? gallery.length : 20).map((g, i) => (
+            {gallery.slice(0, showAllLegacyGallery ? gallery.length : showAllGallery ? 38 : 20).map((g, i) => (
               <div
                 key={i}
                 className="corp-gallery-item"
@@ -624,6 +651,17 @@ export default function CorporateHomeClient() {
               <button
                 type="button"
                 onClick={() => setShowAllGallery(true)}
+                className="corp-gallery-more-btn"
+              >
+                Show more
+              </button>
+            </div>
+          )}
+          {showAllGallery && !showAllLegacyGallery && gallery.length > 38 && (
+            <div className="corp-gallery-more-wrap">
+              <button
+                type="button"
+                onClick={() => setShowAllLegacyGallery(true)}
                 className="corp-gallery-more-btn"
               >
                 Show more
