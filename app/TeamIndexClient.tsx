@@ -7,6 +7,8 @@ import Nav from './Nav';
 import CorporateNav from './CorporateNav';
 import Footer from './Footer';
 import CorporateFooter from './CorporateFooter';
+import Testimonials from './components/Testimonials/Testimonials';
+import { corporateTestimonials } from './components/Testimonials/corporate-testimonials-data';
 
 const members = [
   {
@@ -170,6 +172,16 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
           ))}
         </div>
 
+        {isCorpVariant && (
+          <section style={{ padding: '40px 0 60px' }}>
+            <Testimonials
+              heading="Trusted by leading Cambridge companies and businesses including Cambridge University"
+              items={corporateTestimonials}
+              useLogos
+              initialVisible={9}
+            />
+          </section>
+        )}
 
         {variant === 'corporate' ? <CorporateFooter /> : <Footer />}
 
