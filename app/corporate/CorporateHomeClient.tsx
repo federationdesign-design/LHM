@@ -200,6 +200,13 @@ const gallery: { src: string; alt: string }[] = [
 const corpTestimonials = [
   {
     body:
+      '“We use Lucy Hall Massage for our staff wellbeing days at Churchill College, Cambridge University. Lucy is awesome to work with and we get nothing but positive feedback from our staff about the chair massage sessions (which are always fully booked). Five star service and highly recommend!”',
+    name: 'Louise Ranger',
+    company: 'Cambridge University',
+    logo: '/university-cambridge.png',
+  },
+  {
+    body:
       '“We have always been big fans of Lucy and her team when they would visit the offices for in-person massages. Unfortunately, due to the current situation we knew those would not be an option for the foreseeable future, but we jumped at the chance to offer the next best thing — zoom consultations with a therapist. Amazing experience! Attendees were able to have 1:1 time with one of Lucy\'s expert team to talk through any niggles, aches and pains they were experiencing, and get personally tailored advice, exercises and stretches to alleviate these. We have been using Lucy Hall massage for years at Redgate, initially for in-person massages and recently the zoom consultations. No matter the format of the interactions the feedback is always the same — expert therapists, actionable advice, personable and professional.”',
     name: 'Louise Domeisen',
     company: 'Redgate',
@@ -1096,8 +1103,8 @@ export default function CorporateHomeClient() {
           }
           .corp-credibility-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px 60px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 60px 40px;
           }
         }
 
