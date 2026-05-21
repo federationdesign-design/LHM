@@ -668,7 +668,7 @@ export default function PrivateHomeClient() {
 
         <section style={{ padding: '80px 24px 30px', maxWidth: 1400, margin: '0 auto' }}>
           <p style={{
-            fontSize: 'clamp(1.95rem, 2.2vw, 2.34rem)',
+            fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
             color: '#ffffff',
             fontWeight: 600,
             lineHeight: 1.3,
