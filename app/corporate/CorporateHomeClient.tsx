@@ -265,8 +265,8 @@ const corpTestimonials = [
     body:
       '“I highly recommend Lucy Hall massages for anyone looking to bring relaxation and stress relief directly to the workplace. Their professional massage therapist Kat visits our office once a month, offering convenient on-site services that help improve employee well-being and productivity. A fantastic investment in both employee health and company culture.”',
     name: 'Megan Foster',
-    company: 'People and Culture',
-    logo: '/company-placeholder.png',
+    company: 'Speechmatics',
+    logo: '/speechmatics.png',
   },
   {
     body:
@@ -280,7 +280,7 @@ const corpTestimonials = [
       '“We used Lucy Hall Massage and her colleagues for the Suffolk & North East Essex Integrated Care System Expo 22 event. Lucy was very happy to help and answer any questions prior to the event, making booking as easy as possible. The team were also very adaptable on the day due to rainfall, but this did not hinder the quality of service. Everyone seemed very pleased with their massages.”',
     name: 'Robert Perrement',
     company: 'Suffolk County Council',
-    logo: '/company-placeholder.png',
+    logo: '/suffolk-county-logo.jpg',
   },
   {
     body:
