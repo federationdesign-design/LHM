@@ -342,6 +342,25 @@ export default function InlineEnquiryForm({
           </div>
         </div>
 
+        <label htmlFor="inline-consent" className="intake-checkbox-wrap" style={{ marginBottom: 18, cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            id="inline-consent"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            className="intake-checkbox-input"
+            data-invalid={showValidation && !consent ? "true" : "false"}
+          />
+          <span className="intake-checkbox-box" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
+              <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <span style={{ fontSize: '0.85rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.4 }}>
+            I agree to Lucy Hall Massage Therapy contacting me in response to this enquiry. My data will be handled in accordance with the <a href="/legal/privacy-policy" target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff', textDecoration: 'underline' }}>Privacy Policy</a>. *
+          </span>
+        </label>
+
         {error && (
           <div style={{
             marginBottom: 16,
