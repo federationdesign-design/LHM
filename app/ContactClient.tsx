@@ -6,6 +6,7 @@ import Nav from './Nav';
 import Footer from './Footer';
 import CorporateNav from './CorporateNav';
 import CorporateFooter from './CorporateFooter';
+import SecondaryEnquiryModal from './corporate/components/SecondaryEnquiryModal';
 
 /* ─────────────────────────────────────────────────────────────
    ContactClient — /contact page.
@@ -132,6 +133,7 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
   // Submission state
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   // Flips true on first submit attempt — drives whether the inline
   // validation message under the button is shown.
@@ -238,6 +240,8 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
       name,
       email,
       phone,
+      company,
+      jobTitle,
       message,
       consent,
       recaptchaToken,
@@ -258,6 +262,9 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
       }
       setSubmitting(false);
       setSent(true);
+      if (variant === 'corporate') {
+        setModalOpen(true);
+      }
     } catch (err) {
       setSubmitError('Network error — please check your connection and try again.');
       setSubmitting(false);
@@ -603,6 +610,15 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
           outline-offset: 2px;
         }
       `}</style>
+      {variant === 'corporate' && (
+        <SecondaryEnquiryModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          initialName={name}
+          initialEmail={email}
+          initialMobile={phone}
+        />
+      )}
     </>
   );
 }
