@@ -207,6 +207,20 @@ const corpTestimonials = [
   },
   {
     body:
+      '“The sessions are not only relaxing but also really helpful for posture correction, especially for those of us who spend long hours at our desks. We noticed reduced tension and overall better well-being. It\'s a great way to relieve stress and improve workplace comfort. Thanks for providing this service — it\'s definitely making a positive impact!”',
+    name: 'Nataliia Matsuk',
+    company: 'Amazon',
+    logo: '/amazon.png',
+  },
+  {
+    body:
+      '“Lucy and her team are always professional, prompt and provides a friendly service. The entire Spotify office love her and the team! Many members of staff have also used Lucy Hall Massage privately since. Highly recommended!”',
+    name: 'Ginelle Richardson',
+    company: 'Spotify',
+    logo: '/spotify.png',
+  },
+  {
+    body:
       '“We have always been big fans of Lucy and her team when they would visit the offices for in-person massages. Unfortunately, due to the current situation we knew those would not be an option for the foreseeable future, but we jumped at the chance to offer the next best thing — zoom consultations with a therapist. Amazing experience! Attendees were able to have 1:1 time with one of Lucy\'s expert team to talk through any niggles, aches and pains they were experiencing, and get personally tailored advice, exercises and stretches to alleviate these. We have been using Lucy Hall massage for years at Redgate, initially for in-person massages and recently the zoom consultations. No matter the format of the interactions the feedback is always the same — expert therapists, actionable advice, personable and professional.”',
     name: 'Louise Domeisen',
     company: 'Redgate',
@@ -225,20 +239,6 @@ const corpTestimonials = [
     name: 'Emma King',
     company: 'Costello Medical',
     logo: '/costello-medical.png',
-  },
-  {
-    body:
-      '“Lucy and her team are always professional, prompt and provides a friendly service. The entire Spotify office love her and the team! Many members of staff have also used Lucy Hall Massage privately since. Highly recommended!”',
-    name: 'Ginelle Richardson',
-    company: 'Spotify',
-    logo: '/spotify.png',
-  },
-  {
-    body:
-      '“The sessions are not only relaxing but also really helpful for posture correction, especially for those of us who spend long hours at our desks. We noticed reduced tension and overall better well-being. It\'s a great way to relieve stress and improve workplace comfort. Thanks for providing this service — it\'s definitely making a positive impact!”',
-    name: 'Nataliia Matsuk',
-    company: 'Amazon',
-    logo: '/amazon.png',
   },
   {
     body:
