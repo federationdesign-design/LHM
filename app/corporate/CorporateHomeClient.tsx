@@ -217,7 +217,7 @@ const corpTestimonials = [
       '“This review is on behalf of Costello Medical. We regularly use Lucy Hall Massage as part of our ongoing wellbeing initiative and consistently receive excellent feedback from our employees. Lucy takes the time to provide employees with personalised advice and guidance on their posture, which has been highly valued by staff. We look forward to continue working with Lucy in the future.”',
     name: 'Emma King',
     company: 'Costello Medical',
-    logo: '/softwire-logo.png',
+    logo: '/costello-medical.png',
   },
   {
     body:
@@ -238,7 +238,7 @@ const corpTestimonials = [
       '“We have been regular clients of Lucy for the past two years. Both she and Katerina check our posture at our desks and offer valuable advice that has significantly helped us improve our pain management and overall health. Their visits are always positive, and it is a pleasure to have them in the office.”',
     name: 'Natasha Gobec',
     company: 'Softwire',
-    logo: '/brand-recruitment.png',
+    logo: '/softwire-logo.png',
   },
   {
     body:
@@ -252,7 +252,7 @@ const corpTestimonials = [
       '“We\'ve been lucky enough to benefit from Lucy\'s assessments and treatments over the years. It\'s a nice perk to look forward to, yet for others the consultative advice Lucy gives (about work stations, posture, remedial stretches and exercises etc.) has really made a genuine difference to their wellbeing and happiness. I cannot recommend her enough!”',
     name: 'Steve Mann',
     company: 'Brand Recruitment',
-    logo: '/costello-medical.png',
+    logo: '/brand-recruitment.png',
   },
 ];
 
