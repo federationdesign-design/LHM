@@ -372,7 +372,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           .cs-hero-form {
             position: absolute;
             top: 120px;
-            right: -100px;
+            right: -200px;
             width: 540px;
             max-width: 540px;
             flex: none;
