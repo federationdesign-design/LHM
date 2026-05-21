@@ -368,8 +368,14 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             flex: 1 1 50%;
           }
           .cs-hero-form {
-            flex: 0 0 540px;
-            margin-right: 0;
+            position: absolute;
+            top: 100px;
+            right: 0;
+            width: 540px;
+            max-width: 540px;
+            flex: none;
+            margin: 0;
+            align-self: auto;
           }
         }
 
