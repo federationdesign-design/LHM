@@ -219,6 +219,8 @@ export default function InlineEnquiryForm({
           initialName={name}
           initialEmail={email}
           initialMobile={mobile}
+          initialCompany={company}
+          initialJobTitle={jobTitle}
         />
       </>
     );

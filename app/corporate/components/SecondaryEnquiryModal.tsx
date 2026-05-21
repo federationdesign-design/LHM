@@ -39,6 +39,8 @@ interface SecondaryEnquiryModalProps {
   initialName: string;
   initialEmail: string;
   initialMobile: string;
+  initialCompany?: string;
+  initialJobTitle?: string;
 }
 
 const EMPLOYEE_RANGES = [
@@ -97,11 +99,15 @@ export default function SecondaryEnquiryModal({
   initialName,
   initialEmail,
   initialMobile,
+  initialCompany = '',
+  initialJobTitle = '',
 }: SecondaryEnquiryModalProps) {
   // Pre-filled
   const [name,   setName]   = useState(initialName);
   const [email,  setEmail]  = useState(initialEmail);
   const [mobile, setMobile] = useState(initialMobile);
+  const [company, setCompany] = useState(initialCompany);
+  const [jobTitle, setJobTitle] = useState(initialJobTitle);
 
   // Required new fields
   const [officeLocation, setOfficeLocation] = useState('');
@@ -180,6 +186,8 @@ export default function SecondaryEnquiryModal({
           name:   name.trim(),
           email:  email.trim(),
           mobile: mobile.trim(),
+          company: company.trim(),
+          jobTitle: jobTitle.trim(),
           // New fields
           officeLocation: officeLocation.trim(),
           employeeCount,
@@ -395,6 +403,24 @@ export default function SecondaryEnquiryModal({
                   data-invalid={showValidation && mobile.trim().length === 0 ? "true" : "false"}
                   className="sef-input"
                   style={inputStyle}
+                />
+              </div>
+              <div className="sef-row sef-row--2col" style={{ marginBottom: 18 }}>
+                <input
+                  type="text" placeholder="Company name"
+                  value={company} onChange={(e) => setCompany(e.target.value)}
+                  className="sef-input"
+                  style={inputStyle}
+                  autoComplete="organization"
+                  maxLength={120}
+                />
+                <input
+                  type="text" placeholder="Job title"
+                  value={jobTitle} onChange={(e) => setJobTitle(e.target.value)}
+                  className="sef-input"
+                  style={inputStyle}
+                  autoComplete="organization-title"
+                  maxLength={120}
                 />
               </div>
 

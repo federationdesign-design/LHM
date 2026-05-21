@@ -622,6 +622,8 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
           initialName={name}
           initialEmail={email}
           initialMobile={phone}
+          initialCompany={company}
+          initialJobTitle={jobTitle}
         />
       )}
     </>
