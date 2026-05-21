@@ -69,6 +69,7 @@ export default function InlineEnquiryForm({
   const [mobile, setMobile] = useState('');
   const [company, setCompany] = useState('');
   const [jobTitle, setJobTitle] = useState('');
+  const [consent, setConsent] = useState(false);
   const [methods, setMethods] = useState<string[]>([]);
 
   const [submitting, setSubmitting] = useState(false);
@@ -92,7 +93,7 @@ export default function InlineEnquiryForm({
 
   const emailValid  = EMAIL_RE.test(email.trim());
   const mobileValid = MOBILE_RE.test(mobile.trim());
-  const requiredOK  = name.trim().length > 0 && emailValid && mobileValid;
+  const requiredOK  = name.trim().length > 0 && emailValid && mobileValid && consent;
   const allOK       = requiredOK && methods.length > 0;
 
   const buttonColor = !requiredOK ? COLOR_GREY : allOK ? COLOR_GREEN : COLOR_ORANGE;
@@ -137,6 +138,7 @@ export default function InlineEnquiryForm({
           mobile: mobile.trim(),
           company: company.trim(),
           jobTitle: jobTitle.trim(),
+          consent,
           contactMethods: methods,
           recaptchaToken,
         }),
