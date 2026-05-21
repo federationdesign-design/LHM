@@ -22,7 +22,6 @@ import { sendEmail } from '@/app/lib/send-email';
 
 const NOTIFICATION_RECIPIENT =
   process.env.CORPORATE_ENQUIRY_TO || 'steve@lucyhallmassage.com';
-const PDF_URL = 'https://www.lucyhallmassage.com/employer-info.pdf';
 const RECAPTCHA_THRESHOLD = 0.5;
 const RECAPTCHA_EXPECTED_ACTION = 'corporate_enquiry';
 
@@ -133,8 +132,8 @@ function buildNotificationEmail(opts: {
   return { html, text };
 }
 
-function buildAutoresponderEmail(opts: { name: string }) {
-  const { name } = opts;
+function buildAutoresponderEmail(opts: { name: string; pdfUrl: string }) {
+  const { name, pdfUrl } = opts;
   const firstName = (name.split(' ')[0] || name).trim();
 
   const html = `
@@ -146,7 +145,7 @@ function buildAutoresponderEmail(opts: { name: string }) {
       </p>
 
       <p style="margin: 32px 0;">
-        <a href="${PDF_URL}" style="display: inline-block; background: #000; color: #fff; padding: 16px 32px; text-decoration: none; border-radius: 4px; font-weight: 600;">
+        <a href="${pdfUrl}" style="display: inline-block; background: #000; color: #fff; padding: 16px 32px; text-decoration: none; border-radius: 4px; font-weight: 600;">
           Download the Employer PDF
         </a>
       </p>
@@ -175,7 +174,7 @@ function buildAutoresponderEmail(opts: { name: string }) {
     '',
     'Thanks for getting in touch about corporate massage. As promised, here is the employer PDF with everything you need to share internally:',
     '',
-    PDF_URL,
+    pdfUrl,
     '',
     'Lucy will be in touch within one working day to chat about how we can support your team. In the meantime, if you have any questions, just hit reply.',
     '',
@@ -522,7 +521,11 @@ export async function POST(request: Request) {
   }
 
   const notification  = buildNotificationEmail({ name, email, mobile, contactMethods, recaptchaScore: recaptcha.score });
-  const autoresponder = buildAutoresponderEmail({ name });
+  // Derive PDF URL from request host so emails work across staging + production
+  const proto = request.headers.get('x-forwarded-proto') || 'https';
+  const host = request.headers.get('host') || 'lucyhallmassage.com';
+  const pdfUrl = `${proto}://${host}/employer-info.pdf`;
+  const autoresponder = buildAutoresponderEmail({ name, pdfUrl });
 
   try {
     await sendEmail({
