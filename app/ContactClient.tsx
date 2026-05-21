@@ -179,7 +179,12 @@ export default function ContactClient({ variant = 'private' }: ContactClientProp
     consent &&
     phone.trim().length > 0;
 
-  const allFilled = requiredFilled;
+  // Corp variant: button only goes GREEN when optional Company + Job title also filled.
+  // Otherwise ORANGE indicates "you can submit, but more info would help".
+  // Private variant: stays as before (no optional fields, allFilled = requiredFilled).
+  const allFilled = variant === 'corporate'
+    ? requiredFilled && company.trim().length > 0 && jobTitle.trim().length > 0
+    : requiredFilled;
 
   const buttonColour = allFilled
     ? BUTTON_COLOUR_GREEN
