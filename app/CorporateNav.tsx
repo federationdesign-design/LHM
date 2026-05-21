@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import SecondaryEnquiryModal from './corporate/components/SecondaryEnquiryModal';
 
 const menuItems: [string, string][] = [
   ['Home',                       '/corporate'],
@@ -98,6 +99,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 export default function CorporateNav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const lineTransition = 'transform 0.3s ease, opacity 0.2s ease';
 
   return (
@@ -117,9 +119,9 @@ export default function CorporateNav() {
         </Link>
 
         <div className="corp-nav-right">
-          <Link href="/corporate/enquire" className="corp-nav-cta">
+          <button type="button" onClick={() => setModalOpen(true)} className="corp-nav-cta">
             Enquire about your team
-          </Link>
+          </button>
 
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -162,8 +164,8 @@ export default function CorporateNav() {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 32px;
-            min-height: 64px;
+            padding: 0 20px;
+            min-height: 56px;
           }
           .corp-nav-logo-link {
             display: inline-flex;
@@ -171,7 +173,7 @@ export default function CorporateNav() {
             flex: 0 0 auto;
           }
           .corp-nav-logo {
-            height: 28px;
+            height: 22px;
             width: auto;
             object-fit: contain;
             display: block;
@@ -188,6 +190,11 @@ export default function CorporateNav() {
             text-decoration: none;
             letter-spacing: 0.02em;
             transition: opacity 0.2s ease;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
           }
           .corp-nav-cta:hover {
             opacity: 0.8;
@@ -195,7 +202,7 @@ export default function CorporateNav() {
           .corp-nav-hamburger {
             background: transparent;
             border: none;
-            padding: 8px;
+            padding: 0;
             margin: 0;
             cursor: pointer;
             display: inline-flex;
@@ -204,13 +211,6 @@ export default function CorporateNav() {
             line-height: 0;
           }
           @media (max-width: 767px) {
-            .corp-nav {
-              padding: 10px 16px;
-              min-height: 56px;
-            }
-            .corp-nav-logo {
-              height: 22px;
-            }
             .corp-nav-right {
               gap: 12px;
             }
@@ -227,6 +227,13 @@ export default function CorporateNav() {
       </nav>
 
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <SecondaryEnquiryModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialName=""
+        initialEmail=""
+        initialMobile=""
+      />
     </>
   );
 }
