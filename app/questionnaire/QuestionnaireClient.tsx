@@ -58,17 +58,26 @@ export default function QuestionnaireClient() {
                 Patient consent to release of information
               </h2>
               <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 28 }}>
-                All patient information is considered confidential and used solely for the purpose of providing care and management of your account. Lucy Hall Massage may have to contact some of the following people to allow successful injury recovery and payment of account: GP, specialist, insurance company and/or employer. I agree to let Lucy Hall Massage communicate as needed with individuals above regarding my care and payment of the account (if applicable).
+                All patient information is considered confidential and used solely for the purpose of providing care and management of your account. Lucy Hall Massage Therapy and your selected self-employed massage therapist may need to contact some of the following people to allow successful injury recovery and payment of account: GP, specialist, insurance company and/or employer. I agree to let Lucy Hall Massage Therapy and/or my treating therapist communicate as needed with the individuals above regarding my care and payment of the account where applicable.
               </p>
 
               <h2 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginBottom: 14 }}>
-                Payment and cancellation policy
+                Payment, records and data policy
               </h2>
               <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 18 }}>
-                Payment is made with the therapist after each treatment, unless monthly invoicing has been agreed with management or you are paying for a package treatment. We do directly bill certain insurance companies. It is your responsibility to keep track of the treatments attended so you do not exceed your coverage. Please check with your insurance provider. Any payment not covered by the insurance company will be your responsibility.
+                Treatment services are provided by your selected self-employed massage therapist practising from Lucy Hall Massage Therapy. Lucy Hall Massage Therapy provides booking, administrative and clinic facilities to independent therapists.
+              </p>
+              <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 18 }}>
+                Prepayment for appointments may be processed through the Lucy Hall Massage Therapy booking platform at the time of booking following selection of your chosen therapist. Certain insurance companies may also be invoiced directly where applicable. Any payment not covered by the insurance company remains the responsibility of the client.
+              </p>
+              <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 18 }}>
+                Client records are securely stored within the Lucy Hall Massage Therapy system and may be accessed by your selected treating therapist for the purposes of providing your care, maintaining treatment records and managing ongoing treatment recommendations. Each self-employed therapist is responsible for maintaining the confidentiality and professional handling of their own treatment notes in accordance with GDPR and professional insurance requirements.
+              </p>
+              <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 18 }}>
+                If you miss or cancel an appointment without 24 hours notice, you will be charged 100% of the cost of the treatment.
               </p>
               <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 28 }}>
-                If you miss or cancel an appointment with less than 24 hours notice you will be charged 50% of the cost of the treatment. If you are on a package, the session will be forfeited.
+                I hereby declare that the information I have provided is accurate at the time of writing and it is my responsibility to inform my massage therapist of any relevant changes to my health or circumstances.
               </p>
 
               {/* DECLARATION CHECKBOX — required to submit. Replaces the static
