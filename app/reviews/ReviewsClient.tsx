@@ -39,7 +39,7 @@ export default function ReviewsClient() {
             <a href="/corporate" style={{ color: '#ffffff', textDecoration: 'none' }}>Corporate</a> / Reviews
           </p>
           <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 600, color: '#ffffff', lineHeight: 1.1, marginBottom: 18 }}>
-            Trusted by Leading Cambridge Companies and businesses Including Cambridge University
+            Trusted by leading Cambridge companies and businesses including Cambridge University
           </h1>
           <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, maxWidth: 640 }}>
             Reviews and recommendations from HR teams, wellbeing leads and individual employees across the corporate clients we work with — from global names like Spotify and Amazon to fast-growing teams across Cambridge.

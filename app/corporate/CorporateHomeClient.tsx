@@ -552,7 +552,7 @@ export default function CorporateHomeClient() {
 
         {/* ── CREDIBILITY TESTIMONIALS ─────────────────────── */}
         <section className="corp-credibility">
-          <h2 className="corp-credibility-heading">Credibility:</h2>
+          <h2 className="corp-credibility-heading">Trusted by leading Cambridge companies and businesses including Cambridge University</h2>
 
           {/* Mobile carousel — single testimonial visible at a time
               with dots pager. Hidden on desktop via CSS. */}

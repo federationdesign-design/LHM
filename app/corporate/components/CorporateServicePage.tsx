@@ -209,7 +209,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         {/* ── TESTIMONIALS ──────────────────────────────────── */}
         <section style={{ padding: '40px 0 20px' }}>
           <Testimonials
-            heading="Trusted by Leading Cambridge Companies and businesses Including Cambridge University"
+            heading="Trusted by leading Cambridge companies and businesses including Cambridge University"
             items={corporateTestimonials}
             useLogos
             initialVisible={3}

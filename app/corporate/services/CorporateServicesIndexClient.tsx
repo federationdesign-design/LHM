@@ -111,7 +111,7 @@ export default function CorporateServicesIndexClient() {
 
         {/* ── CREDIBILITY ─────────────────────── */}
         <section className="cs-credibility">
-          <h2 className="cs-credibility-heading">Credibility</h2>
+          <h2 className="cs-credibility-heading">Trusted by leading Cambridge companies and businesses including Cambridge University</h2>
           <Testimonials items={corporateTestimonials} useLogos initialVisible={9} />
         </section>
       </main>
