@@ -14,7 +14,7 @@ const dsc      = { n: '1', title: 'Display Screen Equipment Assessments', cta: '
 const chair    = { n: '2', title: 'In-Office Chair Massage',              cta: 'Chair Massage',       href: '/corporate/services/in-chair-massage',       img: '/chair-massage-services-portrait.jpg' };
 const posture  = { n: '3', title: 'Assessments & Posture Consultations',  cta: 'Posture Consultation',href: '/corporate/services/posture-consultations',  img: '/posture-consultations-portrait.jpg' };
 
-const quickActions = [
+const quickActions: { label: string; href: string; modal?: boolean; download?: boolean }[] = [
   { label: 'Enquire about your team', href: '#', modal: true },
   { label: 'Download our employer PDF', href: '/corporate/enquire' },
   { label: 'Watch Videos', href: '/corporate#videos' },
