@@ -266,13 +266,21 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         .cs-hero-breadcrumbs {
           position: absolute;
           top: 80px;
-          left: 32px;
-          right: 32px;
+          left: 20px;
+          right: 20px;
           z-index: 3;
         }
         @media (min-width: 768px) {
           .cs-hero-breadcrumbs {
             top: 88px;
+            left: 68px;
+            right: 68px;
+          }
+        }
+        @media (min-width: 1025px) {
+          .cs-hero-breadcrumbs {
+            left: 60px;
+            right: 60px;
           }
         }
         .cs-hero {
@@ -304,7 +312,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         .cs-hero-content {
           position: relative;
           z-index: 2;
-          padding: 40px 32px 40px;
+          padding: 40px 20px 40px;
           display: flex;
           flex-direction: column;
           gap: 32px;
@@ -389,7 +397,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             flex-direction: row;
             align-items: flex-end;
             justify-content: space-between;
-            padding: 60px 0 60px 32px;
+            padding: 60px 0 60px 60px;
             gap: 48px;
             align-self: stretch;
             min-height: 1000px;
