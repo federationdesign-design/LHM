@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Nav from './Nav';
 import Footer from './Footer';
+import CorporateNav from './CorporateNav';
+import CorporateFooter from './CorporateFooter';
 
 
 const faqs = [
@@ -82,11 +84,12 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
 }
 
 
-export default function FAQClient() {
+export default function FAQClient({ variant = 'private' }: { variant?: 'private' | 'corporate' } = {}) {
+  const isCorp = variant === 'corporate';
 
   return (
     <>
-      <Nav solid />
+      {isCorp ? <CorporateNav /> : <Nav solid />}
 
       <main className={styles.page} style={{ paddingTop: 56 }}>
 
@@ -128,7 +131,7 @@ export default function FAQClient() {
             </div>
           </div>
         </div>
-        <Footer />
+        {isCorp ? <CorporateFooter /> : <Footer />}
       </main>
     </>
   );

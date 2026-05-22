@@ -21,7 +21,7 @@ const mainMenu: [string, string][] = [
   ['Services', '/corporate/services'],
   ['Our Team', '/corporate/team'],
   ['Reviews', '/reviews'],
-  ['FAQ', '/faq'],
+  ['FAQ', '/corporate/faq'],
   ['Contact', '/corporate/contact'],
   ['Book a Massage', '/private'],
 ];

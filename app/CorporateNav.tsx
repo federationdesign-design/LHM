@@ -12,6 +12,7 @@ const menuItems: [string, string][] = [
   ['Posture Consultations',      '/corporate/services/posture-consultations'],
   ['Our Team',                   '/corporate/team'],
   ['Reviews',                    '/reviews'],
+  ['FAQ',                        '/corporate/faq'],
   ['Book myself a massage',      '/private'],
   ['Main site',                  '/'],
   ['Contact Us',                 '/corporate/contact'],
