@@ -137,4 +137,13 @@ export const corporateTestimonials: Testimonial[] = [
     avatar: 'C',
     logo: '/speechmatics.png',
   },
+  {
+    id: 'elena-holban-aime-illumina',
+    name: 'Elena HOLBAN AIMÉ',
+    title: 'Illumina',
+    body: 'I warmly recommend Lucy and her team! Lucy is a talented (gifted) professional, who does her job to perfection, cares about her clients, she is emphatic and attentive; But also, Lucy is a solar person who brings a ton of energy wherever she is... and that is so precious! It is a pleasure to work with Lucy and my whole team is a fan of her.',
+    date: '',
+    avatar: 'E',
+    logo: '/illumina-logo.jpg',
+  },
 ];
