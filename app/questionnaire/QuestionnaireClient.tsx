@@ -54,14 +54,14 @@ export default function QuestionnaireClient() {
                 New Patient Medical Form
               </h1>
 
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginBottom: 14 }}>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginBottom: 14 }}>
                 Patient consent to release of information
               </h2>
               <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 28 }}>
                 All patient information is considered confidential and used solely for the purpose of providing care and management of your account. Lucy Hall Massage Therapy and your selected self-employed massage therapist may need to contact some of the following people to allow successful injury recovery and payment of account: GP, specialist, insurance company and/or employer. I agree to let Lucy Hall Massage Therapy and/or my treating therapist communicate as needed with the individuals above regarding my care and payment of the account where applicable.
               </p>
 
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginBottom: 14 }}>
+              <h2 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginBottom: 14 }}>
                 Payment, records and data policy
               </h2>
               <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.6, marginBottom: 18 }}>

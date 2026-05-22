@@ -101,7 +101,7 @@ export default function GiftVouchersClient() {
                 { label: 'Instant delivery', desc: 'Sent by email immediately' },
               ].map(({ label, desc }) => (
                 <div key={label} style={{ textAlign: 'center', minWidth: 140 }}>
-                  <p style={{ fontSize: '1.1rem', fontWeight: 600, color: '#ffffff', marginBottom: 6 }}>{label}</p>
+                  <p style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', marginBottom: 6 }}>{label}</p>
                   <p style={{ fontSize: '0.88rem', fontWeight: 300, color: '#ffffff', opacity: 0.65 }}>{desc}</p>
                 </div>
               ))}

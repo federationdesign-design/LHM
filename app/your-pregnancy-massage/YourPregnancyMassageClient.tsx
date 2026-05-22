@@ -503,7 +503,7 @@ export default function YourPregnancyMassageClient() {
           <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
             <div className={styles.serviceGrid}>
               <div>
-                <h3 style={{ fontSize: '1.08rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
                   Benefits of this treatment on your body:
                 </h3>
                 <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>
@@ -516,7 +516,7 @@ export default function YourPregnancyMassageClient() {
                 </ul>
               </div>
               <div>
-                <h3 style={{ fontSize: '1.08rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 600, textTransform: 'none', letterSpacing: '0.04em', color: '#ffffff', marginBottom: 20, lineHeight: 1.3 }}>
                   We recommend this treatment for:
                 </h3>
                 <ul style={{ listStyle: 'disc', paddingLeft: 28, marginLeft: 8 }}>

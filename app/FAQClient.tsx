@@ -151,7 +151,7 @@ export default function FAQClient({ variant = 'private' }: { variant?: 'private'
           <div style={{ maxWidth: 860, margin: '0 auto' }}>
             {(isCorp ? corpFaqs : faqs).map((section, i) => (
               <div key={i} style={{ marginBottom: 56 }}>
-                <h2 style={{ fontSize: '1.3rem', fontWeight: 600, color: '#ffffff', marginBottom: 8, paddingBottom: 16, borderBottom: '1px solid #ffffff' }}>{section.category}</h2>
+                <h2 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', marginBottom: 8, paddingBottom: 16, borderBottom: '1px solid #ffffff' }}>{section.category}</h2>
                 {section.questions.map((item, j) => (
                   <AccordionItem key={j} q={item.q} a={item.a} />
                 ))}

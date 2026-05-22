@@ -32,7 +32,7 @@ export default function LegalClient({ page }: { page: LegalPage }) {
           <div style={{ maxWidth: 860, margin: '0 auto' }}>
             {page.sections.map((section, i) => (
               <div key={i} style={{ marginBottom: 48, paddingBottom: 48, borderBottom: i < page.sections.length - 1 ? '1px solid rgba(255,255,255,0.15)' : 'none' }}>
-                <h2 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#ffffff', marginBottom: 16, letterSpacing: '0.02em' }}>{section.heading}</h2>
+                <h2 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', marginBottom: 16, letterSpacing: '0.02em' }}>{section.heading}</h2>
                 {section.content.split('\n\n').map((block, j) => {
                   if (block.startsWith('•')) {
                     const lines = block.split('\n').filter(l => l.trim());

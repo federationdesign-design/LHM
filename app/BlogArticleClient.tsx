@@ -106,7 +106,7 @@ function SidebarCard({ card }: { card: SidebarCardSpec }) {
           <p style={{ fontSize: '0.62rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', opacity: 0.7, marginBottom: 4 }}>
             {card.label}
           </p>
-          <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: '#ffffff', marginBottom: 10, lineHeight: 1.2 }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', marginBottom: 10, lineHeight: 1.2 }}>
             {card.title}
           </h3>
           <div style={{ height: 1, background: '#ffffff', marginBottom: 10 }} />
@@ -230,7 +230,7 @@ function ArticleBody({ body, relatedTreatments }: { body: string; relatedTreatme
       <h2 style={{ fontSize: '1.45rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.25, marginTop: 48, marginBottom: 16 }} {...props} />
     ),
     h3: ({ node, ...props }: any) => (
-      <h3 style={{ fontSize: '1.15rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginTop: 32, marginBottom: 12 }} {...props} />
+      <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', lineHeight: 1.3, marginTop: 32, marginBottom: 12 }} {...props} />
     ),
     p: ({ node, ...props }: any) => (
       <p style={{ fontSize: '1.02rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.7, marginBottom: 18 }} {...props} />
