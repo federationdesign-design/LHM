@@ -243,7 +243,7 @@ function PromoCards() {
           .hp-hero-img-mobile { display: none !important; }
           .hp-hero-img-desktop { display: block !important; }
         }
-        .hp-promo-card-link:hover .hp-promo-card-img { filter: grayscale(0%) brightness(0.7); }
+        .hp-promo-card-link:hover .hp-promo-card-img { filter: grayscale(0%); }
         .hp-promo-card-link:hover { transform: translateY(-4px); }
 
         .hp-promo-card-title {
@@ -386,7 +386,7 @@ function ServicesCarousel() {
           .hp-locations-mobile { display: none !important; }
           .hp-locations-desktop { display: block !important; }
         }
-        .hp-service-card:hover .hp-service-card-image { filter: grayscale(0%) brightness(0.7); }
+        .hp-service-card:hover .hp-service-card-image { filter: grayscale(0%); }
         .hp-service-card:hover { transform: translateY(-4px); }
         .hp-hero-cta:hover { text-decoration: underline; }
         .hp-cta-btn:hover { text-decoration: underline; }
@@ -541,7 +541,7 @@ function LocationsCarousel() {
       </section>
 
       <style>{`
-        .hp-location-card:hover .hp-location-card-image { filter: grayscale(0%) brightness(0.7); }
+        .hp-location-card:hover .hp-location-card-image { filter: grayscale(0%); }
         .hp-location-card:hover { transform: translateY(-4px); }
       `}</style>
     </>
@@ -763,20 +763,20 @@ export default function PrivateHomeClient() {
             filter: grayscale(0%);
           }
           /* Card-hover variants — when the parent card is hovered,
-             the inner image goes to colour. Pairs with the existing
-             brightness(0.7) hover effects which dim the image at
-             the same time. */
+             the inner image goes to colour. (Previously also dimmed
+             via brightness(0.7); that was removed for a single clean
+             B&W → colour transition.) */
           main .hp-service-card:hover .hp-service-card-image,
           main .hp-promo-card-link:hover .hp-promo-card-img,
           main .hp-location-card:hover .hp-location-card-image {
-            filter: grayscale(0%) brightness(0.7) !important;
+            filter: grayscale(0%) !important;
           }
           /* ALSO: when card is hovered, force the inner img to colour.
              The Next.js Image renders as <img>, so we target it directly. */
           main .hp-service-card:hover img,
           main .hp-promo-card-link:hover img,
           main .hp-location-card:hover img {
-            filter: grayscale(0%) brightness(0.7) !important;
+            filter: grayscale(0%) !important;
           }
           /* Avatars are <div> not <img>, so already excluded. */
         `}</style>

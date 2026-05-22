@@ -1057,10 +1057,6 @@ export default function CorporateHomeClient() {
           background: linear-gradient(to bottom, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.7) 100%);
           z-index: 1;
         }
-        .corp-service-card:hover .corp-service-overlay {
-          background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
-          transition: background 0.3s ease;
-        }
         .corp-service-overlay {
           transition: background 0.3s ease;
         }

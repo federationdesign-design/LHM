@@ -205,9 +205,6 @@ export default function CorporateServicesIndexClient() {
           background: linear-gradient(to bottom, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.7) 100%);
           z-index: 1; transition: background 0.3s ease;
         }
-        .cs-service-card:hover .cs-service-overlay {
-          background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
-        }
         .cs-service-content {
           position: relative; z-index: 2; padding: 24px;
           height: 100%; display: flex; flex-direction: column; justify-content: flex-end;
