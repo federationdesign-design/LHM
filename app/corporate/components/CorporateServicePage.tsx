@@ -147,6 +147,12 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             </div>
 
             <div className="cs-hero-form">
+              <a href="/employer-info.pdf" target="_blank" rel="noopener noreferrer" className="cs-hero-employer-pdf">
+                <svg viewBox="0 0 24 24" fill="none" style={{ width: 22, height: 22, flexShrink: 0 }}>
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>Download our employer PDF</span>
+              </a>
               <InlineEnquiryForm />
             </div>
           </div>
@@ -332,6 +338,23 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           opacity: 0.92;
         }
         .cs-hero-link:hover { opacity: 1; }
+        .cs-hero-employer-pdf {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 0.95rem;
+          font-weight: 400;
+          line-height: 1.4;
+          margin-bottom: 18px;
+          opacity: 0.9;
+          transition: opacity 0.2s ease;
+        }
+        .cs-hero-employer-pdf:hover {
+          opacity: 1;
+          text-decoration: underline;
+        }
 
         .cs-hero-form {
           width: 100%;
