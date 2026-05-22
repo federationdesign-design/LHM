@@ -55,8 +55,6 @@ const nextConfig: NextConfig = {
       { source: '/pregnancy-massage/', destination: '/your-pregnancy-massage', permanent: true },
       { source: '/deep-tissue-massage', destination: '/treatments/deep-tissue-massage', permanent: true },
       { source: '/deep-tissue-massage/', destination: '/treatments/deep-tissue-massage', permanent: true },
-      { source: '/treatments/cupping', destination: '/your-cupping-massage', permanent: true },
-      { source: '/treatments/cupping/', destination: '/your-cupping-massage', permanent: true },
       { source: '/treatments/sports-therapy-2', destination: '/treatments/sports-therapy', permanent: true },
       { source: '/treatments/sports-therapy-2/', destination: '/treatments/sports-therapy', permanent: true },
       { source: '/treatments/appointments-length-from-30-up-to-120-minutes', destination: '/your-massage', permanent: true },
