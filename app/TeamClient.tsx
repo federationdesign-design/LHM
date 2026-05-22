@@ -91,7 +91,7 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
 
   return (
     <>
-      {isCorp ? <CorporateNav /> : <Nav scrollRef={heroRef} />}
+      {isCorp ? <CorporateNav transparent /> : <Nav scrollRef={heroRef} />}
       <main className={styles.page}>
 
         {/* HERO */}

@@ -96,7 +96,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
 
   return (
     <>
-      <CorporateNav />
+      <CorporateNav transparent />
 
       <main className="cs-main">
 

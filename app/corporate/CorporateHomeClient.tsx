@@ -373,7 +373,7 @@ export default function CorporateHomeClient() {
 
   return (
     <>
-      <CorporateNav />
+      <CorporateNav transparent />
 
       <main className="corp-main">
 

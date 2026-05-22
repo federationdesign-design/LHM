@@ -97,14 +97,14 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   );
 }
 
-export default function CorporateNav() {
+export default function CorporateNav({ transparent = false }: { transparent?: boolean } = {}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const lineTransition = 'transform 0.3s ease, opacity 0.2s ease';
 
   return (
     <>
-      <nav className="corp-nav">
+      <nav className={`corp-nav ${transparent ? "corp-nav--transparent" : ""}`}>
         <Link
           href="/corporate"
           className="corp-nav-logo-link"
@@ -166,6 +166,12 @@ export default function CorporateNav() {
             justify-content: space-between;
             padding: 0 20px;
             min-height: 56px;
+          }
+          .corp-nav--transparent {
+            position: fixed;
+            left: 0;
+            right: 0;
+            background: transparent;
           }
           .corp-nav-logo-link {
             display: inline-flex;

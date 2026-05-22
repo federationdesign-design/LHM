@@ -95,7 +95,7 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
 
   return (
     <>
-      {isCorpVariant ? <CorporateNav /> : <Nav scrollRef={heroRef} />}
+      {isCorpVariant ? <CorporateNav transparent /> : <Nav scrollRef={heroRef} />}
 
       <main className={styles.page}>
 
