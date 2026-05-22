@@ -150,16 +150,6 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
               <InlineEnquiryForm />
             </div>
           </div>
-          {/* PDF tips link, top-right of hero — desktop only (mobile shows it in-form) */}
-          <a
-            href="/employer-info.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cs-hero-pdf"
-          >
-            <span aria-hidden="true" className="cs-hero-pdf-arrow">→</span>
-            <span>Download the employer tips PDF</span>
-          </a>
         </section>
 
         {/* Mobile-only standalone form section.
