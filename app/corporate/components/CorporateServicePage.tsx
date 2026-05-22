@@ -339,8 +339,9 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         }
         .cs-hero-link:hover { opacity: 1; }
         .cs-hero-employer-pdf {
-          display: inline-flex;
+          display: flex;
           align-items: center;
+          justify-content: flex-end;
           gap: 12px;
           color: #ffffff;
           text-decoration: none;
