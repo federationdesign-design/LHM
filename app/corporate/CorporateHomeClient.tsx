@@ -725,7 +725,7 @@ export default function CorporateHomeClient() {
         }
         .corp-hero-pdf {
           position: absolute;
-          top: 32px;
+          top: 88px;
           right: 32px;
           z-index: 3;
           display: inline-flex;
