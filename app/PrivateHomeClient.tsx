@@ -93,7 +93,7 @@ function CardContent({ label, title, description, cta }: { label: string; title:
       <p style={{ fontSize: '0.72rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', opacity: 0.7, marginBottom: 6 }}>
         {label}
       </p>
-      <h3 style={{ fontSize: '1.4rem', fontWeight: 600, color: '#ffffff', marginBottom: description ? 10 : 14, lineHeight: 1.15 }}>
+      <h3 style={{ fontSize: '1.2rem', fontWeight: 600, color: '#ffffff', marginBottom: description ? 10 : 14, lineHeight: 1.15 }}>
         {title}
       </h3>
       {description && (
