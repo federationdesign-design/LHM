@@ -385,7 +385,7 @@ export default function CorporateHomeClient() {
 
   return (
     <>
-      <CorporateNav transparent />
+      <CorporateNav transparent scrollRef={heroRef} />
 
       <main className="corp-main">
 

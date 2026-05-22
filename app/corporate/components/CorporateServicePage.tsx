@@ -109,7 +109,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
 
   return (
     <>
-      <CorporateNav transparent />
+      <CorporateNav transparent scrollRef={heroRef} />
 
       <main className="cs-main">
 

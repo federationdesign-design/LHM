@@ -97,14 +97,26 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   );
 }
 
-export default function CorporateNav({ transparent = false }: { transparent?: boolean } = {}) {
+export default function CorporateNav({ transparent = false, scrollRef }: { transparent?: boolean; scrollRef?: React.RefObject<HTMLElement | null> } = {}) {
+  const [navSolid, setNavSolid] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  useEffect(() => {
+    if (!scrollRef) return;
+    const handleScroll = () => {
+      const hero = scrollRef.current;
+      if (!hero) return;
+      setNavSolid(window.scrollY > hero.offsetHeight - 56);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [scrollRef]);
+
   const lineTransition = 'transform 0.3s ease, opacity 0.2s ease';
 
   return (
     <>
-      <nav className={`corp-nav ${transparent ? "corp-nav--transparent" : ""}`}>
+      <nav className={`corp-nav ${transparent ? "corp-nav--transparent" : ""} ${navSolid ? "corp-nav--solid" : ""}`}>
         <Link
           href="/corporate"
           className="corp-nav-logo-link"
@@ -172,6 +184,9 @@ export default function CorporateNav({ transparent = false }: { transparent?: bo
             left: 0;
             right: 0;
             background: transparent;
+          }
+          .corp-nav--transparent.corp-nav--solid {
+            background: #000000;
           }
           .corp-nav-logo-link {
             display: inline-flex;
