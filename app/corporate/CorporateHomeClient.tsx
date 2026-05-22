@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import CorporateFooter from '../CorporateFooter';
 import CorporateNav from '../CorporateNav';
+import SecondaryEnquiryModal from './components/SecondaryEnquiryModal';
 
 /* ─────────────────────────────────────────────────────────────
    CorporateHomeClient — /corporate
@@ -359,6 +360,7 @@ export default function CorporateHomeClient() {
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Mobile carousel state for the testimonials block
   const [activeIdx, setActiveIdx] = useState(0);
@@ -478,9 +480,9 @@ export default function CorporateHomeClient() {
               <p className="corp-twocol-body">
                 By adding corporate massage services to your employee benefits, you will see a major boost to staff wellbeing and create a happier work environment, leading to increased motivation and productivity long term.
               </p>
-              <Link href="/corporate/enquire" className="corp-twocol-link-cta">
+              <button type="button" onClick={() => setModalOpen(true)} className="corp-twocol-link-cta corp-twocol-link-cta--btn">
                 Enquire About your team here
-              </Link>
+              </button>
             </div>
 
           </div>
@@ -692,6 +694,14 @@ export default function CorporateHomeClient() {
         </section>
 
         <CorporateFooter />
+      <SecondaryEnquiryModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        initialName=""
+        initialEmail=""
+        initialMobile=""
+        standalone
+      />
       </main>
 
       <style>{`
@@ -993,6 +1003,13 @@ export default function CorporateHomeClient() {
           transition: opacity 0.2s ease;
         }
         .corp-twocol-link-cta:hover { opacity: 0.85; }
+        .corp-twocol-link-cta--btn {
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          font: inherit;
+        }
 
         @media (min-width: 1024px) {
           .corp-twocol {
