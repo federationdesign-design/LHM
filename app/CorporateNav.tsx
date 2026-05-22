@@ -185,17 +185,11 @@ export default function CorporateNav({ transparent = false, scrollRef }: { trans
               padding: 0 68px;
               min-height: 64px;
             }
-            .corp-nav-logo {
-              height: 26px;
-            }
           }
           @media (min-width: 1025px) {
             .corp-nav {
               padding: 0 60px;
               min-height: 72px;
-            }
-            .corp-nav-logo {
-              height: 28px;
             }
           }
           .corp-nav--transparent {
@@ -217,6 +211,16 @@ export default function CorporateNav({ transparent = false, scrollRef }: { trans
             width: auto;
             object-fit: contain;
             display: block;
+          }
+          @media (min-width: 768px) {
+            .corp-nav-logo {
+              height: 26px;
+            }
+          }
+          @media (min-width: 1025px) {
+            .corp-nav-logo {
+              height: 28px;
+            }
           }
           .corp-nav-right {
             display: flex;
