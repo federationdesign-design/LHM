@@ -439,7 +439,7 @@ export default function SecondaryEnquiryModal({
                   />
                 </div>
               )}
-              <div className="sef-row sef-row--2col" style={{ marginBottom: 18 }}>
+              <div className="sef-row sef-row--3col" style={{ marginBottom: 18 }}>
                 <input
                   type="text" placeholder="Company name"
                   value={company} onChange={(e) => setCompany(e.target.value)}
@@ -456,23 +456,21 @@ export default function SecondaryEnquiryModal({
                   autoComplete="organization-title"
                   maxLength={120}
                 />
+                <input
+                  type="text" placeholder="Office location *"
+                  value={officeLocation}
+                  onChange={(e) => setOfficeLocation(e.target.value)}
+                  data-invalid={showValidation && officeLocation.trim().length === 0 ? "true" : "false"}
+                  className="sef-input"
+                  style={inputStyle}
+                />
               </div>
 
               {/* ── COMPANY & OFFICE INFORMATION ─────────────── */}
               {/* Row: Office Location + Employee Count */}
-              <div className="sef-row sef-row--2col" style={{ marginBottom: 18 }}>
-                <div>
-                  <label style={labelStyle}>Office Location <span style={{ color: '#ff8c8c' }}>*</span></label>
-                  <input
-                    type="text" placeholder="Town/city or postcode"
-                    value={officeLocation}
-                    onChange={(e) => setOfficeLocation(e.target.value)}
-                    style={inputStyle}
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Approximate Number of Employees Onsite <span style={{ color: '#ff8c8c' }}>*</span></label>
-                  <div style={{ padding: '14px 4px 0' }}>
+              <div style={{ marginBottom: 18 }}>
+                <label style={labelStyle}>Approximate Number of Employees Onsite <span style={{ color: '#ff8c8c' }}>*</span></label>
+                <div style={{ padding: '14px 4px 0' }}>
                     <input
                       type="range"
                       min={0}
@@ -507,7 +505,6 @@ export default function SecondaryEnquiryModal({
                     </div>
                   </div>
                 </div>
-              </div>
 
               {/* Service type — full width because checkboxes need room */}
               <div style={{ marginBottom: 22 }}>
