@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import CorporateNav from '../../CorporateNav';
@@ -89,6 +90,18 @@ export interface CorporateServicePageProps {
 
 // ── COMPONENT ─────────────────────────────────────────────────
 export default function CorporateServicePage(props: CorporateServicePageProps) {
+  const heroRef = useRef<HTMLElement>(null);
+  const scrollOverlayRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      const hero = heroRef.current, overlay = scrollOverlayRef.current;
+      if (!hero || !overlay) return;
+      const h = hero.offsetHeight, s = window.scrollY, start = h * 0.1, range = h * 0.55;
+      overlay.style.opacity = s <= start ? '0' : String(Math.min((s - start) / range, 1));
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const testimonialStartIndex = props.testimonialStartIndex ?? 0;
   const otherServices = services.filter(
     (s) => !props.currentSlug || !s.href.endsWith(props.currentSlug)
@@ -101,7 +114,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
       <main className="cs-main">
 
         {/* ── HERO ───────────────────────────────────────────── */}
-        <section className="cs-hero">
+        <section className="cs-hero" ref={heroRef}>
           <div className="cs-hero-image">
             <Image
               src={props.heroImage}
@@ -112,6 +125,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
               style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
             <div className="cs-hero-overlay" aria-hidden="true" />
+          <div ref={scrollOverlayRef} className="cs-hero-scroll-overlay" aria-hidden="true" />
           </div>
 
           <div className="cs-hero-breadcrumbs">
@@ -290,6 +304,14 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           inset: 0;
           background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.5) 100%);
           z-index: 1;
+        }
+        .cs-hero-scroll-overlay {
+          position: absolute;
+          inset: 0;
+          background: #000000;
+          opacity: 0;
+          pointer-events: none;
+          z-index: 2;
         }
         .cs-hero-content {
           position: relative;
