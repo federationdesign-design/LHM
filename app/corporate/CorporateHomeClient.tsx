@@ -363,6 +363,18 @@ export default function CorporateHomeClient() {
   // Mobile carousel state for the testimonials block
   const [activeIdx, setActiveIdx] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const scrollOverlayRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      const hero = heroRef.current, overlay = scrollOverlayRef.current;
+      if (!hero || !overlay) return;
+      const h = hero.offsetHeight, s = window.scrollY, start = h * 0.1, range = h * 0.55;
+      overlay.style.opacity = s <= start ? '0' : String(Math.min((s - start) / range, 1));
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Sync carousel translation when active index changes
   useEffect(() => {
@@ -378,7 +390,7 @@ export default function CorporateHomeClient() {
       <main className="corp-main">
 
         {/* ── HERO ─────────────────────────────────────────── */}
-        <section className="corp-hero">
+        <section className="corp-hero" ref={heroRef}>
           <div className="corp-hero-image" style={{ background: "#1a1a1a url(/corporate-hero.jpg) center/cover no-repeat" }}>
             <iframe
               src="https://player.vimeo.com/video/1189431154?autoplay=1&muted=1&loop=1&background=1&controls=0&autopause=0"
@@ -388,6 +400,7 @@ export default function CorporateHomeClient() {
               className="corp-hero-video"
             />
             <div className="corp-hero-overlay" aria-hidden="true" />
+            <div ref={scrollOverlayRef} className="corp-hero-scroll-overlay" aria-hidden="true" />
           </div>
 
           {/* Top-right "Download our employer PDF" chevron CTA */}
@@ -722,6 +735,14 @@ export default function CorporateHomeClient() {
             rgba(0,0,0,0.45) 35%,
             rgba(0,0,0,0.15) 100%
           );
+        }
+        .corp-hero-scroll-overlay {
+          position: absolute;
+          inset: 0;
+          background: #000000;
+          opacity: 0;
+          pointer-events: none;
+          z-index: 2;
         }
         .corp-hero-pdf {
           position: absolute;
