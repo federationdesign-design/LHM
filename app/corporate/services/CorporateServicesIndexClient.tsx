@@ -16,7 +16,7 @@ const posture  = { n: '3', title: 'Assessments & Posture Consultations',  cta: '
 
 const quickActions = [
   { label: 'Enquire about your team', href: '#', modal: true },
-  { label: 'Download our employer PDF', href: '/employer-info.pdf', download: true },
+  { label: 'Download our employer PDF', href: '/corporate/enquire' },
   { label: 'Watch Videos', href: '/corporate#videos' },
 ];
 
