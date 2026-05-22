@@ -396,16 +396,16 @@ export default function SecondaryEnquiryModal({
               </p>
                 </>
               )}
-              <p style={{
-                fontSize: '0.85rem',
-                fontWeight: 300,
+              <h4 style={{
+                fontSize: 'clamp(1.4rem, 2vw, 1.8rem)',
+                fontWeight: 600,
+                color: '#ffffff',
                 textAlign: 'center',
-                opacity: 0.6,
                 margin: '0 0 24px',
-                lineHeight: 1.5,
+                lineHeight: 1.3,
               }}>
-                make an enquiry for corporate massage as your business
-              </p>
+                Make your enquiry for corporate massage here
+              </h4>
 
               <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 28 }} />
 
