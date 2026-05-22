@@ -7,6 +7,7 @@ import Nav from './Nav';
 import CorporateNav from './CorporateNav';
 import Footer from './Footer';
 import CorporateFooter from './CorporateFooter';
+import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
 import Testimonials from './components/Testimonials/Testimonials';
 import { corporateTestimonials } from './components/Testimonials/corporate-testimonials-data';
 
@@ -97,6 +98,12 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
       {isCorpVariant ? <CorporateNav /> : <Nav scrollRef={heroRef} />}
 
       <main className={styles.page}>
+        <section style={{ background: '#000000', padding: '120px 24px 0', maxWidth: 1300, margin: '0 auto', width: '100%' }}>
+          <Breadcrumbs items={[
+            { label: 'Home', href: isCorpVariant ? '/corporate' : '/private' },
+            { label: 'Our Team' },
+          ]} />
+        </section>
 
         {/* HERO */}
         <div ref={heroRef} className={styles.hero} style={{ backgroundColor: '#1a1a1a' }}>
