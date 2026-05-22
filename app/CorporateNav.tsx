@@ -124,7 +124,7 @@ export default function CorporateNav({ transparent = false, scrollRef }: { trans
           aria-label="Lucy Hall Massage Corporate - home"
         >
           <img
-            src="/LHM-corp-logo.svg"
+            src="/LHM-corp-logo-exact.svg"
             alt="Lucy Hall Massage Corporate"
             className="corp-nav-logo"
             draggable={false}
