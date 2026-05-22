@@ -98,12 +98,6 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
       {isCorpVariant ? <CorporateNav /> : <Nav scrollRef={heroRef} />}
 
       <main className={styles.page}>
-        <section style={{ background: '#000000', padding: '120px 24px 0', maxWidth: 1300, margin: '0 auto', width: '100%' }}>
-          <Breadcrumbs items={[
-            { label: 'Home', href: isCorpVariant ? '/corporate' : '/private' },
-            { label: 'Our Team' },
-          ]} />
-        </section>
 
         {/* HERO */}
         <div ref={heroRef} className={styles.hero} style={{ backgroundColor: '#1a1a1a' }}>
@@ -112,6 +106,10 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
           <div className={styles.heroGradient} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 220, background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)', zIndex: 5, pointerEvents: 'none' }} />
           <div className={styles.heroContent} style={{ zIndex: 10 }}>
+            <Breadcrumbs items={[
+              { label: 'Home', href: isCorpVariant ? '/corporate' : '/private' },
+              { label: 'Our Team' },
+            ]} />
             <h1 className={styles.heroH1}>Our Team</h1>
             <p className={styles.heroSub}>Experienced, qualified and passionate about what they do</p>
           </div>

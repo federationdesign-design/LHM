@@ -93,18 +93,6 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
     <>
       {isCorp ? <CorporateNav /> : <Nav scrollRef={heroRef} />}
       <main className={styles.page}>
-        <section style={{ background: '#000000', padding: '120px 24px 0', maxWidth: 1300, margin: '0 auto', width: '100%' }}>
-          <Breadcrumbs items={isCorp ? [
-            { label: 'Home', href: '/corporate' },
-            { label: 'Corporate', href: '/corporate' },
-            { label: 'Team', href: '/corporate/team' },
-            { label: member.name },
-          ] : [
-            { label: 'Home', href: '/private' },
-            { label: 'Team', href: '/team' },
-            { label: member.name },
-          ]} />
-        </section>
 
         {/* HERO */}
         <div ref={heroRef} className={styles.hero} style={{ backgroundColor: member.heroColor }}>
@@ -117,6 +105,16 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
           <div className={styles.heroGradient} />
           <div className={styles.heroContent}>
+            <Breadcrumbs items={isCorp ? [
+              { label: 'Home', href: '/corporate' },
+              { label: 'Corporate', href: '/corporate' },
+              { label: 'Team', href: '/corporate/team' },
+              { label: member.name },
+            ] : [
+              { label: 'Home', href: '/private' },
+              { label: 'Team', href: '/team' },
+              { label: member.name },
+            ]} />
             <h1 className={styles.heroH1}>{member.name}</h1>
             <p className={styles.heroSub}>{member.title}</p>
             {isCorp ? (
