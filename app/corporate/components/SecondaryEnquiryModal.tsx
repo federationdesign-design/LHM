@@ -404,7 +404,7 @@ export default function SecondaryEnquiryModal({
                 margin: '0 0 24px',
                 lineHeight: 1.5,
               }}>
-                Required fields marked *
+                make an enquiry for corporate massage as your business
               </p>
 
               <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 28 }} />
@@ -512,25 +512,25 @@ export default function SecondaryEnquiryModal({
               {/* Service type — full width because checkboxes need room */}
               <div style={{ marginBottom: 22 }}>
                 <label style={labelStyle}>What type of service are you interested in? <span style={{ color: '#ff8c8c' }}>*</span></label>
-                <div className="sef-checkbox-grid">
-                  {SERVICE_TYPES.map((s) => (
-                    <label key={s.id} className="intake-checkbox-wrap" style={{ alignItems: 'center' }}>
-                      <input
-                        type="checkbox"
-                        checked={serviceTypes.includes(s.id)}
-                        onChange={() => toggleService(s.id)}
-                        className="intake-checkbox-input"
-                      />
-                      <span className="intake-checkbox-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" className="intake-checkbox-tick">
-                          <path d="M5 12l4 4L19 7" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </span>
-                      <span style={{ fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.4 }}>
+                <div className="sef-pill-row">
+                  {SERVICE_TYPES.map((s) => {
+                    const active = serviceTypes.includes(s.id);
+                    return (
+                      <button
+                        key={s.id}
+                        type="button"
+                        onClick={() => toggleService(s.id)}
+                        className="sef-pill"
+                        style={{
+                          background: active ? '#ffffff' : 'transparent',
+                          color: active ? '#000000' : '#ffffff',
+                          borderColor: active ? '#ffffff' : 'rgba(255,255,255,0.5)',
+                        }}
+                      >
                         {s.label}
-                      </span>
-                    </label>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
