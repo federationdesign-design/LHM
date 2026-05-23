@@ -88,10 +88,10 @@ const corpFaqs = [
   {
     category: 'Booking & scheduling',
     questions: [
-      { q: 'Is there a minimum number of staff you can see?', a: 'Yes, we typically need a minimum group size that makes the visit viable for both sides. For most onsite sessions that is around 8-10 people, depending on slot length and location. Get in touch with your numbers and we will let you know what works.' },
-      { q: 'Is there a maximum number of staff you can see in one day?', a: 'In a full working day a single therapist can typically see 20-30 people on shorter slots (15-20 minutes each). For larger teams we send multiple therapists so everyone gets seen. The biggest team we have run in a single day is in the hundreds, across several therapists.' },
+      { q: 'Is there a minimum number of staff you can see?', a: 'To ensure onsite sessions are viable for both your team and our therapists, we typically recommend a minimum group size of around 8-10 people, depending on appointment length and location. We recommend checking interest with colleagues first to gauge likely numbers, then getting in touch with us so we can advise on the most suitable setup for your workplace.' },
+      { q: 'Is there a maximum number of staff you can see in one day?', a: 'In a full working day a single therapist can typically see 20-28 people on shorter slots (15-20 minutes each). For larger teams we send multiple therapists so everyone gets seen. The biggest team we have run in a single day is in the hundreds, across several therapists.' },
       { q: 'How quickly can you fit us in?', a: 'It depends on the time of year. We try to offer something within 2-4 weeks, but during busy periods (autumn into Christmas, January wellness pushes, summer event season) it can be longer. The sooner you enquire, the more likely we are to slot you in when you want us.' },
-      { q: 'We start early in the morning, what is the earliest you can get there?', a: 'We can usually be set up and ready to start by 8am if needed. If you need earlier than that, let us know and we will see what we can do.' },
+      { q: 'We start early in the morning, what is the earliest you can get there?', a: 'We are guided by your preferred timings and can usually work flexibly around your schedule. Just let us know what start and finish times would work best for your team, and we will do our best to accommodate them.' },
     ],
   },
   {
@@ -99,7 +99,7 @@ const corpFaqs = [
     questions: [
       { q: 'What if we have multiple locations?', a: 'No problem. We have therapists across Cambridge and the surrounding region, and we regularly run multi-site rotations for clients with several offices. Tell us where your sites are and how often you want to cover each one, and we will build a schedule.' },
       { q: 'Do we need to prepare our team in any way before your arrival?', a: 'Not really. Some clients share a short note explaining what to wear (comfortable layers work best for chair massage) and mentioning that no oils are used during chair sessions, so people can come straight from a meeting. We will send a booking link your team can use to book their own slot in advance.' },
-      { q: 'Would you do the massages outside?', a: 'Yes, if the weather is reliable and we have a safe, level surface. Outdoor sessions can be lovely for summer wellbeing days, but we always have a contingency plan in case of rain. Tell us what space you have and we will work it out together.' },
+      { q: 'Would you do the massages outside?', a: 'Yes - outdoor sessions can work really well for summer wellbeing days. We simply ask for a safe, level space to work from. We can also provide a gazebo to help protect both employees and therapists from strong sun or unexpected rain, helping the day run comfortably whatever the weather. Let us know what space you have available and we will work out the best setup together.' },
       { q: 'We are attending an event and would love to have a service like this on our stand. Can you help?', a: 'Absolutely. Event massage is one of our most popular services and a brilliant way to draw people to your stand. We have run sessions at trade shows, conferences, sponsor activations and brand experiences. Tell us about the event and we will put a quote together.' },
       { q: 'What space do you need at our office?', a: 'For chair massage we need a quiet-ish corner with enough room for the chair plus the therapist to move around it, roughly 2m x 2m. A small meeting room or a corner of an empty office both work well. For DSE assessments we come to the desk itself.' },
     ],
@@ -107,8 +107,8 @@ const corpFaqs = [
   {
     category: 'Money & contracts',
     questions: [
-      { q: 'Is there a deposit and when is it due?', a: 'Yes. For most bookings we ask for a 50% deposit to confirm the date, with the balance invoiced after the session. For larger or repeat clients we sometimes work on standard 30-day invoice terms instead. We will agree what works for you upfront.' },
-      { q: 'How much does it cost?', a: 'It depends on team size, slot length and how many therapists we send. As a rough guide, a half-day with one therapist starts in the low hundreds; full days and larger teams scale from there. Get in touch with your numbers and we will send a proper quote.' },
+      { q: 'Is there a deposit and when is it due?', a: 'Payment terms are discussed and agreed upfront before your booking is confirmed. For most clients, the balance is invoiced after the session. For larger or ongoing bookings, we can also work with standard 30-day invoice terms where appropriate.' },
+      { q: 'How much does it cost?', a: 'We offer a range of packages depending on team size, appointment length, location, and the number of therapists required. Because every workplace is slightly different, we usually start with a quick conversation to understand your needs and recommend the package that would work best for your team and budget. Once we have an idea of likely numbers and timings, we will send over a clear, no-obligation quote.' },
       { q: 'Do you offer ongoing monthly visits?', a: 'Yes, and most of our long-term clients work with us this way. Regular monthly or fortnightly visits build a rhythm, fill up faster, and have a much bigger impact on team wellbeing than one-off sessions. Happy to design something around your team.' },
     ],
   },
@@ -117,7 +117,7 @@ const corpFaqs = [
     questions: [
       { q: 'Do you have insurance for any injuries caused by your massages?', a: 'Yes. Every therapist on our team is fully insured (we work with the FHT and Society of Sports Therapists, depending on qualification) and we hold public liability cover for all onsite work. Happy to share certificates if your facilities team needs them.' },
       { q: 'How do you report any injuries you find? Is the information confidential to the employee?', a: 'Anything an individual shares with the therapist during their session stays between them and the therapist. We do not share personal health information with employers. If a therapist spots a workplace pattern (for example, repeated posture issues across one team), we may flag the pattern generally, never the individual.' },
-      { q: 'How do you keep the area hygienic?', a: 'The massage chair face cradle is wiped down and re-covered with a fresh disposable cover between every person. Therapists wash hands between clients and bring their own kit. If you have specific site requirements we are happy to accommodate.' },
+      { q: 'How do you keep the area hygienic?', a: 'Hygiene is something we take very seriously. After each employee, the massage chair is fully sterilised and the face cradle is recovered with fresh disposable paper roll. Therapists wash and sanitise their hands between every client using antibacterial gel, and all equipment and contact points are regularly cleaned with antibacterial sprays and wipes throughout the day. Where possible, we also encourage a well-ventilated setup area to help keep the environment fresh and comfortable for everyone. If your workplace has any specific hygiene or site requirements, we are always happy to accommodate them.' },
       { q: 'Are your therapists qualified?', a: 'Yes. Every therapist is qualified to at least Level 3 in Massage Therapy, with most also holding Level 4 Sports Massage or equivalent, and many have specialist qualifications (pregnancy, dry needling, sports therapy). All are insured and DBS-checked where appropriate.' },
     ],
   },
