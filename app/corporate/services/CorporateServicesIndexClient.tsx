@@ -153,6 +153,30 @@ export default function CorporateServicesIndexClient() {
           gap: 24px;
           padding: 32px 16px;
         }
+        /* ── MOBILE REORDER (under 1024px) ─────────────────────────── */
+        @media (max-width: 1023px) {
+          .cs-twocol {
+            display: flex;
+            flex-direction: column;
+          }
+          .cs-col1,
+          .cs-col2,
+          .cs-col2-top {
+            display: contents;
+          }
+          .cs-main-copy { order: 1; }
+          .cs-service2-wrap { order: 2; }
+          .cs-col1 > a:nth-of-type(1),
+          .cs-col1 > .cs-service-card:nth-of-type(1) {
+            order: 3;
+          }
+          .cs-col1 > a:nth-of-type(2),
+          .cs-col1 > .cs-service-card:nth-of-type(2) {
+            order: 4;
+          }
+          .cs-sessions { order: 5; }
+          .cs-quick-actions { order: 6; }
+        }
         @media (min-width: 1024px) {
           .cs-twocol {
             grid-template-columns: 1fr 2fr;
