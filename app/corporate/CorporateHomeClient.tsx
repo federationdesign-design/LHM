@@ -812,7 +812,7 @@ export default function CorporateHomeClient() {
           text-decoration: none;
           width: 90%;
           max-width: 520px;
-          text-align: right;
+          text-align: left;
           transition: opacity 0.2s ease;
         }
         .corp-hero-enquire:hover { opacity: 0.85; }
@@ -954,6 +954,9 @@ export default function CorporateHomeClient() {
           margin: 0 auto;
         }
         .corp-twocol-card {
+          padding: 32px 0;
+        }
+        .corp-twocol-card--bordered {
           padding: 32px;
         }
         .corp-twocol-card--bordered {
@@ -1047,7 +1050,7 @@ export default function CorporateHomeClient() {
           position: relative;
           display: block;
           width: 100%;
-          aspect-ratio: 4 / 3;
+          aspect-ratio: 1 / 1;
           overflow: hidden;
           text-decoration: none;
           color: #ffffff;
