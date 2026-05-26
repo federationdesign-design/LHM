@@ -1309,6 +1309,32 @@ export default function CorporateHomeClient() {
             display: flex;
           }
         }
+        /* Show more button for What's Included (mobile only) */
+        .corp-included-more-wrap {
+          display: none;
+          justify-content: center;
+          margin-top: 32px;
+        }
+        .corp-included-more-btn {
+          background: none;
+          border: 1px solid rgba(255,255,255,0.4);
+          color: #ffffff;
+          padding: 12px 32px;
+          font-size: 0.95rem;
+          font-weight: 400;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: opacity 0.2s ease;
+        }
+        .corp-included-more-btn:hover { opacity: 0.85; }
+        @media (max-width: 1023px) {
+          .corp-included-item--extra:not(.corp-included-item--show) {
+            display: none;
+          }
+          .corp-included-more-wrap {
+            display: flex;
+          }
+        }
         /* ── WHAT'S INCLUDED ─────────────────────────────────── */
         .corp-included {
           padding: 60px 24px;
