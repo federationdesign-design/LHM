@@ -1478,6 +1478,15 @@ export default function CorporateHomeClient() {
           max-width: 1600px;
           margin: 0 auto;
         }
+        @media (max-width: 1023px) {
+          .corp-included-heading,
+          .corp-services-heading,
+          .corp-videos-heading,
+          .corp-credibility-heading,
+          .corp-gallery-heading {
+            font-size: 1.45rem;
+          }
+        }
         .corp-gallery-heading {
           font-size: clamp(1.8rem, 3vw, 2.4rem);
           font-weight: 600;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import CorporateNav from '../../CorporateNav';
@@ -91,6 +91,7 @@ export interface CorporateServicePageProps {
 // ── COMPONENT ─────────────────────────────────────────────────
 export default function CorporateServicePage(props: CorporateServicePageProps) {
   const heroRef = useRef<HTMLElement>(null);
+  const [showAllBenefits, setShowAllBenefits] = useState(false);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleScroll = () => {
@@ -200,8 +201,8 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             {/* Right col: benefits with sub-headings */}
             <div className="cs-benefits">
               <h2 className="cs-benefits-title">{props.benefitsTitle}</h2>
-              {props.benefits.map((b) => (
-                <div key={b.title} className="cs-benefit-item">
+              {props.benefits.map((b, idx) => (
+                <div key={b.title} className={`cs-benefit-item ${idx > 0 ? 'cs-benefit-item--extra' : ''} ${showAllBenefits ? 'cs-benefit-item--show' : ''}`}>
                   <img
                     src="/tick-svg.svg"
                     alt=""
@@ -214,6 +215,17 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
                   </div>
                 </div>
               ))}
+              {!showAllBenefits && (
+                <div className="cs-benefits-more-wrap">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllBenefits(true)}
+                    className="cs-benefits-more-btn"
+                  >
+                    Show more
+                  </button>
+                </div>
+              )}
             </div>
 
           </div>
@@ -501,6 +513,31 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           font-weight: 600;
           margin: 0 0 24px;
           line-height: 1.3;
+        }
+        .cs-benefits-more-wrap {
+          display: none;
+          justify-content: center;
+          margin-top: 24px;
+        }
+        .cs-benefits-more-btn {
+          background: none;
+          border: 1px solid rgba(255,255,255,0.4);
+          color: #ffffff;
+          padding: 12px 32px;
+          font-size: 0.95rem;
+          font-weight: 400;
+          letter-spacing: 0.05em;
+          cursor: pointer;
+          transition: opacity 0.2s ease;
+        }
+        .cs-benefits-more-btn:hover { opacity: 0.85; }
+        @media (max-width: 1023px) {
+          .cs-benefit-item--extra:not(.cs-benefit-item--show) {
+            display: none;
+          }
+          .cs-benefits-more-wrap {
+            display: flex;
+          }
         }
         .cs-benefit-item {
           margin-bottom: 24px;
