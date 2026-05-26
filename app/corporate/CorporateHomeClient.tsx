@@ -360,6 +360,8 @@ export default function CorporateHomeClient() {
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
+  // Mobile excludes Louise Domeisen (idx 6) and Maria Slater (idx 7)
+  const mobileTestimonials = corpTestimonials.filter((t) => t.name !== 'Louise Domeisen' && t.name !== 'Maria Slater');
   const [showAllIncluded, setShowAllIncluded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -594,7 +596,7 @@ export default function CorporateHomeClient() {
           <div className="corp-credibility-mobile">
             <div className="corp-credibility-track-wrap">
               <div ref={trackRef} className="corp-credibility-track">
-                {corpTestimonials.map((t, i) => (
+                {mobileTestimonials.map((t, i) => (
                   <div key={i} className="corp-credibility-slide">
                     <div className="corp-credibility-item">
                       <p className="corp-credibility-body">{t.body}</p>
@@ -616,7 +618,7 @@ export default function CorporateHomeClient() {
               </div>
             </div>
             <div className="corp-credibility-dots">
-              {corpTestimonials.map((_, i) => (
+              {mobileTestimonials.map((_, i) => (
                 <button
                   key={i}
                   type="button"
