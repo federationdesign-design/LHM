@@ -834,6 +834,8 @@ export default function CorporateHomeClient() {
           .corp-hero {
             height: auto;
             min-height: 0;
+            overflow: hidden;
+            max-width: 100vw;
           }
           .corp-hero-image {
             position: relative;
@@ -841,6 +843,14 @@ export default function CorporateHomeClient() {
             width: 100%;
             height: 75vh;
             min-height: 560px;
+            overflow: hidden;
+          }
+          .corp-hero-video {
+            width: 100%;
+            height: 100%;
+            min-width: 0;
+            min-height: 0;
+            object-fit: cover;
           }
           .corp-hero-pdf {
             position: relative;
