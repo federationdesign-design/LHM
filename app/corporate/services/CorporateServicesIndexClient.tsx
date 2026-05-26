@@ -55,7 +55,62 @@ export default function CorporateServicesIndexClient() {
 
       <main className="cs-page">
         {/* ── 2 columns: narrow left, wide right ────────── */}
-        <section className="cs-twocol">
+        <section className="cs-twocol-mobile">
+          <div className="cs-mobile-copy">
+            <Breadcrumbs items={[
+              { label: 'Home', href: '/corporate' },
+              { label: 'Services' },
+            ]} />
+            <h1 className="cs-h1">Corporate Services</h1>
+            <p className="cs-lead">Stress, burnout and physical illness are rarely ever the fault of the staff or the organisation itself. Sometimes we stumble and fall, or, perhaps worse, stumble and fall and then come into work, when we should be recovering! Managing stress levels and physical wellbeing with regular massage treatments for your staff will have them feeling revived, content and motivated!</p>
+            <p className="cs-sub">Our specialist corporate massages in Cambridge are a popular choice for businesses looking to enhance their employee wellness programs, relieve stress, and create a more positive and productive work environment.</p>
+            <h3 className="cs-benefits-title">Benefits to business:</h3>
+            <ul className="cs-benefits-list">
+              {benefits.map((b) => (<li key={b}>{b}</li>))}
+            </ul>
+            <button type="button" onClick={() => setModalOpen(true)} className="cs-enquire-link">Enquire about your team here</button>
+          </div>
+          <ServiceCard s={dsc} />
+          <ServiceCard s={chair} />
+          <ServiceCard s={posture} />
+          <aside className="cs-sessions">
+            <h3 className="cs-sessions-title">The sessions are designed not to interfere with the team day.</h3>
+            <p>An online booking form is shared prior to the scheduled day. And on a first come first served basis, the team can book a slot that suits.</p>
+            <p>These individual team member sessions can be different amount of time depending on your teams available time (and budget).</p>
+            <p className="cs-sessions-bold">We offer slot lengths:</p>
+            <ul>
+              <li>15 minute</li>
+              <li>20 minute</li>
+              <li>30 minute</li>
+            </ul>
+            <p>This service is ideal for SME companies with a staffed office. We offer flexibility + convenience to fit within your daily operations.</p>
+          </aside>
+          <aside className="cs-quick-actions">
+            {quickActions.map((a) => {
+              const inner = (
+                <>
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden>
+                    <path d="M10 8L20 16L10 24" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span>{a.label}</span>
+                </>
+              );
+              if (a.modal) {
+                return (
+                  <button key={a.label} type="button" onClick={() => setModalOpen(true)} className="cs-quick-action">
+                    {inner}
+                  </button>
+                );
+              }
+              return (
+                <Link key={a.label} href={a.href} {...(a.download ? { download: true } : {})} className="cs-quick-action">
+                  {inner}
+                </Link>
+              );
+            })}
+          </aside>
+        </section>
+        <section className="cs-twocol cs-twocol--desktop">
 
           {/* ── Column 1 (narrow): Service 1, Service 3, Sessions aside ─ */}
           <div className="cs-col1">
@@ -147,35 +202,31 @@ export default function CorporateServicesIndexClient() {
         .cs-page { background: #0a0908; color: #ffffff; min-height: 100vh; padding-bottom: 80px; }
 
         /* ── 2-column layout ─────────── */
+        .cs-twocol-mobile {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          padding: 32px 16px;
+        }
+        .cs-twocol-mobile .cs-mobile-copy {
+          display: flex;
+          flex-direction: column;
+        }
         .cs-twocol {
           display: grid;
           grid-template-columns: 1fr;
           gap: 24px;
           padding: 32px 16px;
         }
-        /* ── MOBILE REORDER (under 1024px) ─────────────────────────── */
         @media (max-width: 1023px) {
-          .cs-twocol {
-            display: flex;
-            flex-direction: column;
+          .cs-twocol--desktop {
+            display: none;
           }
-          .cs-col1,
-          .cs-col2,
-          .cs-col2-top {
-            display: contents;
+        }
+        @media (min-width: 1024px) {
+          .cs-twocol-mobile {
+            display: none;
           }
-          .cs-main-copy { order: 1; }
-          .cs-service2-wrap { order: 2; }
-          .cs-col1 > a:nth-of-type(1),
-          .cs-col1 > .cs-service-card:nth-of-type(1) {
-            order: 3;
-          }
-          .cs-col1 > a:nth-of-type(2),
-          .cs-col1 > .cs-service-card:nth-of-type(2) {
-            order: 4;
-          }
-          .cs-sessions { order: 5; }
-          .cs-quick-actions { order: 6; }
         }
         @media (min-width: 1024px) {
           .cs-twocol {
