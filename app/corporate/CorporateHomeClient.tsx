@@ -846,11 +846,13 @@ export default function CorporateHomeClient() {
             overflow: hidden;
           }
           .corp-hero-video {
-            width: 100%;
+            top: 50%;
+            left: 50%;
+            width: 177.78vh;
             height: 100%;
-            min-width: 0;
-            min-height: 0;
-            object-fit: cover;
+            min-width: 100%;
+            min-height: 56.25vw;
+            transform: translate(-50%, -50%);
           }
           .corp-hero-pdf {
             position: relative;
