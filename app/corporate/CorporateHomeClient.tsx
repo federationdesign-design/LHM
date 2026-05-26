@@ -1316,12 +1316,8 @@ export default function CorporateHomeClient() {
         }
         .corp-included-item {
           display: flex;
-          flex-direction: column;
-          align-items: stretch;
-          gap: 12px;
-        }
-        .corp-included-text {
-          padding-left: 104px;
+          align-items: flex-start;
+          gap: 16px;
         }
         .corp-included-tick {
           width: 88px;
