@@ -276,8 +276,10 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           .cs-main > section:nth-of-type(5) { order: 4; }
           .cs-hero-form-mobile { order: 5; }
           .cs-services { order: 6; }
-          .cs-hero-link--desktop { display: none; }
-          .cs-hero-link--mobile { display: inline-flex; }
+          .cs-main > footer,
+          .cs-main > .corp-footer { order: 7; }
+          .cs-hero-link--desktop { display: none !important; }
+          .cs-hero-link--mobile { display: inline-flex !important; }
         }
 
         /* ── HERO ──────────────────────────────────────────── */
