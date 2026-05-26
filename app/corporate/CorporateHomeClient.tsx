@@ -855,7 +855,7 @@ export default function CorporateHomeClient() {
           .corp-hero-enquire {
             padding-left: 0;
             display: block;
-            text-align: center;
+            text-align: left;
           }
         }
 
