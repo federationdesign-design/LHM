@@ -361,6 +361,7 @@ export default function CorporateHomeClient() {
   const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [openIncluded, setOpenIncluded] = useState<number>(0);
 
   // Mobile carousel state for the testimonials block
   const [activeIdx, setActiveIdx] = useState(0);
@@ -494,20 +495,31 @@ export default function CorporateHomeClient() {
         <section className="corp-included">
           <h2 className="corp-included-heading">What&rsquo;s Included</h2>
           <div className="corp-included-grid">
-            {whatsIncluded.map((item) => (
-              <div key={item.title} className="corp-included-item">
-                <img
-                  src="/tick-svg.svg"
-                  alt=""
-                  className="corp-included-tick"
-                  aria-hidden="true"
-                />
-                <div className="corp-included-text">
-                  <h3 className="corp-included-title">{item.title}</h3>
-                  <p className="corp-included-body">{item.body}</p>
+            {whatsIncluded.map((item, idx) => {
+              const isOpen = openIncluded === idx;
+              return (
+                <div key={item.title} className={`corp-included-item ${isOpen ? 'corp-included-item--open' : 'corp-included-item--closed'}`}>
+                  <button
+                    type="button"
+                    className="corp-included-toggle"
+                    onClick={() => setOpenIncluded(isOpen ? -1 : idx)}
+                    aria-expanded={isOpen}
+                  >
+                    <img
+                      src="/tick-svg.svg"
+                      alt=""
+                      className="corp-included-tick"
+                      aria-hidden="true"
+                    />
+                    <h3 className="corp-included-title">{item.title}</h3>
+                    <span className="corp-included-chevron" aria-hidden="true">{isOpen ? '−' : '+'}</span>
+                  </button>
+                  <div className="corp-included-text">
+                    <p className="corp-included-body">{item.body}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -1312,6 +1324,33 @@ export default function CorporateHomeClient() {
           color: #ffffff;
           margin: 0 0 8px;
           letter-spacing: 0.01em;
+        }
+        .corp-included-toggle {
+          all: unset;
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+          width: 100%;
+          cursor: default;
+        }
+        .corp-included-chevron {
+          margin-left: auto;
+          font-size: 1.4rem;
+          font-weight: 400;
+          color: #ffffff;
+          opacity: 0.7;
+          display: none;
+        }
+        @media (max-width: 1023px) {
+          .corp-included-toggle {
+            cursor: pointer;
+          }
+          .corp-included-chevron {
+            display: block;
+          }
+          .corp-included-item--closed .corp-included-text {
+            display: none;
+          }
         }
         .corp-included-body {
           font-size: clamp(0.95rem, 1.05vw, 1.05rem);
