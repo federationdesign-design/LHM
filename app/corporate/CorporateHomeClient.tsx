@@ -965,6 +965,11 @@ export default function CorporateHomeClient() {
           margin: 0 auto 36px;
           max-width: min(1200px, 90vw);
         }
+        @media (max-width: 1023px) {
+          .corp-intro-para:first-child {
+            font-size: 1.45rem;
+          }
+        }
         .corp-intro-para:last-child {
           margin-bottom: 0;
         }

@@ -567,6 +567,13 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
           text-align: center;
           margin: 0 0 40px;
         }
+        @media (max-width: 1023px) {
+          .cs-what-title,
+          .cs-benefits-title,
+          .cs-services-heading {
+            font-size: 1.45rem;
+          }
+        }
         .cs-services-grid {
           display: grid;
           grid-template-columns: 1fr;

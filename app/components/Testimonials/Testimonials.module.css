@@ -55,6 +55,12 @@
   padding: 0 28px;
 }
 
+@media (max-width: 1023px) {
+  .heading {
+    font-size: 1.45rem;
+  }
+}
+
 /* ── MOBILE CAROUSEL ─────────────────────────────────────── */
 .track {
   display: flex;
