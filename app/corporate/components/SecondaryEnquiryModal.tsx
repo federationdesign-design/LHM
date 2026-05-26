@@ -561,8 +561,6 @@ export default function SecondaryEnquiryModal({
                 </div>
               </div>
 
-              </div>
-              <div className={`sef-step sef-step-3 ${currentStep === 3 ? 'sef-step--active' : ''}`}>
               {/* ── ENQUIRY DETAILS ──────────────────────────── */}
               <div className="sef-row sef-row--2col" style={{ marginBottom: 22 }}>
                 {/* LEFT: What prompted your enquiry — textarea */}
