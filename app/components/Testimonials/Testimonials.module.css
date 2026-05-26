@@ -46,7 +46,7 @@
    via the exported `headingClassName` constant in the
    component file. */
 .heading {
-  font-size: 0.95rem;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 600;
   text-align: center;
   color: #ffffff;
@@ -162,9 +162,6 @@
 
 /* ── TABLET ──────────────────────────────────────────────── */
 @media (min-width: 768px) {
-  .heading {
-    font-size: 1.1rem;
-  }
   .slide {
     padding: 0 40px;
   }
