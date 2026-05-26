@@ -888,6 +888,26 @@ export default function CorporateHomeClient() {
           display: block;
           opacity: 0.9;
         }
+        @media (max-width: 1023px) {
+          .corp-clients-row {
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            gap: 12px;
+          }
+          .corp-client-item {
+            flex: 1 1 0;
+            height: 50px;
+            padding: 0;
+            min-width: 0;
+          }
+          .corp-client-item:nth-child(n+4) {
+            display: none;
+          }
+          .corp-client-logo {
+            max-height: 32px;
+            max-width: 100%;
+          }
+        }
         @media (min-width: 1024px) {
           .corp-clients {
             padding: 60px 32px;
