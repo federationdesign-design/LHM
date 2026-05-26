@@ -141,9 +141,12 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
               {props.heroCopy.split('\n').filter(Boolean).map((para, i) => (
                 <p key={i} className="cs-hero-copy">{para}</p>
               ))}
-              <Link href="/corporate/enquire" className="cs-hero-link">
+              <Link href="/corporate/enquire" className="cs-hero-link cs-hero-link--desktop">
                 Enquire about your team here &gt;
               </Link>
+              <a href="#corp-enquire-form" className="cs-hero-link cs-hero-link--mobile">
+                Enquire about your team here &gt;
+              </a>
             </div>
 
             <div className="cs-hero-form">
@@ -162,7 +165,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             On desktop, the form sits inside the hero (above).
             On mobile, the in-hero copy is hidden via CSS and
             this version renders as its own block below. */}
-        <section className="cs-hero-form-mobile">
+        <section id="corp-enquire-form" className="cs-hero-form-mobile">
           <InlineEnquiryForm />
         </section>
 
@@ -260,6 +263,21 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         .cs-main {
           background: #000000;
           color: #ffffff;
+        }
+        .cs-hero-link--mobile { display: none; }
+        @media (max-width: 1023px) {
+          .cs-main {
+            display: flex;
+            flex-direction: column;
+          }
+          .cs-hero { order: 1; }
+          .cs-detail { order: 2; }
+          .corp-gallery { order: 3; }
+          .cs-main > section:nth-of-type(5) { order: 4; }
+          .cs-hero-form-mobile { order: 5; }
+          .cs-services { order: 6; }
+          .cs-hero-link--desktop { display: none; }
+          .cs-hero-link--mobile { display: inline-flex; }
         }
 
         /* ── HERO ──────────────────────────────────────────── */
