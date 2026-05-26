@@ -271,8 +271,8 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             flex-direction: column;
           }
           .cs-hero { order: 1; }
-          .cs-detail { order: 2; }
-          .corp-gallery { order: 3; }
+          .corp-gallery { order: 2; }
+          .cs-detail { order: 3; }
           .cs-main > section:nth-of-type(5) { order: 4; }
           .cs-hero-form-mobile { order: 5; }
           .cs-services { order: 6; }
@@ -574,7 +574,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
         }
         .cs-service-card {
           position: relative;
-          aspect-ratio: 4 / 3;
+          aspect-ratio: 1 / 1;
           overflow: hidden;
           color: #ffffff;
           text-decoration: none;
