@@ -360,6 +360,7 @@ export default function CorporateHomeClient() {
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
+  const [showAllIncluded, setShowAllIncluded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   // Mobile carousel state for the testimonials block
@@ -494,8 +495,8 @@ export default function CorporateHomeClient() {
         <section className="corp-included">
           <h2 className="corp-included-heading">What&rsquo;s Included</h2>
           <div className="corp-included-grid">
-            {whatsIncluded.map((item) => (
-              <div key={item.title} className="corp-included-item">
+            {whatsIncluded.map((item, idx) => (
+              <div key={item.title} className={`corp-included-item ${idx > 0 ? 'corp-included-item--extra' : ''} ${showAllIncluded ? 'corp-included-item--show' : ''}`}>
                 <img
                   src="/tick-svg.svg"
                   alt=""
@@ -509,6 +510,17 @@ export default function CorporateHomeClient() {
               </div>
             ))}
           </div>
+          {!showAllIncluded && (
+            <div className="corp-included-more-wrap">
+              <button
+                type="button"
+                onClick={() => setShowAllIncluded(true)}
+                className="corp-included-more-btn"
+              >
+                Show more
+              </button>
+            </div>
+          )}
         </section>
 
         <div className="corp-divider" />
@@ -1283,58 +1295,6 @@ export default function CorporateHomeClient() {
           }
         }
 
-        /* Show more button for What's Included (mobile only) */
-        .corp-included-more-wrap {
-          display: none;
-          justify-content: center;
-          margin-top: 32px;
-        }
-        .corp-included-more-btn {
-          background: none;
-          border: 1px solid rgba(255,255,255,0.4);
-          color: #ffffff;
-          padding: 12px 32px;
-          font-size: 0.95rem;
-          font-weight: 400;
-          letter-spacing: 0.05em;
-          cursor: pointer;
-          transition: opacity 0.2s ease;
-        }
-        .corp-included-more-btn:hover { opacity: 0.85; }
-        @media (max-width: 1023px) {
-          .corp-included-item--extra:not(.corp-included-item--show) {
-            display: none;
-          }
-          .corp-included-more-wrap {
-            display: flex;
-          }
-        }
-        /* Show more button for What's Included (mobile only) */
-        .corp-included-more-wrap {
-          display: none;
-          justify-content: center;
-          margin-top: 32px;
-        }
-        .corp-included-more-btn {
-          background: none;
-          border: 1px solid rgba(255,255,255,0.4);
-          color: #ffffff;
-          padding: 12px 32px;
-          font-size: 0.95rem;
-          font-weight: 400;
-          letter-spacing: 0.05em;
-          cursor: pointer;
-          transition: opacity 0.2s ease;
-        }
-        .corp-included-more-btn:hover { opacity: 0.85; }
-        @media (max-width: 1023px) {
-          .corp-included-item--extra:not(.corp-included-item--show) {
-            display: none;
-          }
-          .corp-included-more-wrap {
-            display: flex;
-          }
-        }
         /* Show more button for What's Included (mobile only) */
         .corp-included-more-wrap {
           display: none;
