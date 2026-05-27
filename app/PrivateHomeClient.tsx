@@ -300,7 +300,7 @@ function ServicesCarousel() {
             }}
           >
             {services.map((s) => (
-              <div key={s.slug} style={{ width: '100vw', flexShrink: 0, padding: '0 0 40px', boxSizing: 'border-box', display: 'flex' }}>
+              <div key={s.slug} style={{ width: '100vw', flexShrink: 0, padding: '0 1px 40px', boxSizing: 'border-box', display: 'flex' }}>
                 <a href={s.href} style={{ textDecoration: 'none', color: 'inherit', display: 'block', width: '100%' }}>
                   <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#1a1a1a' }}>
                     <Image src={s.image} alt={s.title} fill sizes="100vw" style={{ objectFit: 'cover' }} />
@@ -441,7 +441,7 @@ function LocationsCarousel() {
             }}
           >
             {locations.map((loc) => (
-              <div key={loc.slug} style={{ width: '100vw', flexShrink: 0, padding: '0 0 40px', boxSizing: 'border-box', display: 'flex' }}>
+              <div key={loc.slug} style={{ width: '100vw', flexShrink: 0, padding: '0 1px 40px', boxSizing: 'border-box', display: 'flex' }}>
                 <a href={`/locations/${loc.slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block', width: '100%' }}>
                   <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', background: '#1a1a1a' }}>
                     <img
