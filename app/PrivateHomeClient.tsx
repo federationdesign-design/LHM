@@ -636,10 +636,10 @@ export default function PrivateHomeClient() {
           </p>
 
           <p style={{
-            fontSize: 'clamp(1.15rem, 1.3vw, 1.35rem)',
+            fontSize: 'clamp(1.0875rem, 1.3vw, 1.2875rem)',
             color: '#ffffff',
             fontWeight: 300,
-            lineHeight: 1.6,
+            lineHeight: 1.3,
             opacity: 0.85,
             textAlign: 'center',
             maxWidth: 'min(1200px, 90vw)',

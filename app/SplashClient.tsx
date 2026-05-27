@@ -703,10 +703,10 @@ export default function SplashClient() {
           letter-spacing: -0.01em;
         }
         .splash-elaborate-body {
-          font-size: 1.35rem;
+          font-size: 1.2875rem;
           font-weight: 300;
           color: #ffffff;
-          line-height: 1.6;
+          line-height: 1.3;
           margin: 0 0 32px;
           opacity: 0.85;
         }
@@ -956,10 +956,10 @@ export default function SplashClient() {
           letter-spacing: -0.01em;
         }
         .splash-mobile-elaborate .splash-elaborate-body {
-          font-size: 1.15rem;
+          font-size: 1.0875rem;
           font-weight: 300;
           color: #ffffff;
-          line-height: 1.65;
+          line-height: 1.3;
           margin: 0 0 32px;
           opacity: 0.85;
         }
