@@ -290,7 +290,7 @@ function ServicesCarousel() {
           position: 'relative',
         }}
       >
-        <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+        <div style={{ position: 'sticky', top: 56, height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
 
 
 
@@ -299,7 +299,7 @@ function ServicesCarousel() {
             style={{
               display: 'flex',
               willChange: 'transform',
-              height: 'calc(100vh - 90px)',
+              height: '100%',
             }}
           >
             {services.map((s) => (
@@ -315,16 +315,7 @@ function ServicesCarousel() {
             ))}
           </div>
 
-          <div style={{ position: 'absolute', top: 110, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 8, zIndex: 10 }}>
-            {services.map((_, i) => (
-              <NavDot
-                key={i}
-                active={i === activeIndex}
-                onClick={() => scrollToSlide(i)}
-                label={`Go to service ${i + 1}`}
-              />
-            ))}
-          </div>
+
         </div>
       </section>
 
