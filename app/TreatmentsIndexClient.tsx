@@ -386,7 +386,7 @@ function MobileTreatments() {
   return (
     <div
       ref={wrapperRef}
-      style={{ position: 'relative', height: 'calc(100dvh - 56px)', overflow: 'hidden', background: '#000000' }}
+      style={{ position: 'fixed', top: 56, left: 0, right: 0, bottom: 0, overflow: 'hidden', background: '#000000' }}
     >
       <style>{`
         .mobile-treatment-slide img {
