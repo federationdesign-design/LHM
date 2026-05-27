@@ -172,7 +172,7 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
 
         {/* BOOKING WIDGET - hidden for team members without a widget ID, and on corporate variant */}
         {!isCorp && member.widgetProviderId && (
-          <div id="booking-widget" className={styles.widgetWrapper}>
+          <div id="booking-widget" className={styles.widgetWrapper} style={{ marginTop: 0 }}>
             <BookingWidget providerId={member.widgetProviderId} />
           </div>
         )}
