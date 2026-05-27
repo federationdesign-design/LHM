@@ -388,6 +388,11 @@ function MobileTreatments() {
       ref={wrapperRef}
       style={{ position: 'relative', height: 'calc(100vh - 56px)', overflow: 'hidden', background: '#000000' }}
     >
+      <style>{`
+        .mobile-treatment-slide img {
+          filter: grayscale(100%);
+        }
+      `}</style>
       <div
         ref={trackRef}
         style={{
@@ -404,6 +409,7 @@ function MobileTreatments() {
         {slides.map((slide, i) => (
           <div
             key={slide.slug}
+            className="mobile-treatment-slide"
             style={{
               flexShrink: 0,
               width: '100vw',
@@ -481,18 +487,7 @@ function MobileTreatments() {
         ))}
       </div>
 
-      {/* Bottom pagination dots — homepage-style 15px circles, 2px border,
-          transparent off-state. Replaces the previous 16px white pills. */}
-      <div style={{ position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 20, display: 'flex', gap: 8, alignItems: 'center' }}>
-        {slides.map((_, i) => (
-          <NavDot
-            key={i}
-            active={i === index}
-            onClick={() => goTo(i)}
-            label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
+
     </div>
   );
 }
