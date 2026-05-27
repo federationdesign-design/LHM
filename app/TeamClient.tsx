@@ -127,10 +127,10 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
 
         {/* PROFILE + BIO */}
         <section style={{ padding: '48px 24px 48px', background: '#000000' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div className="team-bio-grid" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
 
             {/* Profile photo + name row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 28, marginBottom: 40 }}>
+            <div className="team-bio-avatar" style={{ display: 'flex', alignItems: 'center', gap: 28, marginBottom: 40 }}>
               <div style={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden', border: '1px solid #ffffff', flexShrink: 0, background: '#1a1a1a', position: 'relative' }}>
                 <Image src={member.profilePhoto} alt={member.name} fill style={{ objectFit: 'cover' }} onError={() => {}} />
               </div>
@@ -141,13 +141,15 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
             </div>
 
             {/* Bio */}
-            {member.bio.map((para: string, i: number) => (
-              <p key={i} style={{ fontSize: '1.125rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.75, marginBottom: 20 }}>{para}</p>
-            ))}
+            <div className="team-bio-text">
+              {member.bio.map((para: string, i: number) => (
+                <p key={i} style={{ fontSize: '1.125rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.3, marginBottom: 20 }}>{para}</p>
+              ))}
+            </div>
 
             {/* Treatments (hidden on corporate variant) */}
             {!isCorp && (
-            <div style={{ marginTop: 32 }}>
+            <div className="team-bio-treatments" style={{ marginTop: 32 }}>
               <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#ffffff', marginBottom: 16, textAlign: 'center' }}>Treatments offered</h2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
                 {member.treatments.map((t: string) => (
@@ -156,6 +158,13 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
               </div>
             </div>
             )}
+            <style>{`
+              @media (max-width: 1023px) {
+                .team-bio-avatar { order: 2; margin-top: 32px; margin-bottom: 0 !important; }
+                .team-bio-text { order: 1; }
+                .team-bio-treatments { order: 3; }
+              }
+            `}</style>
           </div>
         </section>
 
