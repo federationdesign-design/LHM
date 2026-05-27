@@ -496,7 +496,7 @@ export default function YourPregnancyMassageClient() {
         )}
         {/* Why you need this — pulled from pregnancy-massage service data */}
         <section className={styles.serviceSection}>
-          <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
+          <h2 className={`${styles.testimonialsHeading} why-you-need-h2`} style={{ marginBottom: 20 }}>Why you need this</h2>
           <p className={styles.whyYouNeedIntro} style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block' }}>
             Pregnancy massage is a specially adapted treatment designed to support the physical and emotional changes of pregnancy. Using gentle, safe techniques our therapists help relieve common discomforts including back pain, swelling and fatigue, providing both physical relief and a much-needed moment of calm during this special time.
           </p>

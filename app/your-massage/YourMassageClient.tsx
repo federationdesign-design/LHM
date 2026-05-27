@@ -508,7 +508,7 @@ export default function YourMassageClient() {
         </div>
         {/* Why you need this — Your Massage positioning */}
         <section className={styles.serviceSection}>
-          <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
+          <h2 className={`${styles.testimonialsHeading} why-you-need-h2`} style={{ marginBottom: 20 }}>Why you need this</h2>
           <p className={styles.whyYouNeedIntro} style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 24px', display: 'block' }}>
             A general massage tailored to you. Perfect if you don&rsquo;t know what to book - a great starting point that lets your therapist focus on the areas that need most attention, whether that&rsquo;s shoulders, back, neck, feet, or anywhere else.
           </p>
