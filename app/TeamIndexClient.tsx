@@ -133,7 +133,7 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
               </a>
 
               {/* Bio */}
-              <p style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.75, marginBottom: 28 }}>{m.bio}</p>
+              <p className="team-index-bio" style={{ fontSize: '1rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.75, marginBottom: 28 }}>{m.bio}</p>
 
               {/* Treatments */}
               <div style={{ marginBottom: 24 }}>
@@ -219,6 +219,13 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
             }
           }
         `}</style>
+            <style>{`
+        @media (max-width: 1023px) {
+          .team-index-bio {
+            line-height: 1.3 !important;
+          }
+        }
+      `}</style>
       </main>
     </>
   );
