@@ -20,6 +20,18 @@ export const metadata: Metadata = {
     siteName: 'Lucy Hall Massage Therapy',
     locale: 'en_GB',
     type: 'website',
+    images: [
+      {
+        url: '/LHM2026logo-square.jpg',
+        width: 1200,
+        height: 1200,
+        alt: 'Lucy Hall Massage Therapy',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/LHM2026logo-square.jpg'],
   },
   robots: {
     index: true,
@@ -38,7 +50,44 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-GB" className={jakarta.variable}>
-      <body className={jakarta.className}>{children}</body>
+      <body className={jakarta.className}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'HealthAndBeautyBusiness',
+              '@id': 'https://www.lucyhallmassage.com/#business',
+              name: 'Lucy Hall Massage Therapy',
+              url: 'https://www.lucyhallmassage.com',
+              image: 'https://www.lucyhallmassage.com/LHM2026logo-square.jpg',
+              telephone: '+447765555078',
+              priceRange: '££',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: '2 Antwerp Cottages, Thoday Street',
+                addressLocality: 'Cambridge',
+                postalCode: 'CB1 3AU',
+                addressCountry: 'GB',
+              },
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: 52.197,
+                longitude: 0.143,
+              },
+              openingHoursSpecification: [
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Monday', opens: '12:00', closes: '20:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Tuesday', opens: '10:00', closes: '18:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Wednesday', opens: '10:00', closes: '20:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Thursday', opens: '10:00', closes: '18:00' },
+                { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Friday', opens: '10:00', closes: '18:00' },
+              ],
+              areaServed: { '@type': 'City', name: 'Cambridge' },
+            }),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
