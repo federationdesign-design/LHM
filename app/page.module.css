@@ -137,7 +137,7 @@
   position: relative;
   z-index: 5;
   background: #000000;
-  margin-top: -200px;
+  margin-top: 0;
 }
 
 /* ── DIVIDER ─────────────────────────────────────────────── */
