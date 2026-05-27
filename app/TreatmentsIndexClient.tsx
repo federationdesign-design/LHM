@@ -305,7 +305,7 @@ function DesktopTreatments() {
                         <Image src={slide.image} alt={slide.title!} fill sizes="40vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} priority={i < 4} />
                       </div>
                     )}
-                    <div style={{ position: 'absolute', inset: 0, background: slide.image ? `${slide.color}44` : slide.color }} />
+                    {!slide.image && <div style={{ position: 'absolute', inset: 0, background: slide.color }} />}
                     {slide.image && (
                       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)' }} />
                     )}
@@ -461,7 +461,7 @@ function MobileTreatments() {
                     <Image src={slide.image} alt={slide.title!} fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} priority={i < 3} />
                   </div>
                 )}
-                <div style={{ position: 'absolute', inset: 0, background: slide.image ? `${slide.color}44` : slide.color }} />
+                {!slide.image && <div style={{ position: 'absolute', inset: 0, background: slide.color }} />}
                 {slide.image && (
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.2) 55%, transparent 100%)' }} />
                 )}
