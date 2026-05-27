@@ -948,7 +948,7 @@ export default function SplashClient() {
           padding-left: 0;
         }
         .splash-mobile-elaborate .splash-elaborate-lead {
-          font-size: 1.95rem;
+          font-size: 1.45rem;
           font-weight: 600;
           color: #ffffff;
           line-height: 1.35;
