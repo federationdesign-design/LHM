@@ -150,8 +150,8 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
             {/* Treatments (hidden on corporate variant) */}
             {!isCorp && (
             <div className="team-bio-treatments" style={{ marginTop: 32 }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#ffffff', marginBottom: 16, textAlign: 'center' }}>Treatments offered</h2>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+              <h2 className="team-bio-treatments-h2" style={{ fontSize: '1.5rem', fontWeight: 600, color: '#ffffff', marginBottom: 16, textAlign: 'center' }}>Treatments offered</h2>
+              <div className="team-bio-treatments-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
                 {member.treatments.map((t: string) => (
                   <span key={t} style={{ fontSize: '0.82rem', fontWeight: 300, color: '#ffffff', border: '1px solid #ffffff', padding: '6px 14px', letterSpacing: '0.04em' }}>{t}</span>
                 ))}
@@ -163,6 +163,8 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
                 .team-bio-avatar { order: 2; margin-top: 32px; margin-bottom: 0 !important; }
                 .team-bio-text { order: 1; }
                 .team-bio-treatments { order: 3; }
+                .team-bio-treatments-h2 { text-align: left !important; }
+                .team-bio-treatments-tags { justify-content: flex-start !important; }
               }
             `}</style>
           </div>
