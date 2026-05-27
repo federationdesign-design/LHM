@@ -291,15 +291,15 @@ function ServicesCarousel() {
         }}
       >
         <div style={{ position: 'sticky', top: 56, height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
-
-
-
+          <div style={{ height: 52, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000000' }}>
+            <h2 style={{ fontSize: '1.45rem', fontWeight: 600, color: '#ffffff', margin: 0 }}>Services</h2>
+          </div>
           <div
             ref={trackRef}
             style={{
               display: 'flex',
               willChange: 'transform',
-              height: '100%',
+              height: 'calc(100% - 52px)',
             }}
           >
             {services.map((s) => (
@@ -429,7 +429,7 @@ function LocationsCarousel() {
           position: 'relative',
         }}
       >
-        <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+        <div style={{ position: 'sticky', top: 56, height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px 24px 16px', flexShrink: 0 }}>
             <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 600, color: '#ffffff', textAlign: 'center', margin: 0 }}>Locations</h2>
@@ -440,7 +440,7 @@ function LocationsCarousel() {
             style={{
               display: 'flex',
               willChange: 'transform',
-              height: 'calc(100vh - 110px)',
+              height: '100%',
             }}
           >
             {locations.map((loc) => (
@@ -461,16 +461,7 @@ function LocationsCarousel() {
             ))}
           </div>
 
-          <div style={{ position: 'absolute', top: 125, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 8, zIndex: 10 }}>
-            {locations.map((_, i) => (
-              <NavDot
-                key={i}
-                active={i === activeIndex}
-                onClick={() => scrollToSlide(i)}
-                label={`Go to location ${i + 1}`}
-              />
-            ))}
-          </div>
+
         </div>
       </section>
 
