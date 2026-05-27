@@ -235,20 +235,16 @@ function DesktopTreatments() {
 
   return (
     <div ref={sectionRef} style={{ height: `${slides.length * 110}vh`, position: 'relative' }}>
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+      <style>{`
+        @media (max-width: 1023px) {
+          .treatments-card {
+            filter: grayscale(100%) !important;
+          }
+        }
+      `}</style>
+      <div style={{ position: 'sticky', top: 56, height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
 
-        {/* Bottom progress dots — homepage-style 15px circles, 2px border,
-            transparent off-state. Replaces the previous 18px white pills. */}
-        <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', zIndex: 20, display: 'flex', gap: 8, alignItems: 'center' }}>
-          {slides.map((_, i) => (
-            <NavDot
-              key={i}
-              active={i === activeIndex}
-              onClick={() => scrollToSlide(i)}
-              label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
+
 
         {/* Horizontal card track */}
         <div ref={trackRef} style={{ display: 'flex', height: '100%', willChange: 'transform' }}>
@@ -262,6 +258,7 @@ function DesktopTreatments() {
             return (
               <div
                 key={slide.slug}
+                className="treatments-card"
                 onMouseEnter={() => setHoverIndex(i)}
                 onMouseLeave={() => setHoverIndex(null)}
                 style={{
