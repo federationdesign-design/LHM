@@ -497,7 +497,7 @@ export default function TreatmentsIndexClient() {
 
   return (
     <>
-      <Nav solid />
+      <Nav />
       <main style={{ background: '#000000' }}>
         {isMobile === null ? (
           <div style={{ height: '100vh' }} />
