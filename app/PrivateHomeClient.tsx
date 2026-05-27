@@ -221,6 +221,9 @@ function PromoCards() {
           .hp-expert-intro {
             font-size: 1.45rem !important;
           }
+          .hp-locations-title {
+            font-size: 1.45rem !important;
+          }
         }
         @media (min-width: 1024px) {
           .hp-promo-card-title {
@@ -429,7 +432,7 @@ function LocationsCarousel() {
         <div style={{ position: 'sticky', top: 56, height: 'calc(100vh - 56px)', overflow: 'hidden' }}>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px 24px 16px', flexShrink: 0 }}>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 600, color: '#ffffff', textAlign: 'center', margin: 0 }}>Locations</h2>
+            <h2 className="hp-locations-title" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 600, color: '#ffffff', textAlign: 'center', margin: 0 }}>Locations</h2>
           </div>
 
           <div
@@ -464,7 +467,7 @@ function LocationsCarousel() {
 
       <section className="hp-locations-desktop" style={{ display: 'none', padding: '60px 0 80px', background: '#000000' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 32, padding: '0 24px' }}>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 600, color: '#ffffff', textAlign: 'center', margin: 0 }}>Locations</h2>
+          <h2 className="hp-locations-title" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 600, color: '#ffffff', textAlign: 'center', margin: 0 }}>Locations</h2>
         </div>
 
         <div className="hp-grid-wrap">
