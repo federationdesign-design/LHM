@@ -181,47 +181,12 @@ function PromoCards() {
   return (
     <section style={{ padding: '20px 0 30px', background: '#000000' }}>
 
-      <div className="hp-promo-mobile" style={{ width: '100%', padding: '0 24px', boxSizing: 'border-box' }}>
-        <div style={{ position: 'relative', overflow: 'hidden', width: '100%' }}>
-        <div
-          style={{
-            display: 'flex',
-            width: `${promoCards.length * 100}%`,
-            transform: `translateX(-${index * (100 / promoCards.length)}%)`,
-            transition: 'transform 0.4s ease',
-          }}
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-        >
-          {promoCards.map((card) => (
-            <div key={card.slug} style={{ width: `${100 / promoCards.length}%`, flexShrink: 0, padding: '0', boxSizing: 'border-box' }}>
-              <div style={{ position: 'relative' }}>
-                {renderCard(card)}
-                <div style={{ position: 'absolute', top: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 8, zIndex: 10, pointerEvents: 'none' }}>
-                  {promoCards.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); goTo(i); }}
-                      aria-label={`Go to promo ${i + 1}`}
-                      style={{
-                        width: 15,
-                        height: 15,
-                        borderRadius: '50%',
-                        border: '2px solid #ffffff',
-                        background: i === index ? '#ffffff' : 'transparent',
-                        padding: 0,
-                        cursor: 'pointer',
-                        transition: 'background 0.25s ease',
-                        pointerEvents: 'auto',
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        </div>
+      <div className="hp-promo-mobile" style={{ width: '100%', padding: '0 24px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 24 }}>
+        {promoCards.map((card) => (
+          <div key={card.slug} style={{ width: '100%' }}>
+            {renderCard(card)}
+          </div>
+        ))}
       </div>
 
       <div className="hp-promo-desktop" style={{ display: 'none' }}>
@@ -248,6 +213,14 @@ function PromoCards() {
 
         .hp-promo-card-title {
           font-size: 2rem;
+        }
+        @media (max-width: 1023px) {
+          .hp-promo-card-title {
+            font-size: 1.45rem;
+          }
+          .hp-expert-intro {
+            font-size: 1.45rem !important;
+          }
         }
         @media (min-width: 1024px) {
           .hp-promo-card-title {
@@ -667,7 +640,7 @@ export default function PrivateHomeClient() {
         </div>
 
         <section style={{ padding: '80px 24px 30px', maxWidth: 1400, margin: '0 auto' }}>
-          <p style={{
+          <p className="hp-expert-intro" style={{
             fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
             color: '#ffffff',
             fontWeight: 600,
