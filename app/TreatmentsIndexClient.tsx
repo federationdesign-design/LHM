@@ -419,7 +419,7 @@ function MobileTreatments() {
             }}
           >
             {slide.type === 'intro' ? (
-              <div style={{ position: 'absolute', inset: 0, background: '#000000', display: 'flex', flexDirection: 'column', padding: '40px 28px 60px', overflowY: 'auto' }}>
+              <div style={{ position: 'absolute', inset: 0, background: '#000000', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '40px 28px 60px', overflowY: 'auto' }}>
                 <p style={{ fontSize: '0.7rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.18em', color: '#ffffff', marginBottom: 16, opacity: 0.5 }}>
                   <a href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>Home</a> / All Treatments
                 </p>
@@ -451,8 +451,7 @@ function MobileTreatments() {
                     </button>
                   ))}
                 </div>
-                <div style={{ marginTop: 28, height: 1, width: 48, background: 'rgba(255,255,255,0.2)' }} />
-                <p style={{ fontSize: '0.68rem', fontWeight: 300, color: 'rgba(255,255,255,0.45)', marginTop: 14, textTransform: 'uppercase', letterSpacing: '0.15em' }}>Swipe to explore →</p>
+
               </div>
             ) : (
               <>
