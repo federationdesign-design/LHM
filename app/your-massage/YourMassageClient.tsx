@@ -509,10 +509,10 @@ export default function YourMassageClient() {
         {/* Why you need this — Your Massage positioning */}
         <section className={styles.serviceSection}>
           <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
-          <p style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 24px', display: 'block' }}>
+          <p className={styles.whyYouNeedIntro} style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 24px', display: 'block' }}>
             A general massage tailored to you. Perfect if you don&rsquo;t know what to book - a great starting point that lets your therapist focus on the areas that need most attention, whether that&rsquo;s shoulders, back, neck, feet, or anywhere else.
           </p>
-          <p style={{ fontSize: '1.05rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.55, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block', opacity: 0.85 }}>
+          <p className={styles.whyYouNeedIntro} style={{ fontSize: '1.05rem', color: '#ffffff', fontWeight: 300, lineHeight: 1.55, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block', opacity: 0.85 }}>
             This is a composite treatment drawing on techniques from our main massage styles. Especially suited to first-time clients, anyone uncertain whether sports massage is right for them, or those with multiple problem areas they&rsquo;d like addressed in one session.
           </p>
           <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>

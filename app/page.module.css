@@ -137,7 +137,7 @@
   position: relative;
   z-index: 5;
   background: #000000;
-  margin-top: -100px;
+  margin-top: -155px;
 }
 
 /* ── DIVIDER ─────────────────────────────────────────────── */
@@ -1042,4 +1042,11 @@
 
 .blogCard:hover .blogCardImage {
   filter: brightness(0.65);
+}
+
+@media (max-width: 1023px) {
+  .testimonialsHeading,
+  .whyYouNeedIntro {
+    text-align: left !important;
+  }
 }

@@ -235,7 +235,7 @@ export default function ServiceBookingClient({ service }: { service: Service }) 
         {/* SERVICE CONTENT */}
         <section className={styles.serviceSection}>
           <h2 className={styles.testimonialsHeading} style={{ marginBottom: 20 }}>Why you need this</h2>
-          <p style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block' }}>
+          <p className={styles.whyYouNeedIntro} style={{ fontSize: '1.2rem', color: '#ffffff', fontWeight: 600, lineHeight: 1.5, textAlign: 'center', maxWidth: 860, margin: '0 auto 48px', display: 'block' }}>
             {service.intro}
           </p>
           <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
