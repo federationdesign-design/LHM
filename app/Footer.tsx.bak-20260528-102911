@@ -1,5 +1,4 @@
 import styles from './page.module.css';
-import { CookieSettingsLink } from './components/cookies/CookieBanner';
 
 const mainMenu: [string, string][] = [
   ['Home', '/private'],
@@ -129,8 +128,6 @@ export default function Footer() {
           <a href="/legal/terms-and-conditions">Terms & Conditions</a>
           <span className={styles.footerSep}>|</span>
           <a href="/legal/data-request">Data Request</a>
-          <span className={styles.footerSep}>|</span>
-          <CookieSettingsLink />
         </div>
       </div>
     </footer>

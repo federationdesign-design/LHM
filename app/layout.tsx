@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
+import { CookieConsentProvider } from './components/cookies/CookieConsentProvider';
+import { CookieBanner } from './components/cookies/CookieBanner';
+import { Analytics } from './components/cookies/Analytics';
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -86,7 +89,11 @@ export default function RootLayout({
             }),
           }}
         />
-        {children}
+        <CookieConsentProvider>
+          {children}
+          <Analytics />
+          <CookieBanner />
+        </CookieConsentProvider>
       </body>
     </html>
   );
