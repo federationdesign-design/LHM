@@ -641,6 +641,20 @@ export default function SplashClient() {
         .splash-panel:hover .splash-panel-overlay {
           background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.4) 100%);
         }
+        /* Splash hero images: black and white at rest across all three
+           layouts (mobile filmstrip, desktop panels, mobile two-row).
+           Desktop panels fade to colour on hover. Mobile has no hover so
+           stays B&W. filter is independent of the opacity the scroll logic
+           animates on the private frame, so this does not affect that. */
+        .splash-m-hero-frame img,
+        .splash-panel img,
+        .splash-m-row-image img {
+          filter: grayscale(100%);
+          transition: filter 0.4s ease;
+        }
+        .splash-panel:hover img {
+          filter: grayscale(0%);
+        }
 
         /* Two-column elaboration (desktop) */
         .splash-elaborate {
