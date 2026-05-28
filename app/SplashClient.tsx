@@ -56,8 +56,8 @@ import FindUsOn from '@/app/components/FindUsOn';
 const COOKIE_NAME = 'lhm-side';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 90;
 
-const PRIVATE_FALLBACK = '#9d4149';
-const CORPORATE_FALLBACK = '#9f879d';
+const PRIVATE_FALLBACK = '#D3D3D3';
+const CORPORATE_FALLBACK = '#808080';
 
 type Side = 'private' | 'corporate';
 
