@@ -368,6 +368,30 @@ export default function CorporateHomeClient() {
   // Mobile carousel state for the testimonials block
   const [activeIdx, setActiveIdx] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  // Swipe support for the mobile testimonials carousel.
+  // Snap-on-release: record finger X on touchstart, compare on
+  // touchend, and step activeIdx by one if the swipe passed the
+  // threshold. Uses the same activeIdx the dots use, so they stay
+  // in sync, and the existing transform useEffect does the move.
+  const touchStartX = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    const threshold = 40;
+    if (delta <= -threshold) {
+      setActiveIdx((i) => Math.min(i + 1, mobileTestimonials.length - 1));
+    } else if (delta >= threshold) {
+      setActiveIdx((i) => Math.max(i - 1, 0));
+    }
+    touchStartX.current = null;
+  };
+
   const heroRef = useRef<HTMLElement>(null);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -595,7 +619,12 @@ export default function CorporateHomeClient() {
               with dots pager. Hidden on desktop via CSS. */}
           <div className="corp-credibility-mobile">
             <div className="corp-credibility-track-wrap">
-              <div ref={trackRef} className="corp-credibility-track">
+              <div
+                ref={trackRef}
+                className="corp-credibility-track"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 {mobileTestimonials.map((t, i) => (
                   <div key={i} className="corp-credibility-slide">
                     <div className="corp-credibility-item">
@@ -1203,6 +1232,7 @@ export default function CorporateHomeClient() {
         .corp-credibility-track-wrap {
           overflow: hidden;
           width: 100%;
+          touch-action: pan-y;
         }
         .corp-credibility-track {
           display: flex;
