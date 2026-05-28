@@ -42,12 +42,12 @@ export const testimonials: Testimonial[] = [
     avatar: 'S',
   },
   {
-    id: 'suleyman-adanir-2026-02',
-    name: 'Suleyman Adanir',
-    title: 'Swedish massage with Antonia',
-    body: 'A very relaxing Swedish massage with Antonia. The room was clean and calming, and she was professional and attentive throughout. I left feeling refreshed and comfortable. I will definitely return.',
+    id: 'dominic-le-claire-2026-02',
+    name: 'Dominic Le Claire',
+    title: 'Excellent massage with Saphia',
+    body: 'First time visiting Lucy Hall Massage, and won\'t be my last! Saphia was great - welcoming, professional and made the whole experience exceptional. The location is lovely, and Saphia made sure to ask about any particular areas to focus on. Having walked in with a painful shoulder, an hour later, it felt so much better.',
     date: '04/02/2026',
-    avatar: 'S',
+    avatar: 'D',
   },
   {
     id: 'alice-w-2025-12',
