@@ -917,7 +917,7 @@ export default function CorporateHomeClient() {
         @media (max-width: 1023px) {
           .corp-clients-row {
             flex-wrap: nowrap;
-            justify-content: space-between;
+            justify-content: center;
             gap: 12px;
           }
           .corp-client-item {
@@ -931,7 +931,7 @@ export default function CorporateHomeClient() {
           }
           .corp-client-logo {
             max-height: 32px;
-            max-width: 100%;
+            max-width: 80%;
           }
         }
         @media (min-width: 1024px) {
