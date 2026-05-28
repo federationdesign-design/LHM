@@ -10,32 +10,10 @@ import SecondaryEnquiryModal from './components/SecondaryEnquiryModal';
 /* ─────────────────────────────────────────────────────────────
    CorporateHomeClient — /corporate
 
-   Layout sections in order:
-     1. CorporateNav (sticky)
-     2. Hero — full-bleed image with overlay text and CTA links.
-        Top-right of the hero has a chevron-CTA "Download our
-        employer PDF" so the most-likely user goal (employer
-        getting info to share internally) is visible immediately.
-     3. Company-clients logo strip (Spotify, Cambridge, Amazon,
-        Redgate). Same marquee-on-mobile pattern as the splash.
-     4. Credibility intro — two centered paragraphs introducing
-        the corporate massage offering.
-     5. Two-column "duty of care" zone:
-        - Left col: bordered box with the duty-of-care narrative
-          + "Download our employer PDF" chevron CTA at bottom
-        - Right col: plain text "what is corporate massage" copy
-          + "Enquire About your team here" underlined CTA
-     6. Services strip — three image cards linking to the
-        individual service pages
-     7. Two-column testimonial block (Cambridge testimonials,
-        currently duplicated as placeholders)
-     8. Find-us-on logos (BookingPage, Tripadvisor, SimplyBook,
-        LinkedIn, Wheree)
-     9. Footer
-
-   Mobile collapses the two-column zones into single-column
-   stacks. The hero text sits over a darker gradient overlay so
-   it stays legible against the photographed image.
+   Hero now uses a separate landscape video on desktop and a
+   portrait video on mobile, swapped by breakpoint. The portrait
+   video covers the mobile hero box by width (full width, slight
+   top/bottom crop, no side bars).
    ───────────────────────────────────────────────────────────── */
 
 // ── COMPANY CLIENT LOGOS ──────────────────────────────────────
@@ -47,8 +25,6 @@ const companyClients = [
   { name: 'Speechmatics',            src: '/speechmatics.png' },
   { name: 'AstraZeneca',             src: '/astrazeneca-img.png' },
 ];
-
-// ── FIND-US-ON LOGOS ──────────────────────────────────────────
 
 // ── SERVICES ──────────────────────────────────────────────────
 const services = [
@@ -112,10 +88,6 @@ const whatsIncluded = [
 ];
 
 // ── VIDEOS ────────────────────────────────────────────────────
-// Each video has a Vimeo ID (the numeric ID from the Vimeo URL),
-// a title, and a short intro. To add a real video, replace the
-// placeholder vimeoId with the actual ID (e.g. "123456789").
-// Leave as empty string to render a placeholder tile.
 const videos = [
   {
     vimeoId: '478025499',
@@ -140,21 +112,11 @@ const videos = [
 ];
 
 // ── GALLERY ───────────────────────────────────────────────────
-// Each gallery item declares its column span (out of 6) so the
-// layout can mix portrait + landscape, full-width + half-width,
-// 3-up + 2-up rows. `span: 2` means 3-per-row, `span: 3` means
-// 2-per-row, `span: 6` means full-width. `aspect` controls the
-// ratio so portraits render tall.
-//
-// To swap to real images later: replace each `src` with the real
-// path (e.g. /gallery/01.jpg) and adjust span/aspect to suit.
 const gallery: { src: string; alt: string }[] = [
-  // 1-4: New corporate massage images (highlights)
   { src: '/Lucy-Hall-Massage-Corporate-massage1.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage2.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage3.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage4.jpg', alt: 'Corporate massage session' },
-  // 5-12: In-chair massage gallery
   { src: '/chair-massage-img1.jpg', alt: 'In-office chair massage' },
   { src: '/chair-massage-img2.jpg', alt: 'In-office chair massage' },
   { src: '/chair-massage-img3.jpg', alt: 'In-office chair massage' },
@@ -163,7 +125,6 @@ const gallery: { src: string; alt: string }[] = [
   { src: '/chair-massage-img6.jpg', alt: 'In-office chair massage' },
   { src: '/chair-massage-img7.jpg', alt: 'In-office chair massage' },
   { src: '/chair-massage-img8.jpg', alt: 'In-office chair massage' },
-  // 13-20: Posture consultations gallery
   { src: '/posture-img1.jpg', alt: 'Posture consultation' },
   { src: '/posture-img2.jpg', alt: 'Posture consultation' },
   { src: '/posture-img3.jpg', alt: 'Posture consultation' },
@@ -172,7 +133,6 @@ const gallery: { src: string; alt: string }[] = [
   { src: '/posture-img6.jpg', alt: 'Posture consultation' },
   { src: '/posture-img7.jpg', alt: 'Posture consultation' },
   { src: '/posture-img8.jpg', alt: 'Posture consultation' },
-  // 21-28: DSE assessments gallery
   { src: '/desk-assessment-img1.jpg', alt: 'DSE assessment' },
   { src: '/desk-assessment-img2.jpg', alt: 'DSE assessment' },
   { src: '/desk-assessment-img3.jpg', alt: 'DSE assessment' },
@@ -181,7 +141,6 @@ const gallery: { src: string; alt: string }[] = [
   { src: '/desk-assessment-img6.jpg', alt: 'DSE assessment' },
   { src: '/desk-assessment-img7.jpg', alt: 'DSE assessment' },
   { src: '/desk-assessment-img8.jpg', alt: 'DSE assessment' },
-  // 29-38: Additional new corporate massage images
   { src: '/Lucy-Hall-Massage-Corporate-massage5.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage6.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage7.jpg', alt: 'Corporate massage session' },
@@ -192,7 +151,6 @@ const gallery: { src: string; alt: string }[] = [
   { src: '/Lucy-Hall-Massage-Corporate-massage12.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage13.jpg', alt: 'Corporate massage session' },
   { src: '/Lucy-Hall-Massage-Corporate-massage14.jpg', alt: 'Corporate massage session' },
-  // 39-63: Legacy gallery images (revealed by second Show more)
   { src: '/lucy-hall-massage-23.jpg', alt: 'Massage therapy session' },
   { src: '/lucy-hall-massage-25.jpg', alt: 'Massage therapy session' },
   { src: '/lucy-hall-massage-36.jpg', alt: 'Massage therapy session' },
@@ -221,11 +179,7 @@ const gallery: { src: string; alt: string }[] = [
 ];
 
 // ── TESTIMONIALS ──────────────────────────────────────────────
-// Real corporate testimonials. Logos point to /public assets;
-// /company-placeholder.png is used for companies we don't have a
-// brand logo for.
 const corpTestimonials = [
-  // Position 1
   {
     body:
       '“We use Lucy Hall Massage for our staff wellbeing days at Churchill College, Cambridge University. Lucy is awesome to work with and we get nothing but positive feedback from our staff about the chair massage sessions (which are always fully booked). Five star service and highly recommend!”',
@@ -233,7 +187,6 @@ const corpTestimonials = [
     company: 'Cambridge University',
     logo: '/university-cambridge.png',
   },
-  // Position 2
   {
     body:
       '“The sessions are not only relaxing but also really helpful for posture correction, especially for those of us who spend long hours at our desks. We noticed reduced tension and overall better well-being. It\'s a great way to relieve stress and improve workplace comfort. Thanks for providing this service — it\'s definitely making a positive impact!”',
@@ -241,7 +194,6 @@ const corpTestimonials = [
     company: 'Amazon',
     logo: '/amazon.png',
   },
-  // Position 3
   {
     body:
       '“Lucy and her team are always professional, prompt and provides a friendly service. The entire Spotify office love her and the team! Many members of staff have also used Lucy Hall Massage privately since. Highly recommended!”',
@@ -249,7 +201,6 @@ const corpTestimonials = [
     company: 'Spotify',
     logo: '/spotify.png',
   },
-  // Position 4 — Robert Perrement
   {
     body:
       '“We used Lucy Hall Massage and her colleagues for the Suffolk & North East Essex Integrated Care System Expo 22 event. Lucy was very happy to help and answer any questions prior to the event, making booking as easy as possible. The team were also very adaptable on the day due to rainfall, but this did not hinder the quality of service. Everyone seemed very pleased with their massages.”',
@@ -257,7 +208,6 @@ const corpTestimonials = [
     company: 'Suffolk County Council',
     logo: '/suffolk-county-logo.jpg',
   },
-  // Position 5 — Megan Foster (now at Speechmatics)
   {
     body:
       '“I highly recommend Lucy Hall massages for anyone looking to bring relaxation and stress relief directly to the workplace. Their professional massage therapist Kat visits our office once a month, offering convenient on-site services that help improve employee well-being and productivity. A fantastic investment in both employee health and company culture.”',
@@ -265,7 +215,6 @@ const corpTestimonials = [
     company: 'Speechmatics',
     logo: '/speechmatics.png',
   },
-  // Position 6 — Emma King
   {
     body:
       '“This review is on behalf of Costello Medical. We regularly use Lucy Hall Massage as part of our ongoing wellbeing initiative and consistently receive excellent feedback from our employees. Lucy takes the time to provide employees with personalised advice and guidance on their posture, which has been highly valued by staff. We look forward to continue working with Lucy in the future.”',
@@ -273,7 +222,6 @@ const corpTestimonials = [
     company: 'Costello Medical',
     logo: '/costello-medical.png',
   },
-  // Position 7 — Louise Domeisen
   {
     body:
       '“We have always been big fans of Lucy and her team when they would visit the offices for in-person massages. Unfortunately, due to the current situation we knew those would not be an option for the foreseeable future, but we jumped at the chance to offer the next best thing — zoom consultations with a therapist. Amazing experience! Attendees were able to have 1:1 time with one of Lucy\'s expert team to talk through any niggles, aches and pains they were experiencing, and get personally tailored advice, exercises and stretches to alleviate these. We have been using Lucy Hall massage for years at Redgate, initially for in-person massages and recently the zoom consultations. No matter the format of the interactions the feedback is always the same — expert therapists, actionable advice, personable and professional.”',
@@ -281,7 +229,6 @@ const corpTestimonials = [
     company: 'Redgate',
     logo: '/redgate-logo.png',
   },
-  // Position 8 — Maria Slater
   {
     body:
       '“Lucy and her team have a great reputation in the industry and we wanted the best for our staff. Her team make you feel like you are important, they listen to what you say and advise accordingly, they give their full attention to you during your time and nothing is too much trouble. Lucy\'s team listen to what you need as a business, advising and giving their expertise but happy to do what is good for you and your team. All of our staff come back into the office singing their praises. Lucy feels like a member of our team, part of the family. Everybody looks forward to the days when Lucy and her team come into the office, she is so relaxed and organised makes everyone feel at ease nobody feels uncomfortable and if they do after one visit they realise how important and special she makes you feel you are totally at ease.”',
@@ -289,7 +236,6 @@ const corpTestimonials = [
     company: 'Spotify',
     logo: '/spotify.png',
   },
-  // Position 9 — Natasha Gobec
   {
     body:
       '“We have been regular clients of Lucy for the past two years. Both she and Katerina check our posture at our desks and offer valuable advice that has significantly helped us improve our pain management and overall health. Their visits are always positive, and it is a pleasure to have them in the office.”',
@@ -297,7 +243,6 @@ const corpTestimonials = [
     company: 'Softwire',
     logo: '/softwire-logo.png',
   },
-  // Position 10 — Isobel Jordan
   {
     body:
       '“We use Lucy Hall as part of supporting Wellbeing for colleagues at the Clinical School, these sessions are always in high demand! Thank you Lucy and your team.”',
@@ -305,7 +250,6 @@ const corpTestimonials = [
     company: 'Clinical School of Medicine',
     logo: '/university-cambridge.png',
   },
-  // Position 11 — Steve Mann
   {
     body:
       '“We\'ve been lucky enough to benefit from Lucy\'s assessments and treatments over the years. It\'s a nice perk to look forward to, yet for others the consultative advice Lucy gives (about work stations, posture, remedial stretches and exercises etc.) has really made a genuine difference to their wellbeing and happiness. I cannot recommend her enough!”',
@@ -313,7 +257,6 @@ const corpTestimonials = [
     company: 'Brand Recruitment',
     logo: '/brand-recruitment.png',
   },
-  // Position 12 — Elena HOLBAN AIMÉ
   {
     body:
       '“I warmly recommend Lucy and her team! Lucy is a talented (gifted) professional, who does her job to perfection, cares about her clients, she is emphatic and attentive; But also, Lucy is a solar person who brings a ton of energy wherever she is... and that is so precious! It is a pleasure to work with Lucy and my whole team is a fan of her.”',
@@ -321,7 +264,6 @@ const corpTestimonials = [
     company: 'Illumina',
     logo: '/illumina-logo.jpg',
   },
-  // Position 13 — Rebecca Woof
   {
     body:
       '“We have had Lucy and her staff visiting our company for years and no matter how frequently they came along, there was always demand and hype. During Covid, Lucy demonstrated her flexibility and adaptability by providing extremely valuable support virtually for us all when we had to work from home. She offers a variety of massage styles and adapts to best suit the needs of her client. Couldn\'t recommend Lucy and her team highly enough.”',
@@ -329,7 +271,6 @@ const corpTestimonials = [
     company: 'Redgate Software',
     logo: '/redgate-logo.png',
   },
-  // Position 14 — Charlotte Brown
   {
     body:
       '“Lucy spends a day per month with us at Speechmatics. The timetable fills up in a matter of seconds — a testament to how much we love her visits. Aside from being excellent at her job, she always arrives and leaves with a smile on her face and full of enthusiasm.”',
@@ -337,7 +278,6 @@ const corpTestimonials = [
     company: 'Speechmatics',
     logo: '/speechmatics.png',
   },
-  // Position 15 — Will R.
   {
     body:
       '“Lucy is a fantastic Sports Therapist, highly skilled and highly knowledgeable. If you have the opportunity to work together I recommend you take that chance.”',
@@ -360,7 +300,6 @@ export default function CorporateHomeClient() {
   const [showAllGallery, setShowAllGallery] = useState(false);
   const [showAllLegacyGallery, setShowAllLegacyGallery] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
-  // Mobile excludes Louise Domeisen (idx 6) and Maria Slater (idx 7)
   const mobileTestimonials = corpTestimonials.filter((t) => t.name !== 'Louise Domeisen' && t.name !== 'Maria Slater');
   const [showAllIncluded, setShowAllIncluded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -370,10 +309,6 @@ export default function CorporateHomeClient() {
   const trackRef = useRef<HTMLDivElement>(null);
 
   // Swipe support for the mobile testimonials carousel.
-  // Snap-on-release: record finger X on touchstart, compare on
-  // touchend, and step activeIdx by one if the swipe passed the
-  // threshold. Uses the same activeIdx the dots use, so they stay
-  // in sync, and the existing transform useEffect does the move.
   const touchStartX = useRef<number | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -421,12 +356,21 @@ export default function CorporateHomeClient() {
         {/* ── HERO ─────────────────────────────────────────── */}
         <section className="corp-hero" ref={heroRef}>
           <div className="corp-hero-image" style={{ background: "#1a1a1a url(/corporate-hero.jpg) center/cover no-repeat" }}>
+            {/* Desktop landscape video — hidden on mobile */}
             <iframe
               src="https://player.vimeo.com/video/1189431154?autoplay=1&muted=1&loop=1&background=1&controls=0&autopause=0"
               title="Corporate hero video"
               allow="autoplay; fullscreen"
               loading="eager"
-              className="corp-hero-video"
+              className="corp-hero-video corp-hero-video--desktop"
+            />
+            {/* Mobile portrait video — hidden on desktop */}
+            <iframe
+              src="https://player.vimeo.com/video/1196387896?autoplay=1&muted=1&loop=1&background=1&controls=0&autopause=0"
+              title="Corporate hero video (mobile)"
+              allow="autoplay; fullscreen"
+              loading="eager"
+              className="corp-hero-video corp-hero-video--mobile"
             />
             <div className="corp-hero-overlay" aria-hidden="true" />
             <div ref={scrollOverlayRef} className="corp-hero-scroll-overlay" aria-hidden="true" />
@@ -485,7 +429,6 @@ export default function CorporateHomeClient() {
         <section className="corp-twocol">
           <div className="corp-twocol-grid">
 
-            {/* Left: bordered duty-of-care box */}
             <div className="corp-twocol-card corp-twocol-card--bordered">
               <h2 className="corp-twocol-heading">
                 As an employer you have a duty of care to your staff, but, of course, massage isn&rsquo;t legally required. So, why invest in the physical wellbeing of your staff?
@@ -499,7 +442,6 @@ export default function CorporateHomeClient() {
               </Link>
             </div>
 
-            {/* Right: what is corporate massage */}
             <div className="corp-twocol-card">
               <p className="corp-twocol-body corp-twocol-body--lead">
                 Corporate massage is an cost-effective way to alleviate physical and mental tension and is very popular with employees.
@@ -615,8 +557,7 @@ export default function CorporateHomeClient() {
         <section className="corp-credibility">
           <h2 className="corp-credibility-heading">Trusted by leading Cambridge companies and businesses including Cambridge University</h2>
 
-          {/* Mobile carousel — single testimonial visible at a time
-              with dots pager. Hidden on desktop via CSS. */}
+          {/* Mobile carousel — swipeable, with dots pager. Hidden on desktop. */}
           <div className="corp-credibility-mobile">
             <div className="corp-credibility-track-wrap">
               <div
@@ -779,6 +720,10 @@ export default function CorporateHomeClient() {
           border: none;
           pointer-events: none;
         }
+        /* Show the desktop video by default; hide the portrait one */
+        .corp-hero-video--mobile {
+          display: none;
+        }
         .corp-hero-overlay {
           position: absolute;
           inset: 0;
@@ -876,13 +821,20 @@ export default function CorporateHomeClient() {
             min-height: 560px;
             overflow: hidden;
           }
-          .corp-hero-video {
+          /* Swap to the portrait video on mobile: hide desktop,
+             show portrait sized to cover the box by width
+             (full width, slight top/bottom crop, no side bars). */
+          .corp-hero-video--desktop {
+            display: none;
+          }
+          .corp-hero-video--mobile {
+            display: block;
             top: 50%;
             left: 50%;
-            width: 177.78vh;
-            height: 100%;
-            min-width: 100%;
-            min-height: 56.25vw;
+            width: 100vw;
+            height: 177.78vw;
+            min-width: 0;
+            min-height: 100%;
             transform: translate(-50%, -50%);
           }
           .corp-hero-pdf {
@@ -1143,7 +1095,6 @@ export default function CorporateHomeClient() {
           position: absolute;
           inset: 0;
         }
-        /* B&W by default, fades to colour on hover */
         .corp-service-image img {
           filter: grayscale(100%);
           transition: filter 0.4s ease;
@@ -1156,8 +1107,6 @@ export default function CorporateHomeClient() {
           inset: 0;
           background: linear-gradient(to bottom, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.7) 100%);
           z-index: 1;
-        }
-        .corp-service-overlay {
           transition: background 0.3s ease;
         }
         .corp-service-content {
@@ -1210,8 +1159,6 @@ export default function CorporateHomeClient() {
         }
 
         /* ── CREDIBILITY TESTIMONIALS ────────────────────────── */
-        /* Mobile: carousel showing one testimonial at a time, with
-           dots pager. Desktop: 2-column grid showing all 8 at once. */
         .corp-credibility {
           padding: 60px 24px;
           max-width: 1600px;
@@ -1225,7 +1172,6 @@ export default function CorporateHomeClient() {
           text-align: center;
         }
 
-        /* Mobile carousel */
         .corp-credibility-mobile {
           display: block;
         }
@@ -1246,12 +1192,10 @@ export default function CorporateHomeClient() {
           padding: 0 4px;
         }
 
-        /* Desktop grid (hidden on mobile) */
         .corp-credibility-grid {
           display: none;
         }
 
-        /* Shared item internals (used by both carousel + grid) */
         .corp-credibility-item {
           display: flex;
           flex-direction: column;
@@ -1296,7 +1240,6 @@ export default function CorporateHomeClient() {
           opacity: 0.7;
         }
 
-        /* Dots pager */
         .corp-credibility-dots {
           display: flex;
           justify-content: center;
@@ -1318,12 +1261,10 @@ export default function CorporateHomeClient() {
           border-color: #ffffff;
         }
 
-        /* Desktop overrides */
         @media (min-width: 1024px) {
           .corp-credibility {
             padding: 80px 80px;
           }
-          /* Hide mobile carousel, show desktop grid */
           .corp-credibility-mobile {
             display: none;
           }
@@ -1334,7 +1275,6 @@ export default function CorporateHomeClient() {
           }
         }
 
-        /* Show more button for What's Included (mobile only) */
         .corp-included-more-wrap {
           display: none;
           justify-content: center;
@@ -1503,10 +1443,6 @@ export default function CorporateHomeClient() {
         }
 
         /* ── GALLERY ─────────────────────────────────────────── */
-        /* Masonry layout via CSS columns. Images keep their
-           native aspect ratio; columns flow top-down. Each
-           image has its own background colour set inline so
-           the tile shows a coloured placeholder while loading. */
         .corp-gallery {
           padding: 60px 8px 40px;
           max-width: 1600px;
