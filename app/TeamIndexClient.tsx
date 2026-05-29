@@ -13,14 +13,14 @@ import { corporateTestimonials } from './components/Testimonials/corporate-testi
 
 const members = [
   {
-    slug: 'safia',
-    name: 'Safia',
+    slug: 'saphia',
+    name: 'Saphia',
     title: 'Massage Therapist',
     location: 'Cromwell Road',
     locationSlug: 'cromwell-road',
     photo: '/saphia-profile-img.jpg',
     treatments: ['Deep Tissue Massage', 'Sports Massage'],
-    bio: 'Safia is a highly skilled massage therapist based at our Cromwell Road clinic in Cambridge. With a passion for helping clients recover, perform, and feel their best, she specialises in deep tissue massage, sports massage, and performance-focused treatments, working with everyone from office workers carrying chronic tension to athletes looking to optimise recovery and performance. Safia holds a Level 3 qualification in Massage Therapy and a qualification in Performance Massage, and is currently studying towards her Level 4 in Sports Massage Therapy. She is fully insured by the Federation of Holistic Therapists (FHT).',
+    bio: 'Saphia is a highly skilled massage therapist based at our Cromwell Road clinic in Cambridge. With a passion for helping clients recover, perform, and feel their best, she specialises in deep tissue massage, sports massage, and performance-focused treatments, working with everyone from office workers carrying chronic tension to athletes looking to optimise recovery and performance. Saphia holds a Level 3 qualification in Massage Therapy and a qualification in Performance Massage, and is currently studying towards her Level 4 in Sports Massage Therapy. She is fully insured by the Federation of Holistic Therapists (FHT).',
     corporate: false,
   },
   {

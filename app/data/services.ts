@@ -59,7 +59,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['orla', 'safia', 'antonia'],
+    providerSlugs: ['orla', 'saphia', 'antonia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '90-min-massage': {
@@ -94,7 +94,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['orla', 'safia', 'antonia'],
+    providerSlugs: ['orla', 'saphia', 'antonia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '120-min-massage': {
@@ -129,7 +129,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['orla', 'safia', 'antonia'],
+    providerSlugs: ['orla', 'saphia', 'antonia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
 
@@ -165,7 +165,7 @@ export const services: Record<string, Service> = {
       'Clients who find lighter massage insufficient',
       'Those managing stress-related physical tension',
     ],
-    providerSlugs: ['safia', 'antonia', 'orla'],
+    providerSlugs: ['saphia', 'antonia', 'orla'],
     featuredArticleSlug: 'the-physical-impact-of-sport-on-your-body',
   },
 
@@ -236,7 +236,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['safia', 'orla'],
+    providerSlugs: ['saphia', 'orla'],
     featuredArticleSlug: 'the-physical-impact-of-sport-on-your-body',
   },
 

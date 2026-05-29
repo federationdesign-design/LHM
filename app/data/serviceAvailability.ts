@@ -18,8 +18,8 @@
 // services are available at a location if at least one therapist there offers it.
 
 export const serviceAvailability: Record<string, string[]> = {
-  'deep-tissue-massage':  ['2', '4'],   // Thoday (Antonia, Orla) + Cromwell (Safia)
-  'sports-massage':       ['2', '4'],   // Thoday (Orla) + Cromwell (Safia)
+  'deep-tissue-massage':  ['2', '4'],   // Thoday (Antonia, Orla) + Cromwell (Saphia)
+  'sports-massage':       ['2', '4'],   // Thoday (Orla) + Cromwell (Saphia)
   'swedish-massage':      ['2'],        // Thoday only (Antonia, Claire)
   'relaxation-massage':   ['2'],        // Thoday only (Antonia, Claire)
   'pregnancy-massage':    ['2'],        // Thoday only (Antonia)

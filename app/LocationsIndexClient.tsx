@@ -44,7 +44,7 @@ const locations = [
     lat: 52.203035737126555,
     lng: 0.14792165893905196,
     team: [
-      { name: 'Safia', photo: '/saphia-profile-img.jpg', slug: 'safia' },
+      { name: 'Saphia', photo: '/saphia-profile-img.jpg', slug: 'saphia' },
     ],
   },
 ];

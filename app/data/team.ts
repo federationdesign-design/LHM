@@ -18,14 +18,14 @@ export interface TeamMember {
 }
 
 export const team: Record<string, TeamMember> = {
-  safia: {
-    slug: 'safia',
-    name: 'Safia',
+  saphia: {
+    slug: 'saphia',
+    name: 'Saphia',
     title: 'Massage Therapist',
     bio: [
-      'Safia is a highly skilled massage therapist based at our Cromwell Road clinic in Cambridge. With a passion for helping clients recover, perform, and feel their best, she specialises in deep tissue massage, sports massage, and performance-focused treatments, working with everyone from office workers carrying chronic tension to athletes looking to optimise recovery and performance.',
-      'Safia holds a Level 3 qualification in Massage Therapy and a qualification in Performance Massage. She is currently furthering her training by studying towards her Level 4 qualification in Sports Massage Therapy.',
-      'Safia is fully insured by the Federation of Holistic Therapists (FHT) and takes a hands-on, tailored approach to treatment, helping clients reduce tension, improve mobility, and support long-term wellbeing.',
+      'Saphia is a highly skilled massage therapist based at our Cromwell Road clinic in Cambridge. With a passion for helping clients recover, perform, and feel their best, she specialises in deep tissue massage, sports massage, and performance-focused treatments, working with everyone from office workers carrying chronic tension to athletes looking to optimise recovery and performance.',
+      'Saphia holds a Level 3 qualification in Massage Therapy and a qualification in Performance Massage. She is currently furthering her training by studying towards her Level 4 qualification in Sports Massage Therapy.',
+      'Saphia is fully insured by the Federation of Holistic Therapists (FHT) and takes a hands-on, tailored approach to treatment, helping clients reduce tension, improve mobility, and support long-term wellbeing.',
     ],
     treatments: ['Deep Tissue Massage', 'Sports Massage'],
     location: 'Cromwell Road, Cambridge',
@@ -34,9 +34,9 @@ export const team: Record<string, TeamMember> = {
     heroDesktop: '/saphia-hero-img.jpg',
     profilePhoto: '/saphia-profile-img.jpg',
     widgetProviderId: '21',
-    metaTitle: 'Safia | Massage Therapist | Lucy Hall Massage Therapy Cambridge',
-    metaDescription: 'Book a massage with Safia at Lucy Hall Massage Therapy in Cambridge. Specialist in deep tissue and sports massage. Book online in 2 minutes.',
-    canonicalUrl: 'https://www.lucyhallmassage.com/team/safia/',
+    metaTitle: 'Saphia | Massage Therapist | Lucy Hall Massage Therapy Cambridge',
+    metaDescription: 'Book a massage with Saphia at Lucy Hall Massage Therapy in Cambridge. Specialist in deep tissue and sports massage. Book online in 2 minutes.',
+    canonicalUrl: 'https://www.lucyhallmassage.com/team/saphia/',
   },
   antonia: {
     slug: 'antonia',
