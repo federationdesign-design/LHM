@@ -183,7 +183,6 @@ export const services: Record<string, Service> = {
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/swedish-massage/',
     widgetService: '14',
     widgetLocation: '4',
-    widgetProvider: '22',
     intro: 'Swedish massage is a classic full-body treatment using long, flowing strokes, kneading and circular movements to promote deep relaxation. It improves circulation, eases muscle tension and leaves you feeling calm and restored. It is the ideal treatment for those new to massage or simply in need of some time to unwind.',
     benefits: [
       'Promotes full body relaxation',
@@ -254,7 +253,6 @@ export const services: Record<string, Service> = {
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/relaxation-massage/',
     widgetService: '12',
     widgetLocation: '4',
-    widgetProvider: '22',
     intro: 'A relaxation massage uses light to medium pressure with long, slow strokes to calm the nervous system and ease both physical and mental tension. It is a deeply restorative treatment — the perfect way to step away from the demands of daily life and give your body and mind the rest they deserve.',
     benefits: [
       'Calms the nervous system',
