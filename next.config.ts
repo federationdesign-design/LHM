@@ -138,6 +138,9 @@ const nextConfig: NextConfig = {
       // ── FAQ — all old FAQ URLs → /faq ──
       { source: '/faq/:slug+', destination: '/faq', permanent: true },
 
+      // ── OLD WP ABOUT/TESTIMONIALS PATH → /testimonials ──
+      { source: '/about/testimonials', destination: '/testimonials', permanent: true },
+      { source: '/about/testimonials/', destination: '/testimonials', permanent: true },
       // ── VIDEOS → relevant pages ──
       { source: '/videos/client-testimonials', destination: '/testimonials', permanent: true },
       { source: '/videos/client-testimonials/', destination: '/testimonials', permanent: true },
