@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, ReactNode } from 'react';
+import { useState, useRef, useId, ReactNode } from 'react';
 
 /* ─────────────────────────────────────────────────────────────
    WellbeingForm — shared intake form used on /start-your-journey
@@ -92,6 +92,7 @@ export default function WellbeingForm({
   // No "untouched" state — the user can adjust if the default doesn't match.
   const [severity, setSeverity] = useState<string>('Tolerable');
   const [consent, setConsent] = useState(false);
+  const uid = useId();
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   // Flips true on first submit attempt — drives whether inline validation
@@ -271,11 +272,11 @@ export default function WellbeingForm({
             rejects those submissions. Positioned off-screen rather than
             display:none because some bots check for visibility. */}
         <div style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
-          <label htmlFor="wf-website">
+          <label htmlFor={`${uid}-website`}>
             Website (leave blank)
             <input
               type="text"
-              id="wf-website"
+              id={`${uid}-website`}
               name="website"
               value={honeypot}
               onChange={e => setHoneypot(e.target.value)}
@@ -343,11 +344,11 @@ export default function WellbeingForm({
         <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
 
         <div style={{ marginBottom: 22 }}>
-          <label style={labelStyle} htmlFor="intake-severity">Pick a symptom (physical or mental) that bothers you most. Now consider how bad that symptom has been over recent weeks and score it.</label>
+          <label style={labelStyle} htmlFor={`${uid}-severity`}>Pick a symptom (physical or mental) that bothers you most. Now consider how bad that symptom has been over recent weeks and score it.</label>
 
           <div style={{ padding: '8px 4px 0' }}>
             <input
-              id="intake-severity"
+              id={`${uid}-severity`}
               type="range"
               min={0}
               max={3}
@@ -383,10 +384,10 @@ export default function WellbeingForm({
         <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
 
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 22 }}>
-          <label htmlFor="intake-consent" className="intake-checkbox-wrap">
+          <label htmlFor={`${uid}-consent`} className="intake-checkbox-wrap">
             <input
               type="checkbox"
-              id="intake-consent"
+              id={`${uid}-consent`}
               checked={consent}
               onChange={e => setConsent(e.target.checked)}
               className="intake-checkbox-input"
