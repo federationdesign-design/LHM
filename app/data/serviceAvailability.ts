@@ -23,7 +23,7 @@ export const serviceAvailability: Record<string, string[]> = {
   'swedish-massage':      ['2', '4'],   // Thoday (Antonia, Claire) + Cromwell (Saphia)
   'relaxation-massage':   ['2', '4'],   // Thoday (Antonia, Claire) + Cromwell (Saphia)
   'pregnancy-massage':    ['2'],        // Thoday only (Antonia)
-  'hopi-ear':             ['2'],        // Thoday only (Antonia) — "Hopi Ear with Back Massage" service ID 8
+  'hopi-ear':             ['2', '4'],   // Thoday (Antonia) + Cromwell — "Hopi Ear with Back Massage" service ID 8
   'indian-head-massage':  ['2'],        // Thoday only (Antonia) — service ID 9
   'hot-stone-massage':    ['2'],        // Thoday only (Antonia) — service ID 26
   'cupping':              ['2'],        // Thoday only (Orla)    — service ID 24
