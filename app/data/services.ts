@@ -375,7 +375,7 @@ export const services: Record<string, Service> = {
       'Those seeking relief from tension headaches',
       'Anyone looking to step fully away from daily stress',
     ],
-    providerSlugs: ['antonia'],
+    providerSlugs: ['saphia', 'antonia'],
     featuredArticleSlug: 'how-do-hopi-ear-candles-work',
   },
 
