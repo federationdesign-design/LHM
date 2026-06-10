@@ -59,7 +59,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['orla', 'saphia', 'antonia'],
+    providerSlugs: ['orla', 'saphia', 'antonia', 'ellie'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '90-min-massage': {
@@ -165,7 +165,7 @@ export const services: Record<string, Service> = {
       'Clients who find lighter massage insufficient',
       'Those managing stress-related physical tension',
     ],
-    providerSlugs: ['saphia', 'antonia', 'orla'],
+    providerSlugs: ['saphia', 'antonia', 'orla', 'ellie'],
     featuredArticleSlug: 'the-physical-impact-of-sport-on-your-body',
   },
 
@@ -235,7 +235,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['saphia', 'orla'],
+    providerSlugs: ['saphia', 'orla', 'ellie'],
     featuredArticleSlug: 'the-physical-impact-of-sport-on-your-body',
   },
 
@@ -551,7 +551,7 @@ export const services: Record<string, Service> = {
       'People wanting expert assessment of a recurring problem',
       'Anyone seeking clinical, results-focused treatment',
     ],
-    providerSlugs: ['orla'],
+    providerSlugs: ['orla', 'ellie'],
     featuredArticleSlug: 'gait-analysis-101',
   },
 

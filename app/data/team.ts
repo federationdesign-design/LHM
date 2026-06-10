@@ -79,6 +79,26 @@ export const team: Record<string, TeamMember> = {
     metaDescription: 'Book a session with Orla at Lucy Hall Massage Therapy in Cambridge. Sports Therapist specialising in sports therapy, sports massage, cupping and deep tissue massage. Book online in 2 minutes.',
     canonicalUrl: 'https://www.lucyhallmassage.com/team/orla/',
   },
+  ellie: {
+    slug: 'ellie',
+    name: 'Ellie',
+    title: 'Sports Therapist',
+    bio: [
+      'Ellie is a dedicated Sports Therapist and massage therapist based at our Thoday Street clinic in Cambridge. She holds a BSc (Hons) in Sports Therapy and specialises in sports therapy, sports massage, cupping, and deep tissue techniques, offering treatments that prioritise recovery, comfort, and long-term wellbeing.',
+      'Alongside her clinical work, Ellie supports Cantabs RFC pitch side, providing injury assessment, acute care, and rehabilitation. She is insured by the Society of Sports Therapists and is committed to delivering high-quality, personalised care.',
+    ],
+    treatments: ['Sports Therapy', 'Sports Massage', 'Deep Tissue Massage'],
+    location: 'Thoday Street, Cambridge',
+    heroColor: '#2a2a2a',
+    heroMobile: '/ellie-hero-img.jpg',
+    heroDesktop: '/ellie-hero-img.jpg',
+    profilePhoto: '/ellie-profile-img.jpg',
+    widgetProviderId: '27',
+    metaTitle: 'Ellie | Sports Therapist | Lucy Hall Massage Therapy Cambridge',
+    metaDescription: 'Book a session with Ellie at Lucy Hall Massage Therapy in Cambridge. Sports Therapist specialising in sports therapy, sports massage and deep tissue massage. Book online in 2 minutes.',
+    canonicalUrl: 'https://www.lucyhallmassage.com/team/ellie/',
+  },
+ 
   'lucy-hall': {
     slug: 'lucy-hall',
     name: 'Lucy Hall',
