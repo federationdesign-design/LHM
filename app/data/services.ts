@@ -463,7 +463,7 @@ export const services: Record<string, Service> = {
     keywords: ['cupping cambridge', 'cupping therapy cambridge', 'cupping massage cambridge', 'fascial release cambridge'],
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/cupping/',
     widgetService: '24',
-    widgetLocation: '2',
+    widgetLocation: '',
     intro: 'Cupping is a traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access — releasing deep-seated tension, improving circulation and supporting the body\'s natural recovery. Particularly effective for stubborn tightness and movement restriction.',
     benefits: [
       'Releases deep fascial tension and adhesions',
@@ -481,7 +481,7 @@ export const services: Record<string, Service> = {
       'People with fascial adhesions from old injuries',
       'Those curious about traditional bodywork therapies',
     ],
-    providerSlugs: ['orla'],
+    providerSlugs: ['orla', 'ellie'],
     featuredArticleSlug: 'proven-benefits-of-dry-cupping',
   },
 
@@ -498,7 +498,7 @@ export const services: Record<string, Service> = {
     keywords: ['90 minute cupping cambridge', 'cupping therapy cambridge', 'extended cupping session cambridge', 'fascial release cambridge'],
     canonicalUrl: 'https://www.lucyhallmassage.com/treatments/90-min-cupping/',
     widgetService: '25',
-    widgetLocation: '2',
+    widgetLocation: '',
     intro: "Cupping is a traditional therapy that uses gentle suction to lift the skin and underlying tissue. This reverse-pressure approach reaches layers of fascia and muscle that conventional massage struggles to access, releasing deep-seated tension, improving circulation and supporting the body's natural recovery. Particularly effective for stubborn tightness and movement restriction.",
     benefits: [
       'Releases deep fascial tension and adhesions',
@@ -516,7 +516,7 @@ export const services: Record<string, Service> = {
       'People with fascial adhesions from old injuries',
       'Those curious about traditional bodywork therapies',
     ],
-    providerSlugs: ['orla'],
+    providerSlugs: ['orla', 'ellie'],
     featuredArticleSlug: 'proven-benefits-of-dry-cupping',
   },
 
