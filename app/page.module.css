@@ -277,6 +277,13 @@
 }
 
 .footerSep { margin: 0 6px; opacity: 0.5; }
+.footerMobileRow { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.footerMobileLeft { text-align: left; flex-shrink: 0; }
+.footerMobileUseful { text-align: right; }
+.footerMobileUseful ul { list-style: none; }
+.footerMobileUseful ul li { margin-bottom: 8px; }
+.footerMobileUseful ul li a { font-size: 0.96rem; color: #ffffff; font-weight: 300; }
+.footerMobileUseful ul li a:hover { text-decoration: underline; }
 
 /* Desktop footer columns */
 .footerGrid { display: none; }
@@ -701,7 +708,8 @@
   /* 5-col footer */
   .footerAddress,
   .footerHoursTitle,
-  .footerHours {
+  .footerHours,
+  .footerMobileRow {
     display: none;
   }
 

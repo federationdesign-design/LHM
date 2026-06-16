@@ -44,20 +44,32 @@ const treatments: [string, string][] = [
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      {/* Mobile only: address + hours */}
-      <div className={styles.footerAddress}>
-        2 Antwerp Cottages,<br />Thoday Street,<br />Cambridge,<br />CB1 3AU<br />
-        <a href="tel:07765555078" style={{ textDecoration: 'underline' }}>07765 555078</a>
-      </div>
-      <p className={styles.footerHoursTitle}>Opening Times</p>
-      <div className={styles.footerHours}>
-        Monday &nbsp;&nbsp;&nbsp;~ 12pm to 8pm<br />
-        Tuesday &nbsp;&nbsp;~ 10am to 6pm<br />
-        Wednesday ~ 10am to 8pm<br />
-        Thursday &nbsp;~ 10am to 6pm<br />
-        Friday &nbsp;&nbsp;&nbsp;&nbsp;~ 9am to 5pm<br />
-        Saturday &nbsp;~ 9am to 5pm<br />
-        Sunday &nbsp;&nbsp;&nbsp;~ 9am to 5pm
+      {/* Mobile only: left = address + hours, right = useful links */}
+      <div className={styles.footerMobileRow}>
+        <div className={styles.footerMobileLeft}>
+          <div className={styles.footerAddress}>
+            2 Antwerp Cottages,<br />Thoday Street,<br />Cambridge,<br />CB1 3AU<br />
+            <a href="tel:07765555078" style={{ textDecoration: 'underline' }}>07765 555078</a>
+          </div>
+          <p className={styles.footerHoursTitle}>Opening Times</p>
+          <div className={styles.footerHours}>
+            Monday &nbsp;&nbsp;&nbsp;~ 12pm to 8pm<br />
+            Tuesday &nbsp;&nbsp;~ 10am to 6pm<br />
+            Wednesday ~ 10am to 8pm<br />
+            Thursday &nbsp;~ 10am to 6pm<br />
+            Friday &nbsp;&nbsp;&nbsp;&nbsp;~ 9am to 5pm<br />
+            Saturday &nbsp;~ 9am to 5pm<br />
+            Sunday &nbsp;&nbsp;&nbsp;~ 9am to 5pm
+          </div>
+        </div>
+        <div className={styles.footerMobileUseful}>
+          <p className={styles.footerHoursTitle}>Useful Links</p>
+          <ul>
+            {usefulLinks.map(([label, href]) => (
+              <li key={label}><a href={href}>{label}</a></li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* Desktop: 5-column grid.
