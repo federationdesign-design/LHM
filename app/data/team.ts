@@ -53,7 +53,7 @@ export const team: Record<string, TeamMember> = {
     heroMobile: '/antonia-hero-img.jpg',
     heroDesktop: '/antonia-hero-img.jpg',
     profilePhoto: '/antonia-profile-img.jpg',
-    widgetProviderId: '22',
+    widgetProviderId: '28',
     metaTitle: 'Antonia | Massage Therapist | Lucy Hall Massage Therapy Cambridge',
     metaDescription: 'Book a massage with Antonia at Lucy Hall Massage Therapy in Cambridge. Specialist in Swedish, deep tissue, pregnancy massage and more. Book online in 2 minutes.',
     canonicalUrl: 'https://www.lucyhallmassage.com/team/antonia/',
