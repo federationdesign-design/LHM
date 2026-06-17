@@ -34,6 +34,7 @@ function ReceiptForm() {
   const [orderNumber, setOrderNumber] = useState('');
   const [treatmentDate, setTreatmentDate] = useState('');
   const [treatment, setTreatment] = useState('');
+  const [therapist, setTherapist] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
   const [town, setTown] = useState('');
   const [postcode, setPostcode] = useState('');
@@ -46,6 +47,7 @@ function ReceiptForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!therapist) return;
     if (!consent) return;
     setSubmitting(true);
     setSubmitError(null);
@@ -60,6 +62,7 @@ function ReceiptForm() {
           orderNumber:   orderNumber.trim(),
           treatmentDate: treatmentDate.trim(),
           treatment,
+          therapist,
           addressLine1:  addressLine1.trim(),
           town:          town.trim(),
           postcode:      postcode.trim(),
@@ -206,6 +209,23 @@ function ReceiptForm() {
         </div>
       </div>
 
+      <div style={{ marginBottom: 22 }}>
+        <label style={labelStyle} htmlFor="rec-therapist">Select your therapist</label>
+        <select
+          id="rec-therapist"
+          value={therapist}
+          onChange={e => setTherapist(e.target.value)}
+          required
+          style={{ ...inputStyle, colorScheme: 'light' }}
+        >
+          <option value="" disabled>Please select...</option>
+          <option value="Orla">Orla</option>
+          <option value="Antonia">Antonia</option>
+          <option value="Saphia">Saphia</option>
+          <option value="Ellie">Ellie</option>
+          <option value="Unsure">Unsure</option>
+        </select>
+      </div>
       <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
 
       <div style={{ marginBottom: 22 }}>
