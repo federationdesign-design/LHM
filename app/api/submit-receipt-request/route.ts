@@ -1,254 +1,188 @@
 /**
- * POST /api/submit-wellbeing
+ * POST /api/submit-receipt-request
  *
- * Handles the WellbeingForm submission (used on /start-your-journey AND
- * /tips-download). Three side effects:
+ * Sends two emails on a successful submission:
+ *   1. Notification to info@lucyhallmassage.com so the team can
+ *      pull the receipt from SimplyBook and forward to the client.
+ *   2. Friendly auto-responder to the user confirming we got it.
  *
- *   1. Send Lucy a notification email via Resend (so she sees the lead
- *      immediately in her inbox).
- *   2. Send the USER an autoresponder email via Resend — thank-you with
- *      the tips PDF link. Sets relationship up before the MailerLite
- *      nurture sequence kicks in 1 day later.
- *   3. Add the subscriber to MailerLite group "Wellbeing leads" with a
- *      computed `segment` field — MailerLite then runs the nurture
- *      automation (Welcome +1d, Article +8d branched on segment,
- *      Meet the team +15d, Check-in +22d).
+ * Spam protection: honeypot field 'website'. Real users leave it
+ * blank; bots fill it. We silently return success on a hit.
  *
- * Side effects are best-effort: if any one fails we still attempt the
- * others, so a partial failure doesn't lose the lead. Only if BOTH the
- * Lucy notification AND MailerLite enrolment fail do we return an error
- * to the user (the autoresponder is "nice to have" — if it fails alone
- * the user still sees the on-page confirmation).
- *
- * Spam protection: honeypot field (hidden input named `website`).
+ * Subject prefix [Receipt Request] so info@ can filter the inbox.
  */
-
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail } from '@/app/lib/send-email';
-import { addSubscriber } from '@/app/lib/mailerlite';
-
-// Force this route to run on Node.js runtime (not Edge) — Resend SDK
-// uses some Node APIs internally.
+import { services } from '@/app/data/services';
 export const runtime = 'nodejs';
-
-// ── REQUEST SHAPE ─────────────────────────────────────────────────────────────
-
 type RequestBody = {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  mobile?: string;
-  /** Multi-select of issue areas, e.g. ["Lower back", "Ankle"]. */
-  issues?: string[];
-  /** Magic-wand goal text, free-form. */
-  goal?: string;
-  /** Severity score 1-4 (1 = Tolerable, 4 = Unbearable). */
-  severity?: number;
-  /** GDPR consent — must be true. */
-  consent?: boolean;
-  /** Honeypot — must be empty for a real user. */
-  website?: string;
+  name?:          string;
+  email?:         string;
+  orderNumber?:   string;
+  treatmentDate?: string;
+  treatment?:     string;
+  therapist?:     string;
+  addressLine1?:  string;
+  town?:          string;
+  postcode?:      string;
+  notes?:         string | null;
+  website?:       string; // honeypot
 };
-
-// ── SEGMENT INFERENCE ─────────────────────────────────────────────────────────
-
-/**
- * Issues that indicate an "active" lifestyle (sport / running / overuse).
- * These get routed to the gait analysis article in email 2.
- */
-const ACTIVE_ISSUES = new Set([
-  'Ankle',
-  'Feet',
-  'Wrist',
-  'Quads',
-  'Thighs',
-]);
-
-/**
- * Compute segment for nurture branching. Active wins if ANY active issue
- * is selected — even if desk issues are also selected, we err toward
- * "active" because someone with both desk pain AND ankle pain is more
- * likely to be a runner with secondary office stiffness than a desk
- * worker who happens to twist an ankle.
- *
- * If no issue is identifiable as active, default to "desk" — most
- * Wellbeing form submissions come from sedentary lifestyles.
- */
-function computeSegment(issues: string[]): 'active' | 'desk' {
-  for (const issue of issues) {
-    if (ACTIVE_ISSUES.has(issue)) return 'active';
-  }
-  return 'desk';
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
-
-// ── VALIDATION ────────────────────────────────────────────────────────────────
-
-function validateRequiredFields(body: RequestBody): string | null {
-  if (!body.firstName?.trim()) return 'First name is required';
-  if (!body.email?.trim()) return 'Email is required';
-  if (!body.email.includes('@')) return 'Email is invalid';
-  if (!body.consent) return 'Consent is required';
-  // Note: issues, goal, severity are optional. Form may have tightened
-  // requirements client-side but server is permissive — we still want to
-  // accept partial submissions and let the nurture flow handle them.
-  return null;
+function formatDate(): string {
+  const d = new Date();
+  return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
 }
-
-// ── DATE HELPERS ──────────────────────────────────────────────────────────────
-
-function formatDateYMD(date: Date): string {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
+// Format an ISO date string (YYYY-MM-DD from <input type=date>) into DD/MM/YYYY
+// for the email body. Falls back to the raw value if it doesn't parse.
+function formatTreatmentDate(iso: string): string {
+  const parts = iso.split('-');
+  if (parts.length !== 3) return iso;
+  const [y, m, d] = parts;
+  return `${d}/${m}/${y}`;
 }
-
-// ── ROUTE HANDLER ─────────────────────────────────────────────────────────────
-
-export async function POST(request: NextRequest) {
-  let body: RequestBody;
+// Convert a treatment slug back into a human-readable title for the email.
+// Falls back to the slug itself if it's not in services.ts.
+function treatmentLabel(slug: string): string {
+  const svc = services[slug];
+  return svc ? svc.title : slug;
+}
+export async function POST(req: NextRequest) {
   try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ success: false, error: 'Invalid JSON body' }, { status: 400 });
-  }
-
-  // Honeypot — silently succeed if filled
-  if (body.website && body.website.trim().length > 0) {
-    return NextResponse.json({ success: true });
-  }
-
-  // Validate
-  const validationError = validateRequiredFields(body);
-  if (validationError) {
-    return NextResponse.json({ success: false, error: validationError }, { status: 400 });
-  }
-
-  const submittedAt = new Date();
-  const issues = body.issues || [];
-  const segment = computeSegment(issues);
-  const fullName = `${body.firstName} ${body.lastName || ''}`.trim();
-  const dateYMD = formatDateYMD(submittedAt);
-
-  // ── 1. Notify Lucy (Resend) ──────────────────────────────────────────────
-  const notificationRecipient = process.env.NOTIFICATION_EMAIL_TO;
-  let notificationResult: { success: boolean; error?: string } = { success: false, error: 'not attempted' };
-
-  if (notificationRecipient) {
-    const subject = `[Nurture Enrolment] ${fullName} - ${dateYMD}`;
-    const text = [
-      'New wellbeing lead enrolled in nurture sequence.',
+    const body = (await req.json()) as RequestBody;
+    // ── HONEYPOT ────────────────────────────────────────────
+    if (body.website && body.website.length > 0) {
+      return NextResponse.json({ success: true });
+    }
+    // ── VALIDATION ──────────────────────────────────────────
+    if (!body.name?.trim())                                return NextResponse.json({ success: false, error: 'Name is required' },         { status: 400 });
+    if (!body.email?.trim() || !body.email.includes('@'))  return NextResponse.json({ success: false, error: 'Valid email required' },     { status: 400 });
+    if (!body.orderNumber?.trim())                         return NextResponse.json({ success: false, error: 'Order number is required' }, { status: 400 });
+    if (!body.treatmentDate?.trim())                       return NextResponse.json({ success: false, error: 'Treatment date is required' }, { status: 400 });
+    if (!body.treatment?.trim())                           return NextResponse.json({ success: false, error: 'Treatment is required' },    { status: 400 });
+    if (!body.therapist?.trim())                           return NextResponse.json({ success: false, error: 'Therapist is required' },    { status: 400 });
+    if (!body.addressLine1?.trim())                        return NextResponse.json({ success: false, error: 'Address is required' },      { status: 400 });
+    if (!body.town?.trim())                                return NextResponse.json({ success: false, error: 'Town/City is required' },    { status: 400 });
+    if (!body.postcode?.trim())                            return NextResponse.json({ success: false, error: 'Postcode is required' },     { status: 400 });
+    const name          = body.name.trim();
+    const email         = body.email.trim();
+    const orderNumber   = body.orderNumber.trim();
+    const treatmentDate = body.treatmentDate.trim();
+    const treatment     = treatmentLabel(body.treatment.trim());
+    const therapist     = body.therapist.trim();
+    const addressLine1  = body.addressLine1.trim();
+    const town          = body.town.trim();
+    const postcode      = body.postcode.trim();
+    const notes         = (body.notes || '').trim();
+    const submittedAt   = formatDate();
+    const treatmentFmt  = formatTreatmentDate(treatmentDate);
+    // ── 1. TEAM NOTIFICATION (to info@) ─────────────────────
+    const teamText = [
+      'Receipt Request',
+      '===============',
       '',
-      `Name: ${fullName}`,
-      `Email: ${body.email}`,
-      `Mobile: ${body.mobile || '(not provided)'}`,
-      `Segment: ${segment}`,
+      `Submitted: ${submittedAt}`,
       '',
-      `Issues: ${issues.length > 0 ? issues.join(', ') : '(none selected)'}`,
-      `Severity: ${body.severity ?? '(not provided)'} / 4`,
-      `Goal: ${body.goal || '(not provided)'}`,
+      `Name:           ${name}`,
+      `Email:          ${email}`,
+      `Order number:   ${orderNumber}`,
+      `Treatment date: ${treatmentFmt}`,
+      `Treatment:      ${treatment}`,
+      `Therapist:      ${therapist}`,
+      `Address:        ${addressLine1}`,
+      `Town/City:      ${town}`,
+      `Postcode:       ${postcode}`,
+      ...(notes ? ['', 'Notes:', notes] : []),
       '',
-      'Subscriber added to MailerLite "Wellbeing leads" group.',
-      'User autoresponder sent (Resend).',
-      'Nurture sequence: Welcome (+1d) → Article (+8d, segment-branched) → Meet the team (+15d) → Check-in (+22d).',
+      '---',
+      'Action: pull the matching receipt from SimplyBook and forward to the email above.',
     ].join('\n');
-
-    const emailResult = await sendEmail({
-      to: notificationRecipient,
-      subject,
-      text,
-      replyTo: body.email,
+    const detailsRows = [
+      ['Name',           name],
+      ['Email',          email],
+      ['Order number',   orderNumber],
+      ['Treatment date', treatmentFmt],
+      ['Treatment',      treatment],
+      ['Therapist',      therapist],
+      ['Address',        addressLine1],
+      ['Town/City',      town],
+      ['Postcode',       postcode],
+    ].map(([k, v]) =>
+      `<tr><td style="padding:8px 14px;border-bottom:1px solid #e5e5e5;font-weight:600;width:42%;">${escapeHtml(k)}</td><td style="padding:8px 14px;border-bottom:1px solid #e5e5e5;">${escapeHtml(v)}</td></tr>`
+    ).join('');
+    const teamHtml = `
+      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:680px;color:#1a1a1a;">
+        <h2 style="margin:0 0 6px;">Receipt Request</h2>
+        <p style="color:#777;font-size:13px;margin:0 0 22px;">Submitted ${submittedAt}</p>
+        <table style="border-collapse:collapse;width:100%;font-size:14px;margin-bottom:20px;">${detailsRows}</table>
+        ${notes ? `<p style="margin:0 0 14px;"><strong>Notes:</strong><br>${escapeHtml(notes).replace(/\n/g, '<br>')}</p>` : ''}
+        <p style="font-size:13px;color:#555;margin-top:22px;border-top:1px solid #e5e5e5;padding-top:14px;">
+          <strong>Action:</strong> pull the matching receipt from SimplyBook and forward to <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>.
+        </p>
+      </div>
+    `;
+    const teamResult = await sendEmail({
+      to:      'info@lucyhallmassage.com',
+      bcc:     process.env.LUCY_BCC,
+      subject: `[Receipt Request] ${name} - ${treatmentFmt}`,
+      text:    teamText,
+      html:    teamHtml,
+      replyTo: email,
     });
-    notificationResult = emailResult.success
-      ? { success: true }
-      : { success: false, error: emailResult.error };
-  } else {
-    console.error('NOTIFICATION_EMAIL_TO env var is not set');
-  }
-
-  // ── 2. User autoresponder (Resend) ───────────────────────────────────────
-  // Instant thank-you email to the user with the tips PDF link.
-  // Fires before the MailerLite nurture sequence starts (+1 day).
-  // Best-effort: failure here doesn't block the MailerLite enrolment.
-  const userReplyTo = process.env.USER_AUTORESPONDER_REPLY_TO || 'steve@lucyhallmassage.com';
-  const siteBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://lhm-six.vercel.app';
-  let autoresponderResult: { success: boolean; error?: string } = { success: false, error: 'not attempted' };
-
-  const autoresponderText = [
-    `Hi ${body.firstName},`,
-    '',
-    "Thanks for getting in touch — we've received your details.",
-    '',
-    `Your free copy of "5 Tips to a Healthy Body" is here: ${siteBaseUrl}/5-tips-to-a-healthy-body.pdf`,
-    '',
-    "Over the coming weeks I'll send you a couple of practical, useful things — articles tailored to what you mentioned, a brief introduction to the team, and how we work.",
-    '',
-    'No spam, no pressure. Just useful stuff.',
-    '',
-    `If you'd like to book in directly, you can do so anytime here: ${siteBaseUrl}/book-online`,
-    '',
-    "Or just reply to this email if you'd like to chat.",
-    '',
-    'Warmly,',
-    'Lucy',
-    '',
-    '— Lucy Hall Massage Therapy',
-    'Thoday Street & Cromwell Road, Cambridge',
-  ].join('\n');
-
-  const autoresponderEmail = await sendEmail({
-    to: body.email!.trim(),
-    subject: 'Thanks for getting in touch with Lucy Hall Massage Therapy',
-    text: autoresponderText,
-    replyTo: userReplyTo,
-  });
-  autoresponderResult = autoresponderEmail.success
-    ? { success: true }
-    : { success: false, error: autoresponderEmail.error };
-
-  // ── 3. Add subscriber to MailerLite ──────────────────────────────────────
-  const groupId = process.env.MAILERLITE_GROUP_ID;
-  let mailerliteResult: { success: boolean; error?: string } = { success: false, error: 'not attempted' };
-
-  if (groupId) {
-    const subResult = await addSubscriber({
-      email: body.email!.trim(),
-      firstName: body.firstName!.trim(),
-      lastName: body.lastName?.trim(),
-      mobile: body.mobile?.trim(),
-      segment,
-      goal: body.goal?.trim(),
-      severity: body.severity,
-      groupId,
+    if (!teamResult.success) {
+      // Team email failed: bail out before sending the user a confirmation
+      // they might never get a receipt for.
+      return NextResponse.json({ success: false, error: 'Could not send notification: ' + teamResult.error }, { status: 500 });
+    }
+    // ── 2. USER AUTO-RESPONDER ──────────────────────────────
+    const userText = [
+      `Hi ${name.split(/\s+/)[0]},`,
+      '',
+      'Thanks for your receipt request. Got it.',
+      '',
+      `We process receipt requests every Friday. We'll pull the receipt for your treatment on ${treatmentFmt} and email it back to you. If you do not hear from us by the following Monday, please check your spam or junk folder before getting in touch.`,
+      '',
+      'Best wishes,',
+      'Lucy Hall Massage Therapy',
+      '',
+      '---',
+      '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU',
+      'lucyhallmassage.com',
+    ].join('\n');
+    const userHtml = `
+      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;color:#1a1a1a;line-height:1.6;">
+        <p style="margin:0 0 14px;">Hi ${escapeHtml(name.split(/\s+/)[0])},</p>
+        <p style="margin:0 0 14px;">Thanks for your receipt request. Got it.</p>
+        <p style="margin:0 0 14px;">
+          We process receipt requests every Friday. We&rsquo;ll pull the receipt for your treatment on
+          <strong>${escapeHtml(treatmentFmt)}</strong> and email it back to you.
+          If you do not hear from us by the following Monday, please check your spam or junk folder
+          before getting in touch.
+        </p>
+        <p style="margin:0 0 22px;">Best wishes,<br>Lucy Hall Massage Therapy</p>
+        <hr style="border:none;border-top:1px solid #e5e5e5;margin:20px 0;">
+        <p style="font-size:12px;color:#777;margin:0;">
+          2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU<br>
+          <a href="https://www.lucyhallmassage.com" style="color:#777;">lucyhallmassage.com</a>
+        </p>
+      </div>
+    `;
+    // User auto-responder. We don't bail if this fails — the team
+    // notification already landed, the user will still get their
+    // receipt manually even if this confirmation didn't reach them.
+    await sendEmail({
+      to:      email,
+      bcc:     process.env.LUCY_BCC,
+      subject: 'Receipt request received - Lucy Hall Massage Therapy',
+      text:    userText,
+      html:    userHtml,
+      replyTo: 'info@lucyhallmassage.com',
     });
-    mailerliteResult = subResult.success
-      ? { success: true }
-      : { success: false, error: subResult.error };
-  } else {
-    console.error('MAILERLITE_GROUP_ID env var is not set');
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error('submit-receipt-request error:', err);
+    return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
-
-  // Log any failures server-side for debugging
-  if (!notificationResult.success) {
-    console.error('Lucy notification failed:', notificationResult.error);
-  }
-  if (!autoresponderResult.success) {
-    console.error('User autoresponder failed:', autoresponderResult.error);
-  }
-  if (!mailerliteResult.success) {
-    console.error('MailerLite enrolment failed:', mailerliteResult.error);
-  }
-
-  // Return success if EITHER Lucy notification OR MailerLite enrolment worked.
-  // The autoresponder is "nice to have" — failure alone doesn't block success.
-  // Better to lose one side-effect than make the user think their submission
-  // failed when they're actually in the nurture sequence.
-  if (!notificationResult.success && !mailerliteResult.success) {
-    return NextResponse.json(
-      { success: false, error: 'Both notification and enrolment failed. Please try again or contact us directly.' },
-      { status: 500 }
-    );
-  }
-
-  return NextResponse.json({ success: true });
 }
