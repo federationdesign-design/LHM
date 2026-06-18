@@ -223,7 +223,6 @@ function ReceiptForm() {
           <option value="Antonia">Antonia</option>
           <option value="Saphia">Saphia</option>
           <option value="Ellie">Ellie</option>
-          <option value="Unsure">Unsure</option>
         </select>
       </div>
       <div style={{ height: 1, background: 'rgba(255,255,255,0.2)', marginBottom: 22 }} />
