@@ -23,16 +23,6 @@ const members = [
     bio: 'Saphia is a highly skilled massage therapist based at our Cromwell Road clinic in Cambridge. With a passion for helping clients recover, perform, and feel their best, she specialises in deep tissue massage, sports massage, and performance-focused treatments, working with everyone from office workers carrying chronic tension to athletes looking to optimise recovery and performance. Saphia holds a Level 3 qualification in Massage Therapy and a qualification in Performance Massage, and is currently studying towards her Level 4 in Sports Massage Therapy. She is fully insured by the Federation of Holistic Therapists (FHT).',
     corporate: false,
   },
-  {
-    slug: 'antonia',
-    name: 'Antonia',
-    title: 'Massage Therapist',
-    location: 'Thoday Street',
-    locationSlug: 'thoday-street',
-    photo: '/antonia-profile-img.jpg',
-    treatments: ['Deep Tissue Massage', 'Pregnancy Massage', 'Swedish Massage', 'Relaxation Massage', 'Hopi Ear', 'Indian Head Massage', 'Hot Stone Massage'],
-    bio: 'Antonia is a versatile and warm massage therapist based at our Thoday Street clinic in Cambridge. She offers one of the widest treatment menus in the practice, from deeply relaxing Swedish and relaxation massage to specialist pregnancy massage, Hopi Ear Candling, Indian Head Massage, and Hot Stone treatments. Antonia holds a Level 3 qualification in Massage Therapy and is a qualified pregnancy massage practitioner. She is fully insured by the Federation of Holistic Therapists (FHT).',
-    corporate: false,
   },
   {
     slug: 'orla',

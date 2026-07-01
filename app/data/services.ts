@@ -59,7 +59,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['orla', 'saphia', 'antonia', 'ellie'],
+    providerSlugs: ['orla', 'saphia', 'ellie'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '90-min-massage': {
@@ -94,7 +94,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['orla', 'saphia', 'antonia'],
+    providerSlugs: ['orla', 'saphia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
   '120-min-massage': {
@@ -129,7 +129,7 @@ export const services: Record<string, Service> = {
       'Anyone training for an event',
       'People with recurring muscle problems',
     ],
-    providerSlugs: ['orla', 'saphia', 'antonia'],
+    providerSlugs: ['orla', 'saphia'],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
 
@@ -165,7 +165,7 @@ export const services: Record<string, Service> = {
       'Clients who find lighter massage insufficient',
       'Those managing stress-related physical tension',
     ],
-    providerSlugs: ['saphia', 'antonia', 'orla', 'ellie'],
+    providerSlugs: ['saphia', 'orla', 'ellie'],
     featuredArticleSlug: 'the-physical-impact-of-sport-on-your-body',
   },
 
@@ -200,7 +200,7 @@ export const services: Record<string, Service> = {
       'Those wanting a regular wellness treatment',
       'People recovering from mild fatigue',
     ],
-    providerSlugs: ['antonia'],
+    providerSlugs: [],
     featuredArticleSlug: 'how-often-should-you-get-a-massage',
   },
 
@@ -270,7 +270,7 @@ export const services: Record<string, Service> = {
       'Those wanting a gentle, restorative treatment',
       'Anyone looking for regular self-care',
     ],
-    providerSlugs: ['antonia'],
+    providerSlugs: [],
     featuredArticleSlug: 'what-to-expect-from-your-first-massage',
   },
 
@@ -305,7 +305,7 @@ export const services: Record<string, Service> = {
       'Those who want regular wellness support',
       'Women seeking safe, specialist prenatal care',
     ],
-    providerSlugs: ['antonia'],
+    providerSlugs: [],
     featuredArticleSlug: '4-great-reasons-to-get-a-pregnancy-massage',
   },
 
@@ -340,7 +340,7 @@ export const services: Record<string, Service> = {
       'Those who want regular wellness support',
       'Women seeking safe, specialist prenatal care',
     ],
-    providerSlugs: ['antonia'],
+    providerSlugs: [],
     featuredArticleSlug: '4-great-reasons-to-get-a-pregnancy-massage',
   },
 
@@ -375,7 +375,7 @@ export const services: Record<string, Service> = {
       'Those seeking relief from tension headaches',
       'Anyone looking to step fully away from daily stress',
     ],
-    providerSlugs: ['saphia', 'antonia'],
+    providerSlugs: ['saphia'],
     featuredArticleSlug: 'how-do-hopi-ear-candles-work',
   },
 
@@ -411,7 +411,7 @@ export const services: Record<string, Service> = {
       'Those experiencing eye strain or jaw tension',
       'Anyone wanting a focused, fully clothed treatment',
     ],
-    providerSlugs: ['antonia'],
+    providerSlugs: [],
     featuredArticleSlug: 'proven-benefits-of-indian-head-massage',
   },
 
@@ -446,7 +446,7 @@ export const services: Record<string, Service> = {
       'Those recovering from periods of high stress',
       'Anyone looking for a luxurious, restorative experience',
     ],
-    providerSlugs: ['antonia'],
+    providerSlugs: [],
     featuredArticleSlug: 'proven-benefits-of-hot-stone-massage',
   },
 
