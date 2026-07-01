@@ -28,6 +28,7 @@ const locations = [
     lat: 52.200856,
     lng: 0.148039,
     team: [
+      { name: 'Orla', photo: '/orla-profile-img.jpg', slug: 'orla' },
     ],
   },
   {
