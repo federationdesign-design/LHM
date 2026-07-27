@@ -67,7 +67,7 @@ export const team: Record<string, TeamMember> = {
       'Ellie is a dedicated Sports Therapist and massage therapist based at our Thoday Street clinic in Cambridge. She holds a BSc (Hons) in Sports Therapy and specialises in sports therapy, sports massage, cupping, and deep tissue techniques, offering treatments that prioritise recovery, comfort, and long-term wellbeing.',
       'Alongside her clinical work, Ellie supports Cantabs RFC pitch side, providing injury assessment, acute care, and rehabilitation. She is insured by the Society of Sports Therapists and is committed to delivering high-quality, personalised care.',
     ],
-    treatments: ['Sports Therapy', 'Sports Massage', 'Deep Tissue Massage'],
+    treatments: ['Sports Therapy', 'Sports Massage', 'Deep Tissue Massage', 'Cupping'],
     location: 'Thoday Street, Cambridge',
     heroColor: '#2a2a2a',
     heroMobile: '/ellie-hero-img.jpg',
