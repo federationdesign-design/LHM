@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { services } from '../../data/services';
 import ServiceBookingClient from '../../ServiceBookingClient';
 import LongMassageModal from '../../LongMassageModal';
+import PregnancyNoticeModal from '../../PregnancyNoticeModal';
 
 export async function generateStaticParams() {
   return Object.keys(services).map((slug) => ({ slug }));
@@ -43,10 +44,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const service = services[slug];
   if (!service) notFound();
-  const showLongMassageModal = slug.includes('90-min') || slug.includes('120-min');
+  const isPregnancy = slug.includes('pregnancy');
+  const showLongMassageModal = (slug.includes('90-min') || slug.includes('120-min')) && !isPregnancy;
   return (
     <>
       {showLongMassageModal && <LongMassageModal />}
+      {isPregnancy && <PregnancyNoticeModal />}
       <ServiceBookingClient service={service} />
     </>
   );

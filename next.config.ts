@@ -19,6 +19,8 @@ const nextConfig: NextConfig = {
       // ── Saphia name correction (was misspelt "safia") ──
       { source: '/team/safia', destination: '/team/saphia', permanent: true },
       { source: '/team/safia/', destination: '/team/saphia', permanent: true },
+      { source: '/team/antonia', destination: '/team', permanent: true },
+      { source: '/team/antonia/', destination: '/team', permanent: true },
       // ── COVID-era pages — drop and send users to the blog index ──
       { source: '/covid-19/c19-policy', destination: '/news/', permanent: true },
       { source: '/covid-19/c19-policy/', destination: '/news/', permanent: true },

@@ -6,6 +6,7 @@ import styles from '../page.module.css';
 import Nav from '../Nav';
 import Footer from '../Footer';
 import Testimonials from '../components/Testimonials/Testimonials';
+import PregnancyNoticeModal from '../PregnancyNoticeModal';
 import FindUsOn from '@/app/components/FindUsOn';
 
 const therapiesList = [
@@ -443,6 +444,7 @@ export default function YourPregnancyMassageClient() {
   return (
     <>
       <Nav scrollRef={heroRef} />
+      <PregnancyNoticeModal />
       <main style={{ background: '#000000' }}>
         <div
           ref={heroRef}
