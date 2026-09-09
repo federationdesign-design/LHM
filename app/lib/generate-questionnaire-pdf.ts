@@ -37,9 +37,6 @@ export type QuestionnaireData = {
   emergencyName?: string;
   emergencyNumber?: string;
 
-  // GP
-  gpName?: string;
-  gpPractice?: string;
 
   // Medications
   medications?: string;
@@ -475,10 +472,6 @@ export async function generateQuestionnairePdf(data: QuestionnaireData): Promise
   ctx.drawField('Number', data.emergencyNumber || '');
   ctx.drawSectionGap();
 
-  // GP DETAILS
-  ctx.drawSectionHeading('GP details');
-  ctx.drawField('GP name', data.gpName || '');
-  ctx.drawField('GP practice', data.gpPractice || '');
   ctx.drawSectionGap();
 
   // WELLBEING CONTEXT

@@ -312,9 +312,6 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
   const [emergencyName, setEmergencyName] = useState('');
   const [emergencyNumber, setEmergencyNumber] = useState('');
 
-  // GP
-  const [gpName, setGpName] = useState('');
-  const [gpPractice, setGpPractice] = useState('');
 
   // Medications
   const [medications, setMedications] = useState('');
@@ -389,7 +386,7 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
 
   // Comprehensive check — once `canSubmit` is true (orange), the button
   // turns GREEN if the user has also filled in the key optional fields:
-  // mobile, dob, both emergency contact fields, and both GP fields.
+  // mobile, dob, and both emergency contact fields.
   // Postcode, medications, pregnancy, cancer, hear-about and notes are
   // excluded — leaving these blank is reasonable and shouldn't hold the
   // green state hostage.
@@ -397,9 +394,7 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
     && mobile.trim().length > 0
     && dob.trim().length > 0
     && emergencyName.trim().length > 0
-    && emergencyNumber.trim().length > 0
-    && gpName.trim().length > 0
-    && gpPractice.trim().length > 0;
+    && emergencyNumber.trim().length > 0;
 
   // Determine button colour state:
   //   GREY   — minimum required fields not yet met (canSubmit false)
@@ -432,8 +427,6 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
       trimester,
       emergencyName,
       emergencyNumber,
-      gpName,
-      gpPractice,
       medications,
       musculoskeletal,
       symptoms,
@@ -595,15 +588,6 @@ export default function QuestionnaireForm({ declarationConsent, showValidation, 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
           <input type="text" placeholder="Emergency contact name" value={emergencyName} onChange={e => setEmergencyName(e.target.value)} required style={inputStyle} className="qf-input" />
           <input type="tel" placeholder="Emergency contact number" value={emergencyNumber} onChange={e => setEmergencyNumber(e.target.value)} required data-invalid={showValidation && emergencyNumber.trim().length === 0 ? "true" : "false"} style={inputStyle} className="qf-input" />
-        </div>
-
-        <div style={dividerStyle} />
-
-        {/* ── GP DETAILS ─────────────────────────────────────── */}
-        <p style={sectionLabelStyle}>GP details</p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 22 }}>
-          <input type="text" placeholder="GP name (optional)" value={gpName} onChange={e => setGpName(e.target.value)} style={inputStyle} className="qf-input" />
-          <input type="text" placeholder="GP practice (optional)" value={gpPractice} onChange={e => setGpPractice(e.target.value)} style={inputStyle} className="qf-input" />
         </div>
 
         <div style={dividerStyle} />

@@ -104,8 +104,6 @@ export async function POST(request: NextRequest) {
     trimester: body.trimester || null,
     emergencyName: body.emergencyName?.trim() || '',
     emergencyNumber: body.emergencyNumber?.trim() || '',
-    gpName: body.gpName?.trim() || '',
-    gpPractice: body.gpPractice?.trim() || '',
     medications: body.medications?.trim() || '',
     musculoskeletal: body.musculoskeletal!,
     symptoms: body.symptoms!,
