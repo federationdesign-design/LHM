@@ -35,6 +35,17 @@ const members = [
     corporate: false,
   },
   {
+    slug: 'ellie',
+    name: 'Ellie',
+    title: 'Sports Therapist',
+    location: 'Thoday Street',
+    locationSlug: 'thoday-street',
+    photo: '/ellie-profile-img.jpg',
+    treatments: ['Sports Therapy', 'Sports Massage', 'Cupping', 'Deep Tissue Massage'],
+    bio: 'Ellie is a dedicated Sports Therapist and massage therapist based at our Thoday Street clinic in Cambridge. She holds a BSc (Hons) in Sports Therapy and specialises in sports therapy, sports massage, cupping, and deep tissue techniques, offering treatments that prioritise recovery, comfort, and long-term wellbeing. Alongside her clinical work, Ellie supports Cantabs RFC pitch side, providing injury assessment, acute care, and rehabilitation. She is insured by the Society of Sports Therapists and is committed to delivering high-quality, personalised care.',
+    corporate: false,
+  },
+  {
     slug: 'lucy-hall',
     name: 'Lucy Hall',
     title: 'Owner & CEO',
@@ -90,7 +101,7 @@ export default function TeamIndexClient({ variant = 'private' }: TeamIndexClient
 
         {/* HERO */}
         <div ref={heroRef} className={styles.hero} style={{ backgroundColor: '#1a1a1a' }}>
-          <Image src={isCorpVariant ? "/corp-client-team-img.jpg" : "/private-client-team-img-new.jpg"} alt="Lucy Hall Massage Therapy Team" fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} priority />
+          <Image src={isCorpVariant ? "/corp-client-team-img.jpg" : "/new-team-img-lucy-provided-photo.jpg"} alt="Lucy Hall Massage Therapy Team" fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center top' }} priority />
           <div ref={scrollOverlayRef} className={styles.heroScrollOverlay} />
           <div className={styles.heroGradient} />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 220, background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)', zIndex: 5, pointerEvents: 'none' }} />
