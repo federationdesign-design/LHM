@@ -90,6 +90,9 @@ export default function BookOnlineClient() {
         {/* Inline booking widget — sits between intro and testimonials */}
         <section style={{ padding: '20px 48px 80px', maxWidth: 1300, margin: '0 auto' }}>
           <BookingWidget />
+        <p style={{ fontSize: '0.8rem', fontWeight: 300, color: '#ffffff', opacity: 0.6, lineHeight: 1.5, textAlign: 'center', maxWidth: 680, margin: '18px auto 0', padding: '0 20px' }}>
+          Your treatment is provided by the self-employed therapist named in your booking. Lucy Hall Massage acts as the therapist&rsquo;s disclosed agent, arranging bookings and collecting payment on their behalf.
+        </p>
         </section>
 
         <Testimonials heading="Happy private clients include" />

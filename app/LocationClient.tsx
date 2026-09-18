@@ -219,6 +219,9 @@ export default function LocationClient({ location }: { location: Location }) {
         <div id="booking-widget" className={styles.widgetWrapper}>
           <BookingWidget locationId={location.widgetLocationId} />
         </div>
+        <p style={{ fontSize: '0.8rem', fontWeight: 300, color: '#ffffff', opacity: 0.6, lineHeight: 1.5, textAlign: 'center', maxWidth: 680, margin: '18px auto 0', padding: '0 20px' }}>
+          Your treatment is provided by the self-employed therapist named in your booking. Lucy Hall Massage acts as the therapist&rsquo;s disclosed agent, arranging bookings and collecting payment on their behalf.
+        </p>
 
         {/* DIVIDER */}
         <div className={styles.divider} />
