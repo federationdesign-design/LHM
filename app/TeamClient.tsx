@@ -73,6 +73,7 @@ function LocationToggleWidget({ providerId, secondProviderId }: { providerId: st
   const [selected, setSelected] = useState<string | null>(null);
   return (
     <div style={{ width: '100%' }}>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: '#ffffff', marginBottom: 16, textAlign: 'center' }}>Currently available from two locations, select one before booking</h2>
       <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: selected ? 24 : 0 }}>
         <button type="button" onClick={() => setSelected(providerId)} style={{ fontSize: '0.82rem', fontWeight: 300, color: selected === providerId ? '#0a0908' : '#ffffff', background: selected === providerId ? '#ffffff' : 'transparent', border: '1px solid #ffffff', padding: '10px 22px', letterSpacing: '0.04em', cursor: 'pointer', transition: 'all 0.2s ease' }}>Thoday Street</button>
         <button type="button" onClick={() => setSelected(secondProviderId)} style={{ fontSize: '0.82rem', fontWeight: 300, color: selected === secondProviderId ? '#0a0908' : '#ffffff', background: selected === secondProviderId ? '#ffffff' : 'transparent', border: '1px solid #ffffff', padding: '10px 22px', letterSpacing: '0.04em', cursor: 'pointer', transition: 'all 0.2s ease' }}>Cromwell Road</button>
