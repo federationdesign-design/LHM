@@ -12,6 +12,7 @@ export interface TeamMember {
   heroDesktop: string;
   profilePhoto: string;
   widgetProviderId: string;
+  secondWidgetProviderId?: string;
   metaTitle: string;
   metaDescription: string;
   canonicalUrl: string;
@@ -74,6 +75,7 @@ export const team: Record<string, TeamMember> = {
     heroDesktop: '/ellie-hero-img.jpg',
     profilePhoto: '/ellie-profile-img.jpg',
     widgetProviderId: '27',
+    secondWidgetProviderId: '30',
     metaTitle: 'Ellie | Sports Therapist | Lucy Hall Massage Therapy Cambridge',
     metaDescription: 'Book a session with Ellie at Lucy Hall Massage Therapy in Cambridge. Sports Therapist specialising in sports therapy, sports massage and deep tissue massage. Book online in 2 minutes.',
     canonicalUrl: 'https://www.lucyhallmassage.com/team/ellie/',

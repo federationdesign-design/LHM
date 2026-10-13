@@ -68,6 +68,25 @@ function BookingWidget({ providerId }: { providerId: string }) {
   return <div id={widgetId} ref={containerRef} style={{ width: '100%' }} />;
 }
 
+// ── LOCATION TOGGLE WIDGET (holiday cover: two provider instances) ──
+function LocationToggleWidget({ providerId, secondProviderId }: { providerId: string; secondProviderId: string }) {
+  const [selected, setSelected] = useState<string | null>(null);
+  return (
+    <div style={{ width: '100%' }}>
+      <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: selected ? 24 : 0 }}>
+        <button type="button" onClick={() => setSelected(providerId)} className={styles.heroBookNow} style={{ opacity: selected === providerId ? 1 : 0.7 }}>Thoday Street</button>
+        <button type="button" onClick={() => setSelected(secondProviderId)} className={styles.heroBookNow} style={{ opacity: selected === secondProviderId ? 1 : 0.7 }}>Cromwell Road</button>
+      </div>
+      {!selected && (
+        <p style={{ fontSize: '0.9rem', fontWeight: 300, color: '#ffffff', opacity: 0.6, textAlign: 'center', marginTop: 16 }}>
+          Please select a location to book.
+        </p>
+      )}
+      {selected && <BookingWidget key={selected} providerId={selected} />}
+    </div>
+  );
+}
+
 // ── LOGO SLIDER ───────────────────────────────────────────────────────────────
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function TeamClient({ member, variant = 'private' }: { member: TeamMember; variant?: 'private' | 'corporate' }) {
@@ -173,7 +192,9 @@ export default function TeamClient({ member, variant = 'private' }: { member: Te
         {/* BOOKING WIDGET - hidden for team members without a widget ID, and on corporate variant */}
         {!isCorp && member.widgetProviderId && (
           <div id="booking-widget" className={styles.widgetWrapper} style={{ marginTop: 0 }}>
-            <BookingWidget providerId={member.widgetProviderId} />
+            {member.secondWidgetProviderId
+              ? <LocationToggleWidget providerId={member.widgetProviderId} secondProviderId={member.secondWidgetProviderId} />
+              : <BookingWidget providerId={member.widgetProviderId} />}
           </div>
         )}
         <p style={{ fontSize: '0.8rem', fontWeight: 300, color: '#ffffff', opacity: 0.6, lineHeight: 1.5, textAlign: 'center', maxWidth: 680, margin: '18px auto 0', padding: '0 20px' }}>
