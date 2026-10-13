@@ -74,8 +74,8 @@ function LocationToggleWidget({ providerId, secondProviderId }: { providerId: st
   return (
     <div style={{ width: '100%' }}>
       <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: selected ? 24 : 0 }}>
-        <button type="button" onClick={() => setSelected(providerId)} className={styles.heroBookNow} style={{ opacity: selected === providerId ? 1 : 0.7 }}>Thoday Street</button>
-        <button type="button" onClick={() => setSelected(secondProviderId)} className={styles.heroBookNow} style={{ opacity: selected === secondProviderId ? 1 : 0.7 }}>Cromwell Road</button>
+        <button type="button" onClick={() => setSelected(providerId)} style={{ fontSize: '0.82rem', fontWeight: 300, color: selected === providerId ? '#0a0908' : '#ffffff', background: selected === providerId ? '#ffffff' : 'transparent', border: '1px solid #ffffff', padding: '10px 22px', letterSpacing: '0.04em', cursor: 'pointer', transition: 'all 0.2s ease' }}>Thoday Street</button>
+        <button type="button" onClick={() => setSelected(secondProviderId)} style={{ fontSize: '0.82rem', fontWeight: 300, color: selected === secondProviderId ? '#0a0908' : '#ffffff', background: selected === secondProviderId ? '#ffffff' : 'transparent', border: '1px solid #ffffff', padding: '10px 22px', letterSpacing: '0.04em', cursor: 'pointer', transition: 'all 0.2s ease' }}>Cromwell Road</button>
       </div>
       {!selected && (
         <p style={{ fontSize: '0.9rem', fontWeight: 300, color: '#ffffff', opacity: 0.6, textAlign: 'center', marginTop: 16 }}>
