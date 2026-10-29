@@ -84,6 +84,7 @@ export interface CorporateServicePageProps {
   benefits: { title: string; body: string }[];
   /** Optional gallery images shown below the hero. */
   gallery?: string[];
+  enquiryHeading?: string;
   /** Index into corporateTestimonials to start displaying from. Defaults to 0. */
   testimonialStartIndex?: number;
 }
@@ -157,7 +158,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
                 </svg>
                 <span>Download our employer PDF</span>
               </a>
-              <InlineEnquiryForm />
+              <InlineEnquiryForm heading={props.enquiryHeading} />
             </div>
           </div>
         </section>
@@ -167,7 +168,7 @@ export default function CorporateServicePage(props: CorporateServicePageProps) {
             On mobile, the in-hero copy is hidden via CSS and
             this version renders as its own block below. */}
         <section id="corp-enquire-form" className="cs-hero-form-mobile">
-          <InlineEnquiryForm />
+          <InlineEnquiryForm heading={props.enquiryHeading} />
         </section>
 
         {/* ── GALLERY ────────────────────────────────────────── */}

@@ -6,6 +6,7 @@ export default function DscAssessmentsClient() {
   return (
     <CorporateServicePage
       currentSlug="dse-assessments"
+      enquiryHeading="Enquire about DSE assessments"
       heroImage="/corporate-dse-assessments-hero-desktop.jpg"
       gallery={[
         '/desk-assessment-img1.jpg',
