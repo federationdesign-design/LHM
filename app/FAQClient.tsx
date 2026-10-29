@@ -76,9 +76,7 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
         <span style={{ fontSize: '1rem', fontWeight: 500, color: '#ffffff', lineHeight: 1.4 }}>{q}</span>
         <span style={{ fontSize: '1.4rem', fontWeight: 300, color: '#ffffff', flexShrink: 0, transform: open ? 'rotate(45deg)' : 'none', transition: 'transform 0.2s ease' }}>+</span>
       </button>
-      {open && (
-        <p style={{ fontSize: '0.95rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.75, paddingBottom: 20, opacity: 0.85 }}>{a}</p>
-      )}
+      <p style={{ fontSize: '0.95rem', fontWeight: 300, color: '#ffffff', lineHeight: 1.75, paddingBottom: open ? 20 : 0, opacity: 0.85, maxHeight: open ? '2000px' : 0, overflow: 'hidden', transition: 'max-height 0.3s ease, padding 0.3s ease' }}>{a}</p>
     </div>
   );
 }
