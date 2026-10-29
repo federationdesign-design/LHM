@@ -39,13 +39,13 @@ declare global {
 }
 
 const HOURS: Record<number, [number, number, number, number] | null> = {
-  0: [10, 0, 17, 0],  // Sunday
-  1: [9, 0, 20, 0],   // Monday
-  2: [9, 0, 20, 0],   // Tuesday
-  3: [12, 0, 20, 0],  // Wednesday
-  4: [9, 0, 20, 0],   // Thursday
-  5: [9, 0, 18, 0],   // Friday
-  6: [9, 0, 17, 30],  // Saturday
+  0: [9, 0, 17, 0],   // Sunday
+  1: [8, 0, 20, 0],   // Monday
+  2: [10, 0, 18, 0],  // Tuesday
+  3: [8, 0, 20, 0],   // Wednesday
+  4: [10, 0, 18, 0],  // Thursday
+  5: [9, 0, 17, 0],   // Friday
+  6: [9, 0, 17, 0],   // Saturday
 };
 
 function formatHour(h: number): string {
