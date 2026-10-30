@@ -17,9 +17,9 @@ const locations = [
     tagline: 'Our main clinic — open 7 days a week',
     address: '2 Antwerp Cottages, Thoday Street, Cambridge, CB1 3AU',
     hours: [
-      { day: 'Monday', time: '12pm – 8pm' },
+      { day: 'Monday', time: '8am – 8pm' },
       { day: 'Tuesday', time: '10am – 6pm' },
-      { day: 'Wednesday', time: '12pm – 8pm' },
+      { day: 'Wednesday', time: '8am – 8pm' },
       { day: 'Thursday', time: '10am – 6pm' },
       { day: 'Friday', time: '9am – 5pm' },
       { day: 'Saturday', time: '9am – 5pm' },

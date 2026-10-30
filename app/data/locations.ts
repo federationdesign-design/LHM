@@ -37,9 +37,9 @@ export const locations: Record<string, Location> = {
     indexLng: 0.148039,
     widgetLocationId: '2',
     hours: [
-      { day: 'Monday', time: '9am – 8pm' },
+      { day: 'Monday', time: '8am – 8pm' },
       { day: 'Tuesday', time: '9am – 8pm' },
-      { day: 'Wednesday', time: '12pm – 8pm' },
+      { day: 'Wednesday', time: '8am – 8pm' },
       { day: 'Thursday', time: '9am – 8pm' },
       { day: 'Friday', time: '9am – 6pm' },
       { day: 'Saturday', time: '9am – 5.30pm' },
