@@ -85,8 +85,8 @@ export default function BookingPageClient() {
               },
               geo: {
                 '@type': 'GeoCoordinates',
-                latitude: 52.1951,
-                longitude: 0.1313,
+                latitude: 52.200856,
+                longitude: 0.148039,
               },
               openingHoursSpecification: [
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Wednesday'], opens: '08:00', closes: '20:00' },

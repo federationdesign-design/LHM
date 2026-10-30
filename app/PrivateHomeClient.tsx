@@ -553,7 +553,7 @@ export default function PrivateHomeClient() {
                 postalCode: 'CB1 3AU',
                 addressCountry: 'GB',
               },
-              geo: { '@type': 'GeoCoordinates', latitude: 52.204506, longitude: 0.147914 },
+              geo: { '@type': 'GeoCoordinates', latitude: 52.200856, longitude: 0.148039 },
               openingHoursSpecification: [
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Wednesday'], opens: '08:00', closes: '20:00' },
                 { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday','Thursday'], opens: '10:00', closes: '18:00' },
